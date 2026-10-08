@@ -108,7 +108,7 @@ export const ids = {
 export async function createUser(id: string, role: 'family' | 'companion' | 'ops_admin' = 'family'): Promise<string> {
   await asAdmin(async (db) => {
     await db.query(`insert into auth.users (id, phone) values ($1, $2) on conflict do nothing`,
-      [id, `+91999${id.replaceAll('-', '').slice(-7)}`]);
+      [id, `91999${id.replaceAll('-', '').slice(-7)}`]);
     await db.query(`update public.profiles set role = $2 where id = $1`, [id, role]);
   });
   return id;

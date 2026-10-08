@@ -8,13 +8,21 @@ create role service_role nologin bypassrls;
 
 create schema auth;
 create table auth.users (
+  instance_id uuid,
   id uuid primary key,
   phone text unique,
+  phone_confirmed_at timestamptz,
   email text unique,
   aud text default 'authenticated',
   role text default 'authenticated',
   raw_user_meta_data jsonb not null default '{}',
-  created_at timestamptz not null default now()
+  -- GoTrue token columns the seed sets to '' (GoTrue cannot read them as NULL).
+  confirmation_token text,
+  recovery_token text,
+  email_change_token_new text,
+  email_change text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz
 );
 
 -- Same resolution order as Supabase's auth.uid().
