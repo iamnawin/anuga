@@ -3,7 +3,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../l10n/generated/app_localizations.dart';
-import 'auth.dart';
 import 'screens/login_screen.dart';
 import 'screens/trips_screen.dart';
 

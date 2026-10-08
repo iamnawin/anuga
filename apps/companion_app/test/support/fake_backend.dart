@@ -1,5 +1,3 @@
-import 'package:companion_app/src/auth.dart';
-import 'package:companion_app/src/rpc.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 /// In-memory stand-in for the database RPCs a companion uses. It applies the

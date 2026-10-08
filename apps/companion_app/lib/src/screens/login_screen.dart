@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import '../app.dart';
-import '../auth.dart';
-import '../format.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.auth, required this.onSignedIn, required this.onLocaleChanged});

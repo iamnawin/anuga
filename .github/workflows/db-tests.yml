@@ -80,6 +80,29 @@ jobs:
           java-version: 21
       - run: flutter build apk --debug
 
+  family-app:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/family_app
+    steps:
+      - uses: actions/checkout@v5
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+      - run: flutter pub get
+      - run: dart format --output=none --set-exit-if-changed lib/main.dart lib/src test
+      - run: flutter analyze --fatal-infos
+      - run: flutter test
+      # Android-first: prove the app compiles to an APK (debug; no signing, no store upload).
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: flutter build apk --debug
+
   # Authoritative run on real Supabase (Postgres 17, real auth schema and roles,
   # storage schema) using Docker on the GitHub runner. No hosted project, no secrets.
   supabase-local:
@@ -132,6 +155,14 @@ jobs:
           channel: stable
       - name: Companion journey on Supabase local
         working-directory: apps/companion_app
+        run: |
+          eval "$(supabase status -o env)"
+          flutter pub get
+          SUPABASE_URL="$API_URL" SUPABASE_PUBLISHABLE_KEY="$PUBLISHABLE_KEY" flutter test test/supabase_local_test.dart
+      # Family side (viewer limits, pickup code, cancel, timeline, inbox) on a fresh seed.
+      - run: supabase db reset
+      - name: Family journey on Supabase local
+        working-directory: apps/family_app
         run: |
           eval "$(supabase status -o env)"
           flutter pub get

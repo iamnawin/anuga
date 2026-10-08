@@ -4,7 +4,6 @@ import 'package:shared_dart/shared_dart.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../format.dart';
 import '../labels.dart';
-import '../rpc.dart';
 import '../trip_actions.dart';
 
 /// One trip: the essentials the companion needs and one button per allowed step.

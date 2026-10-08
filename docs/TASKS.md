@@ -102,12 +102,28 @@ viewer denied OTP, owner issues it, wrong then right code, return legs, completi
 notifications): pass. CI: job `companion-app` (+ `flutter build apk --debug`); the Supabase journey
 runs in `supabase-local`.
 
-## M5. Family app: booking and live status `[ ]`
+## M5. Family app: booking and live status `[x]`
 
-`apps/family_app` (Flutter). Booking board (`family_trip_board`), trip timeline (`trip_events`),
-issue pickup OTP, cancel a scheduled trip, notification inbox (`notifications`).
+`apps/family_app` (Flutter 3.47.6, Android first) over `FamilyApi`.
 
-Acceptance: as M4, plus a test that a viewer-level user cannot see the OTP button.
+- [x] Migration `0600_family_app.sql`: `family_my_patients` (with access level),
+      `family_trip_timeline` (no locations or actor ids), `my_notifications` (push inbox).
+      Allowed + denied tests (`supabase/tests/family_app.test.ts`).
+- [x] `shared_dart`: `AccessLevel` (rules mirror SQL), `FamilyPatient`, `TripEvent`,
+      `InboxNotification`; shared `RpcException`, `PhoneAuth` and India helpers (the companion app
+      now uses them too).
+- [x] Booking board (`family_trip_board`) with backup-covering label; visit timeline; pickup code
+      (owner/editor/patient, only while awaiting pickup); cancel a scheduled visit (owner/editor,
+      confirm + reason); updates inbox; patient picker; en/te/hi.
+
+Acceptance (met 2026-10-08, cloud session): `flutter analyze --fatal-infos` clean; format clean;
+`flutter test` 17 pass + 1 skipped, including "a viewer never sees the pickup code button, in any
+status" and the access-level x status matrix; full app flow against a fake backend.
+`test/supabase_local_test.dart` on Supabase local: viewer refused code and cancel by the database,
+companion picks up with the owner's code, family cannot cancel once started, timeline and inbox
+correct, companions refused the family read models: pass. `pnpm db:test` 81 pass / 3 skipped;
+`pnpm db:test:supabase` 84/84; `dart test` (shared_dart) 24/24. CI: job `family-app`; the family
+journey runs in `supabase-local`.
 
 ## M6. Notifications dispatch `[ ]`
 

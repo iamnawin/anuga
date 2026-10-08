@@ -5,7 +5,8 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 ## Current state
 
 - Done and verified: **M0**, **M1**, **M1a** (real Supabase), **M2** (`packages/shared_dart`),
-  **M3** (ops console, `apps/ops_console`), **M4** (companion app, `apps/companion_app`).
+  **M3** (ops console, `apps/ops_console`), **M4** (companion app, `apps/companion_app`),
+  **M5** (family app, `apps/family_app`).
 - Session 2 started from `9f21c73`. The earlier local M3 attempt was never pushed, so M3 was built
   from scratch here; nothing was duplicated.
 - Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
@@ -43,6 +44,18 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
     "not your trip"; a separate test runs the same API layer against Supabase local.
   - Generated localizations (`lib/l10n/generated/`) are not committed; `flutter pub get` creates them.
   - Debug builds allow cleartext only to 10.0.2.2/127.0.0.1/localhost; release stays HTTPS-only.
+  - Android application ids are `com.zeroorigins.companion_app` / `com.zeroorigins.family_app`
+    (`in.zeroorigins` is invalid: `in` is a Java keyword). Provisional until the brand is final;
+    an id cannot change after a Play Store release.
+- M5:
+  - Family reads go through RPCs (migration `0600`): `family_my_patients` (with access level),
+    `family_trip_timeline` (no locations or actor ids), `my_notifications` (push-channel inbox).
+  - `AccessLevel.canIssuePickupOtp` / `canChangeTrips` in `shared_dart` mirror the SQL checks and
+    only hide buttons; tests show the database refuses the viewer regardless.
+  - `RpcException`, `PhoneAuth` and the India helpers moved into `shared_dart`; both apps use them.
+    The small Supabase adapters (`supabase_rpc.dart`, `auth.dart`) are duplicated per app on purpose
+    (keeps `shared_dart` SDK-free).
+  - Neither Flutter app lets new users sign up yet (`shouldCreateUser: false`); family invites are backlog.
 - Repo hosting: `iamnawin/anuga` is canonical. `iamnawin/companion` (old remote) is not updated;
   delete or archive only on founder request.
 
@@ -62,6 +75,10 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 - M4: `apps/companion_app` (login, trips list, trip screen, en/te/hi ARB, Android manifest),
   42 Flutter tests, README; CI job `companion-app` (format, analyze, test, debug APK build) and the
   Supabase-local companion journey in `supabase-local`.
+- M5: migration `0600_family_app.sql` + `supabase/tests/family_app.test.ts` (9 tests);
+  `shared_dart` additions (24 tests); `apps/family_app` (login, patients, bookings, visit screen,
+  updates inbox, en/te/hi), 18 Flutter tests, README; CI job `family-app`; family journey in
+  `supabase-local`.
 
 ## Checks run (2026-10-08, cloud session, Node 24.21.0 via nvm, Docker 29.8.2)
 
@@ -81,6 +98,14 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | `apps/companion_app`: `dart format` check, `flutter analyze --fatal-infos` | clean |
 | `apps/companion_app`: `flutter test` | 41 pass, 1 skipped (Supabase-only) |
 | Mutation: offer pickup without the OTP | 6 tests failed as expected; restored |
+| GitHub Actions run 37771498732 @ `58704f1` (M4) | `companion-app` **failed** at `flutter build apk`: namespace `in.zeroorigins...` is not a valid Java package (`in` is a keyword). Fixed by moving both apps to `com.zeroorigins.*`; all other jobs green (incl. the companion journey on real Supabase) |
+| `pnpm db:test` after migration 0600 | 84 tests: 81 pass, 3 skipped |
+| `pnpm db:test:supabase` after migration 0600 | 84/84 |
+| `packages/shared_dart`: format, `dart analyze --fatal-infos`, `dart test` | clean; 24/24 |
+| `apps/family_app`: format, `flutter analyze --fatal-infos`, `flutter test` | clean; 17 pass, 1 skipped (Supabase-only) |
+| `apps/companion_app` after the shared_dart refactor | clean; 39 pass, 1 skipped |
+| Family journey vs Supabase local (`apps/family_app/test/supabase_local_test.dart`) | pass |
+| Companion journey vs Supabase local, re-run after refactor | pass |
 | `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet
@@ -88,8 +113,9 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 - Telugu and Hindi strings have not been reviewed by a native speaker.
 - Ops console on a hosted Supabase project: none exists (gated, M10).
 - Private storage bucket policies and signed URLs: M8.
-- Android SDK is not installed in the cloud session: `flutter build apk --debug` runs only in CI
-  (`companion-app` job). No emulator or device run yet.
+- Android SDK cannot be installed in the cloud session (the proxy denies `dl.google.com`):
+  `flutter build apk --debug` runs only in CI (`companion-app`, `family-app`). No emulator or
+  device run yet.
 
 ## Blockers and risks
 
@@ -102,12 +128,13 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 ## Exact next task
 
-**M5: family app** (`docs/TASKS.md` M5): `apps/family_app` (Flutter) using `FamilyApi` from
-`packages/shared_dart`: booking board (`family_trip_board`), trip timeline (`trip_events`), issue the
-pickup OTP (owner/editor/patient only), cancel a scheduled trip, notification inbox
-(`notifications`). Reuse the companion app's patterns (injected API/auth, `RpcException` adapter,
-ARB en/te/hi, fake backend). Acceptance: as M4, plus a test that a viewer-level user cannot see
-the OTP button; add a `family-app` CI job.
+**M6: notifications dispatch** (`docs/TASKS.md` M6): drain `public.notifications` (pending rows)
+with adapters: `test` (records to a table/log) by default; FCM and WhatsApp adapters behind env
+flags, unused until a provider is authorized. Retries with `attempts`, `status`. Suggested shape:
+a Supabase Edge Function (Deno) or a Node worker using the service role, with a claim RPC
+(`for update skip locked`) so two workers never send the same row, and a `notification_deliveries`
+record for the test adapter. Acceptance: unit tests for adapter selection and retry; integration
+test that a status change produces a delivered record via the test adapter; no live provider calls.
 
 ## Continue in Claude Code cloud
 

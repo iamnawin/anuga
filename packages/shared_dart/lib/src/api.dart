@@ -66,6 +66,21 @@ class FamilyApi {
   Future<String> issuePickupOtp(String tripId) async =>
       (await _rpc('issue_pickup_otp', {'p_trip_id': tripId})) as String;
 
+  /// Patients the signed-in family member can see, with their access level.
+  Future<List<FamilyPatient>> myPatients() async => [
+    for (final row in _rows(await _rpc('family_my_patients', const {}))) FamilyPatient.fromJson(row),
+  ];
+
+  /// Status events of one trip, oldest first.
+  Future<List<TripEvent>> timeline(String tripId) async => [
+    for (final row in _rows(await _rpc('family_trip_timeline', {'p_trip_id': tripId}))) TripEvent.fromJson(row),
+  ];
+
+  /// In-app inbox, newest first.
+  Future<List<InboxNotification>> notifications({int? limit}) async => [
+    for (final row in _rows(await _rpc('my_notifications', {'p_limit': ?limit}))) InboxNotification.fromJson(row),
+  ];
+
   Future<Trip> cancelTrip(String tripId, {String? reason}) async => Trip.fromJson(
     _single(
       await _rpc('advance_trip', {'p_trip_id': tripId, 'p_to_status': TripStatus.cancelled.dbValue, 'p_note': reason}),

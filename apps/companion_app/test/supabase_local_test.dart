@@ -5,7 +5,6 @@
 // are set in the environment. Commits data: run after `supabase db reset`.
 import 'dart:io';
 
-import 'package:companion_app/src/rpc.dart';
 import 'package:companion_app/src/supabase_rpc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_dart/shared_dart.dart';

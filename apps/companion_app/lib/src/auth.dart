@@ -1,30 +1,7 @@
+import 'package:shared_dart/shared_dart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// Phone-OTP sign-in. The app depends on this interface; tests pass a fake.
-abstract class PhoneAuth {
-  bool get isSignedIn;
-
-  /// [phone] in E.164. Never creates accounts: companions are onboarded by ops.
-  Future<void> sendCode(String phone);
-
-  Future<void> verifyCode(String phone, String code);
-
-  /// `profiles.role` of the signed-in user (`companion`, `family`, `ops_admin`).
-  Future<String?> currentRole();
-
-  Future<void> signOut();
-}
-
-/// Thrown by [PhoneAuth] with a message from the auth server.
-class PhoneAuthException implements Exception {
-  const PhoneAuthException(this.message);
-
-  final String message;
-
-  @override
-  String toString() => message;
-}
-
+/// [PhoneAuth] over Supabase Auth. Never creates accounts: companions are onboarded by ops.
 class SupabasePhoneAuth implements PhoneAuth {
   SupabasePhoneAuth(this._client);
 

@@ -30,7 +30,7 @@ dart pub get && dart analyze --fatal-infos && dart test
 dart test test/trip_state_machine_test.dart          # one file
 dart test --name "wrong OTP"                          # one test
 
-# apps/companion_app (run inside that folder)
+# apps/companion_app or apps/family_app (run inside that folder)
 flutter pub get && flutter analyze --fatal-infos && flutter test
 
 # apps/ops_console (run inside that folder)
@@ -46,15 +46,15 @@ setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tool
 ## Architecture
 
 Monorepo (pnpm workspace: `apps/*`). Built so far: `supabase/`, `packages/shared_dart`,
-`apps/ops_console` (Next.js), `apps/companion_app` (Flutter). Planned: `apps/family_app` (Flutter),
-`supabase/functions` (Edge Functions).
+`apps/ops_console` (Next.js), `apps/companion_app` and `apps/family_app` (Flutter).
+Planned: `supabase/functions` (Edge Functions).
 
 The database is the security boundary; apps are thin clients over RPCs:
 
 - **Migrations** (`supabase/migrations/`, applied in filename order):
   `0100` core schema, `0200` grants + RLS + `private.*` helpers, `0300` trip workflow RPCs,
   `0400` vault with audited reads, `0500` ops console read RPCs (`ops_*_board`, exception queue,
-  companion options).
+  companion options), `0600` family read RPCs (patients with access level, timeline, inbox).
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,

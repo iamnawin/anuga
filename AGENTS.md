@@ -18,6 +18,7 @@ pnpm db:test       # database tests (PGlite + PostGIS, no Docker)
 pnpm typecheck
 cd apps/ops_console && pnpm lint && pnpm typecheck && pnpm test   # ops console
 cd apps/companion_app && flutter pub get && flutter analyze --fatal-infos && flutter test   # companion app
+cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutter test      # family app
 ```
 
 ## Non-negotiables

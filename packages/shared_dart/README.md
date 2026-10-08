@@ -7,6 +7,11 @@ Models, trip state machine and RPC client shared by `apps/companion_app` and `ap
   The database stays authoritative.
 - `CompanionApi`, `FamilyApi`, `OpsApi`: typed wrappers over the M1 RPCs. They take an `RpcCaller`,
   so apps pass `supabase.rpc` and tests pass a fake. No Supabase SDK dependency here.
+  `FamilyApi` also wraps the M5 read models (`myPatients`, `timeline`, `notifications`).
+- `AccessLevel`: a user's level for a patient, with `canIssuePickupOtp` / `canChangeTrips`
+  mirroring the SQL checks (used to hide buttons; the database still decides).
+- `RpcException`, `PhoneAuth`: SDK-free error and sign-in interfaces the apps implement once.
+- India helpers: `normalizeIndianMobile`, `isOtpCode`, `toIst`, `istDay`.
 
 ## Contract with SQL
 

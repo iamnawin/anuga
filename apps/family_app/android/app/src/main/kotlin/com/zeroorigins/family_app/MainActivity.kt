@@ -1,4 +1,4 @@
-package `in`.zeroorigins.companion_app
+package com.zeroorigins.family_app
 
 import io.flutter.embedding.android.FlutterActivity
 
