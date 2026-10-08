@@ -11,5 +11,7 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["supabase/tests/**/*.ts", "supabase/scripts/**/*.ts"]
+  "include": ["supabase/tests/**/*.ts", "supabase/scripts/**/*.ts", "supabase/functions/**/*.ts"],
+  // index.ts files are Deno entry points (Deno.serve); their logic lives in the imported modules.
+  "exclude": ["supabase/functions/**/index.ts"]
 }

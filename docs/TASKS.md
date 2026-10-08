@@ -125,14 +125,27 @@ correct, companions refused the family read models: pass. `pnpm db:test` 81 pass
 `pnpm db:test:supabase` 84/84; `dart test` (shared_dart) 24/24. CI: job `family-app`; the family
 journey runs in `supabase-local`.
 
-## M6. Notifications dispatch `[ ]`
+## M6. Notifications dispatch `[x]`
 
-Supabase Edge Function (or worker) that drains `notifications` with adapters:
-`test` (records to a table/log) by default; FCM and WhatsApp adapters behind env flags, unused
-until a provider is authorized. Retries with `attempts`, `status`.
+Edge Function `supabase/functions/notify-dispatch` (Deno entry; runtime-neutral core tested in Node).
 
-Acceptance: unit tests for adapter selection and retry; integration test that a status change
-produces a delivered record via the test adapter. No live provider calls.
+- [x] Migration `0700_notification_dispatch.sql`: `dispatch_claim_notifications` (lease +
+      `skip locked`, counts the attempt), `dispatch_mark_sent`, `dispatch_mark_failed`
+      (exponential backoff, final `failed` after `notification_max_attempts`, or at once when
+      permanent); service role only. `notification_deliveries` records what the `test` adapter "sent".
+- [x] Adapters from env: `test` by default for push, WhatsApp and SMS; `fcm`/`whatsapp`/`sms`
+      need `NOTIFY_LIVE_PROVIDERS_AUTHORIZED=yes` and are not implemented, so the function refuses
+      to start with them. No live provider calls.
+- [x] Messages in en/te/hi by the recipient's `preferred_language`; status words and the
+      companion's note only (no health data).
+
+Acceptance (met 2026-10-08, cloud session): `dispatcher_unit.test.ts` (13: rendering, adapter
+selection, retry decisions, REST store); `dispatch.test.ts` (8: permissions, lease, expired lease,
+backoff 60/120/240/480 s then failed, permanent failure, and a trip status change delivered to
+owner and viewer in their languages via the test adapter, nothing sent twice).
+`dispatch_function.test.ts` on Supabase local with the edge runtime: anon refused (403); service
+role call delivers a status change. `pnpm db:test` 102 pass / 5 skipped; `pnpm db:test:supabase`
+107/107. Scheduling the function needs a hosted project (M10).
 
 ## M7. End-to-end journey across apps `[ ]`
 

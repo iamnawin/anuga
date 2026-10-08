@@ -66,6 +66,11 @@ export async function probeAsAnon<T>(fn: (db: Db) => Promise<T>): Promise<T> {
   return inTransaction('anon', { role: 'anon' }, fn, 'rollback');
 }
 
+// Runs fn as the service role (trusted backend, e.g. the notification dispatcher). Commits.
+export async function asServiceRole<T>(fn: (db: Db) => Promise<T>): Promise<T> {
+  return inTransaction('service_role', { role: 'service_role' }, fn, 'commit');
+}
+
 async function inTransaction<T>(
   role: string, claims: Row, fn: (db: Db) => Promise<T>, end: 'commit' | 'rollback',
 ): Promise<T> {

@@ -47,14 +47,15 @@ setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tool
 
 Monorepo (pnpm workspace: `apps/*`). Built so far: `supabase/`, `packages/shared_dart`,
 `apps/ops_console` (Next.js), `apps/companion_app` and `apps/family_app` (Flutter).
-Planned: `supabase/functions` (Edge Functions).
+`supabase/functions/notify-dispatch` (Edge Function, notification outbox).
 
 The database is the security boundary; apps are thin clients over RPCs:
 
 - **Migrations** (`supabase/migrations/`, applied in filename order):
   `0100` core schema, `0200` grants + RLS + `private.*` helpers, `0300` trip workflow RPCs,
   `0400` vault with audited reads, `0500` ops console read RPCs (`ops_*_board`, exception queue,
-  companion options), `0600` family read RPCs (patients with access level, timeline, inbox).
+  companion options), `0600` family read RPCs (patients with access level, timeline, inbox),
+  `0700` notification dispatch (service-role claim/mark RPCs, `notification_deliveries`).
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,
@@ -82,6 +83,8 @@ The database is the security boundary; apps are thin clients over RPCs:
   token columns); `supabase/config.toml` has local-only test OTPs (`123456`) for the seed numbers.
 - **Flutter apps** take `CompanionApi`/`FamilyApi` + a `PhoneAuth` by injection; buttons come from
   `TripStateMachine`; Postgres errors become `RpcException` in `lib/src/supabase_rpc.dart` only.
+- **Notifications**: `apply_transition()` writes the outbox; `notify-dispatch` drains it with
+  the service role. Adapters default to `test`; live providers are gated and not implemented.
 - **Ops console** is a client-side Next.js app using the anon key + the user's JWT; it never holds
   a service-role key. RPC wrappers in `src/lib/api.ts` take an injectable client for tests.
 

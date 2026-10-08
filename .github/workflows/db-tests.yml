@@ -121,9 +121,13 @@ jobs:
       - uses: supabase/setup-cli@v1
         with:
           version: 2.120.0
-      - run: supabase start -x studio,edge-runtime,logflare,vector,imgproxy
+      # Edge runtime stays on: the notify-dispatch function is tested through it.
+      - run: supabase start -x studio,logflare,vector,imgproxy
       - run: supabase db reset
-      - run: pnpm db:test:supabase
+      - name: SQL tests and the notify-dispatch Edge Function on real Supabase
+        run: |
+          eval "$(supabase status -o env)"
+          SUPABASE_URL="$API_URL" SUPABASE_ANON_KEY="$ANON_KEY" SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY" pnpm db:test:supabase
       # Ops console end to end: real phone-OTP sign-in (test OTPs), RPCs and RLS.
       # The DB tests commit data, so start the browser run from a fresh seed.
       - run: supabase db reset

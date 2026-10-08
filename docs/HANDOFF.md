@@ -6,7 +6,7 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 - Done and verified: **M0**, **M1**, **M1a** (real Supabase), **M2** (`packages/shared_dart`),
   **M3** (ops console, `apps/ops_console`), **M4** (companion app, `apps/companion_app`),
-  **M5** (family app, `apps/family_app`).
+  **M5** (family app, `apps/family_app`), **M6** (notification dispatch, `supabase/functions/notify-dispatch`).
 - Session 2 started from `9f21c73`. The earlier local M3 attempt was never pushed, so M3 was built
   from scratch here; nothing was duplicated.
 - Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
@@ -56,6 +56,15 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
     The small Supabase adapters (`supabase_rpc.dart`, `auth.dart`) are duplicated per app on purpose
     (keeps `shared_dart` SDK-free).
   - Neither Flutter app lets new users sign up yet (`shouldCreateUser: false`); family invites are backlog.
+- M6:
+  - The outbox is drained by an Edge Function with the service role. Claims use a lease
+    (`claimed_until`) plus `for update skip locked`; a crashed worker's rows are re-claimed after
+    the lease. The database owns retry policy (backoff 60 s doubling; `failed` after 5 attempts).
+  - Dispatcher core is runtime-neutral TypeScript (Node tests import it; Deno serves it).
+    Root `tsconfig.json` type-checks `supabase/functions/**` except the Deno `index.ts` entries.
+  - Live adapters (FCM, WhatsApp, SMS) are not implemented: choosing one stops the function
+    with a configuration error, with or without `NOTIFY_LIVE_PROVIDERS_AUTHORIZED=yes`.
+  - Messages carry status words and the companion's note only; no health data.
 - Repo hosting: `iamnawin/anuga` is canonical. `iamnawin/companion` (old remote) is not updated;
   delete or archive only on founder request.
 
@@ -79,6 +88,10 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
   `shared_dart` additions (24 tests); `apps/family_app` (login, patients, bookings, visit screen,
   updates inbox, en/te/hi), 18 Flutter tests, README; CI job `family-app`; family journey in
   `supabase-local`.
+- M6: migration `0700_notification_dispatch.sql`; `supabase/functions/notify-dispatch/` (index,
+  dispatcher, adapters, messages, REST store, README); tests `dispatcher_unit.test.ts` (13),
+  `dispatch.test.ts` (8), `dispatch_function.test.ts` (2, real Supabase only); `asServiceRole`
+  test helper; `supabase-local` CI keeps the edge runtime and passes the API keys to the SQL tests.
 
 ## Checks run (2026-10-08, cloud session, Node 24.21.0 via nvm, Docker 29.8.2)
 
@@ -106,6 +119,10 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | `apps/companion_app` after the shared_dart refactor | clean; 39 pass, 1 skipped |
 | Family journey vs Supabase local (`apps/family_app/test/supabase_local_test.dart`) | pass |
 | Companion journey vs Supabase local, re-run after refactor | pass |
+| GitHub Actions run 37772851410 @ `ccd05a1` (M5) | **all 6 jobs green**, including both debug APK builds and the companion + family journeys on real Supabase |
+| `pnpm db:test` after migration 0700 | 107 tests: 102 pass, 5 skipped (real-Supabase-only) |
+| `pnpm db:test:supabase` with the edge runtime and API keys | **107/107** |
+| `curl` to the local Edge Function | anon: 403 `forbidden`; service role: `{"claimed":6,"sent":6,"retrying":0,"failed":0}` (seed notifications) |
 | `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet
@@ -128,13 +145,13 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 ## Exact next task
 
-**M6: notifications dispatch** (`docs/TASKS.md` M6): drain `public.notifications` (pending rows)
-with adapters: `test` (records to a table/log) by default; FCM and WhatsApp adapters behind env
-flags, unused until a provider is authorized. Retries with `attempts`, `status`. Suggested shape:
-a Supabase Edge Function (Deno) or a Node worker using the service role, with a claim RPC
-(`for update skip locked`) so two workers never send the same row, and a `notification_deliveries`
-record for the test adapter. Acceptance: unit tests for adapter selection and retry; integration
-test that a status change produces a delivered record via the test adapter; no live provider calls.
+**M7: end-to-end journey across apps** (`docs/TASKS.md` M7): one scripted run, with evidence, of
+ops assigns -> family sees booking -> companion pickup with the family's code -> handover ->
+family receives status (dispatched by `notify-dispatch`) -> return journey completes, across the ops
+console (Playwright), companion and family API layers (Dart, same adapters as the apps) and the
+Edge Function, against Supabase local. Suggested: a `scripts/e2e-journey` runner (or a CI job)
+that chains the existing pieces in order and saves logs/screenshots as an artifact; CI green.
+Device/emulator runs of the Flutter apps stay blocked in the cloud session (no Android SDK).
 
 ## Continue in Claude Code cloud
 
