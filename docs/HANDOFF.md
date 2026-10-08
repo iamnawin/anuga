@@ -5,7 +5,7 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 ## Current state
 
 - Done and verified: **M0**, **M1**, **M1a** (real Supabase), **M2** (`packages/shared_dart`),
-  **M3** (ops console, `apps/ops_console`).
+  **M3** (ops console, `apps/ops_console`), **M4** (companion app, `apps/companion_app`).
 - Session 2 started from `9f21c73`. The earlier local M3 attempt was never pushed, so M3 was built
   from scratch here; nothing was duplicated.
 - Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
@@ -34,6 +34,15 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
     enabled SMS provider, so `config.toml` enables Twilio with fake local placeholders.
   - The ops console uses TypeScript 6 (Next.js needs the TS JS API); root keeps TypeScript 7.
   - `@playwright/test` pinned to 1.56.1 = Chromium build 1194, preinstalled in cloud sessions.
+- M4:
+  - Companion buttons come from `TripStateMachine` (`lib/src/trip_actions.dart`), never a
+    hand-written list; pickup is offered only as OTP verification.
+  - Widgets depend on `PhoneAuth` and `CompanionApi`; Postgres errors are mapped to `RpcException`
+    in one adapter (`lib/src/supabase_rpc.dart`) so no widget depends on the Supabase SDK.
+  - Tests use an in-memory backend that enforces the shared state machine, OTP attempts and
+    "not your trip"; a separate test runs the same API layer against Supabase local.
+  - Generated localizations (`lib/l10n/generated/`) are not committed; `flutter pub get` creates them.
+  - Debug builds allow cleartext only to 10.0.2.2/127.0.0.1/localhost; release stays HTTPS-only.
 - Repo hosting: `iamnawin/anuga` is canonical. `iamnawin/companion` (old remote) is not updated;
   delete or archive only on founder request.
 
@@ -50,6 +59,9 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
   `supabase-local` now resets the DB after the SQL tests and runs the Playwright suite, uploading
   screenshots and the report as artifact `ops-console-e2e`.
 - Screenshots: `docs/screenshots/m3/`.
+- M4: `apps/companion_app` (login, trips list, trip screen, en/te/hi ARB, Android manifest),
+  42 Flutter tests, README; CI job `companion-app` (format, analyze, test, debug APK build) and the
+  Supabase-local companion journey in `supabase-local`.
 
 ## Checks run (2026-10-08, cloud session, Node 24.21.0 via nvm, Docker 29.8.2)
 
@@ -64,14 +76,20 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | `apps/ops_console`: `pnpm lint`, `pnpm typecheck`, `pnpm build` | pass |
 | `apps/ops_console`: `pnpm test` (Vitest) | 36/36 pass |
 | `apps/ops_console`: `pnpm e2e` (Playwright vs Supabase local) | **6/6 pass**: non-ops account rejected; ops OTP sign-in + assign backup (persisted after reload); ineligible companion rejected with DB message; schedule primary/backup validation + swap; companion-reported issue appears in exception queue and ops resolves it; Telugu/Hindi switch |
-| GitHub Actions on the PR | see the PR checks (recorded below once finished) |
+| GitHub Actions run 37769970593 @ M3 commit (PR iamnawin/anuga#1) | all green: `db-tests`, `shared-dart`, `ops-console`, `supabase-local` (75/75 SQL + Playwright 6/6 on real Supabase) |
+| Flutter 3.47.6 / Dart 3.13.5 (Linux archive, this session) | installed |
+| `apps/companion_app`: `dart format` check, `flutter analyze --fatal-infos` | clean |
+| `apps/companion_app`: `flutter test` | 41 pass, 1 skipped (Supabase-only) |
+| Mutation: offer pickup without the OTP | 6 tests failed as expected; restored |
+| `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet
 
 - Telugu and Hindi strings have not been reviewed by a native speaker.
 - Ops console on a hosted Supabase project: none exists (gated, M10).
 - Private storage bucket policies and signed URLs: M8.
-- Android toolchain / `flutter doctor`: needed from M4.
+- Android SDK is not installed in the cloud session: `flutter build apk --debug` runs only in CI
+  (`companion-app` job). No emulator or device run yet.
 
 ## Blockers and risks
 
@@ -84,12 +102,12 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 ## Exact next task
 
-**M4: companion app** (`docs/TASKS.md` M4): `apps/companion_app` (Flutter, Android first) using
-`packages/shared_dart` (`CompanionApi`, `TripStateMachine`): today/upcoming from
-`companion_my_trips`, check-in buttons from allowed transitions, OTP entry (`verify_pickup_otp`),
-handover note, return legs, complete with post-visit note, issue report; large tap targets;
-en/te/hi strings. Acceptance: `flutter analyze` clean; widget tests per trip state; integration
-test of the full trip against a fake API client; add a `companion-app` CI job.
+**M5: family app** (`docs/TASKS.md` M5): `apps/family_app` (Flutter) using `FamilyApi` from
+`packages/shared_dart`: booking board (`family_trip_board`), trip timeline (`trip_events`), issue the
+pickup OTP (owner/editor/patient only), cancel a scheduled trip, notification inbox
+(`notifications`). Reuse the companion app's patterns (injected API/auth, `RpcException` adapter,
+ARB en/te/hi, fake backend). Acceptance: as M4, plus a test that a viewer-level user cannot see
+the OTP button; add a `family-app` CI job.
 
 ## Continue in Claude Code cloud
 

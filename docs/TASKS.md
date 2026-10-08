@@ -78,16 +78,29 @@ Acceptance (met 2026-10-08, Claude Code cloud session with Docker): `pnpm lint`,
 `pnpm test` (Vitest 36/36), `pnpm build` pass; Playwright 6/6 against Supabase local, including
 "ops signs in with phone OTP and assigns the backup companion to a trip"; screenshots in
 `docs/screenshots/m3/`. `pnpm db:test` 72 pass / 3 skipped; `pnpm db:test:supabase` 75/75.
-CI: job `ops-console`; Playwright added to `supabase-local`.
+CI: job `ops-console`; Playwright added to `supabase-local`. GitHub Actions run 37769970593
+(PR iamnawin/anuga#1): all jobs green, Playwright 6/6 on real Supabase in CI.
 
-## M4. Companion app: run a trip `[ ]`
+## M4. Companion app: run a trip `[x]`
 
-`apps/companion_app` (Flutter, Android first). Today/upcoming from `companion_my_trips`,
-check-in buttons from allowed transitions, OTP entry (`verify_pickup_otp`), handover note,
-return legs, complete with post-visit note, issue report. Large tap targets; en/te/hi strings from day one.
+`apps/companion_app` (Flutter 3.47.6, Android first) over `packages/shared_dart`.
 
-Acceptance: `flutter analyze` clean; widget tests for each trip state; integration test of the
-full trip against a fake API client from `shared_dart`.
+- [x] Phone-OTP sign-in (no sign-up), companion-role gate.
+- [x] Today/upcoming from `companion_my_trips` (restricted fields; hidden outside the window).
+- [x] Check-in buttons from the shared state machine (`lib/src/trip_actions.dart`); pickup only via
+      `verify_pickup_otp` with attempts left; optional handover note; return legs; required
+      post-visit note; issue report with description; confirmed no-show; "call 108" notice.
+- [x] English, Telugu, Hindi (ARB); text >= 1.15x, 56 dp buttons, light/dark high-contrast theme.
+- [x] Android: INTERNET permission; debug-only cleartext to Supabase local (10.0.2.2).
+
+Acceptance (met 2026-10-08, cloud session): `flutter analyze --fatal-infos` clean; format clean;
+`flutter test` 41 pass + 1 skipped (widget tests for all 12 trip states, OTP errors, reassignment
+and conflict errors, notes; full trip through the app widgets against a fake backend that enforces
+the shared state machine). Mutation (offer pickup without OTP) fails 6 tests.
+Extra: `test/supabase_local_test.dart` ran the companion journey on Supabase local (ops assigns,
+viewer denied OTP, owner issues it, wrong then right code, return legs, completion, 8 family
+notifications): pass. CI: job `companion-app` (+ `flutter build apk --debug`); the Supabase journey
+runs in `supabase-local`.
 
 ## M5. Family app: booking and live status `[ ]`
 

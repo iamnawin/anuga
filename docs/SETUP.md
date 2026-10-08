@@ -47,6 +47,21 @@ dart test test/trip_state_machine_test.dart   # one file
 dart test --name "wrong OTP"                  # one test
 ```
 
+## Companion app (M4 onward)
+
+```sh
+cd apps/companion_app
+flutter pub get                 # also generates lib/l10n/generated from the ARB files
+dart format --output=none --set-exit-if-changed lib/main.dart lib/src test
+flutter analyze --fatal-infos
+flutter test
+```
+
+Linux / cloud session (verified 2026-10-08): download
+`https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.47.6-stable.tar.xz`,
+extract, and put `flutter/bin` on `PATH`. The Android SDK is not needed for `flutter test`;
+`flutter build apk` runs in CI.
+
 ## Ops console (M3 onward)
 
 `apps/ops_console` is a pnpm workspace package (`pnpm-workspace.yaml`); the root

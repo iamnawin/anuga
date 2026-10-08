@@ -29,6 +29,13 @@ pnpm contract:export    # regenerate packages/shared_dart/test/fixtures/trip_con
 dart pub get && dart analyze --fatal-infos && dart test
 dart test test/trip_state_machine_test.dart          # one file
 dart test --name "wrong OTP"                          # one test
+
+# apps/companion_app (run inside that folder)
+flutter pub get && flutter analyze --fatal-infos && flutter test
+
+# apps/ops_console (run inside that folder)
+pnpm lint && pnpm typecheck && pnpm test && pnpm build
+pnpm e2e                                              # Playwright vs Supabase local; db reset first
 ```
 
 `--test-isolation=none` is required: all files share one in-process database. The `first journey`
@@ -39,7 +46,7 @@ setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tool
 ## Architecture
 
 Monorepo (pnpm workspace: `apps/*`). Built so far: `supabase/`, `packages/shared_dart`,
-`apps/ops_console` (Next.js). Planned: `apps/family_app`, `apps/companion_app` (Flutter),
+`apps/ops_console` (Next.js), `apps/companion_app` (Flutter). Planned: `apps/family_app` (Flutter),
 `supabase/functions` (Edge Functions).
 
 The database is the security boundary; apps are thin clients over RPCs:
@@ -73,6 +80,8 @@ The database is the security boundary; apps are thin clients over RPCs:
   `clusters` and `app_settings`, never in code.
 - **Auth**: phone OTP. Seed `auth.users` rows are shaped for GoTrue (phone without `+`, non-null
   token columns); `supabase/config.toml` has local-only test OTPs (`123456`) for the seed numbers.
+- **Flutter apps** take `CompanionApi`/`FamilyApi` + a `PhoneAuth` by injection; buttons come from
+  `TripStateMachine`; Postgres errors become `RpcException` in `lib/src/supabase_rpc.dart` only.
 - **Ops console** is a client-side Next.js app using the anon key + the user's JWT; it never holds
   a service-role key. RPC wrappers in `src/lib/api.ts` take an injectable client for tests.
 
