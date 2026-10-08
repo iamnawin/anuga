@@ -41,6 +41,9 @@ describe('trip fares', () => {
     const [{ fare_amount_paise }] = await asAdmin((db) => db.query<{ fare_amount_paise: number }>(
       'select fare_amount_paise from public.trips where id = $1', [trip]));
     assert.equal(fare_amount_paise, 18000);
+    const board = await probeAsUser(ids.ops, (db) => db.query<{ trip_id: string; fare_amount_paise: number }>(
+      `select trip_id, fare_amount_paise from public.ops_trip_board('2024-11-01', '2024-11-30')`));
+    assert.equal(board.find((r) => r.trip_id === trip)?.fare_amount_paise, 18000, 'the ops board shows the fare');
     for (const user of [ids.owner, ids.asha]) {
       await expectPgError(probeAsUser(user, (db) => db.query('select public.ops_record_trip_fare($1, 1)', [trip])));
     }

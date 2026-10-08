@@ -4,8 +4,10 @@ import 'package:shared_dart/shared_dart.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../app.dart';
 import '../labels.dart';
+import '../payments.dart';
 import '../photo_source.dart';
 import '../vault_files.dart';
+import 'bills_tab.dart';
 import 'bookings_tab.dart';
 import 'consent_screen.dart';
 import 'inbox_tab.dart';
@@ -18,6 +20,7 @@ class HomeScreen extends StatefulWidget {
     required this.api,
     required this.files,
     required this.photos,
+    required this.payments,
     required this.onLocaleChanged,
     required this.onSignOut,
   });
@@ -25,6 +28,7 @@ class HomeScreen extends StatefulWidget {
   final FamilyApi api;
   final VaultFiles files;
   final PhotoSource photos;
+  final Payments payments;
   final ValueChanged<Locale> onLocaleChanged;
   final Future<void> Function() onSignOut;
 
@@ -100,6 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 photos: widget.photos,
                 patient: selected,
               ),
+              2 => BillsTab(
+                key: ValueKey('bills-${selected.patientId}'),
+                api: widget.api,
+                payments: widget.payments,
+                patient: selected,
+              ),
               _ => InboxTab(api: widget.api),
             },
           ),
@@ -135,6 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
               destinations: [
                 NavigationDestination(icon: const Icon(Icons.event), label: l10n.tabBookings),
                 NavigationDestination(icon: const Icon(Icons.folder_shared), label: l10n.tabRecords),
+                NavigationDestination(icon: const Icon(Icons.receipt_long), label: l10n.tabBills),
                 NavigationDestination(icon: const Icon(Icons.notifications), label: l10n.tabInbox),
               ],
             ),

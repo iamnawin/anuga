@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:family_app/src/payments.dart';
 import 'package:family_app/src/photo_source.dart';
 import 'package:family_app/src/vault_files.dart';
 import 'package:shared_dart/shared_dart.dart';
@@ -15,6 +16,8 @@ class FakeFamilyBackend {
   final Map<String, FakeVisit> visits = {};
   final List<Map<String, Object?>> inbox = [];
   final List<Map<String, Object?>> documents = [];
+  final List<Map<String, Object?>> invoices = [];
+  final Map<String, List<Map<String, Object?>>> invoiceLines = {};
   final Map<ConsentPurpose, bool> consentState = {
     ConsentPurpose.trips: true,
     ConsentPurpose.vault: true,
@@ -62,6 +65,15 @@ class FakeFamilyBackend {
         return v.toTripRow();
       case 'my_notifications':
         return inbox.reversed.toList();
+      case 'family_invoices':
+        _patient(params['p_patient_id']! as String);
+        if (!level.canChangeTrips) throw const RpcException('42501', 'not allowed');
+        return [
+          for (final i in invoices) {...i, 'can_pay': i['status'] == 'issued' && level == AccessLevel.owner},
+        ];
+      case 'family_invoice_lines':
+        if (!level.canChangeTrips) throw const RpcException('42501', 'not allowed');
+        return invoiceLines[params['p_invoice_id']] ?? const [];
       case 'vault_list_documents':
         _patient(params['p_patient_id']! as String);
         return documents.reversed.toList();
@@ -259,5 +271,34 @@ class FakePhotoSource implements PhotoSource {
   Future<PickedPhoto?> pick({required bool camera}) async {
     requests.add(camera);
     return PickedPhoto(bytes: Uint8List.fromList(List.filled(2048, 7)), contentType: 'image/jpeg');
+  }
+}
+
+/// Applies the payment rules: only the owner, only a due bill; records calls.
+class FakePayments implements Payments {
+  FakePayments(this.backend, {this.providerName = 'test'});
+
+  final FakeFamilyBackend backend;
+  final String providerName;
+  final List<String> calls = [];
+
+  Map<String, Object?> _due(String invoiceId) {
+    if (backend.level != AccessLevel.owner) throw const RpcException('42501', 'not allowed');
+    final bill = backend.invoices.firstWhere((i) => i['invoice_id'] == invoiceId);
+    if (bill['status'] != 'issued') throw const RpcException('22023', 'invoice is paid');
+    return bill;
+  }
+
+  @override
+  Future<String> provider(String invoiceId) async {
+    calls.add('start:$invoiceId');
+    _due(invoiceId);
+    return providerName;
+  }
+
+  @override
+  Future<void> completeTestPayment(String invoiceId) async {
+    calls.add('complete-test:$invoiceId');
+    _due(invoiceId)['status'] = 'paid';
   }
 }

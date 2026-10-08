@@ -39,6 +39,7 @@ export function OpsShell({ children }: { children: ReactNode }) {
     { href: '/trips', label: t('nav.trips') },
     { href: '/schedules', label: t('nav.schedules') },
     { href: '/exceptions', label: t('nav.exceptions') },
+    { href: '/billing', label: t('nav.billing') },
   ];
 
   return (

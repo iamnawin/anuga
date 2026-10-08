@@ -97,6 +97,15 @@ class FamilyApi {
       (await _rpc('set_consent', {'p_patient_id': patientId, 'p_purpose': purpose.dbValue, 'p_active': active}))
           as bool;
 
+  /// Issued and paid bills (owner and editors).
+  Future<List<Invoice>> invoices(String patientId) async => [
+    for (final row in _rows(await _rpc('family_invoices', {'p_patient_id': patientId}))) Invoice.fromJson(row),
+  ];
+
+  Future<List<InvoiceLine>> invoiceLines(String invoiceId) async => [
+    for (final row in _rows(await _rpc('family_invoice_lines', {'p_invoice_id': invoiceId}))) InvoiceLine.fromJson(row),
+  ];
+
   Future<Trip> cancelTrip(String tripId, {String? reason}) async => Trip.fromJson(
     _single(
       await _rpc('advance_trip', {'p_trip_id': tripId, 'p_to_status': TripStatus.cancelled.dbValue, 'p_note': reason}),

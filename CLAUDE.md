@@ -49,8 +49,8 @@ setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tool
 
 Monorepo (pnpm workspace: `apps/*`). Built so far: `supabase/`, `packages/shared_dart`,
 `apps/ops_console` (Next.js), `apps/companion_app` and `apps/family_app` (Flutter).
-`supabase/functions/notify-dispatch` (notification outbox) and `supabase/functions/vault-files`
-(signed URLs for the private vault bucket).
+`supabase/functions/notify-dispatch` (notification outbox), `vault-files` (signed URLs for the
+private vault bucket), `payments` + `payments-webhook` (test-mode payments; shared code in `_shared/`).
 
 The database is the security boundary; apps are thin clients over RPCs:
 
@@ -59,7 +59,8 @@ The database is the security boundary; apps are thin clients over RPCs:
   `0400` vault with audited reads, `0500` ops console read RPCs (`ops_*_board`, exception queue,
   companion options), `0600` family read RPCs (patients with access level, timeline, inbox),
   `0700` notification dispatch (service-role claim/mark RPCs, `notification_deliveries`),
-  `0800` vault storage (private bucket, server-generated paths, signed-URL RPCs) and consents.
+  `0800` vault storage (private bucket, server-generated paths, signed-URL RPCs) and consents,
+  `0900` payments (invoices, fares, payment state; amounts in paise).
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,

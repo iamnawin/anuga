@@ -49,6 +49,7 @@ export interface TripRow {
   backup_companion_name: string | null;
   is_late: boolean;
   updated_at: string;
+  fare_amount_paise: number | null;
 }
 
 export type ExceptionKind = 'late' | 'no_show' | 'issue_reported';
@@ -81,6 +82,21 @@ export interface CompanionOption {
   radius_m: number;
   eligible: boolean;
   reason: IneligibleReason | null;
+}
+
+export type InvoiceStatus = 'draft' | 'issued' | 'paid' | 'void';
+
+export interface InvoiceRow {
+  invoice_id: string;
+  patient_id: string;
+  patient_name: string;
+  package_name: string;
+  period_start: string;
+  status: InvoiceStatus;
+  total_paise: number;
+  visits: number;
+  fares_paise: number;
+  paid_at: string | null;
 }
 
 export interface Transition {
@@ -135,6 +151,10 @@ export interface OpsApi {
   assignScheduleCompanions(scheduleId: string, primaryId: string, backupId: string): Promise<void>;
   assignTripCompanion(tripId: string, companionId: string): Promise<void>;
   advanceTrip(tripId: string, to: TripStatus, note: string | null): Promise<void>;
+  recordTripFare(tripId: string, farePaise: number): Promise<void>;
+  invoices(monthStart: string): Promise<InvoiceRow[]>;
+  generateInvoice(patientId: string, monthStart: string): Promise<string>;
+  issueInvoice(invoiceId: string): Promise<void>;
 }
 
 export function createOpsApi(client: RpcClient): OpsApi {
@@ -158,6 +178,14 @@ export function createOpsApi(client: RpcClient): OpsApi {
     },
     advanceTrip: async (tripId, to, note) => {
       await call(client.rpc('advance_trip', { p_trip_id: tripId, p_to_status: to, p_note: note }));
+    },
+    recordTripFare: async (tripId, farePaise) => {
+      await call(client.rpc('ops_record_trip_fare', { p_trip_id: tripId, p_fare_paise: farePaise }));
+    },
+    invoices: (month) => call(client.rpc('ops_invoices', { p_month: month })),
+    generateInvoice: (patientId, month) => call(client.rpc('ops_generate_invoice', { p_patient_id: patientId, p_month: month })),
+    issueInvoice: async (invoiceId) => {
+      await call(client.rpc('ops_issue_invoice', { p_invoice_id: invoiceId }));
     },
   };
 }

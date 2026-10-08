@@ -338,3 +338,64 @@ class ConsentStatus {
   final bool canChange;
   final DateTime? grantedAt;
 }
+
+DateTime _date(Object? value) => DateTime.parse(value as String);
+
+/// Row of `family_invoices()`: an issued or paid monthly bill (amounts in paise).
+class Invoice {
+  const Invoice({
+    required this.id,
+    required this.periodStart,
+    required this.periodEnd,
+    required this.status,
+    required this.totalPaise,
+    required this.packageName,
+    required this.canPay,
+    this.issuedAt,
+    this.paidAt,
+  });
+
+  factory Invoice.fromJson(Json json) => Invoice(
+    id: json['invoice_id'] as String,
+    periodStart: _date(json['period_start']),
+    periodEnd: _date(json['period_end']),
+    status: json['status'] as String,
+    totalPaise: (json['total_paise'] as num).toInt(),
+    packageName: json['package_name'] as String,
+    canPay: json['can_pay'] as bool,
+    issuedAt: json['issued_at'] == null ? null : _time(json['issued_at']),
+    paidAt: json['paid_at'] == null ? null : _time(json['paid_at']),
+  );
+
+  final String id;
+  final DateTime periodStart;
+  final DateTime periodEnd;
+
+  /// `issued` (due) or `paid`; drafts are never shown to family.
+  final String status;
+  final int totalPaise;
+  final String packageName;
+
+  /// True for the owner while the bill is due.
+  final bool canPay;
+  final DateTime? issuedAt;
+  final DateTime? paidAt;
+
+  bool get isPaid => status == 'paid';
+}
+
+/// Row of `family_invoice_lines()`.
+class InvoiceLine {
+  const InvoiceLine({required this.kind, required this.amountPaise, this.serviceDate});
+
+  factory InvoiceLine.fromJson(Json json) => InvoiceLine(
+    kind: json['kind'] as String,
+    amountPaise: (json['amount_paise'] as num).toInt(),
+    serviceDate: json['service_date'] == null ? null : _date(json['service_date']),
+  );
+
+  /// `visit`, `fare` or `monthly_fee`.
+  final String kind;
+  final int amountPaise;
+  final DateTime? serviceDate;
+}

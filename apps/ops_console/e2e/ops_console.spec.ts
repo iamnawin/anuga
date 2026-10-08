@@ -140,6 +140,19 @@ test('exception queue: a companion reports an issue, ops resolves it', async ({ 
   await expect(page.locator(`[data-trip-id="${tripId}"]`)).toHaveCount(0);
 });
 
+test('billing: a month without completed visits gives an empty draft that cannot be issued', async ({ browser }) => {
+  const page = await asOps(browser);
+  await page.getByRole('link', { name: 'Billing' }).click();
+  await page.getByLabel('Month').fill('2025-02');
+  const bill = page.locator('tr[data-patient-id]', { hasText: 'Lakshmi Rao (synthetic)' });
+  await expect(bill).toHaveAttribute('data-invoice-status', 'none');
+  await bill.getByRole('button', { name: 'Generate invoice' }).click();
+  await expect(bill).toHaveAttribute('data-invoice-status', 'draft');
+  await expect(bill.locator('[data-col=total]')).toHaveText('₹0.00');
+  await expect(bill.getByRole('button', { name: 'Issue to family' })).toHaveCount(0);
+  await expect(bill.getByRole('button', { name: 'Rebuild draft' })).toBeVisible();
+});
+
 test('the console is translated into Telugu and Hindi', async ({ browser }) => {
   const page = await asOps(browser);
   await page.getByLabel('Language').selectOption('te');

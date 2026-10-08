@@ -190,10 +190,30 @@ storage access, no overwrite); family app widget tests (access level x consent, 
 viewer, consent switches) and its Supabase-local vault test. `pnpm db:test` 120 pass / 6 skipped;
 `pnpm db:test:supabase` 126/126; M7 journey still passes.
 
-## M9. Payments (test mode) `[ ]`
+## M9. Payments (test mode) `[x]`
 
-Razorpay adapter in test mode only; plan/per-visit billing; fare pass-through per trip.
-Activating live Razorpay needs founder authorization.
+- [x] Migration `0900_payments.sql`: `invoices`, `invoice_lines`, `payments` (paise; no direct
+      grants; audited). Fares: `ops_record_trip_fare` (pass-through at cost; frozen once billed).
+      Invoices per patient and India-time month: completed visits at the package price + fares +
+      the package's monthly fee (`ops_generate_invoice`, `ops_issue_invoice` notifies the owner,
+      `ops_invoices`). Family: `family_invoices` / `family_invoice_lines` (owner and editors,
+      issued bills only). Payments: `payment_start` (owner), `payment_set_order`,
+      `payment_captured` (service role; idempotent; amount must match).
+- [x] Edge Functions `payments` and `payments-webhook` (HMAC-signed bodies only). Adapter `test`
+      by default; Razorpay adapter accepts only `rzp_test_` keys without founder authorization.
+- [x] Ops console: fare entry for completed trips; Billing page (generate/rebuild draft, issue).
+- [x] Family app: Bills tab (owner and editors), bill lines, test-mode payment for the owner.
+- [x] Dispatcher: `invoice_issued` message with the amount in rupees (en/te/hi).
+- [x] M7 journey extended: fare -> invoice -> bill notification -> owner pays -> ops sees paid.
+- [!] Razorpay test-mode run: needs Razorpay test API keys and a webhook registration
+      (not available). Razorpay Checkout in the app and UPI Autopay: founder decisions.
+
+Acceptance (met 2026-10-08): SQL `payments.test.ts` 9; `payments_unit.test.ts` 10 (adapter
+selection, order request, webhook signatures, handler); `payments_function.test.ts` on Supabase
+local (forged webhook refused, signed webhook pays once, owner-only, test completion);
+ops console Vitest 52, Playwright 7 + journey; family app 35 tests; journey passes with billing.
+`pnpm db:test` 140 pass / 8 skipped; `pnpm db:test:supabase` 148/148.
+Assumption to confirm: only `completed` visits are billed (`app_settings.billable_trip_statuses`).
 
 ## M10. Production launch `[!]` gated
 

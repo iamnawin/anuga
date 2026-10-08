@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'src/app.dart';
 import 'src/auth.dart';
+import 'src/payments.dart';
 import 'src/photo_source.dart';
 import 'src/supabase_rpc.dart';
 import 'src/vault_files.dart';
@@ -27,6 +28,7 @@ Future<void> main() async {
       auth: SupabasePhoneAuth(client),
       files: SupabaseVaultFiles(client, _url),
       photos: DevicePhotoSource(),
+      payments: SupabasePayments(client),
     ),
   );
 }

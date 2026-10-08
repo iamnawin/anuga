@@ -136,5 +136,48 @@
   "consentOff": "Off",
   "consentOwnerOnly": "Only the owner can change these choices.",
   "confirmWithdraw": "Turn this off? It stops at once. Records already saved are kept until you ask us to delete them.",
-  "turnOff": "Turn off"
+  "turnOff": "Turn off",
+  "tabBills": "Bills",
+  "billsNotAllowed": "Only the owner and editors can see bills.",
+  "noBills": "No bills yet.",
+  "billFor": "Bill for {month}",
+  "@billFor": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "billDue": "Due",
+  "billPaid": "Paid",
+  "payNow": "Pay {amount}",
+  "@payNow": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "testModeNotice": "Test mode: no real money moves. This marks the bill as paid.",
+  "confirmPay": "Pay",
+  "paymentDone": "Payment received. Thank you!",
+  "onlinePaymentNotInBuild": "Online payment is not available in this build yet.",
+  "lineVisit": "Visit on {date}",
+  "@lineVisit": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lineFare": "Cab/auto fare on {date}",
+  "@lineFare": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lineMonthlyFee": "Monthly fee",
+  "billTotal": "Total"
 }

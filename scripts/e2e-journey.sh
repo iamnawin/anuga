@@ -3,7 +3,8 @@
 #
 #   ops assigns a companion -> family sees the booking -> companion picks up with the
 #   family's code and hands over at the centre -> family receives status (dispatched by
-#   the notify-dispatch Edge Function) -> return journey completes -> ops sees it closed.
+#   the notify-dispatch Edge Function) -> return journey completes -> ops sees it closed
+#   -> ops records the fare and issues the bill -> family pays it (test mode) -> ops sees it paid.
 #
 # Uses the real clients: the ops console in a browser (Playwright), and the Dart API
 # layers of the companion and family apps (same adapters the apps use). Synthetic data
@@ -37,31 +38,43 @@ export JOURNEY_STATE="$OUT/state.json" DATABASE_URL="$DB_URL" SUPABASE_URL="$API
 helper setup
 
 step "1. ops console: ops assigns the backup companion (browser)"
-ops "journey 1"
+ops "journey 1:"
 
 step "2. family: sees the booking, issues the pickup code"
-dart_step family_app "journey 2"
+dart_step family_app "journey 2:"
 
 step "3. companion: sets off, picks up with the family's code, hands over at the centre"
-dart_step companion_app "journey 3"
+dart_step companion_app "journey 3:"
 
 step "3b. notify-dispatch: family receives the updates so far"
 helper dispatch companion_changed,companion_en_route,picked_up,at_centre,handed_over
 
 step "4. family: timeline and updates show the handover"
-dart_step family_app "journey 4"
+dart_step family_app "journey 4:"
 
 step "5. companion: return journey, completes with a post-visit note"
-dart_step companion_app "journey 5"
+dart_step companion_app "journey 5:"
 
 step "5b. notify-dispatch: family receives the return-journey updates"
 helper dispatch session_done,returning,dropped_home,completed
 
 step "6. family: visit completed with the note"
-dart_step family_app "journey 6"
+dart_step family_app "journey 6:"
 
 step "7. ops console: visit completed, exception queue clear (browser)"
-ops "journey 7"
+ops "journey 7:"
+
+step "8. ops console: records the cab fare, issues the month's invoice (browser)"
+ops "journey 8:"
+
+step "8b. notify-dispatch: the owner gets the bill"
+helper dispatch-bill "₹550.00"
+
+step "9. family: owner pays the bill in test mode; viewer cannot see bills"
+dart_step family_app "journey 9:"
+
+step "10. ops console: invoice paid (browser)"
+ops "journey 10:"
 
 step "report"
 helper report

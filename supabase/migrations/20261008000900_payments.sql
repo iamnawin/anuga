@@ -322,6 +322,54 @@ begin
 end;
 $$;
 
+-- The ops trip board also shows each trip's recorded fare (same function as 0500, one more column).
+drop function public.ops_trip_board(timestamptz, timestamptz, public.trip_status[]);
+create function public.ops_trip_board(
+  p_from timestamptz,
+  p_to timestamptz,
+  p_statuses public.trip_status[] default null
+)
+returns table (
+  trip_id uuid, scheduled_pickup_at timestamptz, scheduled_return_at timestamptz,
+  status public.trip_status, status_before_issue public.trip_status,
+  patient_id uuid, patient_name text, centre_name text, cluster_id uuid,
+  companion_id uuid, companion_name text, schedule_id uuid,
+  primary_companion_id uuid, primary_companion_name text,
+  backup_companion_id uuid, backup_companion_name text,
+  is_late boolean, updated_at timestamptz, fare_amount_paise integer
+)
+language plpgsql stable security definer set search_path = ''
+as $$
+declare
+  v_late interval := make_interval(mins => private.setting_int('ops_late_after_minutes'));
+begin
+  perform private.assert_ops();
+  if p_from is null or p_to is null or p_to < p_from
+     or p_to - p_from > make_interval(days => private.setting_int('ops_board_max_days')) then
+    raise exception 'invalid date range' using errcode = '22023',
+      hint = 'from must be before to, within ops_board_max_days';
+  end if;
+
+  return query
+  select t.id, t.scheduled_pickup_at, t.scheduled_return_at, t.status, t.status_before_issue,
+         p.id, p.full_name, ce.name, ce.cluster_id, t.companion_id, cp.full_name, t.schedule_id,
+         s.primary_companion_id, pp.full_name, s.backup_companion_id, bp.full_name,
+         (t.status = 'scheduled' and now() > t.scheduled_pickup_at + v_late), t.updated_at, t.fare_amount_paise
+  from public.trips t
+  join public.patients p on p.id = t.patient_id
+  join public.centres ce on ce.id = t.centre_id
+  left join public.profiles cp on cp.id = t.companion_id
+  left join public.schedules s on s.id = t.schedule_id
+  left join public.profiles pp on pp.id = s.primary_companion_id
+  left join public.profiles bp on bp.id = s.backup_companion_id
+  where t.scheduled_pickup_at between p_from and p_to
+    and (p_statuses is null or t.status = any (p_statuses))
+  order by t.scheduled_pickup_at, p.full_name;
+end;
+$$;
+revoke execute on function public.ops_trip_board(timestamptz, timestamptz, public.trip_status[]) from public, anon;
+grant execute on function public.ops_trip_board(timestamptz, timestamptz, public.trip_status[]) to authenticated;
+
 revoke execute on function
   public.ops_record_trip_fare(uuid, integer), public.ops_generate_invoice(uuid, date),
   public.ops_issue_invoice(uuid), public.ops_invoices(date),

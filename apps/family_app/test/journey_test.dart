@@ -4,6 +4,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:family_app/src/payments.dart';
 import 'package:family_app/src/supabase_rpc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_dart/shared_dart.dart';
@@ -20,7 +21,7 @@ Map<String, dynamic> readState() => jsonDecode(File(_env['JOURNEY_STATE']!).read
 void writeState(Map<String, dynamic> state) =>
     File(_env['JOURNEY_STATE']!).writeAsStringSync(const JsonEncoder.withIndent('  ').convert(state));
 
-Future<FamilyApi> familyAs(String phone) async {
+Future<SupabaseClient> clientAs(String phone) async {
   final client = SupabaseClient(
     _env['SUPABASE_URL']!,
     _env['SUPABASE_PUBLISHABLE_KEY']!,
@@ -29,8 +30,10 @@ Future<FamilyApi> familyAs(String phone) async {
   await client.auth.signInWithOtp(phone: phone, shouldCreateUser: false);
   await client.auth.verifyOTP(type: OtpType.sms, phone: phone, token: '123456');
   addTearDown(client.dispose);
-  return FamilyApi(supabaseRpc(client));
+  return client;
 }
+
+Future<FamilyApi> familyAs(String phone) async => FamilyApi(supabaseRpc(await clientAs(phone)));
 
 void log(String line) => stdout.writeln('    $line');
 
@@ -90,5 +93,27 @@ void main() {
     log(
       'family board: ${visit.status.dbValue}; ${timeline.length} timeline events; ${updates.length} status updates in inbox',
     );
+  });
+
+  test('journey 9: owner pays the bill (test mode); the viewer cannot see bills', skip: _skip, () async {
+    final ownerClient = await clientAs('+919000000101');
+    final owner = FamilyApi(supabaseRpc(ownerClient));
+    final viewer = await familyAs('+919000000102');
+    await expectLater(viewer.invoices(_patientId), throwsA(isA<RpcException>()));
+
+    final bill = (await owner.invoices(_patientId)).single;
+    expect(bill.status, 'issued');
+    expect(bill.totalPaise, 55000);
+    expect(bill.canPay, isTrue);
+    final lines = await owner.invoiceLines(bill.id);
+    expect(lines.map((l) => (l.kind, l.amountPaise)), [('visit', 40000), ('fare', 15000)]);
+
+    final payments = SupabasePayments(ownerClient);
+    expect(await payments.provider(bill.id), 'test');
+    await payments.completeTestPayment(bill.id);
+    final paid = (await owner.invoices(_patientId)).single;
+    expect(paid.isPaid, isTrue);
+    expect(paid.canPay, isFalse);
+    log('bill ${bill.totalPaise ~/ 100} rupees: visit 400 + fare 150; paid in test mode');
   });
 }

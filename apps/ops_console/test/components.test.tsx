@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { ApiProvider } from '@/components/ApiProvider';
 import { I18nProvider } from '@/components/I18nProvider';
+import { FareEditor } from '@/components/FareEditor';
 import { ReassignTrip, type ReassignableTrip } from '@/components/ReassignTrip';
 import { ScheduleAssignForm } from '@/components/ScheduleAssignForm';
 import { DbError, type CompanionOption, type OpsApi, type ScheduleRow } from '@/lib/api';
@@ -20,6 +21,7 @@ const notEligible = new DbError({
 function fakeApi(overrides: Partial<OpsApi> = {}): OpsApi {
   return {
     scheduleBoard: vi.fn(), tripBoard: vi.fn(), exceptionQueue: vi.fn(), opsTransitions: vi.fn(), advanceTrip: vi.fn(),
+    recordTripFare: vi.fn().mockResolvedValue(undefined), invoices: vi.fn(), generateInvoice: vi.fn(), issueInvoice: vi.fn(),
     companionOptions: vi.fn().mockResolvedValue(options),
     assignTripCompanion: vi.fn().mockResolvedValue(undefined),
     assignScheduleCompanions: vi.fn().mockResolvedValue(undefined),
@@ -101,5 +103,36 @@ describe('ScheduleAssignForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Save' }));
     expect((await screen.findByRole('alert')).textContent).toContain('not eligible');
     expect(onSaved).not.toHaveBeenCalled();
+  });
+});
+
+describe('FareEditor', () => {
+  test('saves rupees as paise', async () => {
+    const api = fakeApi();
+    const onSaved = vi.fn();
+    wrap(api, <FareEditor tripId="t1" farePaise={null} onSaved={onSaved} />);
+    fireEvent.change(screen.getByLabelText('Fare (₹)'), { target: { value: '180.50' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save fare' }));
+    await waitFor(() => expect(onSaved).toHaveBeenCalled());
+    expect(api.recordTripFare).toHaveBeenCalledWith('t1', 18050);
+    expect(screen.getByRole('status').textContent).toBe('Fare saved.');
+  });
+
+  test('rejects text that is not an amount, without calling the database', () => {
+    const api = fakeApi();
+    wrap(api, <FareEditor tripId="t1" farePaise={18000} onSaved={vi.fn()} />);
+    expect((screen.getByLabelText('Fare (₹)') as HTMLInputElement).value).toBe('180');
+    fireEvent.change(screen.getByLabelText('Fare (₹)'), { target: { value: 'about 200' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save fare' }));
+    expect(screen.getByRole('status').textContent).toContain('Enter the fare in rupees');
+    expect(api.recordTripFare).not.toHaveBeenCalled();
+  });
+
+  test('shows the database refusal (fare on an issued invoice)', async () => {
+    const api = fakeApi({ recordTripFare: vi.fn().mockRejectedValue(new DbError({ code: '22023', message: 'trip is on an issued invoice' })) });
+    wrap(api, <FareEditor tripId="t1" farePaise={null} onSaved={vi.fn()} />);
+    fireEvent.change(screen.getByLabelText('Fare (₹)'), { target: { value: '90' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save fare' }));
+    expect((await screen.findByRole('alert')).textContent).toContain('trip is on an issued invoice');
   });
 });

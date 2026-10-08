@@ -98,5 +98,20 @@
   "consentOff": "बंद",
   "consentOwnerOnly": "ये विकल्प केवल मालिक बदल सकते हैं।",
   "confirmWithdraw": "इसे बंद करें? यह तुरंत रुक जाएगा। पहले से सहेजे रिकॉर्ड तब तक रहेंगे जब तक आप उन्हें हटाने को न कहें।",
-  "turnOff": "बंद करें"
+  "turnOff": "बंद करें",
+  "tabBills": "बिल",
+  "billsNotAllowed": "बिल केवल मालिक और एडिटर देख सकते हैं।",
+  "noBills": "अभी कोई बिल नहीं।",
+  "billFor": "{month} का बिल",
+  "billDue": "बकाया",
+  "billPaid": "भुगतान हुआ",
+  "payNow": "{amount} चुकाएँ",
+  "testModeNotice": "टेस्ट मोड: असली पैसा नहीं जाएगा। इससे बिल भुगतान हुआ चिह्नित होगा।",
+  "confirmPay": "भुगतान करें",
+  "paymentDone": "भुगतान मिल गया। धन्यवाद!",
+  "onlinePaymentNotInBuild": "इस बिल्ड में ऑनलाइन भुगतान अभी उपलब्ध नहीं है।",
+  "lineVisit": "{date} की विज़िट",
+  "lineFare": "{date} का कैब/ऑटो किराया",
+  "lineMonthlyFee": "मासिक शुल्क",
+  "billTotal": "कुल"
 }

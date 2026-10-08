@@ -7,7 +7,8 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 - Done and verified: **M0**, **M1**, **M1a** (real Supabase), **M2** (`packages/shared_dart`),
   **M3** (ops console, `apps/ops_console`), **M4** (companion app, `apps/companion_app`),
   **M5** (family app, `apps/family_app`), **M6** (notification dispatch, `supabase/functions/notify-dispatch`),
-  **M7** (end-to-end journey, `scripts/e2e-journey.sh`), **M8** (vault storage and consent).
+  **M7** (end-to-end journey, `scripts/e2e-journey.sh`), **M8** (vault storage and consent),
+  **M9** (payments in test mode). **M10** (production launch) is gated on founder approval.
 - Session 2 started from `9f21c73`. The earlier local M3 attempt was never pushed, so M3 was built
   from scratch here; nothing was duplicated.
 - Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
@@ -89,6 +90,18 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
     they need a non-official file picker or viewer package, so they wait for a decision.
   - Supabase signs upload URLs for 2 hours (not configurable); each is for one server-chosen path
     and cannot overwrite.
+- M9:
+  - Money is integer paise; prices come from `packages`; fares are recorded per trip by ops and
+    passed through at cost; a fare on an issued invoice is frozen.
+  - Invoices are per patient and India-time calendar month, generated and issued by ops.
+    **Assumption to confirm:** only `completed` visits are billed (`billable_trip_statuses`);
+    no-show billing is a founder decision.
+  - Payment state changes only through the database: `payment_start` (owner) and the
+    service-role `payment_captured` (idempotent, amount must match). Provider webhooks are
+    authenticated by HMAC body signature (`payments-webhook`, `verify_jwt = false`).
+  - The family app pays only in test mode; with a live provider it says checkout is not in this
+    build (the Razorpay Checkout SDK receives payment data: founder decision).
+  - The M7 journey now also covers billing (fare -> invoice -> bill notification -> owner pays).
 - Repo hosting: `iamnawin/anuga` is canonical. `iamnawin/companion` (old remote) is not updated;
   delete or archive only on founder request.
 
@@ -158,6 +171,11 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | `pnpm db:test:supabase` with the vault bucket and `vault-files` function | **126/126** |
 | Family app Supabase-local tests (journey + vault) | 2/2 pass |
 | M7 journey after M8 | pass |
+| GitHub Actions run 37778744211 @ `38c7265` (M9 server) | **all 6 jobs green** |
+| `scripts/check-all.sh` (M9 final) | all passed: PGlite 140 pass / 8 skipped; ops console 52; shared_dart 27; companion 39 + 3 skipped; family 35 + 6 skipped |
+| `pnpm db:test:supabase` (incl. vault and payments functions) | **148/148** |
+| Ops console Playwright (standalone) | 7 pass (+4 journey tests skipped outside the journey) |
+| `scripts/e2e-journey.sh` with billing | **JOURNEY PASSED**: bill ₹550 (visit ₹400 + fare ₹150), owner notified, paid in test mode, ops sees paid; evidence `docs/evidence/m7/` |
 | `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet
@@ -180,15 +198,21 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 ## Exact next task
 
-**M9: payments (test mode)** (`docs/TASKS.md` M9): payment records and a billing adapter. Build
-the data model first (migration: `subscriptions`, `payments`, per-trip fare pass-through recorded
-on `trips.fare_amount_paise`; amounts in paise; prices from `packages`), with RLS (owner sees and
-pays for their patient; ops sees all; companions never), allowed + denied tests. Then a billing
-adapter interface with a `test` adapter (records intents and simulated webhooks) used by default.
-A Razorpay adapter needs **Razorpay test-mode API keys** (key id + secret) and a webhook secret:
-not available in this environment, so build it behind `PAYMENTS_ADAPTER=razorpay` with a
-configuration error when keys are missing, and test only the `test` adapter plus webhook
-signature verification with a synthetic secret. Live Razorpay needs founder authorization.
+M0-M9 are done. **M10 (production launch) must not start without explicit founder approval.**
+
+1. **Founder review** of PR iamnawin/anuga#1 and these decisions (they block further scope):
+   - Bill no-show visits? (`app_settings.billable_trip_statuses`, currently completed only)
+   - Approve `image_picker` + `http` in the family app (official packages, on-device)?
+   - PDF upload/viewing (needs a non-official file picker/viewer package)?
+   - Razorpay: provide **test-mode** keys + webhook registration to exercise the Razorpay adapter;
+     approve the Razorpay Checkout SDK in the family app; UPI Autopay for monthly plans?
+   - Retention and deletion on consent withdrawal (needed for the deletion job).
+   - Native-speaker review of Telugu and Hindi strings (all three apps + notification texts).
+2. **Next non-gated work** (backlog, no founder input needed), recommended order:
+   - Deletion job for consent withdrawal, once retention is decided (DPDP: as easy to withdraw).
+   - Medicine refill reminders (`medicines.refill_on`, outbox notification; no clinical logic).
+   - Family invites with roles (owner adds editor/viewer by phone; `patient_access`).
+   - Trip data export for pilot metrics (on-time pickups, no-shows; synthetic data in tests).
 
 ## Continue in Claude Code cloud
 

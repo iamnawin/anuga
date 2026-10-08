@@ -46,7 +46,11 @@ async function setup(): Promise<void> {
       [ids.schedule, ids.patient, ids.centre, ids.asha]);
     return rows[0].id;
   });
-  await writeFile(statePath, JSON.stringify({ tripId }, null, 2));
+  // Month of the visit in India time (the invoice period), as YYYY-MM.
+  const month = await withDb(async (db) => (await db.query<{ m: string }>(
+    `select to_char(scheduled_pickup_at at time zone 'Asia/Kolkata', 'YYYY-MM') as m from public.trips where id = $1`,
+    [tripId])).rows[0].m);
+  await writeFile(statePath, JSON.stringify({ tripId, month }, null, 2));
   console.log(`today's visit: trip ${tripId}, pickup in 40 minutes, companion Asha (primary), backup Ravi`);
 }
 
@@ -85,6 +89,22 @@ async function dispatch(expected: string[]): Promise<void> {
   }
 }
 
+// The owner's bill notification was delivered with the amount in rupees.
+async function dispatchBill(expectedRupees: string): Promise<void> {
+  const response = await fetch(`${must('SUPABASE_URL')}/functions/v1/notify-dispatch`, {
+    method: 'POST', headers: { Authorization: `Bearer ${must('SUPABASE_SERVICE_ROLE_KEY')}` },
+  });
+  console.log(`notify-dispatch -> HTTP ${response.status} ${await response.text()}`);
+  const rows = await withDb(async (db) => (await db.query<{ status: string; body: string | null }>(
+    `select n.status, d.body from public.notifications n
+     left join public.notification_deliveries d on d.notification_id = n.id
+     where n.template = 'invoice_issued' and n.recipient_id = $1 order by n.id desc limit 1`, [ids.owner])).rows);
+  if (rows[0]?.status !== 'sent' || !rows[0].body?.includes(expectedRupees)) {
+    throw new Error(`owner bill notification not delivered with ${expectedRupees}: ${JSON.stringify(rows)}`);
+  }
+  console.log(`  owner push: invoice_issued       "${rows[0].body}"`);
+}
+
 async function report(): Promise<void> {
   const { tripId } = await readState();
   await withDb(async (db) => {
@@ -99,11 +119,17 @@ async function report(): Promise<void> {
       `select n.channel, count(*)::int as sent from public.notifications n
        join public.notification_deliveries d on d.notification_id = n.id where n.trip_id = $1 group by 1 order by 1`, [tripId])).rows;
     console.log('deliveries by channel:', JSON.stringify(counts));
+    const bill = (await db.query(
+      `select i.status, i.total_paise, (select count(*)::int from public.invoice_lines l where l.invoice_id = i.id) as lines,
+              (select p.status from public.payments p where p.invoice_id = i.id order by p.created_at desc limit 1) as payment
+       from public.invoices i where i.patient_id = $1 order by i.created_at desc limit 1`, [ids.patient])).rows[0];
+    console.log('bill:', JSON.stringify(bill));
   });
 }
 
 const [command, arg] = process.argv.slice(2);
 if (command === 'setup') await setup();
 else if (command === 'dispatch') await dispatch(arg ? arg.split(',') : []);
+else if (command === 'dispatch-bill') await dispatchBill(arg);
 else if (command === 'report') await report();
-else throw new Error('usage: journey.ts setup | dispatch <events> | report');
+else throw new Error('usage: journey.ts setup | dispatch <events> | dispatch-bill <rupees> | report');

@@ -10,7 +10,13 @@ import 'support/pump.dart';
 Future<void> pumpApp(WidgetTester tester, FakeFamilyBackend backend, FakePhoneAuth auth) async {
   usePhoneScreen(tester);
   await tester.pumpWidget(
-    FamilyApp(api: backend.api, auth: auth, files: FakeVaultFiles(backend), photos: FakePhotoSource()),
+    FamilyApp(
+      api: backend.api,
+      auth: auth,
+      files: FakeVaultFiles(backend),
+      photos: FakePhotoSource(),
+      payments: FakePayments(backend),
+    ),
   );
   await tester.pumpAndSettle();
 }

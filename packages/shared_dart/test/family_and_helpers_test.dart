@@ -117,6 +117,39 @@ void main() {
     });
   });
 
+  group('FamilyApi (M9 bills)', () {
+    test('invoices and lines parse amounts in paise and dates', () async {
+      final rpc = FakeRpc({
+        'family_invoices': [
+          {
+            'invoice_id': 'i1',
+            'period_start': '2026-09-01',
+            'period_end': '2026-09-30',
+            'status': 'issued',
+            'total_paise': 498000,
+            'package_name': 'Basic',
+            'issued_at': '2026-10-01T04:30:00+00:00',
+            'paid_at': null,
+            'can_pay': true,
+          },
+        ],
+        'family_invoice_lines': [
+          {'kind': 'visit', 'service_date': '2026-09-02', 'amount_paise': 40000},
+          {'kind': 'monthly_fee', 'service_date': null, 'amount_paise': 99900},
+        ],
+      });
+      final api = FamilyApi(rpc.call);
+      final bill = (await api.invoices('p1')).single;
+      expect(bill.totalPaise, 498000);
+      expect(bill.periodStart, DateTime(2026, 9, 1));
+      expect(bill.canPay, isTrue);
+      expect(bill.isPaid, isFalse);
+      final lines = await api.invoiceLines('i1');
+      expect(lines.map((l) => l.kind), ['visit', 'monthly_fee']);
+      expect(lines.last.serviceDate, isNull);
+    });
+  });
+
   group('India helpers', () {
     test('normalizes mobile numbers to E.164', () {
       expect(normalizeIndianMobile('9000000201'), '+919000000201');

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useOpsApi } from '@/components/ApiProvider';
 import { ErrorMessage } from '@/components/ErrorMessage';
+import { FareEditor } from '@/components/FareEditor';
 import { useI18n } from '@/components/I18nProvider';
 import { OpsShell } from '@/components/OpsShell';
 import { ReassignTrip } from '@/components/ReassignTrip';
@@ -94,6 +95,9 @@ function TripsBoard() {
                         setNotice(t('trips.reassigned', { name }));
                         void load();
                       }} />
+                      {trip.status === 'completed' && (
+                        <FareEditor tripId={trip.trip_id} farePaise={trip.fare_amount_paise} onSaved={() => void load()} />
+                      )}
                     </td>
                   </tr>
                 ))}

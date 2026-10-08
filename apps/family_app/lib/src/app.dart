@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../l10n/generated/app_localizations.dart';
+import 'payments.dart';
 import 'photo_source.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
@@ -17,6 +18,7 @@ class FamilyApp extends StatefulWidget {
     required this.auth,
     required this.files,
     required this.photos,
+    required this.payments,
     this.initialLocale = const Locale('en'),
   });
 
@@ -24,6 +26,7 @@ class FamilyApp extends StatefulWidget {
   final PhoneAuth auth;
   final VaultFiles files;
   final PhotoSource photos;
+  final Payments payments;
   final Locale initialLocale;
 
   @override
@@ -54,6 +57,7 @@ class _FamilyAppState extends State<FamilyApp> {
               api: widget.api,
               files: widget.files,
               photos: widget.photos,
+              payments: widget.payments,
               onLocaleChanged: _setLocale,
               onSignOut: () async {
                 await widget.auth.signOut();
