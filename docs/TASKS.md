@@ -42,8 +42,8 @@ manual path in `docs/SETUP.md`. `supabase/tests/platform.test.ts` adds storage-p
 
 Acceptance (met 2026-10-08, GitHub Actions run 37748137710 on `iamnawin/anuga` @ `487d409`):
 all 4 migrations and the seed applied; `pnpm db:test:supabase` 60/60 pass, 0 skipped.
-Still not covered (arrives with M3/M8): real phone-OTP sign-in through Supabase Auth, private
-bucket policies and signed URLs.
+Real phone-OTP sign-in through Supabase Auth: covered since M3 (Playwright). Still not covered
+(arrives with M8): private bucket policies and signed URLs.
 
 ## M2. Shared Dart package `[x]`
 
@@ -59,18 +59,26 @@ Acceptance (met 2026-10-08): `dart test` 16/16; `dart analyze --fatal-infos` cle
 clean; mutation (remove one Dart rule) fails the agreement test; `pnpm db:test` 57 pass, 3 skipped
 (real-Supabase-only), `pnpm typecheck` clean.
 
-## M3. Ops console: assign and monitor `[ ]`
+## M3. Ops console: assign and monitor `[x]`
 
-`apps/ops_console` (Next.js, TypeScript, pnpm). Phone-OTP login against Supabase local
+`apps/ops_console` (Next.js 16, TypeScript, pnpm workspace). Phone-OTP login against Supabase local
 (`[auth.sms.test_otp]` in `supabase/config.toml` with synthetic numbers; no SMS provider).
 
-- Schedules list with primary/backup assignment (`ops_assign_schedule_companions`), showing
-  eligibility errors from the database.
-- Trips board filtered by date/status; reassign a scheduled trip (`ops_assign_trip_companion`).
-- Exception queue: `issue_reported`, `no_show`, late (pickup time passed, still `scheduled`).
+- [x] Migration `0500_ops_console.sql`: `ops_schedule_board`, `ops_trip_board` (date/status filter,
+      late flag), `ops_exception_queue`, `ops_companion_options` (eligibility + reason). Ops only;
+      late threshold, lookback and board range in `app_settings`. Allowed + denied tests for each.
+- [x] Phone OTP on Supabase local: seed `auth.users` rows in GoTrue's shape; test OTP `123456`.
+- [x] Schedules list with primary/backup assignment (`ops_assign_schedule_companions`), showing
+      eligibility errors from the database.
+- [x] Trips board filtered by date/status; one-tap backup and reassign (`ops_assign_trip_companion`).
+- [x] Exception queue: `issue_reported`, `no_show`, late; resolve actions derived from `trip_transitions`.
+- [x] English, Telugu, Hindi strings (Telugu/Hindi drafted by the dev team; need native review).
 
-Acceptance: lint + typecheck + unit tests pass; Playwright (or equivalent) test drives
-"assign backup to a trip" against Supabase local or a recorded test adapter; screenshots in PR.
+Acceptance (met 2026-10-08, Claude Code cloud session with Docker): `pnpm lint`, `pnpm typecheck`,
+`pnpm test` (Vitest 36/36), `pnpm build` pass; Playwright 6/6 against Supabase local, including
+"ops signs in with phone OTP and assigns the backup companion to a trip"; screenshots in
+`docs/screenshots/m3/`. `pnpm db:test` 72 pass / 3 skipped; `pnpm db:test:supabase` 75/75.
+CI: job `ops-console`; Playwright added to `supabase-local`.
 
 ## M4. Companion app: run a trip `[ ]`
 

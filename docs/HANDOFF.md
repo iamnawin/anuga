@@ -1,15 +1,15 @@
 # Handoff
 
-Last updated: 2026-10-08 (session 1, local Windows machine)
+Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-bell-4fgv07`)
 
 ## Current state
 
-- Done and verified: **M0** (repo foundation), **M1** (database core, permissions, journey in SQL),
-  **M2** (`packages/shared_dart`: models, trip state machine, RPC client, SQL/Dart contract tests).
-- **M1a, real Supabase verification: done.** CI job `supabase-local` applied all migrations and the
-  seed on Supabase local (CLI 2.120.0, Postgres 17) and passed 60/60 tests, 0 skipped.
-- No app code yet (`apps/` does not exist).
-- Repository: **https://github.com/iamnawin/anuga** (private), branch `main`. Remote `origin`.
+- Done and verified: **M0**, **M1**, **M1a** (real Supabase), **M2** (`packages/shared_dart`),
+  **M3** (ops console, `apps/ops_console`).
+- Session 2 started from `9f21c73`. The earlier local M3 attempt was never pushed, so M3 was built
+  from scratch here; nothing was duplicated.
+- Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
+  draft PR to `main` (not merged).
 
 ## Decisions made
 
@@ -17,82 +17,86 @@ Last updated: 2026-10-08 (session 1, local Windows machine)
 - ADR 0002: grants revoked by default; companions use a restricted, time-windowed projection;
   vault reads only through functions that audit in the same transaction; OTP stored as salted hash.
 - ADR 0003: PGlite is the default test database; real Supabase (CI job `supabase-local`) is the
-  authoritative run and now passes.
+  authoritative run.
 - M2: `shared_dart` has no Supabase SDK dependency; APIs take an injected `RpcCaller`.
-  The Dart state machine is built from rules (not copied) and tested against `trip_contract.json`,
-  which `pnpm contract:export` generates from SQL and `pnpm db:test` guards.
-- Repo hosting: `iamnawin/anuga` is the canonical repo (founder instruction). An earlier push went to
-  `iamnawin/companion` (private, same M0/M1 commit); it is kept as remote `companion` and is not
-  updated further. Delete or archive it only on founder request.
+- M3:
+  - Ops reads go through ops-only RPCs (migration `0500`) instead of the console joining tables.
+    Late threshold (`ops_late_after_minutes`, default 0 = "pickup time passed"), exception lookback
+    and maximum board range are `app_settings` rows.
+  - `ops_companion_options` lists every companion in the patient's cluster with distance and an
+    ineligibility reason; a test proves it agrees with `ops_assign_trip_companion` for every
+    companion. The console keeps ineligible companions selectable so the database's own error is shown.
+  - Exception actions come from `trip_transitions` (actor `ops`, never `requires_otp`).
+  - Console is client-side Next.js with the anon key + user JWT; no service-role key anywhere.
+  - Phone OTP on Supabase local: seed `auth.users` rows are now in GoTrue's shape (phone stored
+    without `+`, e.g. `919000000001`; `instance_id`, `aud`, non-null token columns and timestamps).
+    Test OTP `123456` for the seed numbers only. Supabase Auth refuses phone sign-in without an
+    enabled SMS provider, so `config.toml` enables Twilio with fake local placeholders.
+  - The ops console uses TypeScript 6 (Next.js needs the TS JS API); root keeps TypeScript 7.
+  - `@playwright/test` pinned to 1.56.1 = Chromium build 1194, preinstalled in cloud sessions.
+- Repo hosting: `iamnawin/anuga` is canonical. `iamnawin/companion` (old remote) is not updated;
+  delete or archive only on founder request.
 
-## Completed work
+## Completed work (session 2)
 
-- M0/M1: see `docs/TASKS.md`; migrations `supabase/migrations/20261008000100..0400_*.sql`, seed, tests.
-- M2: `packages/shared_dart/` (lib, 16 tests, README), `supabase/scripts/export-trip-contract.ts`,
-  `supabase/tests/contract.test.ts`, `supabase/tests/support/contract.ts`.
-- Real-Supabase path: `supabase/tests/platform.test.ts` (storage privacy, real `auth.uid()`, anon
-  denial), CI job `supabase-local`, `docs/SETUP.md` section "Real Supabase verification".
-- CI: `.github/workflows/db-tests.yml` (workflow name `checks`): `db-tests`, `shared-dart`,
-  `supabase-local`; actions bumped to v5 (the v4 Node 20 deprecation warning).
-- Flutter 3.47.6 configured: user PATH + `PUB_CACHE=D:\AI-Workspace\tools\pub-cache`.
+- `supabase/migrations/20261008000500_ops_console.sql`, `supabase/tests/ops_console.test.ts`
+  (15 tests: allowed/denied for each RPC, anon denial, settings-driven late flag, options/RPC agreement).
+- `supabase/config.toml` (`[auth.sms]`), `supabase/seed/seed.sql` (GoTrue-shaped users),
+  `supabase/tests/support/supabase_shim.sql` (matching columns).
+- `apps/ops_console`: login (phone OTP, ops-role gate), `/trips`, `/schedules`, `/exceptions`;
+  en/te/hi strings; Vitest unit + component tests; Playwright e2e; README.
+- `pnpm-workspace.yaml` (`apps/*`); root scripts unchanged.
+- CI (`.github/workflows/db-tests.yml`): new job `ops-console` (lint, typecheck, test, build);
+  `supabase-local` now resets the DB after the SQL tests and runs the Playwright suite, uploading
+  screenshots and the report as artifact `ops-console-e2e`.
+- Screenshots: `docs/screenshots/m3/`.
 
-## Checks run (2026-10-08)
+## Checks run (2026-10-08, cloud session, Node 24.21.0 via nvm, Docker 29.8.2)
 
 | Command | Result |
 | --- | --- |
-| `pnpm typecheck` | pass |
-| `pnpm db:test` (PGlite) | 57 pass, 0 fail, 3 skipped (real-Supabase-only checks) |
-| `dart format --output=none --set-exit-if-changed lib test` | pass |
-| `dart analyze --fatal-infos` | no issues |
-| `dart test` | 16/16 pass |
-| Mutation: removed the family-cancel rule from Dart | agreement test failed as expected; restored |
-| GitHub Actions on `iamnawin/companion` @ `aa37cc8` (M0/M1) | `db-tests` passed, 55/55 |
-| Actions `iamnawin/anuga` run 37745321667 @ `c1468fe` | `db-tests`, `supabase-local` failed: `setup-node@v5` auto-cache looked for pnpm before `corepack enable`. Fixed in `39913c0` (`package-manager-cache: false`) |
-| Actions run 37745477238 @ `39913c0` | `db-tests`, `shared-dart` pass; `supabase-local`: migrations + seed applied, all 60 tests passed, then the step hung (open `pg` connection kept `node --test` alive); run cancelled. Reproduced locally; fixed in `487d409` (`--test-force-exit`, `--test-timeout`, job `timeout-minutes: 20`) |
-| **Actions run 37748137710 @ `487d409`** | **all green**: `db-tests` 57 pass / 3 skipped (PGlite); `shared-dart` pass; **`supabase-local` 60/60 pass, 0 skipped (real Supabase)** |
+| `pnpm install --frozen-lockfile` | pass |
+| `pnpm typecheck` (root) | pass |
+| `pnpm db:test` (PGlite) | 75 tests: 72 pass, 0 fail, 3 skipped (real-Supabase-only) |
+| `supabase db reset` + `pnpm db:test:supabase` (Supabase local in this session, CLI 2.120.0, Postgres 17) | **75/75 pass, 0 skipped** |
+| Mutation: removed the ops guard from `ops_exception_queue` | "family and companions are denied" failed as expected; restored |
+| Phone OTP via GoTrue REST | ops number + `123456` signs in; wrong code `otp_expired`; unknown number `Signups not allowed` |
+| `apps/ops_console`: `pnpm lint`, `pnpm typecheck`, `pnpm build` | pass |
+| `apps/ops_console`: `pnpm test` (Vitest) | 36/36 pass |
+| `apps/ops_console`: `pnpm e2e` (Playwright vs Supabase local) | **6/6 pass**: non-ops account rejected; ops OTP sign-in + assign backup (persisted after reload); ineligible companion rejected with DB message; schedule primary/backup validation + swap; companion-reported issue appears in exception queue and ops resolves it; Telugu/Hindi switch |
+| GitHub Actions on the PR | see the PR checks (recorded below once finished) |
 
 ## Checks NOT run yet
 
-- Real Supabase locally: no Docker on this machine; verified in CI instead (above).
-- Real phone-OTP sign-in via Supabase Auth and private storage bucket policies: not built yet (M3, M8).
-- Android toolchain / `flutter doctor`: not needed until M4.
+- Telugu and Hindi strings have not been reviewed by a native speaker.
+- Ops console on a hosted Supabase project: none exists (gated, M10).
+- Private storage bucket policies and signed URLs: M8.
+- Android toolchain / `flutter doctor`: needed from M4.
 
 ## Blockers and risks
 
-- PGlite (Postgres 18) and Supabase (Postgres 17) agree today; if they diverge, fix in a new
-  migration, never in the shim. `supabase-local` in CI is the authority.
-- Machine notes (not repo): `yt-dlp` installed for the `watch` plugin (still wants an optional
-  Whisper key); some MCP servers failed to connect at session start and were not used; the ruflo
-  hook writes `.claude-flow/` into the current directory (git-ignored).
+- PGlite (Postgres 18) and Supabase (Postgres 17) agree today; `supabase-local` in CI is the authority.
+- PGlite does not serialize JS arrays for enum-array parameters; tests pass array literals (`{a,b}`).
+- Supabase Auth limits OTP requests per number (~5 s locally); the Playwright suite signs in once
+  and reuses the saved session.
+- `[auth.sms.test_otp]` and the fake Twilio values are local-only. A hosted project needs a real
+  SMS provider (founder authorization; paid service) and must not get test OTPs.
 
 ## Exact next task
 
-**M3: ops console** (`docs/TASKS.md` M3), on a feature branch:
-
-1. Scaffold `apps/ops_console` with Next.js + TypeScript as a pnpm workspace package
-   (add `pnpm-workspace.yaml`); keep the root `db:test` scripts working.
-2. Enable phone-OTP sign-in for Supabase local only: `[auth.sms] enable_signup = true` and
-   `[auth.sms.test_otp]` with the synthetic seed numbers (`+919000000001` ops, etc.); no SMS provider.
-3. Screens: schedules list with primary/backup assignment (`ops_assign_schedule_companions`,
-   showing database eligibility errors), trips board by date/status, reassign a scheduled trip
-   (`ops_assign_trip_companion`), exception queue (`issue_reported`, `no_show`, late).
-4. Acceptance: lint + typecheck + unit tests; one browser test of "assign backup to a trip" against
-   Supabase local (add it to the `supabase-local` CI job); update `docs/TASKS.md` and this file.
+**M4: companion app** (`docs/TASKS.md` M4): `apps/companion_app` (Flutter, Android first) using
+`packages/shared_dart` (`CompanionApi`, `TripStateMachine`): today/upcoming from
+`companion_my_trips`, check-in buttons from allowed transitions, OTP entry (`verify_pickup_otp`),
+handover note, return legs, complete with post-visit note, issue report; large tap targets;
+en/te/hi strings. Acceptance: `flutter analyze` clean; widget tests per trip state; integration
+test of the full trip against a fake API client; add a `companion-app` CI job.
 
 ## Continue in Claude Code cloud
 
-Repository: `https://github.com/iamnawin/anuga` (private). Environment setup command:
+Setup command for the cloud environment:
 
 ```sh
-corepack enable && pnpm install --frozen-lockfile && pnpm db:test
+. /opt/nvm/nvm.sh && nvm install 24 && corepack enable && pnpm install --frozen-lockfile && pnpm db:test
 ```
 
-Prompt:
-
-> Read CLAUDE.md and docs/HANDOFF.md. Run `pnpm db:test` and record the result. Then do the
-> "Exact next task" in docs/HANDOFF.md (M3, ops console) on a feature branch named `m3-ops-console`.
-> If Docker is available (`docker --version`), use docs/SETUP.md "Real Supabase verification"
-> Path B for local checks; otherwise rely on the `supabase-local` GitHub Actions job. Run the M3
-> acceptance checks, open a pull request to `main` (do not merge), and update docs/TASKS.md and
-> docs/HANDOFF.md with results and any checks that could not run. Synthetic data and test adapters
-> only; no paid services, production credentials or deployments.
+For Supabase local in a cloud session: `nohup dockerd &` (as root), then `docs/SETUP.md` Path B.

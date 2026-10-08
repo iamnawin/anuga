@@ -16,6 +16,7 @@ Claude Code also reads `CLAUDE.md`, which has the same rules plus architecture n
 pnpm install --frozen-lockfile
 pnpm db:test       # database tests (PGlite + PostGIS, no Docker)
 pnpm typecheck
+cd apps/ops_console && pnpm lint && pnpm typecheck && pnpm test   # ops console
 ```
 
 ## Non-negotiables

@@ -38,14 +38,16 @@ setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tool
 
 ## Architecture
 
-Monorepo. Built so far: `supabase/` and `packages/shared_dart`. Planned: `apps/family_app`,
-`apps/companion_app` (Flutter), `apps/ops_console` (Next.js), `supabase/functions` (Edge Functions).
+Monorepo (pnpm workspace: `apps/*`). Built so far: `supabase/`, `packages/shared_dart`,
+`apps/ops_console` (Next.js). Planned: `apps/family_app`, `apps/companion_app` (Flutter),
+`supabase/functions` (Edge Functions).
 
 The database is the security boundary; apps are thin clients over RPCs:
 
 - **Migrations** (`supabase/migrations/`, applied in filename order):
   `0100` core schema, `0200` grants + RLS + `private.*` helpers, `0300` trip workflow RPCs,
-  `0400` vault with audited reads.
+  `0400` vault with audited reads, `0500` ops console read RPCs (`ops_*_board`, exception queue,
+  companion options).
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,
@@ -67,8 +69,12 @@ The database is the security boundary; apps are thin clients over RPCs:
   the same rules as the migration. Both sides are tested against the committed
   `trip_contract.json`; change SQL, run `pnpm contract:export`, update Dart, run both suites.
 - **Dart API layer** takes an injected `RpcCaller` (apps pass `supabase.rpc`), so the package has no SDK dependency.
-- **Business values** (prices, radius, windows, OTP limits) live in `packages`, `clusters` and
-  `app_settings`, never in code.
+- **Business values** (prices, radius, windows, OTP limits, late threshold) live in `packages`,
+  `clusters` and `app_settings`, never in code.
+- **Auth**: phone OTP. Seed `auth.users` rows are shaped for GoTrue (phone without `+`, non-null
+  token columns); `supabase/config.toml` has local-only test OTPs (`123456`) for the seed numbers.
+- **Ops console** is a client-side Next.js app using the anon key + the user's JWT; it never holds
+  a service-role key. RPC wrappers in `src/lib/api.ts` take an injectable client for tests.
 
 ## Rules for this repo
 

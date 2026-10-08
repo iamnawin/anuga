@@ -100,7 +100,7 @@ $$;
 create function public.ops_exception_queue()
 returns table (
   trip_id uuid, kind text, status public.trip_status, status_before_issue public.trip_status,
-  scheduled_pickup_at timestamptz, patient_name text, centre_name text,
+  scheduled_pickup_at timestamptz, patient_id uuid, patient_name text, centre_name text,
   companion_id uuid, companion_name text, backup_companion_id uuid, backup_companion_name text,
   last_note text, since timestamptz
 )
@@ -115,7 +115,7 @@ begin
   return query
   select t.id,
          case when t.status = 'scheduled' then 'late' else t.status::text end,
-         t.status, t.status_before_issue, t.scheduled_pickup_at, p.full_name, ce.name,
+         t.status, t.status_before_issue, t.scheduled_pickup_at, p.id, p.full_name, ce.name,
          t.companion_id, cp.full_name, s.backup_companion_id, bp.full_name,
          ev.note, coalesce(ev.created_at, t.scheduled_pickup_at)
   from public.trips t
