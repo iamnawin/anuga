@@ -31,16 +31,19 @@ Acceptance: `pnpm install --frozen-lockfile` succeeds; `git status` shows no `.e
 
 Acceptance (all met 2026-10-08): `pnpm db:test` 55/55 pass on PGlite; `pnpm typecheck` clean;
 mutation check (leak vault SELECT, disable companion window) makes tests fail.
-Real Supabase run: tracked as M1a.
+Real Supabase run: passed, see M1a.
 
-## M1a. Real Supabase verification `[~]` pending
+## M1a. Real Supabase verification `[x]`
 
 Run the M1 suite on real Supabase (Postgres 17, real `auth` schema and roles, `storage` schema).
-Prepared: CI job `supabase-local` and `docs/SETUP.md` "Real Supabase verification" (Path A/B);
-`supabase/tests/platform.test.ts` adds storage-privacy and `auth.uid()` checks that skip on PGlite.
+Path: CI job `supabase-local` (`supabase start`, `supabase db reset`, `pnpm db:test:supabase`);
+manual path in `docs/SETUP.md`. `supabase/tests/platform.test.ts` adds storage-privacy, real
+`auth.uid()` and anon-denial checks (skipped on PGlite).
 
-Acceptance: `pnpm db:test:supabase` passes after `supabase db reset` (all tests, 0 skipped);
-result recorded in `docs/HANDOFF.md`. Until then, treat PGlite results as provisional.
+Acceptance (met 2026-10-08, GitHub Actions run 37748137710 on `iamnawin/anuga` @ `487d409`):
+all 4 migrations and the seed applied; `pnpm db:test:supabase` 60/60 pass, 0 skipped.
+Still not covered (arrives with M3/M8): real phone-OTP sign-in through Supabase Auth, private
+bucket policies and signed URLs.
 
 ## M2. Shared Dart package `[x]`
 

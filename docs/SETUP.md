@@ -49,7 +49,7 @@ dart test --name "wrong OTP"                  # one test
 
 ## Real Supabase verification (Docker)
 
-**Status: pending until a passing run is recorded in `docs/HANDOFF.md`.** PGlite results do not count.
+**Status: passing** (GitHub Actions run 37748137710, 60/60, 0 skipped). PGlite results alone do not count; keep `supabase-local` green.
 
 Covers: migrations on Postgres 17 with Supabase's real `auth` schema and roles; every RLS/grant
 test; audited vault reads; `auth.uid()` from request JWT claims; no public storage buckets
