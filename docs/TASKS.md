@@ -59,7 +59,7 @@ Acceptance (met 2026-10-08): `dart test` 16/16; `dart analyze --fatal-infos` cle
 clean; mutation (remove one Dart rule) fails the agreement test; `pnpm db:test` 57 pass, 3 skipped
 (real-Supabase-only), `pnpm typecheck` clean.
 
-## M3. Ops console: assign and monitor `[ ]`
+## M3. Ops console: assign and monitor `[~]`
 
 `apps/ops_console` (Next.js, TypeScript, pnpm). Phone-OTP login against Supabase local
 (`[auth.sms.test_otp]` in `supabase/config.toml` with synthetic numbers; no SMS provider).

@@ -96,3 +96,39 @@ Prompt:
 > acceptance checks, open a pull request to `main` (do not merge), and update docs/TASKS.md and
 > docs/HANDOFF.md with results and any checks that could not run. Synthetic data and test adapters
 > only; no paid services, production credentials or deployments.
+
+## M3 in progress (session 2, 2026-10-08), branch `m3-ops-console`
+
+Done: pnpm workspace (`pnpm-workspace.yaml`), `apps/ops_console` package (Next 16.3.8, React 19.3,
+supabase-js 2.117.3, TS 5.9.3 because Next build and typescript-eslint need the TS JS API that TS 7
+lacks), `src/lib/ops.ts` data layer (queries, RPC commands, exception classification, IST helpers,
+DB error text), `src/lib/ops.test.ts`: `pnpm --filter ops-console test` 13/13 pass.
+Not run yet: lint, typecheck, build, e2e (no UI written yet).
+
+Verified findings for real phone-OTP sign-in (Supabase CLI source, `pkg/config/config.go`):
+- `[auth.sms] enable_signup = false` disables phone login entirely (maps to GOTRUE_EXTERNAL_PHONE_ENABLED).
+- With no SMS provider enabled the CLI forces phone login off ("WARN: no SMS provider is enabled").
+  Fix: enable `[auth.sms.twilio]` with dummy, non-secret `account_sid`/`message_service_sid`
+  (local only; test numbers never reach a provider) plus `[auth.sms.test_otp]` keys without `+`
+  (e.g. `919000000001 = "123456"`).
+- GoTrue stores phones without `+` and looks users up by `instance_id = 00000000-...`, `aud`.
+  Seeded `auth.users` must use `phone = '919000000001'`, `instance_id` nil uuid,
+  `aud`/`role = 'authenticated'`, and `''` for confirmation_token, recovery_token,
+  email_change_token_new, email_change. Add those columns to `supabase/tests/support/supabase_shim.sql`.
+
+Blocker: no Docker on Windows or WSL (sudo needs a password), Supabase CLI not installed; all
+real-Supabase and browser checks must run in CI job `supabase-local`.
+
+### Exact next task
+1. Seed/shim/config changes above; `pnpm db:test` must stay green.
+2. UI (client components, plain CSS, large targets): `/login` (phone + OTP, reject non-ops role),
+   `(console)` layout with auth gate + nav, `/trips` (date/status filter, "Assign backup", reassign
+   select), `/schedules` (primary/backup selects, show DB errors), `/exceptions`.
+3. `e2e/assign-backup.spec.ts` (Playwright): sign in +919000000001/123456, assign Ravi as backup on
+   a trip, assert; assign Far Companion, assert "not eligible" error. Add to `supabase-local` job:
+   env from `supabase status -o env`, `next build`, `playwright install --with-deps chromium`.
+4. Lint, typecheck, PR to `main`, update TASKS.md and this file.
+
+Storage boundary (for M8): passing now on real Supabase: no public buckets, API roles see no
+`storage.objects` rows without a policy. Not built: private vault bucket, its policies, signed URLs
+after `vault_list_documents` authorization, upload from family app.
