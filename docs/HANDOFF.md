@@ -172,6 +172,7 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | Family app Supabase-local tests (journey + vault) | 2/2 pass |
 | M7 journey after M8 | pass |
 | GitHub Actions run 37778744211 @ `38c7265` (M9 server) | **all 6 jobs green** |
+| GitHub Actions run 37780635910 @ `8ea7b88` (M9 final) | **all 6 jobs green**, including the journey with billing on real Supabase |
 | `scripts/check-all.sh` (M9 final) | all passed: PGlite 140 pass / 8 skipped; ops console 52; shared_dart 27; companion 39 + 3 skipped; family 35 + 6 skipped |
 | `pnpm db:test:supabase` (incl. vault and payments functions) | **148/148** |
 | Ops console Playwright (standalone) | 7 pass (+4 journey tests skipped outside the journey) |
