@@ -4,100 +4,88 @@ Last updated: 2026-10-08 (session 1, local Windows machine)
 
 ## Current state
 
-- Milestones **M0 (repo foundation)** and **M1 (database core, permissions, journey in SQL)** are done
-  and verified. See `docs/TASKS.md`.
-- The whole first journey works at the database layer: ops assigns primary/backup (or a single-trip
-  backup) → family sees the booking → companion sets off, verifies the pickup OTP, reaches the
-  centre and hands over → session done → return → dropped home → completed with a post-visit note.
-  Every step writes a `trip_events` row and push + WhatsApp outbox rows for each family member.
-- No app code yet (`apps/` and `packages/` do not exist). No commits yet: the repo is
-  initialized on `main` with everything staged-ready but uncommitted.
+- Done and verified: **M0** (repo foundation), **M1** (database core, permissions, journey in SQL),
+  **M2** (`packages/shared_dart`: models, trip state machine, RPC client, SQL/Dart contract tests).
+- **M1a, real Supabase verification: PENDING.** The CI job `supabase-local` is prepared; the result
+  of its first run is recorded under "Checks run" below once observed.
+- No app code yet (`apps/` does not exist).
+- Repository: **https://github.com/iamnawin/anuga** (private), branch `main`. Remote `origin`.
 
-## Decisions made this session
+## Decisions made
 
-- ADR 0001: build the MVP now, in parallel with the manual pilot; production launch is gated (M10).
+- ADR 0001: build the MVP in parallel with the manual pilot; production launch gated (M10).
 - ADR 0002: grants revoked by default; companions use a restricted, time-windowed projection;
   vault reads only through functions that audit in the same transaction; OTP stored as salted hash.
-- ADR 0003: PGlite (Postgres 18 WASM + PostGIS) is the default test database; real Supabase local
-  is the authoritative run, still pending.
-- Ownership is a `patient_access` row with level `owner` (no `patients.owner_id`).
-- Seed and tests share fixed synthetic ids (`supabase/seed/seed.sql`, `ids` in `supabase/tests/support/db.ts`).
+- ADR 0003: PGlite is the default test database; real Supabase is the authoritative run (M1a).
+- M2: `shared_dart` has no Supabase SDK dependency; APIs take an injected `RpcCaller`.
+  The Dart state machine is built from rules (not copied) and tested against `trip_contract.json`,
+  which `pnpm contract:export` generates from SQL and `pnpm db:test` guards.
+- Repo hosting: `iamnawin/anuga` is the canonical repo (founder instruction). An earlier push went to
+  `iamnawin/companion` (private, same M0/M1 commit); it is kept as remote `companion` and is not
+  updated further. Delete or archive it only on founder request.
 
 ## Completed work
 
-- `.gitignore` (secrets, patient data/exports, `.remember/`, `.claude-flow/`, Supabase temp), `.env.example`.
-- `docs/PRODUCT_SPEC.md` (requirements extracted from the old `CLAUDE.md`), `docs/TASKS.md`,
-  `docs/SETUP.md`, this file, ADRs 0001-0003. `CLAUDE.md` rewritten to point at them; `AGENTS.md` added.
-- `supabase/config.toml` via `supabase init` (project_id `companion`, seed path `./seed/seed.sql`).
-- Migrations `supabase/migrations/20261008000100..0400_*.sql`, seed, tests (55), CI workflow
-  `.github/workflows/db-tests.yml`.
+- M0/M1: see `docs/TASKS.md`; migrations `supabase/migrations/20261008000100..0400_*.sql`, seed, tests.
+- M2: `packages/shared_dart/` (lib, 16 tests, README), `supabase/scripts/export-trip-contract.ts`,
+  `supabase/tests/contract.test.ts`, `supabase/tests/support/contract.ts`.
+- Real-Supabase path: `supabase/tests/platform.test.ts` (storage privacy, real `auth.uid()`, anon
+  denial), CI job `supabase-local`, `docs/SETUP.md` section "Real Supabase verification".
+- CI: `.github/workflows/db-tests.yml` (workflow name `checks`): `db-tests`, `shared-dart`,
+  `supabase-local`; actions bumped to v5 (the v4 Node 20 deprecation warning).
+- Flutter 3.47.6 configured: user PATH + `PUB_CACHE=D:\AI-Workspace\tools\pub-cache`.
 
-## Checks run (exact commands, all on 2026-10-08)
+## Checks run (2026-10-08)
 
 | Command | Result |
 | --- | --- |
-| `pnpm install --frozen-lockfile` | pass |
-| `pnpm typecheck` | pass (TypeScript 7.0.2) |
-| `pnpm db:test` | **55/55 pass**, 11 suites, ~18 s test time (PGlite 0.5.8, Postgres 18.3, PostGIS) |
-| `node --test --test-isolation=none supabase/tests/journey.test.ts` | 18/18 pass |
-| `node --test ... --test-name-pattern="first journey"` / `"locks after"` | 15/15, 1/1 pass |
-| Mutation check: added a SELECT leak on `vitals`; disabled the companion time window | 2 tests failed as expected; files restored |
-| `pnpm dlx supabase@2.120.0 --version` | 2.120.0 |
-| `flutter --version` (at `D:\AI-Workspace\tools\flutter`) | Flutter 3.47.6, Dart 3.13.5 |
+| `pnpm typecheck` | pass |
+| `pnpm db:test` (PGlite) | 57 pass, 0 fail, 3 skipped (real-Supabase-only checks) |
+| `dart format --output=none --set-exit-if-changed lib test` | pass |
+| `dart analyze --fatal-infos` | no issues |
+| `dart test` | 16/16 pass |
+| Mutation: removed the family-cancel rule from Dart | agreement test failed as expected; restored |
+| GitHub Actions on `iamnawin/companion` @ `aa37cc8` (M0/M1) | `db-tests` passed, 55/55 |
 
-## Checks NOT run (and why)
+## Checks NOT run yet
 
-- `pnpm db:test:supabase` / `supabase start` / `supabase db reset`: no Docker on this machine;
-  WSL Ubuntu has no Docker and no passwordless sudo. Migrations have only run on PGlite (PG 18),
-  not Supabase's Postgres 17 with the real `auth` schema.
-- GitHub Actions workflow: never executed (repo not pushed).
-- `flutter doctor` / Android toolchain: not needed until M4; not checked.
+- **M1a real Supabase run**: not run locally (no Docker on this machine). First attempt is the
+  `supabase-local` CI job on the push of this commit.
+- Android toolchain / `flutter doctor`: not needed until M4.
 
 ## Blockers and risks
 
-- **Push to GitHub needs the founder**: creating a private repo is an outward-facing action. Cloud
-  sessions cannot start until the repo is on GitHub.
-- PGlite vs Supabase differences may surface on first real run (PostGIS schema, `auth.users` columns,
-  default privileges). Fix in a migration, not in the shim.
-- Environment notes (machine, not repo): the `watch` plugin's missing `yt-dlp` was installed with
-  `uv tool install yt-dlp`; the plugin still reports `needs_key` (optional Groq/OpenAI Whisper key,
-  left unset on purpose). The `remember` plugin logs "promo skipped: unknown gate" (harmless plugin
-  config parsing; not changed). MCP servers that failed to connect at session start (context7,
-  playwright, chrome-devtools, github plugin "Authorization header is badly formatted", ruflo) were
-  not used and not modified. The ruflo hook writes `.claude-flow/` into the current directory; it is git-ignored.
+- PGlite (Postgres 18) vs Supabase (Postgres 17) differences may surface in `supabase-local`.
+  Fix in a new migration, never in the shim.
+- Machine notes (not repo): `yt-dlp` installed for the `watch` plugin (still wants an optional
+  Whisper key); some MCP servers failed to connect at session start and were not used; the ruflo
+  hook writes `.claude-flow/` into the current directory (git-ignored).
 
 ## Exact next task
 
-**M2: `packages/shared_dart`** (see `docs/TASKS.md` M2 acceptance):
-
-1. `flutter create --template=package packages/shared_dart` (or `dart create -t package`), add to repo.
-2. Model `TripStatus` and the transition table; add a test that compares it with the SQL rows in
-   `supabase/migrations/20261008000300_trip_workflow.sql` (write a small script that exports
-   `select * from public.trip_transitions` from the PGlite harness to
-   `packages/shared_dart/test/fixtures/trip_transitions.json`, and commit the fixture).
-3. Typed wrappers for the M1 RPCs (`companion_my_trips`, `family_trip_board`, `advance_trip`,
-   `verify_pickup_otp`, `issue_pickup_otp`, ops assignment), behind an interface with a fake for tests.
-4. Run `dart analyze` and `dart test`; update `docs/TASKS.md` and this file.
-
-Before M2, if the session has Docker: run the "Optional: real Supabase local" steps in `docs/SETUP.md`
-and record the result here.
-
-## Commit-ready checkpoint (run locally)
-
-```sh
-git status                      # expect only project files; no .env, .remember/, .claude-flow/, node_modules/
-git add -A
-git commit -m "feat: database core, permissions and first journey (M0, M1)"
-```
+1. **Finish M1a**: open the latest `checks` run on `main`
+   (`gh run list --repo iamnawin/anuga --workflow checks --limit 1`). If `supabase-local` failed,
+   fix the cause with a new migration or harness change, re-run, and record the result here.
+2. Then **M3: ops console** (`docs/TASKS.md` M3): scaffold `apps/ops_console` with Next.js +
+   TypeScript (pnpm workspace), phone-OTP login against Supabase local using
+   `[auth.sms.test_otp]` with synthetic numbers (no SMS provider), schedules list with
+   primary/backup assignment, trips board, reassign a scheduled trip, exception queue.
+   Acceptance: lint + typecheck + unit tests; one browser test of "assign backup to a trip".
 
 ## Continue in Claude Code cloud
 
-1. Create a **private** GitHub repo and push (founder action):
-   `gh repo create <owner>/companion --private --source . --remote origin --push`
-2. In the cloud environment settings, use the setup command from `docs/SETUP.md`:
-   `corepack enable && pnpm install --frozen-lockfile && pnpm db:test`
-3. Start a cloud session on that repo with:
-   > Read CLAUDE.md and docs/HANDOFF.md. Run `pnpm db:test` and record the result. If Docker is
-   > available, run the real Supabase local checks from docs/SETUP.md first. Then do the exact next
-   > task in docs/HANDOFF.md, run its acceptance checks, and update docs/TASKS.md and docs/HANDOFF.md.
-   > Work on a feature branch; do not deploy or enable paid services.
+Repository: `https://github.com/iamnawin/anuga` (private). Environment setup command:
+
+```sh
+corepack enable && pnpm install --frozen-lockfile && pnpm db:test
+```
+
+Prompt:
+
+> Read CLAUDE.md and docs/HANDOFF.md. Run `pnpm db:test` and record the result. Check whether
+> Docker is available (`docker --version`); if it is, run the "Real Supabase verification" Path B
+> from docs/SETUP.md, otherwise read the latest `supabase-local` job result from GitHub Actions.
+> Complete M1a if it is not done, then implement M3 (ops console) per docs/TASKS.md on a feature
+> branch, run its acceptance checks, and update docs/TASKS.md and docs/HANDOFF.md with results and
+> checks that could not run. Synthetic data and test adapters only; no paid services, production
+> credentials or deployments.

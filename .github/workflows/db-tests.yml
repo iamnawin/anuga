@@ -1,4 +1,4 @@
-name: db-tests
+name: checks
 
 on:
   push:
@@ -9,11 +9,48 @@ jobs:
   db-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm db:test
+
+  shared-dart:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/shared_dart
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: 3.13.5
+      - run: dart pub get
+      - run: dart format --output=none --set-exit-if-changed lib test
+      - run: dart analyze --fatal-infos
+      - run: dart test
+
+  # Authoritative run on real Supabase (Postgres 17, real auth schema and roles,
+  # storage schema) using Docker on the GitHub runner. No hosted project, no secrets.
+  supabase-local:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.120.0
+      - run: supabase start -x studio,edge-runtime,logflare,vector,imgproxy
+      - run: supabase db reset
+      - run: pnpm db:test:supabase
+      - if: always()
+        run: supabase stop --no-backup

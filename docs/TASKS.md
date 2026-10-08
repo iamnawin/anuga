@@ -31,19 +31,30 @@ Acceptance: `pnpm install --frozen-lockfile` succeeds; `git status` shows no `.e
 
 Acceptance (all met 2026-10-08): `pnpm db:test` 55/55 pass on PGlite; `pnpm typecheck` clean;
 mutation check (leak vault SELECT, disable companion window) makes tests fail.
-Not yet run: same suite on real Supabase local (`pnpm db:test:supabase`), needs Docker.
+Real Supabase run: tracked as M1a.
 
-## M2. Shared Dart package `[ ]`
+## M1a. Real Supabase verification `[~]` pending
 
-`packages/shared_dart`: models (Trip, TripStatus, Schedule, CompanionTrip, FamilyBoardRow),
-trip state machine mirroring `trip_transitions`, Supabase API client wrapper for the M1 RPCs.
+Run the M1 suite on real Supabase (Postgres 17, real `auth` schema and roles, `storage` schema).
+Prepared: CI job `supabase-local` and `docs/SETUP.md` "Real Supabase verification" (Path A/B);
+`supabase/tests/platform.test.ts` adds storage-privacy and `auth.uid()` checks that skip on PGlite.
 
-Acceptance:
-- `dart test` passes in `packages/shared_dart`.
-- A test proves the Dart transition table equals the SQL seed in
-  `supabase/migrations/20261008000300_trip_workflow.sql` (export the SQL table to
-  `packages/shared_dart/test/fixtures/trip_transitions.json` via a script, or parse it).
-- `dart analyze` clean.
+Acceptance: `pnpm db:test:supabase` passes after `supabase db reset` (all tests, 0 skipped);
+result recorded in `docs/HANDOFF.md`. Until then, treat PGlite results as provisional.
+
+## M2. Shared Dart package `[x]`
+
+- [x] `packages/shared_dart` (pure Dart, no SDK dependency): `TripStatus`, `TransitionActor`,
+      `TripStateMachine`, models for every M1 RPC result, `CompanionApi` / `FamilyApi` / `OpsApi`
+      over an injected `RpcCaller`
+- [x] Contract: `pnpm contract:export` writes `test/fixtures/trip_contract.json` from SQL;
+      `supabase/tests/contract.test.ts` fails on SQL drift; Dart test fails on Dart drift
+- [x] Flutter SDK configured (user PATH, `PUB_CACHE` on D:), commands documented in `docs/SETUP.md`
+- [x] CI: `shared-dart` job (format, analyze --fatal-infos, test); actions bumped to v5
+
+Acceptance (met 2026-10-08): `dart test` 16/16; `dart analyze --fatal-infos` clean; format check
+clean; mutation (remove one Dart rule) fails the agreement test; `pnpm db:test` 57 pass, 3 skipped
+(real-Supabase-only), `pnpm typecheck` clean.
 
 ## M3. Ops console: assign and monitor `[ ]`
 

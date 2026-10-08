@@ -22,17 +22,24 @@ pnpm db:test            # all DB tests on PGlite + PostGIS (no Docker), ~30 s
 pnpm typecheck          # tsc over supabase/tests
 node --test --test-isolation=none supabase/tests/vault.test.ts                                   # one file
 node --test --test-isolation=none --test-name-pattern="locks after" "supabase/tests/*.test.ts"    # one test
-pnpm db:test:supabase   # same tests against real Supabase local (needs Docker + DATABASE_URL in .env)
+pnpm db:test:supabase   # same tests against real Supabase local (needs Docker + DATABASE_URL)
+pnpm contract:export    # regenerate packages/shared_dart/test/fixtures/trip_contract.json from SQL
+
+# packages/shared_dart (run inside that folder)
+dart pub get && dart analyze --fatal-infos && dart test
+dart test test/trip_state_machine_test.dart          # one file
+dart test --name "wrong OTP"                          # one test
 ```
 
 `--test-isolation=none` is required: all files share one in-process database. The `first journey`
 suite is sequential; filter it by suite name, not by step. Tool versions and Flutter/Supabase local
-setup: `docs/SETUP.md`. Flutter is installed at `D:\AI-Workspace\tools\flutter` (not on PATH).
+setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tools\flutter\bin`
+(on the user PATH; open a new terminal) with `PUB_CACHE=D:\AI-Workspace\tools\pub-cache`.
 
 ## Architecture
 
-Monorepo. Built so far: `supabase/` only. Planned: `apps/family_app`, `apps/companion_app` (Flutter),
-`apps/ops_console` (Next.js), `packages/shared_dart`, `supabase/functions` (Edge Functions).
+Monorepo. Built so far: `supabase/` and `packages/shared_dart`. Planned: `apps/family_app`,
+`apps/companion_app` (Flutter), `apps/ops_console` (Next.js), `supabase/functions` (Edge Functions).
 
 The database is the security boundary; apps are thin clients over RPCs:
 
@@ -56,6 +63,10 @@ The database is the security boundary; apps are thin clients over RPCs:
 - **Tests** (`supabase/tests/`): `support/db.ts` boots PGlite with `support/supabase_shim.sql`
   (auth schema, API roles, Supabase default grants), all migrations and `supabase/seed/seed.sql`.
   `asUser` commits like a real request; `probeAsUser` rolls back. Seed ids are in `ids`.
+- **SQL/Dart contract**: `TripStateMachine` in `packages/shared_dart` rebuilds the transitions from
+  the same rules as the migration. Both sides are tested against the committed
+  `trip_contract.json`; change SQL, run `pnpm contract:export`, update Dart, run both suites.
+- **Dart API layer** takes an injected `RpcCaller` (apps pass `supabase.rpc`), so the package has no SDK dependency.
 - **Business values** (prices, radius, windows, OTP limits) live in `packages`, `clusters` and
   `app_settings`, never in code.
 

@@ -26,30 +26,51 @@ The `first journey` suite is a sequence of dependent steps; filter it by its sui
 `--test-isolation=none` makes all test files share one in-process database (PostGIS takes ~15 s
 to load). Tests create their own trips; they do not depend on run order across files.
 
-## Required from milestone M3/M4 (apps)
+## Flutter / Dart (M2 onward)
 
 | Tool | Verified version | Check | Install |
 | --- | --- | --- | --- |
-| Flutter (stable) | 3.47.6, Dart 3.13.5 | `flutter --version` | Windows (no admin): `git clone --depth 1 -b stable https://github.com/flutter/flutter.git D:\AI-Workspace\tools\flutter` and add `D:\AI-Workspace\tools\flutter\bin` to PATH |
-| Android SDK / Studio | not installed | `flutter doctor` | Needed only to run on a device/emulator, not for `flutter test` |
+| Flutter (stable) | 3.47.6, Dart 3.13.5 | `flutter --version` | Windows (no admin): `git clone --depth 1 -b stable https://github.com/flutter/flutter.git D:\AI-Workspace\tools\flutter` |
+| Android SDK / Studio | not installed | `flutter doctor` | Needed only to run apps on a device/emulator (M4+), not for `dart test` |
 
-On this machine Flutter lives at `D:\AI-Workspace\tools\flutter` and is **not yet on PATH**.
-Set `PUB_CACHE=D:\AI-Workspace\tools\pub-cache` to keep the package cache off `C:\Users`.
-
-## Optional: real Supabase local (authoritative database run)
-
-Needs Docker (Docker Desktop on Windows, or Docker Engine on Linux/cloud). Not installed on
-the founder's machine; WSL Ubuntu exists but has no Docker and no passwordless sudo.
+Configured on this machine (2026-10-08, user scope, reversible): `D:\AI-Workspace\tools\flutter\bin`
+appended to the user `Path`, and `PUB_CACHE=D:\AI-Workspace\tools\pub-cache`. Open a new terminal
+for them to take effect. Analytics disabled (`flutter --disable-analytics`, `dart --disable-analytics`).
 
 ```sh
-pnpm dlx supabase@2.120.0 start          # pulls Postgres 17 + Supabase services (Docker)
-pnpm dlx supabase@2.120.0 db reset       # applies supabase/migrations + supabase/seed/seed.sql
-cp .env.example .env                    # set DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres
-pnpm db:test:supabase                   # same tests against real Supabase
+cd packages/shared_dart
+dart pub get
+dart format --output=none --set-exit-if-changed lib test
+dart analyze --fatal-infos
+dart test                                     # 16 tests
+dart test test/trip_state_machine_test.dart   # one file
+dart test --name "wrong OTP"                  # one test
 ```
 
-Supabase CLI 2.120.0 was verified via `pnpm dlx` (`supabase --version`); `supabase init` generated
-`supabase/config.toml`. `supabase start` has **not** been run anywhere yet.
+## Real Supabase verification (Docker)
+
+**Status: pending until a passing run is recorded in `docs/HANDOFF.md`.** PGlite results do not count.
+
+Covers: migrations on Postgres 17 with Supabase's real `auth` schema and roles; every RLS/grant
+test; audited vault reads; `auth.uid()` from request JWT claims; no public storage buckets
+(`supabase/tests/platform.test.ts`, skipped on PGlite). Real phone-OTP sign-in through Supabase
+Auth and private-bucket signed URLs are added with M3 and M8.
+
+**Path A, GitHub Actions (no local Docker needed):** job `supabase-local` in
+`.github/workflows/db-tests.yml` runs on every push to `main` and every PR:
+`supabase start -x studio,edge-runtime,logflare,vector,imgproxy`, then `supabase db reset`, then
+`pnpm db:test:supabase` with `DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres`.
+
+**Path B, any machine or cloud session with Docker:**
+
+```sh
+pnpm dlx supabase@2.120.0 start
+pnpm dlx supabase@2.120.0 db reset          # migrations + supabase/seed/seed.sql
+DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres pnpm db:test:supabase
+pnpm dlx supabase@2.120.0 stop --no-backup
+```
+
+Tests commit data; run `db reset` before each run against the same local stack.
 
 ## Secrets and data
 

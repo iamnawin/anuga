@@ -1,0 +1,329 @@
+{
+  "trip_status": [
+    "scheduled",
+    "companion_en_route",
+    "picked_up",
+    "at_centre",
+    "handed_over",
+    "session_done",
+    "returning",
+    "dropped_home",
+    "completed",
+    "cancelled",
+    "no_show",
+    "issue_reported"
+  ],
+  "transition_actor": [
+    "companion",
+    "ops",
+    "family"
+  ],
+  "transitions": [
+    {
+      "from": "scheduled",
+      "to": "companion_en_route",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "scheduled",
+      "to": "no_show",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "companion_en_route",
+      "to": "picked_up",
+      "actor": "companion",
+      "requires_otp": true
+    },
+    {
+      "from": "companion_en_route",
+      "to": "no_show",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "companion_en_route",
+      "to": "issue_reported",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "picked_up",
+      "to": "at_centre",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "picked_up",
+      "to": "issue_reported",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "at_centre",
+      "to": "handed_over",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "at_centre",
+      "to": "issue_reported",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "handed_over",
+      "to": "session_done",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "handed_over",
+      "to": "issue_reported",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "session_done",
+      "to": "returning",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "session_done",
+      "to": "issue_reported",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "returning",
+      "to": "dropped_home",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "returning",
+      "to": "issue_reported",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "dropped_home",
+      "to": "completed",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "dropped_home",
+      "to": "issue_reported",
+      "actor": "companion",
+      "requires_otp": false
+    },
+    {
+      "from": "scheduled",
+      "to": "cancelled",
+      "actor": "family",
+      "requires_otp": false
+    },
+    {
+      "from": "scheduled",
+      "to": "companion_en_route",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "scheduled",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "scheduled",
+      "to": "no_show",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "companion_en_route",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "companion_en_route",
+      "to": "no_show",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "companion_en_route",
+      "to": "issue_reported",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "picked_up",
+      "to": "at_centre",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "picked_up",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "picked_up",
+      "to": "issue_reported",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "at_centre",
+      "to": "handed_over",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "at_centre",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "at_centre",
+      "to": "issue_reported",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "handed_over",
+      "to": "session_done",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "handed_over",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "handed_over",
+      "to": "issue_reported",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "session_done",
+      "to": "returning",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "session_done",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "session_done",
+      "to": "issue_reported",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "returning",
+      "to": "dropped_home",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "returning",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "returning",
+      "to": "issue_reported",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "dropped_home",
+      "to": "completed",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "dropped_home",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "dropped_home",
+      "to": "issue_reported",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "companion_en_route",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "picked_up",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "at_centre",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "handed_over",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "session_done",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "returning",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "dropped_home",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "completed",
+      "actor": "ops",
+      "requires_otp": false
+    },
+    {
+      "from": "issue_reported",
+      "to": "cancelled",
+      "actor": "ops",
+      "requires_otp": false
+    }
+  ]
+}
