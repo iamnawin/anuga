@@ -394,8 +394,16 @@ inspector_port = 8083
 # The Deno major version to use.
 deno_version = 2
 
-# [edge_runtime.secrets]
-# secret_key = "env(SECRET_VALUE)"
+# LOCAL DEVELOPMENT ONLY. The payments functions use the `test` adapter; the webhook
+# secret below is a placeholder used to sign simulated webhooks in tests. Hosted projects
+# set real values with `supabase secrets set` (never in this file).
+[edge_runtime.secrets]
+PAYMENTS_ADAPTER = "test"
+PAYMENTS_WEBHOOK_SECRET = "local-test-webhook-signing-key-not-real"
+
+# Provider webhooks cannot send a user JWT; the body signature authenticates them.
+[functions.payments-webhook]
+verify_jwt = false
 
 [analytics]
 enabled = true

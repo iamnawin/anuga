@@ -51,6 +51,20 @@ export function languageOf(value: string | null | undefined): Language {
   return value === 'te' || value === 'hi' ? value : 'en';
 }
 
+const BILL: Record<Language, { title: string; body: (month: string, amount: string) => string }> = {
+  en: { title: 'Your bill is ready', body: (m, a) => `Bill for ${m}: ${a}. Open the app to see it.` },
+  te: { title: 'మీ బిల్లు సిద్ధంగా ఉంది', body: (m, a) => `${m} బిల్లు: ${a}. చూడటానికి యాప్ తెరవండి.` },
+  hi: { title: 'आपका बिल तैयार है', body: (m, a) => `${m} का बिल: ${a}। देखने के लिए ऐप खोलें।` },
+};
+
+const LOCALES: Record<Language, string> = { en: 'en-IN', te: 'te-IN', hi: 'hi-IN' };
+
+// Amounts are stored in paise; shown as rupees with Indian digit grouping.
+export function formatRupees(paise: number, lang: Language): string {
+  return new Intl.NumberFormat(LOCALES[lang], { style: 'currency', currency: 'INR', maximumFractionDigits: 2 })
+    .format(paise / 100);
+}
+
 const NOTE_HINT: Record<Language, string> = {
   en: 'Open the app to read the companion\'s note.',
   te: 'సహచరుల గమనిక చదవడానికి యాప్ తెరవండి.',
@@ -71,6 +85,13 @@ export function render(template: string, payload: Record<string, unknown>, langu
       body: [status ?? TEXT.trip_update[lang].title, hasNote ? NOTE_HINT[lang] : null].filter(Boolean).join(' '),
     };
   }
+  if (template === 'invoice_issued') {
+    const paise = Number(payload.total_paise);
+    const start = typeof payload.period_start === 'string' ? new Date(`${payload.period_start}T00:00:00Z`) : null;
+    if (!Number.isFinite(paise) || !start || Number.isNaN(start.getTime())) throw new UnknownTemplateError(template);
+    const month = new Intl.DateTimeFormat(LOCALES[lang], { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(start);
+    return { title: BILL[lang].title, body: BILL[lang].body(month, formatRupees(paise, lang)) };
+  }
   const text = TEXT[template]?.[lang];
   if (!text) throw new UnknownTemplateError(template);
   return text;
@@ -83,5 +104,5 @@ export class UnknownTemplateError extends Error {
   }
 }
 
-export const TEMPLATES = ['trip_status_changed', ...Object.keys(TEXT).filter((k) => k !== 'trip_update')];
+export const TEMPLATES = ['trip_status_changed', 'invoice_issued', ...Object.keys(TEXT).filter((k) => k !== 'trip_update')];
 export const STATUSES = Object.keys(STATUS);

@@ -31,7 +31,8 @@ describe('render', () => {
   test('every template and status has text in en, te and hi', () => {
     for (const lang of ['en', 'te', 'hi']) {
       for (const template of TEMPLATES) {
-        const payload = template === 'trip_status_changed' ? { to_status: 'completed' } : {};
+        const payload = template === 'trip_status_changed' ? { to_status: 'completed' }
+          : template === 'invoice_issued' ? { total_paise: 480000, period_start: '2026-10-01' } : {};
         const m = render(template, payload, lang);
         assert.ok(m.title.trim() && m.body.trim(), `${lang} ${template}`);
       }
@@ -57,6 +58,12 @@ describe('render', () => {
     // The system's own pickup note is not a companion note.
     assert.equal(render('trip_status_changed', { to_status: 'picked_up', note: 'pickup OTP verified' }, 'en').body,
       'Picked up from home');
+  });
+
+  test('bills show the month and the amount in rupees with Indian grouping', () => {
+    assert.equal(render('invoice_issued', { total_paise: 12345600, period_start: '2026-10-01' }, 'en').body,
+      'Bill for October 2026: ₹1,23,456.00. Open the app to see it.');
+    assert.throws(() => render('invoice_issued', { total_paise: 'x' }, 'en'), UnknownTemplateError);
   });
 
   test('unknown templates are an error, not a blank message', () => {
