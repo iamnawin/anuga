@@ -75,7 +75,12 @@ void main() {
     while (status != TripStatus.droppedHome) {
       status = await tapNext(api, tripId, status);
     }
-    status = await tapNext(api, tripId, status, note: 'Session went well; patient comfortable on the way home (synthetic)');
+    status = await tapNext(
+      api,
+      tripId,
+      status,
+      note: 'Session went well; patient comfortable on the way home (synthetic)',
+    );
     expect(status, TripStatus.completed);
   });
 }

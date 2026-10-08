@@ -66,7 +66,8 @@ insert into public.patient_access (patient_id, user_id, access_level, granted_by
   ('70000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000002', 'viewer', '20000000-0000-0000-0000-000000000001');
 
 insert into public.consents (user_id, patient_id, purpose) values
-  ('20000000-0000-0000-0000-000000000001', '70000000-0000-0000-0000-000000000001', 'trips');
+  ('20000000-0000-0000-0000-000000000001', '70000000-0000-0000-0000-000000000001', 'trips'),
+  ('20000000-0000-0000-0000-000000000001', '70000000-0000-0000-0000-000000000001', 'vault');
 
 insert into public.vault_documents (patient_id, doc_type, title, storage_path, uploaded_by) values
   ('70000000-0000-0000-0000-000000000001', 'lab_report', 'Monthly labs (synthetic)',
