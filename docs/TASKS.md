@@ -169,10 +169,26 @@ against the stale function). CI: the journey runs at the end of `supabase-local`
 `journey` artifact. Flutter UIs on a device/emulator are not part of the run (no Android SDK in the
 cloud session); their widgets are covered by the M4/M5 widget tests.
 
-## M8. Vault UI and storage `[ ]`
+## M8. Vault UI and storage `[x]`
 
-Private storage bucket, upload via family app, signed URLs issued only after `vault_list_documents`
-authorization (audited). Consent screens per purpose with withdraw.
+- [x] Migration `0800_vault_storage.sql`: private bucket `vault` (10 MB; JPEG/PNG/WebP/PDF; no
+      object policies for app roles); `vault_create_document` (owner/editor + owner's vault
+      consent; server-generated path; direct inserts revoked), `vault_upload_target`,
+      `vault_mark_uploaded` (service role), `vault_document_download` (audited vault read, URL
+      lifetime from `app_settings`); vault writes need the owner's vault consent;
+      `family_consents`, `set_consent` (owner only, audited).
+- [x] Edge Function `vault-files`: authorizes as the caller, then signs upload/download URLs.
+- [x] Family app: Records tab (list, add report photo, view image via signed URL, pending state),
+      Privacy and consent screen (per-purpose switches, confirm on withdraw), en/te/hi.
+- [ ] PDF upload/view in the app: needs a file picker / viewer package (founder decision, see HANDOFF).
+- [ ] Deleting existing vault data on withdrawal: the backlog deletion job (retention decision).
+
+Acceptance (met 2026-10-08): SQL `vault_storage.test.ts` 11 (allowed/denied for every rule);
+`vault_files_unit.test.ts` 6; `vault_files_function.test.ts` on Supabase local (upload -> confirm
+-> viewer download, bytes match, read audited, companion/ops/anon refused, no direct or public
+storage access, no overwrite); family app widget tests (access level x consent, upload sequence,
+viewer, consent switches) and its Supabase-local vault test. `pnpm db:test` 120 pass / 6 skipped;
+`pnpm db:test:supabase` 126/126; M7 journey still passes.
 
 ## M9. Payments (test mode) `[ ]`
 

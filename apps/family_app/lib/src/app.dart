@@ -3,16 +3,27 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../l10n/generated/app_localizations.dart';
+import 'photo_source.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
+import 'vault_files.dart';
 
 /// Root widget. [api] and [auth] are injected so tests can run the whole app
 /// against fakes; `main.dart` passes the Supabase-backed versions.
 class FamilyApp extends StatefulWidget {
-  const FamilyApp({super.key, required this.api, required this.auth, this.initialLocale = const Locale('en')});
+  const FamilyApp({
+    super.key,
+    required this.api,
+    required this.auth,
+    required this.files,
+    required this.photos,
+    this.initialLocale = const Locale('en'),
+  });
 
   final FamilyApi api;
   final PhoneAuth auth;
+  final VaultFiles files;
+  final PhotoSource photos;
   final Locale initialLocale;
 
   @override
@@ -41,6 +52,8 @@ class _FamilyAppState extends State<FamilyApp> {
       home: _signedIn
           ? HomeScreen(
               api: widget.api,
+              files: widget.files,
+              photos: widget.photos,
               onLocaleChanged: _setLocale,
               onSignOut: () async {
                 await widget.auth.signOut();

@@ -25,6 +25,7 @@ node --test --test-isolation=none --test-name-pattern="locks after" "supabase/te
 pnpm db:test:supabase   # same tests against real Supabase local (needs Docker + DATABASE_URL)
 pnpm contract:export    # regenerate packages/shared_dart/test/fixtures/trip_contract.json from SQL
 scripts/e2e-journey.sh  # M7 journey across apps on Supabase local (see docs/SETUP.md)
+scripts/check-all.sh    # every fast CI check (no Docker): run before each push
 
 # packages/shared_dart (run inside that folder)
 dart pub get && dart analyze --fatal-infos && dart test
@@ -48,7 +49,8 @@ setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tool
 
 Monorepo (pnpm workspace: `apps/*`). Built so far: `supabase/`, `packages/shared_dart`,
 `apps/ops_console` (Next.js), `apps/companion_app` and `apps/family_app` (Flutter).
-`supabase/functions/notify-dispatch` (Edge Function, notification outbox).
+`supabase/functions/notify-dispatch` (notification outbox) and `supabase/functions/vault-files`
+(signed URLs for the private vault bucket).
 
 The database is the security boundary; apps are thin clients over RPCs:
 
@@ -56,7 +58,8 @@ The database is the security boundary; apps are thin clients over RPCs:
   `0100` core schema, `0200` grants + RLS + `private.*` helpers, `0300` trip workflow RPCs,
   `0400` vault with audited reads, `0500` ops console read RPCs (`ops_*_board`, exception queue,
   companion options), `0600` family read RPCs (patients with access level, timeline, inbox),
-  `0700` notification dispatch (service-role claim/mark RPCs, `notification_deliveries`).
+  `0700` notification dispatch (service-role claim/mark RPCs, `notification_deliveries`),
+  `0800` vault storage (private bucket, server-generated paths, signed-URL RPCs) and consents.
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,
@@ -86,6 +89,8 @@ The database is the security boundary; apps are thin clients over RPCs:
   `TripStateMachine`; Postgres errors become `RpcException` in `lib/src/supabase_rpc.dart` only.
 - **Notifications**: `apply_transition()` writes the outbox; `notify-dispatch` drains it with
   the service role. Adapters default to `test`; live providers are gated and not implemented.
+- **Vault files**: no storage policies for app roles. `vault-files` asks the database as the caller,
+  then signs URLs with the service role. Vault writes need the owner's `vault` consent.
 - **Ops console** is a client-side Next.js app using the anon key + the user's JWT; it never holds
   a service-role key. RPC wrappers in `src/lib/api.ts` take an injectable client for tests.
 

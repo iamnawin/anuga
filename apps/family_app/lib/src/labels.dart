@@ -29,3 +29,11 @@ String describeError(AppLocalizations l10n, Object error) {
   if (error is RpcException && error.isStepNotPossible) return l10n.errorStepNotPossible;
   return l10n.errorGeneric;
 }
+
+String docTypeLabel(AppLocalizations l10n, String type) => switch (type) {
+  'lab_report' => l10n.docTypeLabReport,
+  'prescription' => l10n.docTypePrescription,
+  'discharge_summary' => l10n.docTypeDischargeSummary,
+  'receipt' => l10n.docTypeReceipt,
+  _ => l10n.docTypeOther,
+};

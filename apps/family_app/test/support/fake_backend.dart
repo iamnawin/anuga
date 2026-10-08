@@ -1,3 +1,7 @@
+import 'dart:typed_data';
+
+import 'package:family_app/src/photo_source.dart';
+import 'package:family_app/src/vault_files.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 /// In-memory stand-in for the family RPCs, applying the same rules as SQL:
@@ -10,6 +14,12 @@ class FakeFamilyBackend {
   final patients = <String, String>{'p1': 'Lakshmi Rao (synthetic)'};
   final Map<String, FakeVisit> visits = {};
   final List<Map<String, Object?>> inbox = [];
+  final List<Map<String, Object?>> documents = [];
+  final Map<ConsentPurpose, bool> consentState = {
+    ConsentPurpose.trips: true,
+    ConsentPurpose.vault: true,
+    ConsentPurpose.opsVaultAccess: false,
+  };
   final List<String> calls = [];
   int _codes = 0;
   int _events = 0;
@@ -52,6 +62,24 @@ class FakeFamilyBackend {
         return v.toTripRow();
       case 'my_notifications':
         return inbox.reversed.toList();
+      case 'vault_list_documents':
+        _patient(params['p_patient_id']! as String);
+        return documents.reversed.toList();
+      case 'family_consents':
+        _patient(params['p_patient_id']! as String);
+        return [
+          for (final e in consentState.entries)
+            {
+              'purpose': e.key.dbValue,
+              'active': e.value,
+              'granted_at': e.value ? '2026-10-01T04:30:00+00:00' : null,
+              'can_change': level == AccessLevel.owner,
+            },
+        ];
+      case 'set_consent':
+        if (level != AccessLevel.owner) throw const RpcException('42501', 'only the owner can change consents');
+        final purpose = ConsentPurpose.fromDb(params['p_purpose']! as String);
+        return consentState[purpose] = params['p_active']! as bool;
       default:
         throw UnsupportedError('fake backend has no $function');
     }
@@ -162,4 +190,74 @@ class FakePhoneAuth implements PhoneAuth {
 
   @override
   Future<void> signOut() async => _signedInAs = null;
+}
+
+/// Records the vault-files calls and applies the same rules as the function +
+/// database: edit access and the owner's vault consent to upload.
+class FakeVaultFiles implements VaultFiles {
+  FakeVaultFiles(this.backend);
+
+  final FakeFamilyBackend backend;
+  final List<String> calls = [];
+  final Map<String, Uint8List> stored = {};
+  int _n = 0;
+
+  @override
+  Future<({String documentId, Uri uploadUrl})> startUpload({
+    required String patientId,
+    required String docType,
+    required String title,
+    required String contentType,
+    required int sizeBytes,
+  }) async {
+    calls.add('start:$docType:$title:$contentType:$sizeBytes');
+    if (!backend.level.canChangeTrips || backend.consentState[ConsentPurpose.vault] != true) {
+      throw const RpcException('42501', 'not allowed');
+    }
+    final id = 'doc-${++_n}';
+    backend.documents.add({
+      'id': id,
+      'patient_id': patientId,
+      'doc_type': docType,
+      'title': title,
+      'storage_path': '$patientId/$id.png',
+      'uploaded_by': 'owner',
+      'created_at': '2026-10-08T06:00:00+00:00',
+      'status': 'pending_upload',
+      'content_type': contentType,
+      'size_bytes': sizeBytes,
+    });
+    return (
+      documentId: id,
+      uploadUrl: Uri.parse('http://127.0.0.1:54321/storage/v1/object/upload/sign/vault/$id?token=t'),
+    );
+  }
+
+  @override
+  Future<void> putFile(Uri uploadUrl, Uint8List bytes, String contentType) async {
+    calls.add('put:${uploadUrl.path}:${bytes.length}');
+    stored[uploadUrl.path] = bytes;
+  }
+
+  @override
+  Future<void> confirm(String documentId) async {
+    calls.add('confirm:$documentId');
+    backend.documents.firstWhere((d) => d['id'] == documentId)['status'] = 'uploaded';
+  }
+
+  @override
+  Future<Uri> downloadUrl(String documentId) async {
+    calls.add('download:$documentId');
+    return Uri.parse('http://127.0.0.1:54321/storage/v1/object/sign/vault/$documentId?token=d');
+  }
+}
+
+class FakePhotoSource implements PhotoSource {
+  final List<bool> requests = [];
+
+  @override
+  Future<PickedPhoto?> pick({required bool camera}) async {
+    requests.add(camera);
+    return PickedPhoto(bytes: Uint8List.fromList(List.filled(2048, 7)), contentType: 'image/jpeg');
+  }
 }

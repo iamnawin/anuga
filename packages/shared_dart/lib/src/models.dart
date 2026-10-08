@@ -263,3 +263,78 @@ class InboxNotification {
     return value is String ? TripStatus.fromDb(value) : null;
   }
 }
+
+/// Row of `vault_list_documents()` (an audited vault read). The storage path is
+/// not exposed: files are fetched only through signed URLs from `vault-files`.
+class VaultDocument {
+  const VaultDocument({
+    required this.id,
+    required this.docType,
+    required this.title,
+    required this.status,
+    required this.createdAt,
+    this.contentType,
+    this.sizeBytes,
+  });
+
+  factory VaultDocument.fromJson(Json json) => VaultDocument(
+    id: json['id'] as String,
+    docType: json['doc_type'] as String,
+    title: json['title'] as String,
+    status: json['status'] as String,
+    createdAt: _time(json['created_at']),
+    contentType: json['content_type'] as String?,
+    sizeBytes: (json['size_bytes'] as num?)?.toInt(),
+  );
+
+  /// The document types the database accepts (`vault_documents.doc_type`).
+  static const docTypes = ['lab_report', 'prescription', 'discharge_summary', 'receipt', 'other'];
+
+  final String id;
+  final String docType;
+  final String title;
+
+  /// `pending_upload` until the file is confirmed in storage, then `uploaded`.
+  final String status;
+  final DateTime createdAt;
+  final String? contentType;
+  final int? sizeBytes;
+
+  bool get isUploaded => status == 'uploaded';
+  bool get isImage => contentType?.startsWith('image/') ?? false;
+}
+
+/// Matches `public.consent_purpose`.
+enum ConsentPurpose {
+  trips('trips'),
+  vault('vault'),
+  opsVaultAccess('ops_vault_access');
+
+  const ConsentPurpose(this.dbValue);
+
+  final String dbValue;
+
+  static ConsentPurpose fromDb(String value) => values.firstWhere(
+    (p) => p.dbValue == value,
+    orElse: () => throw ArgumentError.value(value, 'value', 'unknown consent purpose'),
+  );
+}
+
+/// Row of `family_consents()`: the owner's consent for one purpose.
+class ConsentStatus {
+  const ConsentStatus({required this.purpose, required this.active, required this.canChange, this.grantedAt});
+
+  factory ConsentStatus.fromJson(Json json) => ConsentStatus(
+    purpose: ConsentPurpose.fromDb(json['purpose'] as String),
+    active: json['active'] as bool,
+    canChange: json['can_change'] as bool,
+    grantedAt: json['granted_at'] == null ? null : _time(json['granted_at']),
+  );
+
+  final ConsentPurpose purpose;
+  final bool active;
+
+  /// Only the patient's owner can change consents.
+  final bool canChange;
+  final DateTime? grantedAt;
+}

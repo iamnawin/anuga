@@ -79,6 +79,44 @@ void main() {
     });
   });
 
+  group('FamilyApi (M8 vault and consents)', () {
+    test('vault documents parse status and type; the read states its purpose', () async {
+      final rpc = FakeRpc({
+        'vault_list_documents': [
+          {
+            'id': 'd1',
+            'patient_id': 'p1',
+            'doc_type': 'lab_report',
+            'title': 'Monthly labs (synthetic)',
+            'storage_path': 'p1/d1.png',
+            'uploaded_by': 'u1',
+            'created_at': '2026-10-08T10:00:00+00:00',
+            'status': 'uploaded',
+            'content_type': 'image/png',
+            'size_bytes': 2048,
+          },
+        ],
+      });
+      final docs = await FamilyApi(rpc.call).vaultDocuments('p1');
+      expect(docs.single.isUploaded, isTrue);
+      expect(docs.single.isImage, isTrue);
+      expect(rpc.calls.single.$2, {'p_patient_id': 'p1', 'p_purpose': 'family app: records'});
+    });
+
+    test('consents parse purposes; setConsent sends the database value', () async {
+      final rpc = FakeRpc({
+        'family_consents': [
+          {'purpose': 'ops_vault_access', 'active': false, 'granted_at': null, 'can_change': true},
+        ],
+        'set_consent': true,
+      });
+      final api = FamilyApi(rpc.call);
+      expect((await api.consents('p1')).single.purpose, ConsentPurpose.opsVaultAccess);
+      expect(await api.setConsent('p1', ConsentPurpose.opsVaultAccess, active: true), isTrue);
+      expect(rpc.calls.last.$2, {'p_patient_id': 'p1', 'p_purpose': 'ops_vault_access', 'p_active': true});
+    });
+  });
+
   group('India helpers', () {
     test('normalizes mobile numbers to E.164', () {
       expect(normalizeIndianMobile('9000000201'), '+919000000201');

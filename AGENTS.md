@@ -16,6 +16,7 @@ Claude Code also reads `CLAUDE.md`, which has the same rules plus architecture n
 pnpm install --frozen-lockfile
 pnpm db:test       # database tests (PGlite + PostGIS, no Docker)
 pnpm typecheck
+scripts/check-all.sh   # every fast CI check in one go (run before pushing)
 cd apps/ops_console && pnpm lint && pnpm typecheck && pnpm test   # ops console
 cd apps/companion_app && flutter pub get && flutter analyze --fatal-infos && flutter test   # companion app
 cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutter test      # family app

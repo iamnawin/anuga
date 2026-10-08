@@ -7,7 +7,7 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 - Done and verified: **M0**, **M1**, **M1a** (real Supabase), **M2** (`packages/shared_dart`),
   **M3** (ops console, `apps/ops_console`), **M4** (companion app, `apps/companion_app`),
   **M5** (family app, `apps/family_app`), **M6** (notification dispatch, `supabase/functions/notify-dispatch`),
-  **M7** (end-to-end journey, `scripts/e2e-journey.sh`).
+  **M7** (end-to-end journey, `scripts/e2e-journey.sh`), **M8** (vault storage and consent).
 - Session 2 started from `9f21c73`. The earlier local M3 attempt was never pushed, so M3 was built
   from scratch here; nothing was duplicated.
 - Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
@@ -73,6 +73,22 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
     with the same adapters) rather than device UIs, which the cloud session cannot run.
   - It creates its own visit 40 minutes ahead, so the companion's details window is open.
   - Evidence is committed in `docs/evidence/m7/`; CI uploads a fresh `journey` artifact each run.
+- M8:
+  - No app role touches storage: the `vault` bucket is private with no object policies; the
+    `vault-files` Edge Function signs URLs with the service role only after the database
+    authorizes the caller (their JWT). Downloads reuse `authorize_vault_read`, so each is audited.
+  - Security fix: `vault_documents` no longer accepts direct inserts. Before M8 an editor could
+    insert a row whose `storage_path` pointed at another patient's file; paths are now generated
+    by `vault_create_document`.
+  - Vault writes (documents, vitals, medicines) need the owner's active `vault` consent; the seed
+    now includes it. Withdrawal blocks new writes at once; existing data stays until the backlog
+    deletion job (needs a retention decision).
+  - **Founder review requested (dependencies):** the family app added `image_picker` and `http`
+    (official flutter.dev / dart.dev packages; on-device photo picking and the PUT to the signed
+    URL; no third-party service receives data). PDF upload and in-app PDF viewing are deferred:
+    they need a non-official file picker or viewer package, so they wait for a decision.
+  - Supabase signs upload URLs for 2 hours (not configurable); each is for one server-chosen path
+    and cannot overwrite.
 - Repo hosting: `iamnawin/anuga` is canonical. `iamnawin/companion` (old remote) is not updated;
   delete or archive only on founder request.
 
@@ -136,6 +152,12 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | Same journey against the stale Edge Function (before restart) | failed as intended: "companion notes leaked into outbound messages" |
 | `pnpm db:test` / `pnpm db:test:supabase` after the note fix | 103 pass, 5 skipped / 108/108 |
 | Companion + family `flutter test` (journey files skip without env) | 39 pass, 3 skipped / 17 pass, 4 skipped |
+| GitHub Actions run 37775111000 @ `8c4c59e` (M7) | `companion-app` failed: `dart format` on `journey_test.dart` (edited after formatting). Fixed in `f8e1ad5`; added `scripts/check-all.sh` to run every fast check before a push. All other jobs green, including the M7 journey in CI |
+| GitHub Actions run 37776658154 @ `f8e1ad5` (M8 server) | **all 6 jobs green** |
+| `scripts/check-all.sh` (M8 final) | all checks passed: PGlite 120 pass / 6 skipped; ops console 36; shared_dart 26; companion 39 + 3 skipped; family 29 + 5 skipped |
+| `pnpm db:test:supabase` with the vault bucket and `vault-files` function | **126/126** |
+| Family app Supabase-local tests (journey + vault) | 2/2 pass |
+| M7 journey after M8 | pass |
 | `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet
@@ -158,13 +180,15 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 ## Exact next task
 
-**M8: vault UI and storage** (`docs/TASKS.md` M8): private storage bucket for vault documents
-(migration: bucket `vault` with `public = false` and `storage.objects` policies that only allow
-access through a signed-URL function); family-app upload (owner/editor) that writes
-`vault_documents`; a server-side function that issues short-lived signed URLs only after
-`vault_list_documents` authorization (audited in the same request); consent screens per purpose
-(`consents`: trips, vault, ops_vault_access) with withdraw in the family app. Every access rule gets
-allowed + denied tests (`platform.test.ts` covers storage on real Supabase). Synthetic files only.
+**M9: payments (test mode)** (`docs/TASKS.md` M9): payment records and a billing adapter. Build
+the data model first (migration: `subscriptions`, `payments`, per-trip fare pass-through recorded
+on `trips.fare_amount_paise`; amounts in paise; prices from `packages`), with RLS (owner sees and
+pays for their patient; ops sees all; companions never), allowed + denied tests. Then a billing
+adapter interface with a `test` adapter (records intents and simulated webhooks) used by default.
+A Razorpay adapter needs **Razorpay test-mode API keys** (key id + secret) and a webhook secret:
+not available in this environment, so build it behind `PAYMENTS_ADAPTER=razorpay` with a
+configuration error when keys are missing, and test only the `test` adapter plus webhook
+signature verification with a synthetic secret. Live Razorpay needs founder authorization.
 
 ## Continue in Claude Code cloud
 

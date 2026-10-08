@@ -4,7 +4,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'src/app.dart';
 import 'src/auth.dart';
+import 'src/photo_source.dart';
 import 'src/supabase_rpc.dart';
+import 'src/vault_files.dart';
 
 // Configure with --dart-define (values from `supabase status -o env` for local):
 //   flutter run --dart-define=SUPABASE_URL=http://10.0.2.2:54321 --dart-define=SUPABASE_PUBLISHABLE_KEY=...
@@ -19,5 +21,12 @@ Future<void> main() async {
   }
   await Supabase.initialize(url: _url, publishableKey: _publishableKey);
   final client = Supabase.instance.client;
-  runApp(FamilyApp(api: FamilyApi(supabaseRpc(client)), auth: SupabasePhoneAuth(client)));
+  runApp(
+    FamilyApp(
+      api: FamilyApi(supabaseRpc(client)),
+      auth: SupabasePhoneAuth(client),
+      files: SupabaseVaultFiles(client, _url),
+      photos: DevicePhotoSource(),
+    ),
+  );
 }

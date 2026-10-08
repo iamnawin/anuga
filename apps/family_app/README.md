@@ -16,6 +16,12 @@ database enforces every rule.
     optional reason.
   - Viewers see neither button; the database refuses them anyway (`issue_pickup_otp`, `advance_trip`).
 - **Updates:** `my_notifications()` (push-channel rows), newest first.
+- **Records (M8):** reports listed via `vault_list_documents()` (audited). Owner/editor add a report
+  photo (camera or gallery, `image_picker`), with the owner's records consent. Upload goes through
+  the `vault-files` Edge Function (signed URL for a path the database chose); viewing uses a fresh
+  60-second signed URL each time. PDFs can be stored but not viewed in the app yet.
+- **Privacy and consent (M8):** one switch per purpose (visits, health records, ops may view
+  records) for the owner; others see the status. Withdrawing asks for confirmation; giving does not.
 - **Languages:** English, Telugu, Hindi (`lib/l10n/*.arb`; Telugu/Hindi need native review). Text
   is at least 15% larger than the platform default, with 56 dp buttons and a "call 108" notice.
 
