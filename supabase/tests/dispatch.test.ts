@@ -151,11 +151,12 @@ describe('dispatcher end to end (test adapter)', () => {
       const owner = rows.filter((r) => r.recipient_id === ids.owner);
       const viewer = rows.filter((r) => r.recipient_id === ids.viewer);
       assert.deepEqual(owner.map((r) => [r.channel, r.language, r.body]), [
-        ['push', 'en', 'Companion is on the way — leaving now'],
-        ['whatsapp', 'en', 'Companion is on the way — leaving now'],
+        ['push', 'en', "Companion is on the way Open the app to read the companion's note."],
+        ['whatsapp', 'en', "Companion is on the way Open the app to read the companion's note."],
       ]);
-      assert.deepEqual(viewer.map((r) => r.body), ['సహచరులు దారిలో ఉన్నారు — leaving now', 'సహచరులు దారిలో ఉన్నారు — leaving now']);
-      assert.ok(rows.every((r) => !/1958|dob|lab/i.test(r.body)), 'no health data in messages');
+      const te = 'సహచరులు దారిలో ఉన్నారు సహచరుల గమనిక చదవడానికి యాప్ తెరవండి.';
+      assert.deepEqual(viewer.map((r) => r.body), [te, te]);
+      assert.ok(rows.every((r) => !r.body.includes('leaving now')), 'companion notes stay in the app');
 
       // Nothing is sent twice.
       await drain(sqlStore, selectAdapters({}, sqlStore), { limit: 500 });

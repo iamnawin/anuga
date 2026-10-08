@@ -65,3 +65,6 @@ test-results/
 
 # Next.js generated type references (recreated by `next typegen`)
 next-env.d.ts
+
+# Journey evidence (scripts/e2e-journey.sh); curated copies go to docs/evidence/
+artifacts/

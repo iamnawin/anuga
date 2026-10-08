@@ -6,7 +6,8 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 - Done and verified: **M0**, **M1**, **M1a** (real Supabase), **M2** (`packages/shared_dart`),
   **M3** (ops console, `apps/ops_console`), **M4** (companion app, `apps/companion_app`),
-  **M5** (family app, `apps/family_app`), **M6** (notification dispatch, `supabase/functions/notify-dispatch`).
+  **M5** (family app, `apps/family_app`), **M6** (notification dispatch, `supabase/functions/notify-dispatch`),
+  **M7** (end-to-end journey, `scripts/e2e-journey.sh`).
 - Session 2 started from `9f21c73`. The earlier local M3 attempt was never pushed, so M3 was built
   from scratch here; nothing was duplicated.
 - Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
@@ -64,7 +65,14 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
     Root `tsconfig.json` type-checks `supabase/functions/**` except the Deno `index.ts` entries.
   - Live adapters (FCM, WhatsApp, SMS) are not implemented: choosing one stops the function
     with a configuration error, with or without `NOTIFY_LIVE_PROVIDERS_AUTHORIZED=yes`.
-  - Messages carry status words and the companion's note only; no health data.
+  - Messages carry status words only. Companion notes (free text, may mention health) never
+    leave the database; the message says "open the app to read the companion's note". Found by
+    the M7 journey, which now fails if a note leaks into a delivered message.
+- M7:
+  - The journey chains the real clients (browser for the ops console; the apps' Dart API layers
+    with the same adapters) rather than device UIs, which the cloud session cannot run.
+  - It creates its own visit 40 minutes ahead, so the companion's details window is open.
+  - Evidence is committed in `docs/evidence/m7/`; CI uploads a fresh `journey` artifact each run.
 - Repo hosting: `iamnawin/anuga` is canonical. `iamnawin/companion` (old remote) is not updated;
   delete or archive only on founder request.
 
@@ -123,6 +131,11 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | `pnpm db:test` after migration 0700 | 107 tests: 102 pass, 5 skipped (real-Supabase-only) |
 | `pnpm db:test:supabase` with the edge runtime and API keys | **107/107** |
 | `curl` to the local Edge Function | anon: 403 `forbidden`; service role: `{"claimed":6,"sent":6,"retrying":0,"failed":0}` (seed notifications) |
+| GitHub Actions run 37773927485 @ `82c8bb0` (M6) | all 6 jobs green |
+| `scripts/e2e-journey.sh` (Supabase local, this session) | **JOURNEY PASSED**; log + screenshots in `docs/evidence/m7/` |
+| Same journey against the stale Edge Function (before restart) | failed as intended: "companion notes leaked into outbound messages" |
+| `pnpm db:test` / `pnpm db:test:supabase` after the note fix | 103 pass, 5 skipped / 108/108 |
+| Companion + family `flutter test` (journey files skip without env) | 39 pass, 3 skipped / 17 pass, 4 skipped |
 | `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet
@@ -145,13 +158,13 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 ## Exact next task
 
-**M7: end-to-end journey across apps** (`docs/TASKS.md` M7): one scripted run, with evidence, of
-ops assigns -> family sees booking -> companion pickup with the family's code -> handover ->
-family receives status (dispatched by `notify-dispatch`) -> return journey completes, across the ops
-console (Playwright), companion and family API layers (Dart, same adapters as the apps) and the
-Edge Function, against Supabase local. Suggested: a `scripts/e2e-journey` runner (or a CI job)
-that chains the existing pieces in order and saves logs/screenshots as an artifact; CI green.
-Device/emulator runs of the Flutter apps stay blocked in the cloud session (no Android SDK).
+**M8: vault UI and storage** (`docs/TASKS.md` M8): private storage bucket for vault documents
+(migration: bucket `vault` with `public = false` and `storage.objects` policies that only allow
+access through a signed-URL function); family-app upload (owner/editor) that writes
+`vault_documents`; a server-side function that issues short-lived signed URLs only after
+`vault_list_documents` authorization (audited in the same request); consent screens per purpose
+(`consents`: trips, vault, ops_vault_access) with withdraw in the family app. Every access rule gets
+allowed + denied tests (`platform.test.ts` covers storage on real Supabase). Synthetic files only.
 
 ## Continue in Claude Code cloud
 

@@ -24,6 +24,7 @@ node --test --test-isolation=none supabase/tests/vault.test.ts                  
 node --test --test-isolation=none --test-name-pattern="locks after" "supabase/tests/*.test.ts"    # one test
 pnpm db:test:supabase   # same tests against real Supabase local (needs Docker + DATABASE_URL)
 pnpm contract:export    # regenerate packages/shared_dart/test/fixtures/trip_contract.json from SQL
+scripts/e2e-journey.sh  # M7 journey across apps on Supabase local (see docs/SETUP.md)
 
 # packages/shared_dart (run inside that folder)
 dart pub get && dart analyze --fatal-infos && dart test

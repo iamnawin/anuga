@@ -51,15 +51,24 @@ export function languageOf(value: string | null | undefined): Language {
   return value === 'te' || value === 'hi' ? value : 'en';
 }
 
-// Messages carry no patient health data: status words and the companion's note only.
+const NOTE_HINT: Record<Language, string> = {
+  en: 'Open the app to read the companion\'s note.',
+  te: 'సహచరుల గమనిక చదవడానికి యాప్ తెరవండి.',
+  hi: 'साथी का नोट पढ़ने के लिए ऐप खोलें।',
+};
+
+// Outbound messages (push via FCM, WhatsApp via a provider) leave our database, so
+// they carry only the status. Companion notes are free text and may mention health
+// details; they stay in the app (family timeline), and the message only says one exists.
+// The "pickup OTP verified" note is written by the system, not the companion.
 export function render(template: string, payload: Record<string, unknown>, language: string | null): Rendered {
   const lang = languageOf(language);
   if (template === 'trip_status_changed') {
     const status = typeof payload.to_status === 'string' ? STATUS[payload.to_status]?.[lang] : undefined;
-    const note = typeof payload.note === 'string' && payload.note.trim() ? payload.note.trim() : null;
+    const hasNote = typeof payload.note === 'string' && payload.note.trim() !== '' && payload.to_status !== 'picked_up';
     return {
       title: TEXT.trip_update[lang].title,
-      body: [status ?? TEXT.trip_update[lang].title, note].filter(Boolean).join(' — '),
+      body: [status ?? TEXT.trip_update[lang].title, hasNote ? NOTE_HINT[lang] : null].filter(Boolean).join(' '),
     };
   }
   const text = TEXT[template]?.[lang];

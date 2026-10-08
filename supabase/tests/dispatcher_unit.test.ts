@@ -41,11 +41,22 @@ describe('render', () => {
     }
   });
 
-  test('uses the recipient language, falls back to English, appends the note', () => {
+  test('uses the recipient language and falls back to English', () => {
     assert.equal(render('trip_status_changed', { to_status: 'picked_up' }, 'te').body, 'ఇంటి నుండి పికప్ అయింది');
     assert.equal(render('trip_status_changed', { to_status: 'picked_up' }, 'fr').body, 'Picked up from home');
+  });
+
+  test('never copies the companion note into an outbound message, only says there is one', () => {
+    const note = 'BP looked high, centre staff informed';
+    for (const lang of ['en', 'te', 'hi']) {
+      const m = render('trip_status_changed', { to_status: 'completed', note }, lang);
+      assert.ok(!m.body.includes('BP') && !m.title.includes('BP'), lang);
+    }
     assert.equal(render('trip_status_changed', { to_status: 'issue_reported', note: 'Auto broke down' }, 'en').body,
-      'Issue reported; our team is on it — Auto broke down');
+      "Issue reported; our team is on it Open the app to read the companion's note.");
+    // The system's own pickup note is not a companion note.
+    assert.equal(render('trip_status_changed', { to_status: 'picked_up', note: 'pickup OTP verified' }, 'en').body,
+      'Picked up from home');
   });
 
   test('unknown templates are an error, not a blank message', () => {

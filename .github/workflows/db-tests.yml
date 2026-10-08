@@ -171,5 +171,14 @@ jobs:
           eval "$(supabase status -o env)"
           flutter pub get
           SUPABASE_URL="$API_URL" SUPABASE_PUBLISHABLE_KEY="$PUBLISHABLE_KEY" flutter test test/supabase_local_test.dart
+      # M7: the first journey across ops console (browser), companion + family API layers
+      # and the notify-dispatch Edge Function, in order, on a fresh seed.
+      - run: scripts/e2e-journey.sh
+      - if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: journey
+          path: artifacts/journey/
+          if-no-files-found: ignore
       - if: always()
         run: supabase stop --no-backup

@@ -136,8 +136,9 @@ Edge Function `supabase/functions/notify-dispatch` (Deno entry; runtime-neutral 
 - [x] Adapters from env: `test` by default for push, WhatsApp and SMS; `fcm`/`whatsapp`/`sms`
       need `NOTIFY_LIVE_PROVIDERS_AUTHORIZED=yes` and are not implemented, so the function refuses
       to start with them. No live provider calls.
-- [x] Messages in en/te/hi by the recipient's `preferred_language`; status words and the
-      companion's note only (no health data).
+- [x] Messages in en/te/hi by the recipient's `preferred_language`. Status words only: a
+      companion note (free text, may mention health) never leaves the database; the message says
+      "open the app to read the companion's note" (found and fixed during M7).
 
 Acceptance (met 2026-10-08, cloud session): `dispatcher_unit.test.ts` (13: rendering, adapter
 selection, retry decisions, REST store); `dispatch.test.ts` (8: permissions, lease, expired lease,
@@ -147,12 +148,26 @@ owner and viewer in their languages via the test adapter, nothing sent twice).
 role call delivers a status change. `pnpm db:test` 102 pass / 5 skipped; `pnpm db:test:supabase`
 107/107. Scheduling the function needs a hosted project (M10).
 
-## M7. End-to-end journey across apps `[ ]`
+## M7. End-to-end journey across apps `[x]`
 
-Run the first journey across ops console + companion app + family app against Supabase local
-(or the cloud environment's equivalent). CI runs `pnpm db:test` and app tests.
+`scripts/e2e-journey.sh` runs the first working journey in order against Supabase local, with the
+real clients: the ops console in a browser (Playwright `e2e/journey.spec.ts`), the companion and
+family Dart API layers (`test/journey_test.dart` in each app, same adapters as the apps) and the
+`notify-dispatch` Edge Function. Helper: `scripts/journey.ts` (setup, dispatch checks, report).
 
-Acceptance: one scripted run, with evidence (logs/screenshots), of the full journey; CI green.
+Steps: today's visit (40 min ahead) -> ops assigns the backup in the console -> family sees the
+booking covered by the backup; viewer refused the code, owner issues it -> companion sets off,
+wrong code refused, family code accepted, centre, handover note -> dispatcher delivers; check that
+no companion note leaves the database -> family timeline + inbox show the handover -> return
+journey, completion note -> dispatch -> family sees completed -> ops board shows completed,
+exception queue clear.
+
+Acceptance (met 2026-10-08, cloud session): journey passed on Supabase local in ~60 s; evidence in
+`docs/evidence/m7/` (log + 2 screenshots). The run first caught a real defect: notes were copied
+into outbound messages; fixed in `messages.ts`, and the journey now fails if a note leaks (proved
+against the stale function). CI: the journey runs at the end of `supabase-local` and uploads the
+`journey` artifact. Flutter UIs on a device/emulator are not part of the run (no Android SDK in the
+cloud session); their widgets are covered by the M4/M5 widget tests.
 
 ## M8. Vault UI and storage `[ ]`
 

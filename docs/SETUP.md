@@ -80,6 +80,20 @@ code `123456`. Test OTPs exist only in `supabase/config.toml` for the synthetic 
 configure them on a hosted project. Supabase Auth refuses phone sign-in unless an SMS provider is
 enabled, so the local config enables Twilio with fake placeholder values; test numbers never reach it.
 
+## End-to-end journey (M7)
+
+Needs Supabase local with the edge runtime (`start -x studio,logflare,vector,imgproxy`), Node 24 +
+pnpm, Flutter, Playwright's Chromium and a built ops console:
+
+```sh
+pnpm --filter @companion/ops_console build
+SUPABASE_CLI="pnpm dlx supabase@2.120.0" scripts/e2e-journey.sh    # resets the database first
+```
+
+Evidence: `artifacts/journey/journey.log` and `artifacts/journey/screenshots/` (git-ignored).
+If you edit `supabase/functions/**`, restart the edge runtime (`docker restart
+supabase_edge_runtime_companion`); the local runtime can keep serving the old code.
+
 ## Real Supabase verification (Docker)
 
 **Status: passing** (GitHub Actions run 37748137710, 60/60, 0 skipped). PGlite results alone do not count; keep `supabase-local` green.
