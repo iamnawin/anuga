@@ -8,6 +8,7 @@ on:
 jobs:
   db-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -21,6 +22,7 @@ jobs:
 
   shared-dart:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: packages/shared_dart
@@ -38,6 +40,7 @@ jobs:
   # storage schema) using Docker on the GitHub runner. No hosted project, no secrets.
   supabase-local:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     env:
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
     steps:

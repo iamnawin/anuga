@@ -8,7 +8,7 @@
   },
   "scripts": {
     "db:test": "node --test --test-isolation=none \"supabase/tests/*.test.ts\"",
-    "db:test:supabase": "node --env-file-if-exists=.env --test --test-isolation=none \"supabase/tests/*.test.ts\"",
+    "db:test:supabase": "node --env-file-if-exists=.env --test --test-isolation=none --test-force-exit --test-timeout=60000 \"supabase/tests/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.json",
     "contract:export": "node supabase/scripts/export-trip-contract.ts"
   },
