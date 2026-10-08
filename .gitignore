@@ -1,0 +1,60 @@
+# Dependencies and build output
+node_modules/
+.pnpm-store/
+dist/
+build/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+*.iml
+.idea/
+**/android/local.properties
+**/ios/Flutter/Generated.xcconfig
+**/ios/Pods/
+
+# Secrets and credentials (only .env.example is tracked)
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.jks
+*.keystore
+key.properties
+google-services.json
+GoogleService-Info.plist
+service-account*.json
+*secret*
+*credential*
+!**/*secret*.example
+!**/*credential*.example
+
+# Patient data and exports must never be committed (synthetic seed only)
+/data/
+/exports/
+/backups/
+*.dump
+*.backup
+*.sqlite
+*.db
+pilot-logs/
+
+# Supabase local state
+supabase/.temp/
+supabase/.branches/
+
+# Generated session / agent state
+.remember/
+.claude-flow/
+.claude/settings.local.json
+.claude/specs/**/scratch/
+*.log
+.DS_Store
+Thumbs.db

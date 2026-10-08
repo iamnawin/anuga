@@ -1,0 +1,22 @@
+{
+  "name": "companion",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "db:test": "node --test --test-isolation=none \"supabase/tests/*.test.ts\"",
+    "db:test:supabase": "node --env-file=.env --test --test-isolation=none \"supabase/tests/*.test.ts\"",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "@electric-sql/pglite-postgis": "0.2.8",
+    "@types/node": "^24.19.1",
+    "@types/pg": "^8.23.1",
+    "pg": "8.23.1",
+    "typescript": "^7.0.2"
+  }
+}
