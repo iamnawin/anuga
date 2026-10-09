@@ -20,9 +20,11 @@ its limits. It does not authorize production (M10).
 3. **Functions:** `vault-files` and `payments` (test adapter; `PAYMENTS_WEBHOOK_SECRET` set in
    the dashboard). `payments-webhook` and `notify-dispatch` are not deployed: test mode does not
    use the webhook, and no live notification provider exists.
-4. **Web apps:** one static site on the Vercel project `anuga`: ops console at `/ops/`, family
-   app at `/family/`, companion app at `/companion/` (Flutter web builds). Vercel Authentication
-   stays on, so only members of the founder's Vercel team can open it. `noindex` everywhere.
+4. **Web apps:** one static site on the Vercel project `anuga-staging`: ops console at `/ops/`,
+   family app at `/family/`, companion app at `/companion/` (Flutter web builds). It is deployed
+   as a preview, so Vercel Authentication protects it: only members of the founder's Vercel team
+   can open it. `noindex` everywhere. The Git-linked Vercel project `anuga` (ops console only,
+   created by the founder) is separate; its pushes never replace the staging site.
 5. **Deploys:** manual GitHub workflow `deploy staging` (`scripts/build-staging.sh`, then
    `vercel deploy --prebuilt`), followed by `scripts/staging-smoke.ts` against the backend.
 6. The browser-called functions answer CORS (`_shared/cors.ts`); authorization is still the

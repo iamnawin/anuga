@@ -125,8 +125,11 @@ Tests commit data; run `db reset` before each run against the same local stack.
 | Piece | Where |
 | --- | --- |
 | Backend | Supabase project `anuga`, ref `vsvkllfgrnlbhdydysny` (Mumbai, free tier) |
-| Web apps | Vercel project `anuga`: `/ops/`, `/family/`, `/companion/` (Vercel Authentication on) |
-| Deploy | GitHub Actions → **deploy staging** → Run workflow (manual) |
+| Web apps | Vercel project `anuga-staging` (made by the first deploy): `/ops/`, `/family/`, `/companion/` |
+| Deploy | GitHub Actions → **deploy staging** → Run workflow (manual); the run summary shows the URL |
+
+Each deploy is a Vercel preview, so only signed-in members of the Vercel team can open it. The
+Git-linked Vercel project `anuga` is separate (ops console only).
 
 One-time setup (founder):
 

@@ -16,7 +16,9 @@ Last updated: 2026-10-09 (session 2, Claude Code cloud, branch `claude/trusting-
 - **Hosted staging (ADR 0004, founder-approved 2026-10-09, synthetic data only):** Supabase project
   `anuga` (`vsvkllfgrnlbhdydysny`, Mumbai) has all nine migrations, the seed (6 trips) and the
   `vault-files` + `payments` functions (with CORS for browsers). Web apps deploy to the Vercel
-  project `anuga` (`/ops/`, `/family/`, `/companion/`) via the manual **deploy staging** workflow.
+  project `anuga-staging` (`/ops/`, `/family/`, `/companion/`, preview deploys behind Vercel
+  Authentication) via the manual **deploy staging** workflow. The founder's Git-linked Vercel
+  project `anuga` auto-deploys the ops console only and is not the staging site.
   Setup and remaining founder steps: `docs/SETUP.md`, "Hosted staging".
 
 ## Decisions made
