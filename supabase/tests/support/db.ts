@@ -66,6 +66,11 @@ export async function probeAsAnon<T>(fn: (db: Db) => Promise<T>): Promise<T> {
   return inTransaction('anon', { role: 'anon' }, fn, 'rollback');
 }
 
+// Runs fn as the service role (trusted backend, e.g. the notification dispatcher). Commits.
+export async function asServiceRole<T>(fn: (db: Db) => Promise<T>): Promise<T> {
+  return inTransaction('service_role', { role: 'service_role' }, fn, 'commit');
+}
+
 async function inTransaction<T>(
   role: string, claims: Row, fn: (db: Db) => Promise<T>, end: 'commit' | 'rollback',
 ): Promise<T> {
@@ -108,7 +113,7 @@ export const ids = {
 export async function createUser(id: string, role: 'family' | 'companion' | 'ops_admin' = 'family'): Promise<string> {
   await asAdmin(async (db) => {
     await db.query(`insert into auth.users (id, phone) values ($1, $2) on conflict do nothing`,
-      [id, `+91999${id.replaceAll('-', '').slice(-7)}`]);
+      [id, `91999${id.replaceAll('-', '').slice(-7)}`]);
     await db.query(`update public.profiles set role = $2 where id = $1`, [id, role]);
   });
   return id;

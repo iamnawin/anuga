@@ -36,6 +36,73 @@ jobs:
       - run: dart analyze --fatal-infos
       - run: dart test
 
+  ops-console:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+    defaults:
+      run:
+        working-directory: apps/ops_console
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+  companion-app:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/companion_app
+    steps:
+      - uses: actions/checkout@v5
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+      - run: flutter pub get
+      - run: dart format --output=none --set-exit-if-changed lib/main.dart lib/src test
+      - run: flutter analyze --fatal-infos
+      - run: flutter test
+      # Android-first: prove the app compiles to an APK (debug; no signing, no store upload).
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: flutter build apk --debug
+
+  family-app:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/family_app
+    steps:
+      - uses: actions/checkout@v5
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+      - run: flutter pub get
+      - run: dart format --output=none --set-exit-if-changed lib/main.dart lib/src test
+      - run: flutter analyze --fatal-infos
+      - run: flutter test
+      # Android-first: prove the app compiles to an APK (debug; no signing, no store upload).
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: flutter build apk --debug
+
   # Authoritative run on real Supabase (Postgres 17, real auth schema and roles,
   # storage schema) using Docker on the GitHub runner. No hosted project, no secrets.
   supabase-local:
@@ -54,8 +121,64 @@ jobs:
       - uses: supabase/setup-cli@v1
         with:
           version: 2.120.0
-      - run: supabase start -x studio,edge-runtime,logflare,vector,imgproxy
+      # Edge runtime stays on: the notify-dispatch function is tested through it.
+      - run: supabase start -x studio,logflare,vector,imgproxy
       - run: supabase db reset
-      - run: pnpm db:test:supabase
+      - name: SQL tests and the notify-dispatch Edge Function on real Supabase
+        run: |
+          eval "$(supabase status -o env)"
+          SUPABASE_URL="$API_URL" SUPABASE_ANON_KEY="$ANON_KEY" SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY" pnpm db:test:supabase
+      # Ops console end to end: real phone-OTP sign-in (test OTPs), RPCs and RLS.
+      # The DB tests commit data, so start the browser run from a fresh seed.
+      - run: supabase db reset
+      - name: Configure the ops console for Supabase local
+        run: |
+          eval "$(supabase status -o env)"
+          printf 'NEXT_PUBLIC_SUPABASE_URL=%s\nNEXT_PUBLIC_SUPABASE_ANON_KEY=%s\n' "$API_URL" "$ANON_KEY" > apps/ops_console/.env.local
+      - run: pnpm --filter @companion/ops_console exec playwright install --with-deps chromium
+      - run: pnpm --filter @companion/ops_console build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+      - run: pnpm --filter @companion/ops_console e2e
+        env:
+          CI: true
+      - if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: ops-console-e2e
+          path: |
+            apps/ops_console/test-results/
+            apps/ops_console/playwright-report/
+          if-no-files-found: ignore
+      # Companion app API layer against the same real database (ops assigns,
+      # family issues the OTP, companion runs the trip). Fresh seed again.
+      - run: supabase db reset
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+      - name: Companion journey on Supabase local
+        working-directory: apps/companion_app
+        run: |
+          eval "$(supabase status -o env)"
+          flutter pub get
+          SUPABASE_URL="$API_URL" SUPABASE_PUBLISHABLE_KEY="$PUBLISHABLE_KEY" flutter test test/supabase_local_test.dart
+      # Family side (viewer limits, pickup code, cancel, timeline, inbox) on a fresh seed.
+      - run: supabase db reset
+      - name: Family journey on Supabase local
+        working-directory: apps/family_app
+        run: |
+          eval "$(supabase status -o env)"
+          flutter pub get
+          SUPABASE_URL="$API_URL" SUPABASE_PUBLISHABLE_KEY="$PUBLISHABLE_KEY" flutter test test/supabase_local_test.dart
+      # M7: the first journey across ops console (browser), companion + family API layers
+      # and the notify-dispatch Edge Function, in order, on a fresh seed.
+      - run: scripts/e2e-journey.sh
+      - if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: journey
+          path: artifacts/journey/
+          if-no-files-found: ignore
       - if: always()
         run: supabase stop --no-backup

@@ -6,14 +6,24 @@
 --   3000...0001 companion Asha (primary, ~0.5 km)   3000...0002 companion Ravi (backup, ~1.9 km)
 --   3000...0003 companion Far (outside radius, ~9 km)   3000...0004 companion Pending (unverified)
 
-insert into auth.users (id, phone, raw_user_meta_data) values
-  ('10000000-0000-0000-0000-000000000001', '+919000000001', '{"full_name": "Ops Admin (synthetic)"}'),
-  ('20000000-0000-0000-0000-000000000001', '+919000000101', '{"full_name": "Kiran Rao (synthetic)"}'),
-  ('20000000-0000-0000-0000-000000000002', '+919000000102', '{"full_name": "Meena Rao (synthetic)"}'),
-  ('30000000-0000-0000-0000-000000000001', '+919000000201', '{"full_name": "Asha Companion (synthetic)"}'),
-  ('30000000-0000-0000-0000-000000000002', '+919000000202', '{"full_name": "Ravi Companion (synthetic)"}'),
-  ('30000000-0000-0000-0000-000000000003', '+919000000203', '{"full_name": "Far Companion (synthetic)"}'),
-  ('30000000-0000-0000-0000-000000000004', '+919000000204', '{"full_name": "Pending Companion (synthetic)"}');
+-- Rows are shaped the way Supabase Auth (GoTrue) reads them, so phone-OTP sign-in
+-- works on Supabase local: default instance id, audience, phone without '+'
+-- (GoTrue's storage format), confirmed phone, and empty strings for token
+-- columns and timestamps that GoTrue cannot read as NULL. Local OTP codes: supabase/config.toml.
+insert into auth.users (instance_id, id, aud, role, phone, phone_confirmed_at, raw_user_meta_data,
+                        confirmation_token, recovery_token, email_change_token_new, email_change,
+                        created_at, updated_at)
+select '00000000-0000-0000-0000-000000000000', u.id::uuid, 'authenticated', 'authenticated', u.phone, now(),
+       jsonb_build_object('full_name', u.full_name), '', '', '', '', now(), now()
+from (values
+  ('10000000-0000-0000-0000-000000000001', '919000000001', 'Ops Admin (synthetic)'),
+  ('20000000-0000-0000-0000-000000000001', '919000000101', 'Kiran Rao (synthetic)'),
+  ('20000000-0000-0000-0000-000000000002', '919000000102', 'Meena Rao (synthetic)'),
+  ('30000000-0000-0000-0000-000000000001', '919000000201', 'Asha Companion (synthetic)'),
+  ('30000000-0000-0000-0000-000000000002', '919000000202', 'Ravi Companion (synthetic)'),
+  ('30000000-0000-0000-0000-000000000003', '919000000203', 'Far Companion (synthetic)'),
+  ('30000000-0000-0000-0000-000000000004', '919000000204', 'Pending Companion (synthetic)')
+) u(id, phone, full_name);
 
 update public.profiles set role = 'ops_admin' where id = '10000000-0000-0000-0000-000000000001';
 update public.profiles set role = 'companion' where id::text like '30000000-%';
@@ -56,7 +66,8 @@ insert into public.patient_access (patient_id, user_id, access_level, granted_by
   ('70000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000002', 'viewer', '20000000-0000-0000-0000-000000000001');
 
 insert into public.consents (user_id, patient_id, purpose) values
-  ('20000000-0000-0000-0000-000000000001', '70000000-0000-0000-0000-000000000001', 'trips');
+  ('20000000-0000-0000-0000-000000000001', '70000000-0000-0000-0000-000000000001', 'trips'),
+  ('20000000-0000-0000-0000-000000000001', '70000000-0000-0000-0000-000000000001', 'vault');
 
 insert into public.vault_documents (patient_id, doc_type, title, storage_path, uploaded_by) values
   ('70000000-0000-0000-0000-000000000001', 'lab_report', 'Monthly labs (synthetic)',

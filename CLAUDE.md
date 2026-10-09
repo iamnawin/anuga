@@ -24,11 +24,20 @@ node --test --test-isolation=none supabase/tests/vault.test.ts                  
 node --test --test-isolation=none --test-name-pattern="locks after" "supabase/tests/*.test.ts"    # one test
 pnpm db:test:supabase   # same tests against real Supabase local (needs Docker + DATABASE_URL)
 pnpm contract:export    # regenerate packages/shared_dart/test/fixtures/trip_contract.json from SQL
+scripts/e2e-journey.sh  # M7 journey across apps on Supabase local (see docs/SETUP.md)
+scripts/check-all.sh    # every fast CI check (no Docker): run before each push
 
 # packages/shared_dart (run inside that folder)
 dart pub get && dart analyze --fatal-infos && dart test
 dart test test/trip_state_machine_test.dart          # one file
 dart test --name "wrong OTP"                          # one test
+
+# apps/companion_app or apps/family_app (run inside that folder)
+flutter pub get && flutter analyze --fatal-infos && flutter test
+
+# apps/ops_console (run inside that folder)
+pnpm lint && pnpm typecheck && pnpm test && pnpm build
+pnpm e2e                                              # Playwright vs Supabase local; db reset first
 ```
 
 `--test-isolation=none` is required: all files share one in-process database. The `first journey`
@@ -38,14 +47,20 @@ setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tool
 
 ## Architecture
 
-Monorepo. Built so far: `supabase/` and `packages/shared_dart`. Planned: `apps/family_app`,
-`apps/companion_app` (Flutter), `apps/ops_console` (Next.js), `supabase/functions` (Edge Functions).
+Monorepo (pnpm workspace: `apps/*`). Built so far: `supabase/`, `packages/shared_dart`,
+`apps/ops_console` (Next.js), `apps/companion_app` and `apps/family_app` (Flutter).
+`supabase/functions/notify-dispatch` (notification outbox), `vault-files` (signed URLs for the
+private vault bucket), `payments` + `payments-webhook` (test-mode payments; shared code in `_shared/`).
 
 The database is the security boundary; apps are thin clients over RPCs:
 
 - **Migrations** (`supabase/migrations/`, applied in filename order):
   `0100` core schema, `0200` grants + RLS + `private.*` helpers, `0300` trip workflow RPCs,
-  `0400` vault with audited reads.
+  `0400` vault with audited reads, `0500` ops console read RPCs (`ops_*_board`, exception queue,
+  companion options), `0600` family read RPCs (patients with access level, timeline, inbox),
+  `0700` notification dispatch (service-role claim/mark RPCs, `notification_deliveries`),
+  `0800` vault storage (private bucket, server-generated paths, signed-URL RPCs) and consents,
+  `0900` payments (invoices, fares, payment state; amounts in paise).
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,
@@ -67,8 +82,18 @@ The database is the security boundary; apps are thin clients over RPCs:
   the same rules as the migration. Both sides are tested against the committed
   `trip_contract.json`; change SQL, run `pnpm contract:export`, update Dart, run both suites.
 - **Dart API layer** takes an injected `RpcCaller` (apps pass `supabase.rpc`), so the package has no SDK dependency.
-- **Business values** (prices, radius, windows, OTP limits) live in `packages`, `clusters` and
-  `app_settings`, never in code.
+- **Business values** (prices, radius, windows, OTP limits, late threshold) live in `packages`,
+  `clusters` and `app_settings`, never in code.
+- **Auth**: phone OTP. Seed `auth.users` rows are shaped for GoTrue (phone without `+`, non-null
+  token columns); `supabase/config.toml` has local-only test OTPs (`123456`) for the seed numbers.
+- **Flutter apps** take `CompanionApi`/`FamilyApi` + a `PhoneAuth` by injection; buttons come from
+  `TripStateMachine`; Postgres errors become `RpcException` in `lib/src/supabase_rpc.dart` only.
+- **Notifications**: `apply_transition()` writes the outbox; `notify-dispatch` drains it with
+  the service role. Adapters default to `test`; live providers are gated and not implemented.
+- **Vault files**: no storage policies for app roles. `vault-files` asks the database as the caller,
+  then signs URLs with the service role. Vault writes need the owner's `vault` consent.
+- **Ops console** is a client-side Next.js app using the anon key + the user's JWT; it never holds
+  a service-role key. RPC wrappers in `src/lib/api.ts` take an injectable client for tests.
 
 ## Rules for this repo
 

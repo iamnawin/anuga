@@ -1,0 +1,183 @@
+{
+  "@@locale": "en",
+  "appTitle": "Companion Family",
+  "syntheticBanner": "Development build · synthetic data only",
+  "language": "Language",
+  "loginTitle": "Family sign in",
+  "phoneLabel": "Mobile number",
+  "phoneHint": "10-digit mobile number",
+  "sendCode": "Send code",
+  "codeLabel": "6-digit code",
+  "codeSentTo": "Code sent to {phone}",
+  "@codeSentTo": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "signIn": "Sign in",
+  "changeNumber": "Use another number",
+  "invalidPhone": "Enter a valid 10-digit mobile number.",
+  "invalidCode": "Enter the 6-digit code.",
+  "notFamily": "This account is not a family account.",
+  "signOut": "Sign out",
+  "noPatients": "No patient is linked to this account yet. Ask the family owner to add you.",
+  "patientLabel": "Patient",
+  "tabBookings": "Bookings",
+  "tabInbox": "Updates",
+  "refresh": "Refresh",
+  "loading": "Loading…",
+  "noTrips": "No visits in the next two weeks.",
+  "companionLabel": "Companion: {name}",
+  "@companionLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "companionNotAssigned": "Companion not assigned yet",
+  "backupCovering": "Backup companion",
+  "pickupAt": "Pickup {time}",
+  "@pickupAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "returnAt": "Return {time}",
+  "@returnAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "centre": "Centre",
+  "timeline": "Updates for this visit",
+  "noEvents": "No updates yet.",
+  "byCompanion": "by companion",
+  "byOps": "by our team",
+  "byFamily": "by family",
+  "getPickupCode": "Get pickup code",
+  "pickupCodeTitle": "Pickup code",
+  "pickupCodeHelp": "Give this code to the companion at the door. Only the newest code works.",
+  "cancelTrip": "Cancel this visit",
+  "cancelReason": "Reason (optional)",
+  "confirmCancel": "Cancel this visit? The companion and our team are told.",
+  "keepTrip": "Keep visit",
+  "tripCancelled": "Visit cancelled.",
+  "viewOnly": "You can view this patient's visits. Ask the owner if you need to manage them.",
+  "close": "Close",
+  "noUpdates": "No updates yet.",
+  "updateStatus": "Visit {when}: {status}",
+  "@updateStatus": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "updateCompanionAssigned": "Companions assigned for the weekly schedule",
+  "updateCompanionChanged": "The companion for a visit has changed",
+  "updateOther": "Update from our team",
+  "emergencyNumber": "Medical emergency? Call 108 for an ambulance.",
+  "errorGeneric": "Something went wrong. Try again.",
+  "errorNotAllowed": "You do not have permission for this.",
+  "errorStepNotPossible": "This is no longer possible. Refresh the visit.",
+  "statusScheduled": "Scheduled",
+  "statusCompanionEnRoute": "Companion on the way",
+  "statusPickedUp": "Picked up",
+  "statusAtCentre": "At centre",
+  "statusHandedOver": "Handed over to centre staff",
+  "statusSessionDone": "Session done",
+  "statusReturning": "On the way home",
+  "statusDroppedHome": "Dropped home",
+  "statusCompleted": "Completed",
+  "statusCancelled": "Cancelled",
+  "statusNoShow": "Patient was not available",
+  "statusIssueReported": "Issue reported; our team is on it",
+  "tabRecords": "Records",
+  "noRecords": "No reports yet.",
+  "addReportPhoto": "Add a report photo",
+  "takePhoto": "Take a photo",
+  "chooseFromGallery": "Choose from gallery",
+  "docTitleLabel": "Name of the report",
+  "docTitleRequired": "Give the report a name.",
+  "docTypeLabel": "Type",
+  "docTypeLabReport": "Lab report",
+  "docTypePrescription": "Prescription",
+  "docTypeDischargeSummary": "Discharge summary",
+  "docTypeReceipt": "Receipt",
+  "docTypeOther": "Other",
+  "upload": "Upload",
+  "uploading": "Uploading…",
+  "uploadDone": "Report added.",
+  "uploadPending": "Upload not finished",
+  "recordsOffOwner": "Records are turned off. Turn on the records consent to add reports.",
+  "recordsOffOther": "Records are turned off. Only the owner can turn them on.",
+  "openConsent": "Privacy and consent",
+  "pdfNotViewable": "This file is a PDF. Viewing PDFs in the app is coming later.",
+  "viewFailed": "Could not open this report. Try again.",
+  "consentTitle": "Privacy and consent",
+  "consentIntro": "Each choice is separate. You can turn any of them off at any time.",
+  "consentTripsTitle": "Visits and companions",
+  "consentTripsBody": "We use the patient's name, address, mobility notes and family contacts to plan visits. Companions see these only around each visit.",
+  "consentVaultTitle": "Health records",
+  "consentVaultBody": "Keep reports, prescriptions and readings in a private record. Only family members you add can see them; companions never can.",
+  "consentOpsTitle": "Our team may view records",
+  "consentOpsBody": "Lets our support team open the health records to help you. Every view is logged and you can see the log.",
+  "consentOn": "On",
+  "consentOff": "Off",
+  "consentOwnerOnly": "Only the owner can change these choices.",
+  "confirmWithdraw": "Turn this off? It stops at once. Records already saved are kept until you ask us to delete them.",
+  "turnOff": "Turn off",
+  "tabBills": "Bills",
+  "billsNotAllowed": "Only the owner and editors can see bills.",
+  "noBills": "No bills yet.",
+  "billFor": "Bill for {month}",
+  "@billFor": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "billDue": "Due",
+  "billPaid": "Paid",
+  "payNow": "Pay {amount}",
+  "@payNow": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "testModeNotice": "Test mode: no real money moves. This marks the bill as paid.",
+  "confirmPay": "Pay",
+  "paymentDone": "Payment received. Thank you!",
+  "onlinePaymentNotInBuild": "Online payment is not available in this build yet.",
+  "lineVisit": "Visit on {date}",
+  "@lineVisit": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lineFare": "Cab/auto fare on {date}",
+  "@lineFare": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lineMonthlyFee": "Monthly fee",
+  "billTotal": "Total"
+}
