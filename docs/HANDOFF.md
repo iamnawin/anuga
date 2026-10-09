@@ -1,6 +1,6 @@
 # Handoff
 
-Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-bell-4fgv07`)
+Last updated: 2026-10-09 (session 2, Claude Code cloud, branch `claude/trusting-bell-4fgv07`)
 
 ## Current state
 
@@ -11,8 +11,13 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
   **M9** (payments in test mode). **M10** (production launch) is gated on founder approval.
 - Session 2 started from `9f21c73`. The earlier local M3 attempt was never pushed, so M3 was built
   from scratch here; nothing was duplicated.
-- Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
-  draft PR to `main` (not merged).
+- Repository: **https://github.com/iamnawin/anuga** (private). M3-M9 were merged to `main` in
+  iamnawin/anuga#1 (2026-10-09).
+- **Hosted staging (ADR 0004, founder-approved 2026-10-09, synthetic data only):** Supabase project
+  `anuga` (`vsvkllfgrnlbhdydysny`, Mumbai) has all nine migrations, the seed (6 trips) and the
+  `vault-files` + `payments` functions (with CORS for browsers). Web apps deploy to the Vercel
+  project `anuga` (`/ops/`, `/family/`, `/companion/`) via the manual **deploy staging** workflow.
+  Setup and remaining founder steps: `docs/SETUP.md`, "Hosted staging".
 
 ## Decisions made
 
@@ -182,7 +187,11 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 ## Checks NOT run yet
 
 - Telugu and Hindi strings have not been reviewed by a native speaker.
-- Ops console on a hosted Supabase project: none exists (gated, M10).
+- Staging (2026-10-09): migrations, seed and security advisors checked through the Supabase
+  connector (advisors: only intended findings: deny-all RLS tables, RPCs callable by signed-in
+  users, password checks unused with phone OTP). The live functions and web apps could not be
+  reached from the cloud session (network policy denies `*.supabase.co`); `deploy staging` runs
+  `scripts/staging-smoke.ts` from GitHub instead, once `VERCEL_TOKEN` and `STAGING_TEST_OTP` exist.
 - Private storage bucket policies and signed URLs: M8.
 - Android SDK cannot be installed in the cloud session (the proxy denies `dl.google.com`):
   `flutter build apk --debug` runs only in CI (`companion-app`, `family-app`). No emulator or
@@ -194,13 +203,19 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 - PGlite does not serialize JS arrays for enum-array parameters; tests pass array literals (`{a,b}`).
 - Supabase Auth limits OTP requests per number (~5 s locally); the Playwright suite signs in once
   and reuses the saved session.
-- `[auth.sms.test_otp]` and the fake Twilio values are local-only. A hosted project needs a real
-  SMS provider (founder authorization; paid service) and must not get test OTPs.
+- `[auth.sms.test_otp]` and the fake Twilio values are local-only. Staging uses dashboard test
+  numbers with a founder-chosen code (ADR 0004); production needs a real SMS provider (paid,
+  founder authorization) and no test numbers.
+- The Supabase connector times out on statements that drop or delete (it waits for a confirmation
+  it cannot show). Such migrations must be run in the staging dashboard SQL editor.
 
 ## Exact next task
 
 M0-M9 are done. **M10 (production launch) must not start without explicit founder approval.**
 
+0. **Finish staging (founder, ~5 min):** phone test numbers + code, `PAYMENTS_WEBHOOK_SECRET`,
+   a Vercel token, and the GitHub secrets `VERCEL_TOKEN` + `STAGING_TEST_OTP` (`docs/SETUP.md`).
+   Then run **deploy staging** and confirm the smoke test passes.
 1. **Founder review** of PR iamnawin/anuga#1 and these decisions (they block further scope):
    - Bill no-show visits? (`app_settings.billable_trip_statuses`, currently completed only)
    - Approve `image_picker` + `http` in the family app (official packages, on-device)?

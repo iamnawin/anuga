@@ -120,6 +120,31 @@ pnpm dlx supabase@2.120.0 stop --no-backup
 
 Tests commit data; run `db reset` before each run against the same local stack.
 
+## Hosted staging (synthetic data only, ADR 0004)
+
+| Piece | Where |
+| --- | --- |
+| Backend | Supabase project `anuga`, ref `vsvkllfgrnlbhdydysny` (Mumbai, free tier) |
+| Web apps | Vercel project `anuga`: `/ops/`, `/family/`, `/companion/` (Vercel Authentication on) |
+| Deploy | GitHub Actions → **deploy staging** → Run workflow (manual) |
+
+One-time setup (founder):
+
+1. Supabase dashboard → Authentication → Sign In / Providers → Phone: enable, SMS provider
+   Twilio with placeholder values, and test numbers for the seed accounts
+   (`919000000001`, `919000000101`, `919000000102`, `919000000201`, `919000000202`) with one code.
+2. Supabase dashboard → Edge Functions → Secrets: `PAYMENTS_WEBHOOK_SECRET` = any random string.
+3. Vercel → Account settings → Tokens: create a token scoped to "iamnawin's projects".
+4. GitHub repo → Settings → Secrets and variables → Actions: `VERCEL_TOKEN` (step 3) and
+   `STAGING_TEST_OTP` (the code from step 1).
+
+Build locally: `STAGING_SUPABASE_URL=... STAGING_SUPABASE_ANON_KEY=... scripts/build-staging.sh`
+(needs pnpm and Flutter; output in `artifacts/staging/.vercel/output`).
+
+Schema changes: apply each new migration to staging too. Statements that drop or delete must
+be run in the dashboard SQL editor (the Supabase connector cannot confirm them). After a
+change, reload the seed only on a fresh project; never load real data.
+
 ## Secrets and data
 
 - Copy `.env.example` to `.env` for local values. `.env` is git-ignored.

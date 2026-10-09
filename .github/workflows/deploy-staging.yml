@@ -1,0 +1,49 @@
+name: deploy staging
+
+# Manual only. Builds the three apps as one static site pointed at the staging
+# Supabase project and deploys it to the Vercel project `anuga`, then smoke-tests
+# the staging backend. SYNTHETIC DATA ONLY (docs/adr/0004-hosted-staging.md).
+# Needs repo secrets VERCEL_TOKEN and STAGING_TEST_OTP (docs/SETUP.md, "Hosted staging").
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: false
+
+env:
+  # Public client settings for the staging project (the anon key ships in every web build).
+  STAGING_SUPABASE_URL: https://vsvkllfgrnlbhdydysny.supabase.co
+  STAGING_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzdmtsbGZncm5sYmhkeWR5c255Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NTUzMzcsImV4cCI6MjEwNzEzMTMzN30.40dbINejc5MsvwrOIjFDB4vEQWdimt-VkZxdafbGQ7Q
+  VERCEL_ORG_ID: team_t3I2D0lrJ02PZ2a0AgeKV2gr
+  VERCEL_PROJECT_ID: prj_OIgy0tgFWjWwiCZVoTTHqiE9ktHN
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+      - run: scripts/build-staging.sh
+      - name: Deploy to Vercel (prebuilt static site)
+        working-directory: artifacts/staging
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          test -n "$VERCEL_TOKEN" || { echo "VERCEL_TOKEN secret is not set"; exit 1; }
+          url=$(npx --yes vercel@59.26.0 deploy --prebuilt --prod --yes --token "$VERCEL_TOKEN")
+          echo "Deployed: $url" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Smoke test the staging backend
+        env:
+          STAGING_TEST_OTP: ${{ secrets.STAGING_TEST_OTP }}
+        run: node scripts/staging-smoke.ts | tee -a "$GITHUB_STEP_SUMMARY"
