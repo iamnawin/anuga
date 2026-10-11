@@ -1,5 +1,14 @@
 # Handoff
 
+## S3 UI delivery (2026-10-11)
+
+Branch ui/s3-ops-console, main plus S2 PR #4 commits; no staging code. Six presentation files changed: globals.css, OpsShell, login/layout, trips and billing. Mint sidebar, ANUGA branding, teal controls, navy hierarchy, accessible scroll regions and dark/narrow layouts. Existing handlers/providers/RPC/roles/payment data flow and tests preserved. Schedules/exceptions inherit the shared styling.
+
+Full scripts/check-all.sh exit 0; install/root typecheck, ops lint/typecheck/build, all Dart format/analyze pass. PGlite 140 pass/8 skips, ops 52, shared Dart 27, companion 39/3 skips, family 35/6 skips. Separate ops lint/typecheck/test pass52. Whitespace clean and independent UI behavior review found no remaining S3 issue. Local real Next app + browser-intercepted synthetic fixtures captured23 screenshots: zero page errors/page-wide overflow/sub48-high controls at1440/360/430, dark, te/hi and200% text. Evidence/mappings/differences/startup instructions: docs/evidence/s3-ui/README.md. Logs: artifacts/s3/check-all-final.log and ops-*.log.
+
+Not run: real-Supabase journey/permissions (Docker absent), hosted staging/native-language review. In-app browser tooling failed bootstrap; repository Playwright/Edge used. PR status: ready for separate UI PR, no merge/deploy. Exact next task: finish S4/S5 checks and review, open their separate PRs, then founder tests with synthetic backend; staging requires PR #2 plus dashboard steps.
+
+
 ## S2 design handoff (2026-10-11)
 
 Branch: `ui/s2-design-tokens`, from fetched `origin/main`. PR #2 remains OPEN and supplies staging context only; PR #3 is obsolete. This section supersedes the historical next task below for UI work. Founder now approves ANUGA visible branding, overriding older undecided-name wording; identifiers remain unchanged.

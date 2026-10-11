@@ -58,6 +58,7 @@ export default function LoginPage() {
 
   return (
     <main className="page login">
+      <div className="brand-block login-brand"><strong className="brand">ANUGA</strong></div>
       <div className="login-head">
         <h1>{t('login.title')}</h1>
         <LanguageSwitcher />
