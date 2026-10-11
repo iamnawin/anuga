@@ -255,4 +255,5 @@ roles, trip data export for pilot metrics, deletion job for consent withdrawal.
 - [x] Authenticated Vercel CLI; existing project configured for prebuilt combined site, no new project or paid service.
 - [x] Publish combined prebuilt to anuga.vercel.app: dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3 at de8f72a. Four routes HTTP 200; three real role sign-ins/reloads and isolated companion sign-out pass.
 - [x] Hosting fix PR #9 opened; source CI 38150546061 running. Documentation-only live receipt checked with git diff --check.
-- [ ] Publish fix PR CI/merge receipt and founder manual visit. Synthetic active-window fixture remains in LOCAL_TESTING.
+- [x] Publish fix PR #9 merged at 37bdae2c. Code CI 38150546061/de8f72a: six jobs pass, real Supabase 150/150 zero skips, ops browser 7 pass, full journey/test billing and APKs. Main product source matches deployed/tested code. Final doc-only receipt checked, no app rerun; receipt/main CI may be running.
+- [ ] Founder manual active-window visit. Additive synthetic fixture and walkthrough remain in LOCAL_TESTING.

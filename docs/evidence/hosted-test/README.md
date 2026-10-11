@@ -33,5 +33,9 @@ Git auto-deploy disabled to prevent ops-only replacement. Site is LIVE at
 dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. Root and all three apps HTTP 200. The same
 real-browser session regression passed on the published domain, zero page errors.
 See [deployment.json](deployment.json), [published session receipt](published-session-receipt.json).
-PR #9 source CI 38150546061 pending remaining real-Supabase/APK jobs at this
-documentation-only receipt; final results and merge will be recorded in HANDOFF.
+PR #9 merged at 37bdae2c. [Code CI 38150546061](https://github.com/iamnawin/anuga/actions/runs/38150546061)
+at de8f72a passed all six jobs, real Supabase 150/150 zero skips, ops browser 7,
+both apps' real-Supabase tests, full journey/test billing and both APKs.
+[CI receipt](ci-summary.json). Main app/build/security code matches verified
+published source; later receipts are documentation-only, with new CI possibly
+running. Founder manual active-window visit remains the next check.
