@@ -140,6 +140,8 @@ Checks run locally: `pnpm typecheck` pass; `pnpm db:test` 57 pass / 3 skipped; o
 Not run: the e2e itself and real phone-OTP sign-in (need Supabase local, CI only).
 
 ### Exact next task
+0. State at end of session 3: all M3 work is in local commit `a6996fe` (plus this docs commit),
+   NOT pushed; waiting for founder approval to push.
 1. Push `m3-ops-console`, watch the `supabase-local` job. If phone OTP fails, check GoTrue logs
    (`supabase logs`/container) against the findings above.
 2. Open a PR to `main` (do not merge) with the two e2e screenshots from the artifact.
