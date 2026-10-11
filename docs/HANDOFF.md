@@ -1,6 +1,7 @@
 # Handoff
 
-Last updated: 2026-10-09 (session 2, Claude Code cloud, branch `claude/trusting-bell-4fgv07`)
+Last updated: 2026-10-11 (session 3, Claude Code local Windows, branch `staging-handoff` pushed onto
+`claude/trusting-bell-4fgv07` = PR iamnawin/anuga#2). Session 2: 2026-10-09, Claude Code cloud.
 
 ## Current state
 
@@ -211,6 +212,23 @@ Last updated: 2026-10-09 (session 2, Claude Code cloud, branch `claude/trusting-
 - The Supabase connector times out on statements that drop or delete (it waits for a confirmation
   it cannot show). Such migrations must be run in the staging dashboard SQL editor.
 
+## Session 3 (2026-10-11): founder feedback, duplicate PR, design work next
+
+- **Founder feedback:** "I can't see or test the UI." The only live link is the Git-linked Vercel
+  project `anuga` (ops console only); its login is a bare form that cannot sign in until staging
+  phone auth is set up (step 0 below). The screens are plain and do not yet follow the founder's
+  design sketches. "Not connected" = no hosted link where all three apps talk to one backend yet;
+  PR #2 provides exactly that once merged and deployed.
+- **Founder design sketches** (made in an image tool) are being copied into `docs/design/`.
+  Not in the repo yet. They are the visual baseline for all three apps (see step 1b).
+- **Duplicate work, do not use:** a local session built an older, separate M3 on branch
+  `m3-ops-console` (PR iamnawin/anuga#3, conflicts with `main`). It started from a stale local
+  `main` and never saw PR #1. Recommended: close PR #3 and delete the branch (awaiting founder OK).
+  Lesson: always `git fetch` and read `origin/main:docs/HANDOFF.md` before starting.
+- Founder answers this session: wants a hosted test link (Vercel preview approved), sketches to
+  drive the UI, and parallel agents for the remaining work (plan in `AGENTS.md`, "Parallel work").
+- Nothing in code changed this session; only `docs/HANDOFF.md` and `AGENTS.md`.
+
 ## Exact next task
 
 M0-M9 are done. **M10 (production launch) must not start without explicit founder approval.**
@@ -218,6 +236,12 @@ M0-M9 are done. **M10 (production launch) must not start without explicit founde
 0. **Finish staging (founder, ~5 min):** phone test numbers + code, `PAYMENTS_WEBHOOK_SECRET`,
    a Vercel token, and the GitHub secrets `VERCEL_TOKEN` + `STAGING_TEST_OTP` (`docs/SETUP.md`).
    Then run **deploy staging** and confirm the smoke test passes.
+1a. **Merge PR iamnawin/anuga#2** (green, mergeable; `workflow_dispatch` only appears from `main`),
+   then Actions -> **deploy staging** -> Run. Share the preview URL from the run summary with the founder.
+1b. **UI to match the founder's sketches** (`docs/design/`), one branch per app, in parallel
+   (`AGENTS.md`, "Parallel work"): shared design tokens first (colours, type scale, 48 px+ targets,
+   high contrast, en/te/hi), then ops console, companion app, family app. UI-only: no change to
+   RPCs, auth or access rules. Compare each screen with its sketch and list intentional differences.
 1. **Founder review** of PR iamnawin/anuga#1 and these decisions (they block further scope):
    - Bill no-show visits? (`app_settings.billable_trip_statuses`, currently completed only)
    - Approve `image_picker` + `http` in the family app (official packages, on-device)?
