@@ -114,4 +114,3 @@ The integration branch combines PR #2 and UI PRs #4-#7. Windows launcher:
 Uses only public anon/publishable settings, loopback servers on ports 3100-3102,
 separate role sessions and existing synthetic backend. Guide: docs/LOCAL_TESTING.md.
 Database access rules, app RPCs and auth adapters are unchanged.
-

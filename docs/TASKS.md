@@ -11,10 +11,10 @@
 Build one milestone at a time. A milestone is done only when its acceptance checks have run and
 passed; record results (and checks that could not run) in `docs/HANDOFF.md`.
 
-Goal of M1-M7, the **first working journey**: ops assigns a companion â†’ family sees the booking â†’
-companion completes pickup and hospital handover â†’ family receives status â†’ return journey completes.
+Goal of M1-M7, the **first working journey**: ops assigns a companion → family sees the booking →
+companion completes pickup and hospital handover → family receives status → return journey completes.
 
-Status: `[x]` done and verified Â· `[~]` in progress Â· `[ ]` not started Â· `[!]` blocked
+Status: `[x]` done and verified · `[~]` in progress · `[ ]` not started · `[!]` blocked
 
 ## M0. Repo foundation `[x]`
 

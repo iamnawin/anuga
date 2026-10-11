@@ -181,4 +181,3 @@ See [LOCAL_TESTING.md](LOCAL_TESTING.md). From the integration checkout, run
 The launcher builds all three apps with public client settings and serves on
 127.0.0.1 ports 3100 (ops), 3101 (family), 3102 (companion), with separate role sessions.
 Hosted phone sign-in is currently disabled. No deployment or Vercel secrets are required.
-

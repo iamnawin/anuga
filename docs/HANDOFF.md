@@ -226,7 +226,7 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | `scripts/check-all.sh` (M9 final) | all passed: PGlite 140 pass / 8 skipped; ops console 52; shared_dart 27; companion 39 + 3 skipped; family 35 + 6 skipped |
 | `pnpm db:test:supabase` (incl. vault and payments functions) | **148/148** |
 | Ops console Playwright (standalone) | 7 pass (+4 journey tests skipped outside the journey) |
-| `scripts/e2e-journey.sh` with billing | **JOURNEY PASSED**: bill â‚¹550 (visit â‚¹400 + fare â‚¹150), owner notified, paid in test mode, ops sees paid; evidence `docs/evidence/m7/` |
+| `scripts/e2e-journey.sh` with billing | **JOURNEY PASSED**: bill ₹550 (visit ₹400 + fare ₹150), owner notified, paid in test mode, ops sees paid; evidence `docs/evidence/m7/` |
 | `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet
@@ -340,7 +340,6 @@ Full scripts/check-all.sh exit 0; install/root typecheck, ops lint/typecheck/bui
 Not run: real-Supabase journey/permissions (Docker absent), hosted staging/native-language review. In-app browser tooling failed bootstrap; repository Playwright/Edge used. PR status: ready for separate UI PR, no merge/deploy. Exact next task: finish S4/S5 checks and review, open their separate PRs, then founder tests with synthetic backend; staging requires PR #2 plus dashboard steps.
 
 
-
 ## S4 UI delivery (2026-10-11)
 
 Branch ui/s4-companion, main plus S2 PR #4 commits. Seven authorized files: theme, three screens and en/te/hi ARB titles. Teal ANUGA/mint/navy presentation, route essentials/status panels and scrollable dialogs. All callbacks, keys, OTP/state-machine actions, time-window projection and tests retained. Distinct terminal glyphs preserve meaning; localized titles verified as Unicode.
@@ -348,7 +347,6 @@ Branch ui/s4-companion, main plus S2 PR #4 commits. Seven authorized files: them
 Final scripts/check-all.sh exit0, all install/typecheck/lint/build/format/analyze phases pass. PGlite140/8skips,ops52,shared27,companion39/3skips,family35/6skips. Separate companion analyze clean,tests39/3. Five widget-render matrix tests pass,165 captures generated;38 curated screenshots/mappings/differences and founder commands in docs/evidence/s4-ui/README.md. Diff whitespace clean. Independent review's text-color finding fixed and validated in light/dark renders. Logs artifacts/s4/check-all.log,analyze.log,flutter-test.log,screenshots.log.
 
 Not run: device/emulator,real-Supabase journey (Docker absent),hosted staging,native-language review. Evidence uses real Flutter widgets with synthetic fake APIs and font substitution in ignored harness only; not real auth/security/device validation. PR status: separate S4 PR prepared, no merge/deploy. S3 open at https://github.com/iamnawin/anuga/pull/5. Exact next task: finish S5 review/checks and PR, then founder review and local synthetic device testing; staging separately gated on PR #2 dashboard steps.
-
 
 
 ## S5 UI delivery (2026-10-11)
@@ -360,6 +358,4 @@ Final scripts/check-all.sh exit0; all install/typecheck/lint/build/format/analyz
 Not run: device/emulator,real-Supabase journey/permissions (Docker absent),hosted staging,native-language review. Evidence is real-widget/synthetic API rendering with harness-only readable fonts and synthetic report fixture; no auth/security/device claim. PR status: separate S5 PR prepared,no merge/deploy. S2 open PR #4,S3 PR #5,S4 PR #6. Exact next task: open S5 PR,record all PR links,then founder review/test existing flows with synthetic backend; staging requires PR #2 and dashboard steps.
 
 
-
-Local integration browser receipt: repository Playwright/Edge opened the real three release builds, enabled Flutter semantics and entered each synthetic phone. Three HTTP 200, zero page errors or failed requests, all input values confirmed. No login submitted because Phone is disabled. Curated proof: docs/evidence/integration. Full logs in ignored artifacts/integration.
-
+Local integration browser receipt: repository Playwright/Edge opened all three real release builds, enabled Flutter semantics and entered each synthetic phone. Three HTTP 200, zero page errors or failed requests, all input values confirmed. No login submitted because Phone is disabled. Proof: docs/evidence/integration. Full logs in ignored artifacts/integration. Historical docs were reconciled using UTF-8 source snapshots and normalized to LF after Windows shell encoding changed historical punctuation. No product code changed in this correction; diff whitespace check rerun. Next: open integration PR, inspect CI, founder configures synthetic phone auth and completes LOCAL_TESTING walkthrough.
