@@ -1,0 +1,15 @@
+{
+    "url":  "https://anuga.vercel.app",
+    "deployment":  "dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3",
+    "deploymentUrl":  "https://anuga-4z0392uxl-iamnawins-projects.vercel.app",
+    "source":  "de8f72abcaf7d00480ee6b8c9978f5cb8c09f812",
+    "routes":  [
+                   "/",
+                   "/ops/login/",
+                   "/family/",
+                   "/companion/"
+               ],
+    "httpStatus":  200,
+    "browser":  "real sign-ins, independent reloads, isolated companion sign-out passed",
+    "data":  "synthetic only"
+}

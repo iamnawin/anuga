@@ -2,6 +2,10 @@
 
 ## Founder-authorized combined publication (2026-10-11)
 
+LIVE: https://anuga.vercel.app serves the ANUGA chooser and all three redesigned apps: /ops/login/, /family/, /companion/. Published source de8f72a, Vercel deployment dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3, unique URL https://anuga-4z0392uxl-iamnawins-projects.vercel.app. All four routes HTTP 200. Published real-browser sign-ins for ops/owner/Ravi, independent reloads and companion sign-out isolation PASS, zero page errors. Synthetic data only; no service-role key in apps. Evidence: docs/evidence/hosted-test/deployment.json and published-session-receipt.json.
+
+Necessary hosting fix PR #9: https://github.com/iamnawin/anuga/pull/9. Full code CI run 38150546061 at de8f72a is in progress; database, ops and shared Dart passed at this receipt. Record final real-Supabase/APK results and merge #9 after they pass. This live/PR-link receipt changes docs only; whitespace check passes, app tests not repeated. Founder may open the live site now; an active-window synthetic visit still needs the SQL fixture in LOCAL_TESTING for a full manual visit.
+
 Founder explicitly answered yes to merging PR #8 and publishing all three redesigned synthetic apps at anuga.vercel.app. This supersedes the earlier no-merge/no-deploy restriction for this test-site task only. M10 and real-data/paid-provider launch remain gated.
 
 PR #8 merged at 3c6f2ace0ff96d2c6f7583b4745fe0829d9b78aa. Its final head cbe3b20 CI run 38146021839 passed all six jobs; merged main run 38148157637 also passed. Source PRs #2/#4-#7 remain intact; #3 is obsolete. New branch deploy/combined-test-site carries necessary combined-hosting fixes and receipts.

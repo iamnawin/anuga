@@ -38,7 +38,7 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - Founder explicitly approved publishing the combined synthetic version at anuga.vercel.app. This replaces the earlier no-main-merge/no-deploy instruction for this task; no real data or paid providers authorized.
 - PR #2 and #4-#7 remain intact, their changes integrated by #8. PR #3 remains obsolete. ANUGA branding approved; identifiers unchanged.
 - Hosted Phone is now enabled and synthetic role allowed/denied smoke passes. Same-origin Flutter auth storage and BroadcastChannel isolation verified by real browser sign-ins/reloads/sign-out. Native auth settings, RPCs, DB access rules and tests preserved.
-- deploy/combined-test-site contains necessary publish fixes. All fast/app checks and web builds pass. Vercel CLI sign-in approved; existing project configured for combined prebuilt output. Publication and new PR CI receipt pending. See latest HANDOFF.
+- LIVE https://anuga.vercel.app serves root chooser and /ops/, /family/, /companion/. All four routes HTTP 200 and real three-role sign-in/reload/isolated sign-out pass. Source de8f72a, deployment dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. PR #9 contains necessary hosting fixes; CI 38150546061 pending remaining jobs before its authorized merge. All local fast/app checks/web builds pass. See latest HANDOFF.
 
 ## Parallel work and shared documents
 

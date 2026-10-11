@@ -28,5 +28,10 @@ Android/device and local Docker journey unavailable; native te/hi review not run
 
 Vercel CLI authenticated as founder; existing anuga project configured for root/
 Other and combined prebuilt publishing. All-three-app manual workflow added;
-Git auto-deploy disabled to prevent ops-only replacement. Published-site receipt
-and fix PR CI will be appended to HANDOFF when publication completes.
+Git auto-deploy disabled to prevent ops-only replacement. Site is LIVE at
+[anuga.vercel.app](https://anuga.vercel.app), published source de8f72a, deployment
+dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. Root and all three apps HTTP 200. The same
+real-browser session regression passed on the published domain, zero page errors.
+See [deployment.json](deployment.json), [published session receipt](published-session-receipt.json).
+PR #9 source CI 38150546061 pending remaining real-Supabase/APK jobs at this
+documentation-only receipt; final results and merge will be recorded in HANDOFF.
