@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../labels.dart';
 import '../vault_files.dart';
 
@@ -65,9 +66,26 @@ class _RecordScreenState extends State<RecordScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(docTypeLabel(l10n, doc.docType), style: Theme.of(context).textTheme.titleMedium),
+              CarePanel(
+                child: Row(
+                  children: [
+                    Icon(Icons.lock_outline, color: Theme.of(context).colorScheme.primary),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(docTypeLabel(l10n, doc.docType), style: Theme.of(context).textTheme.titleMedium),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 12),
-              Expanded(child: Center(child: body)),
+              Expanded(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Center(child: body),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

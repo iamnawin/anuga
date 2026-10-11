@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 import '../payments.dart';
@@ -60,6 +61,7 @@ class _BillsTabState extends State<BillsTab> {
       child: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          CareHeading(l10n.tabBills),
           if (_error != null)
             Text(describeError(l10n, _error!), style: TextStyle(color: Theme.of(context).colorScheme.error)),
           if (bills == null && _error == null) Text(l10n.loading),
@@ -69,6 +71,7 @@ class _BillsTabState extends State<BillsTab> {
               key: Key('bill-${bill.id}'),
               child: ListTile(
                 minVerticalPadding: 12,
+                leading: const Icon(Icons.receipt_long_outlined, size: 28),
                 title: Text(l10n.billFor(formatMonth(bill.periodStart, locale))),
                 subtitle: Text(
                   '${formatRupees(bill.totalPaise, locale)} · ${bill.isPaid ? l10n.billPaid : l10n.billDue}',
@@ -181,19 +184,23 @@ class _BillScreenState extends State<BillScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            Text(bill.packageName, style: Theme.of(context).textTheme.titleMedium),
+            CarePanel(child: Text(bill.packageName, style: Theme.of(context).textTheme.titleLarge)),
+            const SizedBox(height: 24),
             if (lines == null) Text(l10n.loading),
             for (final line in lines ?? const <InvoiceLine>[])
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 title: Text(_lineLabel(l10n, line, locale)),
-                trailing: Text(formatRupees(line.amountPaise, locale), style: const TextStyle(fontSize: 18)),
+                subtitle: Text(
+                  formatRupees(line.amountPaise, locale),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
               ),
             const Divider(),
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: Text(l10n.billTotal, style: const TextStyle(fontWeight: FontWeight.w700)),
-              trailing: Text(
+              subtitle: Text(
                 formatRupees(bill.totalPaise, locale),
                 key: const Key('bill-total'),
                 style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),

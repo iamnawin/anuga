@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../app.dart';
 import '../labels.dart';
 import '../payments.dart';
@@ -67,6 +68,25 @@ class _HomeScreenState extends State<HomeScreen> {
     final l10n = AppLocalizations.of(context);
     final patients = _patients;
     final selected = _selected;
+    final scaledLabel = MediaQuery.textScalerOf(context).scale(14);
+    // Material caps destination labels at 1.3. Compensate so the user's full
+    // scale is retained, with horizontal scrolling for longer labels.
+    final materialLabelScale = scaledLabel / 14 > 1.3 ? 1.3 : scaledLabel / 14;
+    final navigationLabels = [l10n.tabBookings, l10n.tabRecords, l10n.tabBills, l10n.tabInbox];
+    var destinationWidth = MediaQuery.sizeOf(context).width / navigationLabels.length;
+    for (final label in navigationLabels) {
+      final painter = TextPainter(
+        text: TextSpan(
+          text: label,
+          style: Theme.of(context).textTheme.labelMedium
+              ?.merge(Theme.of(context).navigationBarTheme.labelTextStyle?.resolve({})),
+        ),
+        textDirection: Directionality.of(context),
+        textScaler: MediaQuery.textScalerOf(context),
+      )..layout();
+      if (painter.width + 16 > destinationWidth) destinationWidth = painter.width + 16;
+      painter.dispose();
+    }
 
     Widget body;
     if (_error != null) {
@@ -79,47 +99,89 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Text(l10n.noPatients, style: const TextStyle(fontSize: 18)),
       );
     } else {
-      body = Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (patients.length > 1)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-              child: DropdownButtonFormField<String>(
-                key: const Key('patient-picker'),
-                initialValue: selected.patientId,
-                isExpanded: true,
-                decoration: InputDecoration(labelText: l10n.patientLabel),
-                items: [for (final p in patients) DropdownMenuItem(value: p.patientId, child: Text(p.fullName))],
-                onChanged: (id) => setState(() => _selected = patients.firstWhere((p) => p.patientId == id)),
+      body = LayoutBuilder(
+        builder: (context, constraints) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: constraints.maxHeight * 0.35),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                      child: CarePanel(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(Icons.person_outline, size: 32, color: Theme.of(context).colorScheme.primary),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(l10n.patientLabel, style: Theme.of(context).textTheme.bodySmall),
+                                  Text(selected.fullName, style: Theme.of(context).textTheme.titleMedium),
+                                  Text(selected.centreName, style: Theme.of(context).textTheme.bodyMedium),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    if (patients.length > 1)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                        child: DropdownButtonFormField<String>(
+                          key: const Key('patient-picker'),
+                          itemHeight: null,
+                          isDense: false,
+                          initialValue: selected.patientId,
+                          isExpanded: true,
+                          decoration: InputDecoration(labelText: l10n.patientLabel),
+                          items: [
+                            for (final p in patients) DropdownMenuItem(value: p.patientId, child: Text(p.fullName)),
+                          ],
+                          onChanged: (id) => setState(() => _selected = patients.firstWhere((p) => p.patientId == id)),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
-          Expanded(
-            child: switch (_tab) {
-              0 => BookingsTab(key: ValueKey(selected.patientId), api: widget.api, patient: selected),
-              1 => RecordsTab(
-                key: ValueKey('records-${selected.patientId}'),
-                api: widget.api,
-                files: widget.files,
-                photos: widget.photos,
-                patient: selected,
-              ),
-              2 => BillsTab(
-                key: ValueKey('bills-${selected.patientId}'),
-                api: widget.api,
-                payments: widget.payments,
-                patient: selected,
-              ),
-              _ => InboxTab(api: widget.api),
-            },
-          ),
-        ],
+            Expanded(
+              child: switch (_tab) {
+                0 => BookingsTab(key: ValueKey(selected.patientId), api: widget.api, patient: selected),
+                1 => RecordsTab(
+                  key: ValueKey('records-${selected.patientId}'),
+                  api: widget.api,
+                  files: widget.files,
+                  photos: widget.photos,
+                  patient: selected,
+                ),
+                2 => BillsTab(
+                  key: ValueKey('bills-${selected.patientId}'),
+                  api: widget.api,
+                  payments: widget.payments,
+                  patient: selected,
+                ),
+                _ => InboxTab(api: widget.api),
+              },
+            ),
+          ],
+        ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(selected?.fullName ?? l10n.appTitle),
+        title: Text(
+          'ANUGA',
+          style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w700, letterSpacing: 1),
+        ),
         actions: [
           if (selected != null)
             IconButton(
@@ -139,15 +201,27 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(child: body),
       bottomNavigationBar: selected == null
           ? null
-          : NavigationBar(
-              selectedIndex: _tab,
-              onDestinationSelected: (i) => setState(() => _tab = i),
-              destinations: [
-                NavigationDestination(icon: const Icon(Icons.event), label: l10n.tabBookings),
-                NavigationDestination(icon: const Icon(Icons.folder_shared), label: l10n.tabRecords),
-                NavigationDestination(icon: const Icon(Icons.receipt_long), label: l10n.tabBills),
-                NavigationDestination(icon: const Icon(Icons.notifications), label: l10n.tabInbox),
-              ],
+          : SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: destinationWidth * navigationLabels.length,
+                child: NavigationBar(
+                  height: 80 + (MediaQuery.textScalerOf(context).scale(14) - 14) * 3,
+                  labelTextStyle: WidgetStatePropertyAll(
+                    Theme.of(context).navigationBarTheme.labelTextStyle!
+                        .resolve({})!
+                        .copyWith(fontSize: scaledLabel / materialLabelScale),
+                  ),
+                  selectedIndex: _tab,
+                  onDestinationSelected: (i) => setState(() => _tab = i),
+                  destinations: [
+                    NavigationDestination(icon: const Icon(Icons.event), label: l10n.tabBookings),
+                    NavigationDestination(icon: const Icon(Icons.folder_shared), label: l10n.tabRecords),
+                    NavigationDestination(icon: const Icon(Icons.receipt_long), label: l10n.tabBills),
+                    NavigationDestination(icon: const Icon(Icons.notifications), label: l10n.tabInbox),
+                  ],
+                ),
+              ),
             ),
     );
   }
