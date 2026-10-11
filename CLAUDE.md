@@ -29,6 +29,13 @@ pnpm contract:export    # regenerate packages/shared_dart/test/fixtures/trip_con
 dart pub get && dart analyze --fatal-infos && dart test
 dart test test/trip_state_machine_test.dart          # one file
 dart test --name "wrong OTP"                          # one test
+
+# apps/ops_console (pnpm workspace package "ops-console")
+pnpm --filter ops-console test        # node:test unit tests for src/lib
+pnpm --filter ops-console lint
+pnpm --filter ops-console typecheck
+pnpm --filter ops-console build
+pnpm --filter ops-console dev
 ```
 
 `--test-isolation=none` is required: all files share one in-process database. The `first journey`
@@ -38,8 +45,9 @@ setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tool
 
 ## Architecture
 
-Monorepo. Built so far: `supabase/` and `packages/shared_dart`. Planned: `apps/family_app`,
-`apps/companion_app` (Flutter), `apps/ops_console` (Next.js), `supabase/functions` (Edge Functions).
+Monorepo. Built: `supabase/`, `packages/shared_dart`. In progress (M3, branch `m3-ops-console`):
+`apps/ops_console` (Next.js 16, data layer only so far). Planned: `apps/family_app`,
+`apps/companion_app` (Flutter), `supabase/functions` (Edge Functions).
 
 The database is the security boundary; apps are thin clients over RPCs:
 
@@ -67,6 +75,10 @@ The database is the security boundary; apps are thin clients over RPCs:
   the same rules as the migration. Both sides are tested against the committed
   `trip_contract.json`; change SQL, run `pnpm contract:export`, update Dart, run both suites.
 - **Dart API layer** takes an injected `RpcCaller` (apps pass `supabase.rpc`), so the package has no SDK dependency.
+- **Ops console** follows the same pattern: `src/lib/ops.ts` takes an `OpsClient` (the subset of
+  supabase-js it uses; tests pass a fake), shapes RPC calls/results and turns DB errors into text.
+  It never re-implements an access check. Times are IST (`Asia/Kolkata`). It pins TypeScript 5.9
+  because Next build and typescript-eslint need the TS JS API that the root's TS 7 lacks.
 - **Business values** (prices, radius, windows, OTP limits) live in `packages`, `clusters` and
   `app_settings`, never in code.
 

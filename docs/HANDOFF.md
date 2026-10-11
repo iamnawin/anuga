@@ -8,7 +8,7 @@ Last updated: 2026-10-08 (session 1, local Windows machine)
   **M2** (`packages/shared_dart`: models, trip state machine, RPC client, SQL/Dart contract tests).
 - **M1a, real Supabase verification: done.** CI job `supabase-local` applied all migrations and the
   seed on Supabase local (CLI 2.120.0, Postgres 17) and passed 60/60 tests, 0 skipped.
-- No app code yet (`apps/` does not exist).
+- M3 ops console code complete on branch `m3-ops-console`; see "M3 in progress" below.
 - Repository: **https://github.com/iamnawin/anuga** (private), branch `main`. Remote `origin`.
 
 ## Decisions made
@@ -119,15 +119,31 @@ Verified findings for real phone-OTP sign-in (Supabase CLI source, `pkg/config/c
 Blocker: no Docker on Windows or WSL (sudo needs a password), Supabase CLI not installed; all
 real-Supabase and browser checks must run in CI job `supabase-local`.
 
+### Session 3 (2026-10-11): M3 code complete, CI e2e not run yet
+
+Done:
+- Phone OTP for Supabase local: `supabase/config.toml` (`[auth.sms] enable_signup = true`,
+  `[auth.sms.test_otp]` for all 7 seed numbers, OTP `123456`; dummy local-only Twilio values).
+  Seed `auth.users` now uses GoTrue's format (no `+`, nil `instance_id`, `''` tokens); shim has
+  the matching columns. Login uses `shouldCreateUser: false`, so only seeded users can sign in.
+- UI (client components, plain CSS, 48px targets): `/login` (phone + OTP, signs out non-ops),
+  `(console)` layout (session + role gate, nav), `/trips` (date/status filter, "Assign backup",
+  reassign select), `/schedules` (primary/backup, DB errors shown), `/exceptions` (last 7 days).
+  English only: en/te/hi is required for the Flutter apps (M4, M5), not the internal console.
+- `e2e/assign-backup.spec.ts`: allowed (ops assigns backup Ravi; Far Companion rejected with
+  "not eligible") and denied (companion account cannot sign in). Screenshots go to `test-results/`.
+- CI: `db-tests` job runs ops-console lint/typecheck/unit; `supabase-local` resets the DB, builds
+  with URL/anon key from `supabase status -o env`, runs Playwright, uploads `ops-console-e2e` artifact.
+
+Checks run locally: `pnpm typecheck` pass; `pnpm db:test` 57 pass / 3 skipped; ops-console
+`lint`, `typecheck` pass; `test` 13/13; `build` pass; `playwright test --list` finds 2 tests.
+Not run: the e2e itself and real phone-OTP sign-in (need Supabase local, CI only).
+
 ### Exact next task
-1. Seed/shim/config changes above; `pnpm db:test` must stay green.
-2. UI (client components, plain CSS, large targets): `/login` (phone + OTP, reject non-ops role),
-   `(console)` layout with auth gate + nav, `/trips` (date/status filter, "Assign backup", reassign
-   select), `/schedules` (primary/backup selects, show DB errors), `/exceptions`.
-3. `e2e/assign-backup.spec.ts` (Playwright): sign in +919000000001/123456, assign Ravi as backup on
-   a trip, assert; assign Far Companion, assert "not eligible" error. Add to `supabase-local` job:
-   env from `supabase status -o env`, `next build`, `playwright install --with-deps chromium`.
-4. Lint, typecheck, PR to `main`, update TASKS.md and this file.
+1. Push `m3-ops-console`, watch the `supabase-local` job. If phone OTP fails, check GoTrue logs
+   (`supabase logs`/container) against the findings above.
+2. Open a PR to `main` (do not merge) with the two e2e screenshots from the artifact.
+3. When CI is green, mark M3 `[x]` in `docs/TASKS.md` and record the run id here.
 
 Storage boundary (for M8): passing now on real Supabase: no public buckets, API roles see no
 `storage.objects` rows without a policy. Not built: private vault bucket, its policies, signed URLs

@@ -6,14 +6,17 @@
 --   3000...0001 companion Asha (primary, ~0.5 km)   3000...0002 companion Ravi (backup, ~1.9 km)
 --   3000...0003 companion Far (outside radius, ~9 km)   3000...0004 companion Pending (unverified)
 
-insert into auth.users (id, phone, raw_user_meta_data) values
-  ('10000000-0000-0000-0000-000000000001', '+919000000001', '{"full_name": "Ops Admin (synthetic)"}'),
-  ('20000000-0000-0000-0000-000000000001', '+919000000101', '{"full_name": "Kiran Rao (synthetic)"}'),
-  ('20000000-0000-0000-0000-000000000002', '+919000000102', '{"full_name": "Meena Rao (synthetic)"}'),
-  ('30000000-0000-0000-0000-000000000001', '+919000000201', '{"full_name": "Asha Companion (synthetic)"}'),
-  ('30000000-0000-0000-0000-000000000002', '+919000000202', '{"full_name": "Ravi Companion (synthetic)"}'),
-  ('30000000-0000-0000-0000-000000000003', '+919000000203', '{"full_name": "Far Companion (synthetic)"}'),
-  ('30000000-0000-0000-0000-000000000004', '+919000000204', '{"full_name": "Pending Companion (synthetic)"}');
+-- GoTrue stores phones without '+' and finds users by the nil instance_id; it cannot
+-- read NULL token columns, so they are ''. Test OTPs live in supabase/config.toml.
+insert into auth.users (id, phone, raw_user_meta_data, instance_id, aud, role,
+                        confirmation_token, recovery_token, email_change_token_new, email_change) values
+  ('10000000-0000-0000-0000-000000000001', '919000000001', '{"full_name": "Ops Admin (synthetic)"}', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '', '', '', ''),
+  ('20000000-0000-0000-0000-000000000001', '919000000101', '{"full_name": "Kiran Rao (synthetic)"}', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '', '', '', ''),
+  ('20000000-0000-0000-0000-000000000002', '919000000102', '{"full_name": "Meena Rao (synthetic)"}', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '', '', '', ''),
+  ('30000000-0000-0000-0000-000000000001', '919000000201', '{"full_name": "Asha Companion (synthetic)"}', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '', '', '', ''),
+  ('30000000-0000-0000-0000-000000000002', '919000000202', '{"full_name": "Ravi Companion (synthetic)"}', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '', '', '', ''),
+  ('30000000-0000-0000-0000-000000000003', '919000000203', '{"full_name": "Far Companion (synthetic)"}', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '', '', '', ''),
+  ('30000000-0000-0000-0000-000000000004', '919000000204', '{"full_name": "Pending Companion (synthetic)"}', '00000000-0000-0000-0000-000000000000', 'authenticated', 'authenticated', '', '', '', '');
 
 update public.profiles set role = 'ops_admin' where id = '10000000-0000-0000-0000-000000000001';
 update public.profiles set role = 'companion' where id::text like '30000000-%';

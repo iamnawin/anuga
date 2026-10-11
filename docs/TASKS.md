@@ -72,6 +72,9 @@ clean; mutation (remove one Dart rule) fails the agreement test; `pnpm db:test` 
 Acceptance: lint + typecheck + unit tests pass; Playwright (or equivalent) test drives
 "assign backup to a trip" against Supabase local or a recorded test adapter; screenshots in PR.
 
+Status 2026-10-11: code complete. Local: lint, typecheck, 13 unit tests, build pass. Playwright
+`e2e/assign-backup.spec.ts` (allowed + denied) wired into CI `supabase-local`; not yet run.
+
 ## M4. Companion app: run a trip `[ ]`
 
 `apps/companion_app` (Flutter, Android first). Today/upcoming from `companion_my_trips`,

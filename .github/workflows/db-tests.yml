@@ -19,6 +19,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm db:test
+      - run: pnpm --filter ops-console lint
+      - run: pnpm --filter ops-console typecheck
+      - run: pnpm --filter ops-console test
 
   shared-dart:
     runs-on: ubuntu-latest
@@ -57,5 +60,23 @@ jobs:
       - run: supabase start -x studio,edge-runtime,logflare,vector,imgproxy
       - run: supabase db reset
       - run: pnpm db:test:supabase
+      # Ops console end-to-end: fresh seed (db tests change trips), real phone-OTP auth.
+      - run: supabase db reset
+      - name: Export Supabase local URL and anon key for the ops console build
+        run: |
+          eval "$(supabase status -o env)"
+          echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$ANON_KEY" >> "$GITHUB_ENV"
+      - run: pnpm --filter ops-console build
+      - run: pnpm --filter ops-console exec playwright install --with-deps chromium
+      - run: pnpm --filter ops-console e2e
+      - if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: ops-console-e2e
+          path: |
+            apps/ops_console/test-results/
+            apps/ops_console/playwright-report/
+          if-no-files-found: ignore
       - if: always()
         run: supabase stop --no-backup

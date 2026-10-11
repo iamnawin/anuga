@@ -7,13 +7,19 @@ create role authenticated nologin;
 create role service_role nologin bypassrls;
 
 create schema auth;
+-- Includes the GoTrue columns the seed sets so real phone-OTP sign-in finds seeded users.
 create table auth.users (
   id uuid primary key,
+  instance_id uuid,
   phone text unique,
   email text unique,
   aud text default 'authenticated',
   role text default 'authenticated',
   raw_user_meta_data jsonb not null default '{}',
+  confirmation_token text,
+  recovery_token text,
+  email_change_token_new text,
+  email_change text,
   created_at timestamptz not null default now()
 );
 
