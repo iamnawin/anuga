@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 
@@ -72,13 +73,14 @@ class _TripScreenState extends State<TripScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.pickupCodeTitle),
+        scrollable: true,
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SelectableText(
               code,
               key: const Key('pickup-code'),
-              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.w700, letterSpacing: 8),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w700, letterSpacing: 2),
             ),
             const SizedBox(height: 12),
             Text(l10n.pickupCodeHelp),
@@ -110,22 +112,30 @@ class _TripScreenState extends State<TripScreen> {
     final events = _events;
 
     return Scaffold(
-      appBar: AppBar(title: Text(formatIstDateTime(b.scheduledPickupAt, locale))),
+      appBar: AppBar(title: Text(l10n.tabBookings)),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Chip(
-                key: const Key('status'),
-                label: Text(statusLabel(l10n, _status), style: const TextStyle(fontSize: 18)),
+              CareHeading(formatIstDateTime(b.scheduledPickupAt, locale)),
+              CarePanel(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Chip(
+                      key: const Key('status'),
+                      label: Text(statusLabel(l10n, _status), style: const TextStyle(fontSize: 18)),
+                    ),
+                    _Fact(l10n.pickupAt(formatIstTime(b.scheduledPickupAt, locale))),
+                    _Fact(l10n.returnAt(formatIstTime(b.scheduledReturnAt, locale))),
+                    _Fact('${l10n.centre}: ${b.centreName}'),
+                    _Fact(b.companionName == null ? l10n.companionNotAssigned : l10n.companionLabel(b.companionName!)),
+                    if (b.isCoveredByBackup) _Fact(l10n.backupCovering),
+                  ],
+                ),
               ),
-              _Fact(l10n.pickupAt(formatIstTime(b.scheduledPickupAt, locale))),
-              _Fact(l10n.returnAt(formatIstTime(b.scheduledReturnAt, locale))),
-              _Fact('${l10n.centre}: ${b.centreName}'),
-              _Fact(b.companionName == null ? l10n.companionNotAssigned : l10n.companionLabel(b.companionName!)),
-              if (b.isCoveredByBackup) _Fact(l10n.backupCovering),
               const SizedBox(height: 12),
               if (_canIssueCode)
                 Padding(
@@ -161,7 +171,7 @@ class _TripScreenState extends State<TripScreen> {
                 ListTile(
                   key: Key('event-${e.eventId}'),
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.circle, size: 12),
+                  leading: Icon(Icons.check_circle_outline, size: 24, color: theme.colorScheme.primary),
                   title: Text(statusLabel(l10n, e.toStatus)),
                   subtitle: Text(
                     [
@@ -173,7 +183,10 @@ class _TripScreenState extends State<TripScreen> {
               const SizedBox(height: 16),
               Container(
                 padding: const EdgeInsets.all(12),
-                color: theme.colorScheme.errorContainer,
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.errorContainer,
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: Text(l10n.emergencyNumber, style: TextStyle(color: theme.colorScheme.onErrorContainer)),
               ),
             ],
@@ -205,6 +218,7 @@ class _CancelDialogState extends State<_CancelDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     return AlertDialog(
+      scrollable: true,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

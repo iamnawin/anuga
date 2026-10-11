@@ -60,23 +60,75 @@ class _CompanionAppState extends State<CompanionApp> {
 
 /// Large text, large tap targets, high contrast: many companions and patients are elderly.
 ThemeData companionTheme(Brightness brightness) {
-  final scheme = ColorScheme.fromSeed(seedColor: const Color(0xFF0B5CAD), brightness: brightness, contrastLevel: 1.0);
+  final dark = brightness == Brightness.dark;
+  final scheme = ColorScheme.fromSeed(seedColor: const Color(0xFF00666B), brightness: brightness).copyWith(
+    primary: Color(dark ? 0xFF8DDDD1 : 0xFF00666B),
+    onPrimary: Color(dark ? 0xFF073B3E : 0xFFFFFFFF),
+    surface: Color(dark ? 0xFF102426 : 0xFFFFFFFF),
+    onSurface: Color(dark ? 0xFFEFF8F6 : 0xFF10243A),
+    onSurfaceVariant: Color(dark ? 0xFFBED3D1 : 0xFF465D6B),
+    surfaceContainerLow: Color(dark ? 0xFF183235 : 0xFFEAF7F4),
+    outline: Color(dark ? 0xFF8BAAA7 : 0xFF6A8588),
+    outlineVariant: Color(dark ? 0xFF355457 : 0xFFD5E4E2),
+    error: Color(dark ? 0xFFFFB4AB : 0xFF9E2929),
+    errorContainer: Color(dark ? 0xFF503030 : 0xFFFDEAEA),
+    onErrorContainer: Color(dark ? 0xFFFFDAD6 : 0xFF9E2929),
+  );
   const tap = Size(64, 56);
   final base = ThemeData(colorScheme: scheme, useMaterial3: true);
   return base.copyWith(
+    scaffoldBackgroundColor: Color(dark ? 0xFF102426 : 0xFFF7FBFA),
+    textTheme: base.textTheme
+        .apply(bodyColor: scheme.onSurface, displayColor: scheme.onSurface)
+        .copyWith(
+          headlineSmall: TextStyle(color: scheme.onSurface, fontSize: 28, fontWeight: FontWeight.w700, height: 1.25),
+          titleLarge: TextStyle(color: scheme.onSurface, fontSize: 22, fontWeight: FontWeight.w700, height: 1.3),
+          titleMedium: TextStyle(color: scheme.onSurface, fontSize: 20, fontWeight: FontWeight.w700, height: 1.35),
+          bodyLarge: TextStyle(color: scheme.onSurface, fontSize: 18, height: 1.5),
+          bodyMedium: TextStyle(color: scheme.onSurface, fontSize: 16, height: 1.5),
+        ),
+    appBarTheme: AppBarTheme(backgroundColor: scheme.surface, foregroundColor: scheme.primary, elevation: 0),
+    cardTheme: CardThemeData(
+      color: scheme.surface,
+      elevation: 0,
+      margin: const EdgeInsets.only(bottom: 16),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: scheme.outlineVariant),
+      ),
+    ),
+    dialogTheme: DialogThemeData(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+    iconButtonTheme: IconButtonThemeData(style: IconButton.styleFrom(minimumSize: const Size(48, 48))),
+    textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom(minimumSize: const Size(48, 48))),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         minimumSize: tap,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: tap,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        side: BorderSide(color: scheme.primary),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
       ),
     ),
-    inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: scheme.surface,
+      contentPadding: const EdgeInsets.all(16),
+      helperMaxLines: 3,
+      errorMaxLines: 4,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: scheme.outline),
+      ),
+    ),
   );
 }
 
@@ -101,6 +153,7 @@ class LanguageMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
+      constraints: const BoxConstraints(minWidth: 160),
       icon: const Icon(Icons.translate, size: 28),
       tooltip: AppLocalizations.of(context).language,
       onSelected: (code) => onChanged(Locale(code)),

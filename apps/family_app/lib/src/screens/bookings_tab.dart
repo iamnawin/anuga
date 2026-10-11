@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 import 'trip_screen.dart';
@@ -51,6 +52,7 @@ class _BookingsTabState extends State<BookingsTab> {
       child: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          CareHeading(l10n.tabBookings),
           if (widget.patient.accessLevel == AccessLevel.viewer)
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
@@ -63,8 +65,10 @@ class _BookingsTabState extends State<BookingsTab> {
           for (final row in rows ?? const <FamilyBoardRow>[])
             Card(
               key: Key('booking-${row.tripId}'),
+              color: Theme.of(context).colorScheme.surfaceContainerLow,
               child: ListTile(
                 minVerticalPadding: 16,
+                leading: const Icon(Icons.calendar_month_outlined, size: 28),
                 title: Text(formatIstDateTime(row.scheduledPickupAt, locale)),
                 subtitle: Text(
                   [

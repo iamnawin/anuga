@@ -105,6 +105,7 @@ class _TripScreenState extends State<TripScreen> {
     return await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
+            scrollable: true,
             content: Text(question),
             actions: [
               TextButton(onPressed: () => Navigator.pop(context, false), child: Text(l10n.cancel)),
@@ -130,38 +131,105 @@ class _TripScreenState extends State<TripScreen> {
     final actions = companionActions(_status);
 
     return Scaffold(
-      appBar: AppBar(title: Text(formatIstDateTime(trip.scheduledPickupAt, locale))),
+      appBar: AppBar(
+        title: const Text('ANUGA', style: TextStyle(fontWeight: FontWeight.w700)),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Text(
+                trip.detailsVisible ? '${l10n.patient}: ${trip.patientName ?? ''}' : l10n.patient,
+                style: theme.textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 8),
+              Text(formatIstDateTime(trip.scheduledPickupAt, locale), style: theme.textTheme.bodyLarge),
+              const SizedBox(height: 16),
               Container(
-                padding: const EdgeInsets.all(12),
-                color: theme.colorScheme.errorContainer,
-                child: Text(l10n.emergencyNumber, style: TextStyle(color: theme.colorScheme.onErrorContainer)),
+                key: const Key('status'),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surfaceContainerLow,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: theme.colorScheme.outlineVariant),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      switch (_status) {
+                        TripStatus.completed => Icons.check_circle_outline,
+                        TripStatus.cancelled => Icons.cancel_outlined,
+                        TripStatus.noShow => Icons.person_off_outlined,
+                        TripStatus.issueReported => Icons.warning_amber_outlined,
+                        _ => Icons.directions_car_outlined,
+                      },
+                      size: 32,
+                      color: theme.colorScheme.primary,
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(statusLabel(l10n, _status), style: theme.textTheme.titleLarge),
+                          const SizedBox(height: 8),
+                          Text(l10n.pickupAt(formatIstTime(trip.scheduledPickupAt, locale))),
+                          Text(l10n.returnAt(formatIstTime(trip.scheduledReturnAt, locale))),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 16),
-              Chip(
-                key: const Key('status'),
-                label: Text(statusLabel(l10n, _status), style: const TextStyle(fontSize: 18)),
-              ),
-              _Fact(l10n.pickupAt(formatIstTime(trip.scheduledPickupAt, locale))),
-              _Fact(l10n.returnAt(formatIstTime(trip.scheduledReturnAt, locale))),
-              _Fact('${l10n.centre}: ${trip.centreName}, ${trip.centreAddress}'),
-              if (trip.detailsVisible) ...[
-                _Fact('${l10n.patient}: ${trip.patientName ?? ''}'),
-                _Fact('${l10n.homeAddress}: ${trip.homeAddress ?? ''}'),
-                if ((trip.mobilityNotes ?? '').isNotEmpty) _Fact('${l10n.mobilityNotes}: ${trip.mobilityNotes}'),
-                if (trip.emergencyContacts.isNotEmpty)
-                  _Fact(
-                    '${l10n.familyContacts}: ${trip.emergencyContacts.map((c) => '${c.name} ${c.phone}').join(', ')}',
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (trip.detailsVisible) ...[
+                        _Fact(l10n.homeAddress, trip.homeAddress ?? '', Icons.home_outlined),
+                        const Divider(height: 32),
+                      ],
+                      _Fact(l10n.centre, '${trip.centreName}, ${trip.centreAddress}', Icons.local_hospital_outlined),
+                      if (trip.detailsVisible) ...[
+                        if ((trip.mobilityNotes ?? '').isNotEmpty) ...[
+                          const Divider(height: 32),
+                          _Fact(l10n.mobilityNotes, trip.mobilityNotes!, Icons.accessibility_new),
+                        ],
+                        if (trip.emergencyContacts.isNotEmpty) ...[
+                          const Divider(height: 32),
+                          _Fact(
+                            l10n.familyContacts,
+                            trip.emergencyContacts.map((c) => '${c.name} ${c.phone}').join(', '),
+                            Icons.phone_outlined,
+                          ),
+                        ],
+                      ] else ...[
+                        const Divider(height: 32),
+                        Text(l10n.detailsHidden, style: TextStyle(color: theme.colorScheme.onSurfaceVariant)),
+                      ],
+                    ],
                   ),
-              ] else
-                _Fact(l10n.detailsHidden),
-              const Divider(height: 32),
-              if (_status.isTerminal) Text(l10n.tripClosed, style: theme.textTheme.titleMedium),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.errorContainer,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(l10n.emergencyNumber, style: TextStyle(color: theme.colorScheme.onErrorContainer)),
+              ),
+              const SizedBox(height: 24),
+              if (_status.isTerminal) ...[
+                Text(l10n.tripClosed, style: theme.textTheme.titleMedium),
+                const SizedBox(height: 16),
+              ],
               for (final action in actions) ...[
                 if (action.kind == TripActionKind.verifyPickupOtp)
                   TextField(
@@ -202,14 +270,27 @@ class _TripScreenState extends State<TripScreen> {
 }
 
 class _Fact extends StatelessWidget {
-  const _Fact(this.text);
-
+  const _Fact(this.label, this.text, this.icon);
+  final String label;
   final String text;
-
+  final IconData icon;
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 6),
-    child: Text(text, style: const TextStyle(fontSize: 18)),
+  Widget build(BuildContext context) => Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Icon(icon, color: Theme.of(context).colorScheme.primary),
+      const SizedBox(width: 16),
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(label, style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 4),
+            Text(text, style: Theme.of(context).textTheme.bodyLarge),
+          ],
+        ),
+      ),
+    ],
   );
 }
 
@@ -239,6 +320,7 @@ class _NoteDialogState extends State<_NoteDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     return AlertDialog(
+      scrollable: true,
       title: Text(widget.label),
       content: TextField(
         key: const Key('note'),

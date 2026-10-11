@@ -1,5 +1,55 @@
 # Handoff
 
+## Combined local integration (2026-10-11)
+
+Branch: `integration/local-anuga`, from fetched `origin/main` at `32d6631`. This section supersedes every historical next task below. PR #2 and #4-#7 remain OPEN and intact; PR #3 is obsolete. No main merge or deployment.
+
+Combined exact tracked source snapshots: PR #4 tokens/reference boards at `6076473`, PR #5 ops presentation at `b5b8d2e`, PR #6 companion widgets/l10n at `74728ab`, PR #7 family widgets/l10n at `378db4d`, plus PR #2 web scaffolds, Next export config, staging scripts/manual workflow, CORS wrapper/tests and setup ADR at `299a9bf`. Shared docs retain token decisions, each UI receipt and staging context. Took per-path snapshots instead of merging duplicate cherry-pick histories. Migrations, grants/RLS, RPCs, auth adapters, state machine, payment/vault handlers, shared Dart, tests and lockfiles are unchanged. The two existing Edge entry points only carry PR #2's tested CORS wrapper.
+
+New: scripts/start-local.ps1 builds the actual Next export and Flutter web apps with the existing synthetic project's public anon settings. scripts/serve-local.mjs serves on loopback only, separate origins for independent role sessions. Rejects server keys and unrelated backend hosts. No package/dependency changes. Guide and synthetic visit SQL: docs/LOCAL_TESTING.md. Updated SETUP/CLAUDE for commands.
+
+Checks: `C:/Program Files/Git/bin/bash.exe scripts/check-all.sh` native exit 0. Frozen pnpm install/root typecheck, ops lint/typecheck/build and all Dart format/analyze passed. PGlite 142 passed / 8 real-Supabase skips (PR #2 adds 2 CORS tests), ops 52, shared Dart 27, companion 39 / 3 environment skips, family 35 / 6 environment skips. Separate ops `pnpm lint`, `pnpm typecheck`, `pnpm test` passed. Separate both apps `flutter analyze --fatal-infos`, `flutter test` passed with same counts. `scripts/start-local.ps1` built all three release web apps. Flutter emits non-failing upstream Cupertino-font and wasm-dry-run warnings; no dependencies changed to suppress them. HTTP smoke: ops login/trips and both Flutter roots 200; traversal 403; unsupported POST 405. `node --check scripts/serve-local.mjs` and `git diff --check` passed.
+
+Latest source CI inspected: PR #2 run 38131473596, #4 run 38135461326, #5 run 38135464723, #6 run 38135468540, #7 run 38135471172. All six jobs passed on each latest source head, including supabase-local. #7 logs explicitly show `JOURNEY PASSED` with real auth, pickup OTP, handover, return, note, notifications and test billing. This is source-branch CI evidence, not yet integration-head evidence.
+
+Local backend probe: synthetic project auth settings HTTP 200, phone sign-in DISABLED, signups currently enabled. Vault and payments OPTIONS both 204 with browser CORS. No OTP requested, no hosted data changed. Docker/Android SDK unavailable, so local real-Supabase suites/connected journey/device run cannot run. Authenticated local browser journey and hosted smoke require founder phone setup; no mocked journey substituted. In-app Browser bootstrap failed before connection (global Node ESM issue); repository Playwright with installed Edge verifies real local builds instead. Native te/hi review not run.
+
+Apps started: http://127.0.0.1:3100/login/ (ops 9000000001), http://127.0.0.1:3101/ (owner 9000000101), http://127.0.0.1:3102/ (backup Ravi 9000000202). Launcher session stays running; rebuild/restart command in LOCAL_TESTING. Use the founder-chosen hosted test sign-in code, not an assumed 123456; pickup code comes from the family booking.
+
+Exact next task: open integration PR, inspect its CI, then founder enables Phone test sign-in for the five synthetic numbers in LOCAL_TESTING, disables new signups and sets the dashboard test code. Founder runs the documented additive synthetic-visit SQL (seed dates are old), then completes one visit across the three local tabs. No Vercel/GitHub deploy secret or public deployment is needed. Optional test payments need dashboard PAYMENTS_WEBHOOK_SECRET; no secret goes into chat or app. Keep source PRs open and do not merge main.
+
+## Final UI delivery receipt (2026-10-11)
+
+This worktree is ui/s2-design-tokens. S2-S5 are pushed, OPEN, based on main, with the same committed S2 contract incorporated in each UI stream. No merge or deployment was performed.
+
+| Stream | Branch | PR | Review evidence |
+| --- | --- | --- | --- |
+| S2 | ui/s2-design-tokens | https://github.com/iamnawin/anuga/pull/4 | docs/design/tokens.md, supplied15 boards and full panel mappings |
+| S3 | ui/s3-ops-console | https://github.com/iamnawin/anuga/pull/5 | docs/evidence/s3-ui/README.md on S3:23 browser captures |
+| S4 | ui/s4-companion | https://github.com/iamnawin/anuga/pull/6 | docs/evidence/s4-ui/README.md on S4:38 curated widget captures |
+| S5 | ui/s5-family | https://github.com/iamnawin/anuga/pull/7 | docs/evidence/s5-ui/README.md on S5:25 curated widget captures |
+
+Each branch ran scripts/check-all.sh to native exit0 before its PR. Frozen install/root typecheck,ops lint/typecheck/build,all Dart format/analyze passed. Exact final counts per branch: PGlite140pass/8 real-Supabase skips; ops52pass; shared Dart27pass; companion39pass/3 environment skips; family35pass/6 environment skips. Separate changed-app checks passed. S3 browser capture23cases, S4 render matrix5cases, S5 render matrix7cases passed. Final code/ownership/whitespace review passed; auth/RPC/adapters/migrations/access rules/tests/lockfiles unchanged. Documentation-only final receipt checked with git diff --check; app tests not repeated for this receipt.
+
+Limits: S3 real local Next app used browser-intercepted synthetic responses, so it is presentation evidence. S4/S5 actual Flutter widget rendering used synthetic fake APIs and harness-only readable fonts; it is not device/real auth verification. Docker and connected Android device/emulator are unavailable; main-based mobile apps have Android scaffolds, while web staging remains separate PR #2. Real-Supabase suite/journey, device run, hosted staging and native-language review were not run. No security tests were weakened or manually skipped. Original checkout on claude/trusting-bell-4fgv07 and its untracked .omx/design input are preserved.
+
+Founder commands and screen-by-screen differences are in each evidence README. Ops: documented local Supabase env then pnpm dev in apps/ops_console, http://localhost:3000/login. Mobile: flutter pub get then flutter run with SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY on a connected device; local Android emulator URL http://10.0.2.2:54321. Only public/anon keys in apps.
+
+Exact next task: founder reviews PR #4-#7 and the screenshots, then exercises the existing flows using synthetic backend/device setup. No agent merge is authorized. Hosted testing still needs PR #2 and founder dashboard steps from its SETUP; PR #3 is obsolete. M10/production remains gated. Resolve review feedback only within each stream's owned paths.
+
+
+## S2 design handoff (2026-10-11)
+
+Branch: `ui/s2-design-tokens`, from fetched `origin/main`. PR #2 remains OPEN and supplies staging context only; PR #3 is obsolete. This section supersedes the historical next task below for UI work. Founder now approves ANUGA visible branding, overriding older undecided-name wording; identifiers remain unchanged.
+
+Changes: visually inspected 15 supplied concept PNGs and all seven previous ops screenshots. Preserved supplied PNGs, created `docs/design/tokens.md` with observed/adjusted colours, typography, focus/tap sizes, dark-mode extension, corrected-board precedence, complete screen mapping, scope differences and stream plan. Added current stream ownership/status to AGENTS and TASKS. No product code changed. Root coordinator owns shared docs and curated evidence for app workers.
+
+Checks run: `C:/Program Files/Git/bin/bash.exe scripts/check-all.sh`, exit 0. Frozen pnpm install, root typecheck pass; PGlite 140 pass / 8 real-Supabase-only skips; ops lint/typecheck/build pass and 52 tests pass; shared Dart format/analyze pass and 27 tests pass; companion format/analyze pass, 39 tests pass / 3 Supabase-only skips; family format/analyze pass, 35 tests pass / 6 Supabase-only skips. `git diff --check` passes. Independent read-only token review: no material issues.
+
+Not run: real-Supabase suites/journey (Docker unavailable); device/emulator checks (not part of documentation-only S2); hosted staging (founder dashboard steps remain separate); native Telugu/Hindi review. In-app browser bootstrap failed before browser connection because its kernel treats `require` as ESM; app streams may use repository Playwright tooling for local synthetic evidence. Graphify report absent; the supplied product spec, existing app files and token contract provide the bounded UI map.
+
+PR status: https://github.com/iamnawin/anuga/pull/4 OPEN; no merge or deploy. Documentation line endings corrected after the initial commit; final diff whitespace check passes. Exact next task: incorporate this S2 commit into main-based `ui/s3-ops-console`, `ui/s4-companion`, `ui/s5-family` isolated worktrees, implement only assigned presentation paths, run full checks/app checks, capture local evidence and open separate PRs. No new auth/RPC/access/payment behavior or concept-only capabilities.
+
 Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-bell-4fgv07`)
 
 ## Current state
@@ -176,7 +226,7 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 | `scripts/check-all.sh` (M9 final) | all passed: PGlite 140 pass / 8 skipped; ops console 52; shared_dart 27; companion 39 + 3 skipped; family 35 + 6 skipped |
 | `pnpm db:test:supabase` (incl. vault and payments functions) | **148/148** |
 | Ops console Playwright (standalone) | 7 pass (+4 journey tests skipped outside the journey) |
-| `scripts/e2e-journey.sh` with billing | **JOURNEY PASSED**: bill ₹550 (visit ₹400 + fare ₹150), owner notified, paid in test mode, ops sees paid; evidence `docs/evidence/m7/` |
+| `scripts/e2e-journey.sh` with billing | **JOURNEY PASSED**: bill â‚¹550 (visit â‚¹400 + fare â‚¹150), owner notified, paid in test mode, ops sees paid; evidence `docs/evidence/m7/` |
 | `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet
@@ -224,3 +274,92 @@ Setup command for the cloud environment:
 ```
 
 For Supabase local in a cloud session: `nohup dockerd &` (as root), then `docs/SETUP.md` Path B.
+
+## Historical staging context from PR #2 (superseded next task)
+
+## Session 3 (2026-10-11): founder feedback, duplicate PR, design work next
+
+- **Founder feedback:** "I can't see or test the UI." The only live link is the Git-linked Vercel
+  project `anuga` (ops console only); its login is a bare form that cannot sign in until staging
+  phone auth is set up (step 0 below). The screens are plain and do not yet follow the founder's
+  design sketches. "Not connected" = no hosted link where all three apps talk to one backend yet;
+  PR #2 provides exactly that once merged and deployed.
+- **Founder design sketches** (made in an image tool) are being copied into `docs/design/`.
+  Not in the repo yet. They are the visual baseline for all three apps (see step 1b).
+- **Duplicate work, do not use:** a local session built an older, separate M3 on branch
+  `m3-ops-console` (PR iamnawin/anuga#3, conflicts with `main`). It started from a stale local
+  `main` and never saw PR #1. Recommended: close PR #3 and delete the branch (awaiting founder OK).
+  Lesson: always `git fetch` and read `origin/main:docs/HANDOFF.md` before starting.
+- Founder answers this session: wants a hosted test link (Vercel preview approved), sketches to
+  drive the UI, and parallel agents for the remaining work (plan in `AGENTS.md`, "Parallel work").
+- Nothing in code changed this session; only `docs/HANDOFF.md` and `AGENTS.md`.
+
+## Exact next task
+
+M0-M9 are done. **M10 (production launch) must not start without explicit founder approval.**
+
+0. **Finish staging (founder, ~5 min):** phone test numbers + code, `PAYMENTS_WEBHOOK_SECRET`,
+   a Vercel token, and the GitHub secrets `VERCEL_TOKEN` + `STAGING_TEST_OTP` (`docs/SETUP.md`).
+   Then run **deploy staging** and confirm the smoke test passes.
+1a. **Merge PR iamnawin/anuga#2** (green, mergeable; `workflow_dispatch` only appears from `main`),
+   then Actions -> **deploy staging** -> Run. Share the preview URL from the run summary with the founder.
+1b. **UI to match the founder's sketches** (`docs/design/`), one branch per app, in parallel
+   (`AGENTS.md`, "Parallel work"): shared design tokens first (colours, type scale, 48 px+ targets,
+   high contrast, en/te/hi), then ops console, companion app, family app. UI-only: no change to
+   RPCs, auth or access rules. Compare each screen with its sketch and list intentional differences.
+1. **Founder review** of PR iamnawin/anuga#1 and these decisions (they block further scope):
+   - Bill no-show visits? (`app_settings.billable_trip_statuses`, currently completed only)
+   - Approve `image_picker` + `http` in the family app (official packages, on-device)?
+   - PDF upload/viewing (needs a non-official file picker/viewer package)?
+   - Razorpay: provide **test-mode** keys + webhook registration to exercise the Razorpay adapter;
+     approve the Razorpay Checkout SDK in the family app; UPI Autopay for monthly plans?
+   - Retention and deletion on consent withdrawal (needed for the deletion job).
+   - Native-speaker review of Telugu and Hindi strings (all three apps + notification texts).
+2. **Next non-gated work** (backlog, no founder input needed), recommended order:
+   - Deletion job for consent withdrawal, once retention is decided (DPDP: as easy to withdraw).
+   - Medicine refill reminders (`medicines.refill_on`, outbox notification; no clinical logic).
+   - Family invites with roles (owner adds editor/viewer by phone; `patient_access`).
+   - Trip data export for pilot metrics (on-time pickups, no-shows; synthetic data in tests).
+
+## Continue in Claude Code cloud
+
+Setup command for the cloud environment:
+
+```sh
+. /opt/nvm/nvm.sh && nvm install 24 && corepack enable && pnpm install --frozen-lockfile && pnpm db:test
+```
+
+For Supabase local in a cloud session: `nohup dockerd &` (as root), then `docs/SETUP.md` Path B.
+
+## S3 UI delivery (2026-10-11)
+
+Branch ui/s3-ops-console, main plus S2 PR #4 commits; no staging code. Six presentation files changed: globals.css, OpsShell, login/layout, trips and billing. Mint sidebar, ANUGA branding, teal controls, navy hierarchy, accessible scroll regions and dark/narrow layouts. Existing handlers/providers/RPC/roles/payment data flow and tests preserved. Schedules/exceptions inherit the shared styling.
+
+Full scripts/check-all.sh exit 0; install/root typecheck, ops lint/typecheck/build, all Dart format/analyze pass. PGlite 140 pass/8 skips, ops 52, shared Dart 27, companion 39/3 skips, family 35/6 skips. Separate ops lint/typecheck/test pass52. Whitespace clean and independent UI behavior review found no remaining S3 issue. Local real Next app + browser-intercepted synthetic fixtures captured23 screenshots: zero page errors/page-wide overflow/sub48-high controls at1440/360/430, dark, te/hi and200% text. Evidence/mappings/differences/startup instructions: docs/evidence/s3-ui/README.md. Logs: artifacts/s3/check-all-final.log and ops-*.log.
+
+Not run: real-Supabase journey/permissions (Docker absent), hosted staging/native-language review. In-app browser tooling failed bootstrap; repository Playwright/Edge used. PR status: ready for separate UI PR, no merge/deploy. Exact next task: finish S4/S5 checks and review, open their separate PRs, then founder tests with synthetic backend; staging requires PR #2 plus dashboard steps.
+
+
+
+## S4 UI delivery (2026-10-11)
+
+Branch ui/s4-companion, main plus S2 PR #4 commits. Seven authorized files: theme, three screens and en/te/hi ARB titles. Teal ANUGA/mint/navy presentation, route essentials/status panels and scrollable dialogs. All callbacks, keys, OTP/state-machine actions, time-window projection and tests retained. Distinct terminal glyphs preserve meaning; localized titles verified as Unicode.
+
+Final scripts/check-all.sh exit0, all install/typecheck/lint/build/format/analyze phases pass. PGlite140/8skips,ops52,shared27,companion39/3skips,family35/6skips. Separate companion analyze clean,tests39/3. Five widget-render matrix tests pass,165 captures generated;38 curated screenshots/mappings/differences and founder commands in docs/evidence/s4-ui/README.md. Diff whitespace clean. Independent review's text-color finding fixed and validated in light/dark renders. Logs artifacts/s4/check-all.log,analyze.log,flutter-test.log,screenshots.log.
+
+Not run: device/emulator,real-Supabase journey (Docker absent),hosted staging,native-language review. Evidence uses real Flutter widgets with synthetic fake APIs and font substitution in ignored harness only; not real auth/security/device validation. PR status: separate S4 PR prepared, no merge/deploy. S3 open at https://github.com/iamnawin/anuga/pull/5. Exact next task: finish S5 review/checks and PR, then founder review and local synthetic device testing; staging separately gated on PR #2 dashboard steps.
+
+
+
+## S5 UI delivery (2026-10-11)
+
+Branch ui/s5-family, main plus S2 PR #4 commits. Fourteen authorized files: theme,nine existing screens,one reused presentation helper and three ARB titles. Teal ANUGA/mint/navy home/visits/records/privacy/bills/inbox. All callbacks,keys,API,role gates,payment/upload adapters and tests retained. No separate patient mode or concept-only capability. Header/picker bounded scroll, long dropdown rows wrap, scaled navigation can scroll; large system text remains uncapped.
+
+Final scripts/check-all.sh exit0; all install/typecheck/lint/build/format/analyze pass. PGlite140/8skips,ops52,shared27,companion39/3skips,family35/6skips. Separate family analyze clean/tests35/6. Seven widget scenarios pass with missed taps fatal;114 PNGs generated,25 curated. At360x640/3x long-name/two-patient test opens picker,switches patient,and reaches inbox. Evidence/mapping/differences/test commands: docs/evidence/s5-ui/README.md. Diff whitespace clean and independent focused source review passed. Logs artifacts/s5-check-all.log,s5-analyze.log,s5-tests.log,s5-visual.log.
+
+Not run: device/emulator,real-Supabase journey/permissions (Docker absent),hosted staging,native-language review. Evidence is real-widget/synthetic API rendering with harness-only readable fonts and synthetic report fixture; no auth/security/device claim. PR status: separate S5 PR prepared,no merge/deploy. S2 open PR #4,S3 PR #5,S4 PR #6. Exact next task: open S5 PR,record all PR links,then founder review/test existing flows with synthetic backend; staging requires PR #2 and dashboard steps.
+
+
+
+Local integration browser receipt: repository Playwright/Edge opened the real three release builds, enabled Flutter semantics and entered each synthetic phone. Three HTTP 200, zero page errors or failed requests, all input values confirmed. No login submitted because Phone is disabled. Curated proof: docs/evidence/integration. Full logs in ignored artifacts/integration.
+

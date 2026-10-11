@@ -120,6 +120,34 @@ pnpm dlx supabase@2.120.0 stop --no-backup
 
 Tests commit data; run `db reset` before each run against the same local stack.
 
+## Hosted staging (synthetic data only, ADR 0004)
+
+| Piece | Where |
+| --- | --- |
+| Backend | Supabase project `anuga`, ref `vsvkllfgrnlbhdydysny` (Mumbai, free tier) |
+| Web apps | Vercel project `anuga-staging` (made by the first deploy): `/ops/`, `/family/`, `/companion/` |
+| Deploy | GitHub Actions → **deploy staging** → Run workflow (manual); the run summary shows the URL |
+
+Each deploy is a Vercel preview, so only signed-in members of the Vercel team can open it. The
+Git-linked Vercel project `anuga` is separate (ops console only).
+
+One-time setup (founder):
+
+1. Supabase dashboard → Authentication → Sign In / Providers → Phone: enable, SMS provider
+   Twilio with placeholder values, and test numbers for the seed accounts
+   (`919000000001`, `919000000101`, `919000000102`, `919000000201`, `919000000202`) with one code.
+2. Supabase dashboard → Edge Functions → Secrets: `PAYMENTS_WEBHOOK_SECRET` = any random string.
+3. Vercel → Account settings → Tokens: create a token scoped to "iamnawin's projects".
+4. GitHub repo → Settings → Secrets and variables → Actions: `VERCEL_TOKEN` (step 3) and
+   `STAGING_TEST_OTP` (the code from step 1).
+
+Build locally: `STAGING_SUPABASE_URL=... STAGING_SUPABASE_ANON_KEY=... scripts/build-staging.sh`
+(needs pnpm and Flutter; output in `artifacts/staging/.vercel/output`).
+
+Schema changes: apply each new migration to staging too. Statements that drop or delete must
+be run in the dashboard SQL editor (the Supabase connector cannot confirm them). After a
+change, reload the seed only on a fresh project; never load real data.
+
 ## Secrets and data
 
 - Copy `.env.example` to `.env` for local values. `.env` is git-ignored.
@@ -145,3 +173,12 @@ The Docker CLI was present but the daemon was not running; `dockerd` started as 
 (`nohup dockerd &`), images pulled through the proxy, and Path B below ran end to end
 (Supabase local, phone OTP, Playwright with the preinstalled Chromium). Flutter is not
 preinstalled; the 3.47.6 Linux archive downloads from `storage.googleapis.com`.
+
+## Combined local browser testing (2026-10-11)
+
+See [LOCAL_TESTING.md](LOCAL_TESTING.md). From the integration checkout, run
+`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1`.
+The launcher builds all three apps with public client settings and serves on
+127.0.0.1 ports 3100 (ops), 3101 (family), 3102 (companion), with separate role sessions.
+Hosted phone sign-in is currently disabled. No deployment or Vercel secrets are required.
+

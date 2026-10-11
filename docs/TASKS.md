@@ -1,12 +1,20 @@
 # Tasks and milestones
 
+## Founder sketch UI streams (2026-10-11)
+
+- [x] S2: inspect all 15 concept boards and seven previous ops screenshots; preserve source boards; define tokens and existing-screen mappings in `docs/design/tokens.md`.
+- [x] S3: ops UI delivered as separate OPEN PR #5; full local checks pass; 23 browser captures. See that branch's docs/evidence/s3-ui/README.md.
+- [x] S4: companion UI delivered as separate OPEN PR #6; full local checks pass; 38 curated widget captures. See that branch's docs/evidence/s4-ui/README.md.
+- [x] S5: family/patient UI delivered as separate OPEN PR #7; full local checks pass; 25 curated widget captures. See that branch's docs/evidence/s5-ui/README.md.
+- Runtime evidence, exact checks, differences and testing instructions must accompany each UI PR. No features are inferred from concept-only panels. Staging PR #2 is a separate dependency; PR #3 is obsolete.
+
 Build one milestone at a time. A milestone is done only when its acceptance checks have run and
 passed; record results (and checks that could not run) in `docs/HANDOFF.md`.
 
-Goal of M1-M7, the **first working journey**: ops assigns a companion → family sees the booking →
-companion completes pickup and hospital handover → family receives status → return journey completes.
+Goal of M1-M7, the **first working journey**: ops assigns a companion â†’ family sees the booking â†’
+companion completes pickup and hospital handover â†’ family receives status â†’ return journey completes.
 
-Status: `[x]` done and verified · `[~]` in progress · `[ ]` not started · `[!]` blocked
+Status: `[x]` done and verified Â· `[~]` in progress Â· `[ ]` not started Â· `[!]` blocked
 
 ## M0. Repo foundation `[x]`
 
@@ -226,3 +234,12 @@ Not started without explicit founder approval.
 Requests ("I need..."), medicine refill reminders, live companion location during active trips,
 H3 density views and cluster density gate in ops console, monthly bill view, family invites with
 roles, trip data export for pilot metrics, deletion job for consent withdrawal.
+
+## Combined local testing (2026-10-11)
+
+- [x] Combine tokens, all three UI streams and PR #2 browser support on integration/local-anuga from current main. Source PRs #2/#4-#7 preserved.
+- [x] Full fast checks and separate app lint/analyze/tests; three release web builds; loopback HTTP and server boundary smoke passed.
+- [x] Inspect latest source CI: all jobs passed on PR #2 and #4-#7, including real-Supabase journeys.
+- [x] Local launcher and independent browser origins, synthetic accounts, active-window visit fixture and walkthrough in docs/LOCAL_TESTING.md.
+- [!] Authenticated manual visit: synthetic hosted project Phone provider is disabled. Founder dashboard steps in LOCAL_TESTING; local Docker unavailable. No secrets in chat.
+- [ ] Integration PR real-Supabase CI receipt and founder manual browser journey.
