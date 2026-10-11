@@ -1,0 +1,18 @@
+[
+    {
+        "endpoint":  "vault-files",
+        "status":  204,
+        "origin":  "*"
+    },
+    {
+        "endpoint":  "payments",
+        "status":  204,
+        "origin":  "*"
+    },
+    {
+        "endpoint":  "auth/settings",
+        "status":  200,
+        "phoneEnabled":  false,
+        "signupDisabled":  false
+    }
+]

@@ -43,9 +43,11 @@ export function OpsShell({ children }: { children: ReactNode }) {
   ];
 
   return (
-    <>
-      <header className="topbar">
-        <strong className="brand">{t('app.title')}</strong>
+    <div className="ops-layout">
+      <aside className="sidebar">
+        <div className="brand-block">
+          <strong className="brand">ANUGA</strong>
+        </div>
         <nav aria-label="Main">
           {links.map((l) => (
             <Link key={l.href} href={l.href} className="navlink" aria-current={pathname === l.href ? 'page' : undefined}>
@@ -53,16 +55,20 @@ export function OpsShell({ children }: { children: ReactNode }) {
             </Link>
           ))}
         </nav>
-        <div className="topbar-end">
-          <LanguageSwitcher />
-          <span className="user">{userName}</span>
-          <button type="button" className="btn" onClick={() => signOut().then(() => router.replace('/login'))}>
-            {t('nav.signOut')}
-          </button>
-        </div>
-      </header>
-      <main className="page">{children}</main>
-      <footer className="footer">{t('app.synthetic')}</footer>
-    </>
+      </aside>
+      <div className="workspace">
+        <header className="topbar">
+          <div className="topbar-end">
+            <LanguageSwitcher />
+            <span className="user">{userName}</span>
+            <button type="button" className="btn" onClick={() => signOut().then(() => router.replace('/login'))}>
+              {t('nav.signOut')}
+            </button>
+          </div>
+        </header>
+        <main className="page">{children}</main>
+        <footer className="footer">{t('app.synthetic')}</footer>
+      </div>
+    </div>
   );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../app.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -77,7 +78,10 @@ class _LoginScreenState extends State<LoginScreen> {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.loginTitle),
+        title: Text(
+          'ANUGA',
+          style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w700, letterSpacing: 1),
+        ),
         actions: [LanguageMenu(onChanged: widget.onLocaleChanged)],
       ),
       body: SafeArea(
@@ -86,13 +90,29 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 24),
+              CareHeading(_sentTo == null ? l10n.loginTitle : l10n.codeLabel),
+              CarePanel(
+                child: Row(
+                  children: [
+                    Icon(Icons.lock_outline, color: Theme.of(context).colorScheme.primary),
+                    const SizedBox(width: 12),
+                    Expanded(child: Text(l10n.syntheticBanner)),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
               if (_sentTo == null) ...[
                 TextField(
                   key: const Key('phone'),
                   controller: _phone,
                   keyboardType: TextInputType.phone,
                   autofillHints: const [AutofillHints.telephoneNumber],
-                  decoration: InputDecoration(labelText: l10n.phoneLabel, helperText: l10n.phoneHint),
+                  decoration: InputDecoration(
+                    labelText: l10n.phoneLabel,
+                    helperText: l10n.phoneHint,
+                    prefixIcon: const Icon(Icons.phone_outlined),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 FilledButton(onPressed: _busy ? null : _sendCode, child: Text(l10n.sendCode)),
@@ -119,8 +139,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 Text(_message!, style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 18)),
               ],
-              const SizedBox(height: 32),
-              Text(l10n.syntheticBanner, textAlign: TextAlign.center),
             ],
           ),
         ),

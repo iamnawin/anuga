@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 
@@ -60,6 +61,7 @@ class _InboxTabState extends State<InboxTab> {
       child: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          CareHeading(l10n.tabInbox),
           if (_error != null)
             Text(describeError(l10n, _error!), style: TextStyle(color: Theme.of(context).colorScheme.error)),
           if (items == null && _error == null) Text(l10n.loading),
@@ -69,6 +71,7 @@ class _InboxTabState extends State<InboxTab> {
               key: Key('update-${n.notificationId}'),
               child: ListTile(
                 minVerticalPadding: 12,
+                leading: const Icon(Icons.notifications_outlined, size: 28),
                 title: Text(_title(l10n, n, locale)),
                 subtitle: (n.payload['note'] as String?)?.isNotEmpty == true ? Text(n.payload['note'] as String) : null,
               ),

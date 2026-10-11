@@ -106,3 +106,11 @@ The database is the security boundary; apps are thin clients over RPCs:
 - UI: large tap targets, high contrast, English + Telugu + Hindi from day one; many users are elderly.
 - Feature branches and small commits; `main` stays releasable.
 - `.claude/` contains a spec workflow (kfc): specs in `.claude/specs/<feature>/`, steering in `.claude/steering/`.
+
+## Combined local browser testing
+
+The integration branch combines PR #2 and UI PRs #4-#7. Windows launcher:
+`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start-local.ps1`.
+Uses only public anon/publishable settings, loopback servers on ports 3100-3102,
+separate role sessions and existing synthetic backend. Guide: docs/LOCAL_TESTING.md.
+Database access rules, app RPCs and auth adapters are unchanged.
