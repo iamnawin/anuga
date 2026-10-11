@@ -1,0 +1,209 @@
+[
+  {
+    "name": "trips-desktop",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "schedules-desktop",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "exceptions-desktop",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "billing-desktop",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "assignment-desktop",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "schedule-assignment-desktop",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "trips-360",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "schedules-360",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "exceptions-360",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "billing-360",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "trips-430",
+    "errors": [],
+    "layout": {
+      "viewport": 430,
+      "document": 430,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "schedules-430",
+    "errors": [],
+    "layout": {
+      "viewport": 430,
+      "document": 430,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "exceptions-430",
+    "errors": [],
+    "layout": {
+      "viewport": 430,
+      "document": 430,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "billing-430",
+    "errors": [],
+    "layout": {
+      "viewport": 430,
+      "document": 430,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "trips-360-te",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "trips-360-hi",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "trips-dark",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "login-1440",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "otp-1440",
+    "errors": [],
+    "layout": {
+      "viewport": 1440,
+      "document": 1440,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "login-360",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "otp-360",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "schedules-360-te-large",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  },
+  {
+    "name": "login-focus-360",
+    "errors": [],
+    "layout": {
+      "viewport": 360,
+      "document": 360,
+      "smallTargets": 0
+    }
+  }
+]
