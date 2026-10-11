@@ -1,5 +1,13 @@
 # Tasks and milestones
 
+## Founder sketch UI streams (2026-10-11)
+
+- [x] S2: inspect all 15 concept boards and seven previous ops screenshots; preserve source boards; define tokens and existing-screen mappings in `docs/design/tokens.md`.
+- [ ] S3: ops presentation only, separate branch/PR incorporating S2.
+- [ ] S4: companion presentation only, separate branch/PR incorporating S2.
+- [ ] S5: family/patient presentation only, separate branch/PR incorporating S2.
+- Runtime evidence, exact checks, differences and testing instructions must accompany each UI PR. No features are inferred from concept-only panels. Staging PR #2 is a separate dependency; PR #3 is obsolete.
+
 Build one milestone at a time. A milestone is done only when its acceptance checks have run and
 passed; record results (and checks that could not run) in `docs/HANDOFF.md`.
 
