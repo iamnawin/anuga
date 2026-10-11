@@ -114,3 +114,7 @@ The integration branch combines PR #2 and UI PRs #4-#7. Windows launcher:
 Uses only public anon/publishable settings, loopback servers on ports 3100-3102,
 separate role sessions and existing synthetic backend. Guide: docs/LOCAL_TESTING.md.
 Database access rules, app RPCs and auth adapters are unchanged.
+
+## Founder-authorized synthetic site publication
+
+PR #8 main merge and combined anuga.vercel.app publication authorized in chat. Build via scripts/build-staging.sh, publish existing project prebuilt with pnpm dlx vercel@59.26.0. Manual deploy-anuga-test.yml supports future publishing; Git auto-deploy disabled to prevent ops-only replacement. Web storage and SDK auth broadcast channels isolated per Flutter app; native defaults, OTP/RPC/RLS rules unchanged. Commands and scope in SETUP; verification in HANDOFF. M10 still gated.

@@ -1,5 +1,23 @@
 # Handoff
 
+## Founder-authorized combined publication (2026-10-11)
+
+Founder explicitly answered yes to merging PR #8 and publishing all three redesigned synthetic apps at anuga.vercel.app. This supersedes the earlier no-merge/no-deploy restriction for this test-site task only. M10 and real-data/paid-provider launch remain gated.
+
+PR #8 merged at 3c6f2ace0ff96d2c6f7583b4745fe0829d9b78aa. Its final head cbe3b20 CI run 38146021839 passed all six jobs; merged main run 38148157637 also passed. Source PRs #2/#4-#7 remain intact; #3 is obsolete. New branch deploy/combined-test-site carries necessary combined-hosting fixes and receipts.
+
+Changes: web-only persisted session keys in both Flutter entry points; native settings unchanged. Browser bootstrap scopes the SDK's fixed Supabase BroadcastChannel per app, while retaining same-app tab sync and leaving other channels unchanged. Real browser regression reproduced cross-role session overwrite with storage keys alone, then passed after channel isolation. Auth adapters, RPCs, RLS/grants, migrations, shared Dart, payment/vault handlers and their tests are unchanged.
+
+Build fixes: Git Bash path conversion excluded for sub-paths, guarded cleanup of generated .vercel/output only (preserves Vercel project link), local CanvasKit resources, ANUGA/mint/teal landing with three app links. New scripts/web-session-smoke.mjs tests real sign-ins, independent reloads and companion sign-out without losing ops/family sessions. Manual publish Anuga synthetic test site workflow builds/prebuilt-publishes all three; Git auto-deploy disabled via root vercel.json so later pushes cannot replace it with ops-only output.
+
+Checks: final scripts/check-all.sh native exit 0, PGlite 142 pass/8 real-Supabase skips, ops 52, shared Dart 27, companion 39/3 environment skips, family 35/6 environment skips; all format/analyze/lint/typecheck/build steps pass. Separate ops lint/typecheck/test and both Flutter analyze --fatal-infos/test pass. Final three web release builds pass. Existing upstream non-failing wasm/font warnings retained. Shell/JS syntax and whitespace checks pass. Hosted synthetic staging-smoke passes allowed/denied roles, anon denial and both function CORS. Real local combined-site browser sign-ins/reloads/isolated sign-out pass with zero page errors. Evidence: docs/evidence/hosted-test and ignored artifacts/integration.
+
+Hosting access: founder completed Vercel CLI device sign-in. Existing anuga project verified by ID prj_OIgy0tgFWjWwiCZVoTTHqiE9ktHN/team_t3I2D0lrJ02PZ2a0AgeKV2gr. Changed rootDirectory/framework from apps/ops_console/Next.js to repository root/Other for prebuilt combined publication; previous settings snapshot is ignored artifacts/integration/vercel-before.json. No new project, paid service, database migration or secret in app. GitHub repository deployment secrets are not configured; today's publish uses authenticated CLI. Future manual Actions publication needs dashboard-scoped VERCEL_TOKEN and STAGING_TEST_OTP stored only in Actions secrets.
+
+Not run locally: Docker real-Supabase full automated journey and Android device/emulator; authoritative merged-main CI passed real Supabase/full journey and both APKs. Native te/hi review not run. New deployment fix PR CI and published-site verification pending at this receipt.
+
+Exact next task: publish the tested prebuilt output to existing anuga Vercel production target (synthetic test only), verify root/ops/family/companion and real independent role sign-ins, then record exact URL/deployment/CI results and merge the necessary publish fix PR after checks. Founder may need the documented additive synthetic visit SQL to put a booking inside the existing companion detail window; never reload hosted seed or weaken that rule.
+
 ## Combined local integration (2026-10-11)
 
 Branch: `integration/local-anuga`, from fetched `origin/main` at `32d6631`. This section supersedes every historical next task below. PR #2 and #4-#7 remain OPEN and intact; PR #3 is obsolete. No main merge, deploy command or staging workflow run.

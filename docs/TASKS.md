@@ -245,3 +245,13 @@ roles, trip data export for pilot metrics, deletion job for consent withdrawal.
 - [x] Integration PR #8 opened: https://github.com/iamnawin/anuga/pull/8. No main merge/deploy command; existing PRs intact. Existing Vercel Git automation created previews, recorded in HANDOFF.
 - [x] Integration CI 38145315706 at 719361c: all six jobs pass, real Supabase 150/150 with zero skips, ops browser 7 pass, full cross-app journey and test billing pass, both debug APKs pass. Final receipt only docs and restored staging-script executable bit; no product changes after tested SHA.
 - [ ] Founder manual browser journey after Phone-provider/test-number dashboard setup.
+
+## Founder-authorized combined publication (2026-10-11)
+
+- [x] Founder authorized PR #8 main merge and existing anuga.vercel.app synthetic publication; PR #8 merged, main CI passed all six jobs.
+- [x] Hosted Phone enabled; real synthetic allowed/denied/CORS smoke passes.
+- [x] Same-origin storage and BroadcastChannel regression reproduced/fixed; real browser sign-ins, independent reloads and isolated sign-out pass.
+- [x] Final fast checks, separate app checks and all three web release builds pass; guarded Windows build output cleanup/sub-path support.
+- [x] Authenticated Vercel CLI; existing project configured for prebuilt combined site, no new project or paid service.
+- [ ] Publish combined prebuilt to anuga.vercel.app and verify real browser sessions.
+- [ ] Publish fix PR CI/merge receipt and founder manual visit. Synthetic active-window fixture remains in LOCAL_TESTING.

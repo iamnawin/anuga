@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -20,7 +21,13 @@ Future<void> main() async {
   if (_url.isEmpty || _publishableKey.isEmpty) {
     throw StateError('Pass --dart-define=SUPABASE_URL=... and --dart-define=SUPABASE_PUBLISHABLE_KEY=...');
   }
-  await Supabase.initialize(url: _url, publishableKey: _publishableKey);
+  await Supabase.initialize(
+    url: _url,
+    publishableKey: _publishableKey,
+    authOptions: FlutterAuthClientOptions(
+      localStorage: kIsWeb ? SharedPreferencesLocalStorage(persistSessionKey: 'anuga-family-auth') : null,
+    ),
+  );
   final client = Supabase.instance.client;
   runApp(
     FamilyApp(
