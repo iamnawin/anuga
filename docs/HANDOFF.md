@@ -4,6 +4,8 @@
 
 Branch: `integration/local-anuga`, from fetched `origin/main` at `32d6631`. This section supersedes every historical next task below. PR #2 and #4-#7 remain OPEN and intact; PR #3 is obsolete. No main merge or deployment.
 
+Integration PR #8: https://github.com/iamnawin/anuga/pull/8, OPEN. Source integration commit fba6acf and UTF-8 documentation correction dff8319 pushed. CI running on the integration PR. This PR-link receipt is documentation-only; `git diff --check` passed, app checks not repeated. Next: inspect combined-head real-Supabase CI and record its exact SHA/results, then founder enables synthetic Phone sign-in and tests LOCAL_TESTING walkthrough.
+
 Combined exact tracked source snapshots: PR #4 tokens/reference boards at `6076473`, PR #5 ops presentation at `b5b8d2e`, PR #6 companion widgets/l10n at `74728ab`, PR #7 family widgets/l10n at `378db4d`, plus PR #2 web scaffolds, Next export config, staging scripts/manual workflow, CORS wrapper/tests and setup ADR at `299a9bf`. Shared docs retain token decisions, each UI receipt and staging context. Took per-path snapshots instead of merging duplicate cherry-pick histories. Migrations, grants/RLS, RPCs, auth adapters, state machine, payment/vault handlers, shared Dart, tests and lockfiles are unchanged. The two existing Edge entry points only carry PR #2's tested CORS wrapper.
 
 New: scripts/start-local.ps1 builds the actual Next export and Flutter web apps with the existing synthetic project's public anon settings. scripts/serve-local.mjs serves on loopback only, separate origins for independent role sessions. Rejects server keys and unrelated backend hosts. No package/dependency changes. Guide and synthetic visit SQL: docs/LOCAL_TESTING.md. Updated SETUP/CLAUDE for commands.

@@ -59,3 +59,5 @@ Root coordinator alone updates HANDOFF, TASKS, AGENTS status and curated UI evid
 ## Integration authorization (2026-10-11)
 
 Founder explicitly requested one combined main-based integration branch/PR incorporating PR #2 and #4-#7, local servers and connected synthetic testing. The coordinator may reconcile the previously isolated stream paths and shared documents for this branch only. Source PRs remain intact. No deployment or main merge.
+
+Integration PR #8 is OPEN: https://github.com/iamnawin/anuga/pull/8. Local release apps and checks pass. Integration CI is running; founder Phone test-provider setup blocks authenticated manual browser testing.

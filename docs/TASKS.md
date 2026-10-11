@@ -242,4 +242,5 @@ roles, trip data export for pilot metrics, deletion job for consent withdrawal.
 - [x] Inspect latest source CI: all jobs passed on PR #2 and #4-#7, including real-Supabase journeys.
 - [x] Local launcher and independent browser origins, synthetic accounts, active-window visit fixture and walkthrough in docs/LOCAL_TESTING.md.
 - [!] Authenticated manual visit: synthetic hosted project Phone provider is disabled. Founder dashboard steps in LOCAL_TESTING; local Docker unavailable. No secrets in chat.
+- [x] Integration PR #8 opened: https://github.com/iamnawin/anuga/pull/8. No merge/deploy; existing PRs intact.
 - [ ] Integration PR real-Supabase CI receipt and founder manual browser journey.
