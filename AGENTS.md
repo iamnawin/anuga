@@ -39,7 +39,7 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - PR #3 / `m3-ops-console` is obsolete. Do not use it.
 - Founder now approves visible ANUGA branding; older spec wording about an undecided name is stale. Keep code/package identifiers unchanged.
 - S2: supplied concept boards preserved and `docs/design/tokens.md` defines the UI contract. Corrected references are boards 13, 14 and 15.
-- S3 open PR #5. S4 companion UI complete with full checks and38 curated synthetic widget renders; separate PR prepared. S5 remains in final checks. All incorporate S2 PR #4 without staging changes. No main merge or deployment.
+- S2 PR #4, S3 PR #5, S4 PR #6 and S5 PR #7 are OPEN with full local checks and curated evidence. Founder review and synthetic connected testing are next. No main merge/deployment; staging PR #2 remains separate.
 
 ## Parallel work and shared documents
 
