@@ -2,9 +2,13 @@
 
 ## Combined local integration (2026-10-11)
 
-Branch: `integration/local-anuga`, from fetched `origin/main` at `32d6631`. This section supersedes every historical next task below. PR #2 and #4-#7 remain OPEN and intact; PR #3 is obsolete. No main merge or deployment.
+Branch: `integration/local-anuga`, from fetched `origin/main` at `32d6631`. This section supersedes every historical next task below. PR #2 and #4-#7 remain OPEN and intact; PR #3 is obsolete. No main merge, deploy command or staging workflow run.
 
-Integration PR #8: https://github.com/iamnawin/anuga/pull/8, OPEN. Source integration commit fba6acf and UTF-8 documentation correction dff8319 pushed. CI running on the integration PR. This PR-link receipt is documentation-only; `git diff --check` passed, app checks not repeated. Next: inspect combined-head real-Supabase CI and record its exact SHA/results, then founder enables synthetic Phone sign-in and tests LOCAL_TESTING walkthrough.
+Integration PR #8: https://github.com/iamnawin/anuga/pull/8, OPEN. All six CI jobs PASS at `719361cf2eb730f9f23ea8d5df9d5777927c74fe`, run https://github.com/iamnawin/anuga/actions/runs/38145315706. Earlier integration `dff8319` run 38145263013 also passed all six jobs. Real Supabase: **150/150, zero skipped**, standalone ops Playwright **7 passed**, both companion/family real-Supabase tests and full `JOURNEY PASSED` through notifications and test billing. Both debug APK builds pass. Receipt: docs/evidence/integration/ci-summary.json.
+
+Final receipt also restores PR #2's executable bit on scripts/build-staging.sh (Windows snapshot checkout lost that bit), clarifies synthetic hosted test-phone setup and normalizes documentation. No product source changes after the tested SHA. Shell syntax and final source snapshot/whitespace checks pass; full app checks not repeated for documentation and file-mode-only receipt. The final receipt push starts another CI run; the exact completed code-bearing SHA above is the verified result, not a claim about a pending receipt-head run.
+
+Automation side effect: the existing Git-linked Vercel project `anuga` automatically posted completed preview checks when this branch/PR was pushed. The agent did not invoke a deploy command/workflow, open a preview or change Vercel settings. Preview protection was not independently verified. Local testing uses loopback only. No public deployment was requested or manually performed; do not claim that repository automation created no deployment.
 
 Combined exact tracked source snapshots: PR #4 tokens/reference boards at `6076473`, PR #5 ops presentation at `b5b8d2e`, PR #6 companion widgets/l10n at `74728ab`, PR #7 family widgets/l10n at `378db4d`, plus PR #2 web scaffolds, Next export config, staging scripts/manual workflow, CORS wrapper/tests and setup ADR at `299a9bf`. Shared docs retain token decisions, each UI receipt and staging context. Took per-path snapshots instead of merging duplicate cherry-pick histories. Migrations, grants/RLS, RPCs, auth adapters, state machine, payment/vault handlers, shared Dart, tests and lockfiles are unchanged. The two existing Edge entry points only carry PR #2's tested CORS wrapper.
 
@@ -18,7 +22,7 @@ Local backend probe: synthetic project auth settings HTTP 200, phone sign-in DIS
 
 Apps started: http://127.0.0.1:3100/login/ (ops 9000000001), http://127.0.0.1:3101/ (owner 9000000101), http://127.0.0.1:3102/ (backup Ravi 9000000202). Launcher session stays running; rebuild/restart command in LOCAL_TESTING. Use the founder-chosen hosted test sign-in code, not an assumed 123456; pickup code comes from the family booking.
 
-Exact next task: open integration PR, inspect its CI, then founder enables Phone test sign-in for the five synthetic numbers in LOCAL_TESTING, disables new signups and sets the dashboard test code. Founder runs the documented additive synthetic-visit SQL (seed dates are old), then completes one visit across the three local tabs. No Vercel/GitHub deploy secret or public deployment is needed. Optional test payments need dashboard PAYMENTS_WEBHOOK_SECRET; no secret goes into chat or app. Keep source PRs open and do not merge main.
+Exact next task: founder enables Phone test sign-in for the five synthetic numbers in LOCAL_TESTING, disables new signups and sets the dashboard test code. Founder runs the documented additive synthetic-visit SQL (seed dates are old), then completes one visit across the three local tabs. Completed integration CI proves the connected automated journey on a fresh local Supabase stack; the founder's authenticated browser visit remains untested until hosted Phone setup. No Vercel/GitHub deploy secret or public deployment is needed. Optional test payments need dashboard PAYMENTS_WEBHOOK_SECRET; no secret goes into chat or app. Keep source PRs and integration PR #8 open and do not merge main.
 
 ## Final UI delivery receipt (2026-10-11)
 

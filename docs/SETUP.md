@@ -76,8 +76,9 @@ pnpm e2e    # needs Supabase local (below) and apps/ops_console/.env.local
 
 `.env.local` (git-ignored) takes `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from
 `supabase status -o env` (`API_URL`, `ANON_KEY`). Local sign-in: phone `9000000001` (ops),
-code `123456`. Test OTPs exist only in `supabase/config.toml` for the synthetic seed numbers; never
-configure them on a hosted project. Supabase Auth refuses phone sign-in unless an SMS provider is
+code `123456`. These mappings in `supabase/config.toml` are local-only; never copy them to
+production. The existing synthetic hosted project uses its own founder-configured test numbers
+and code (see Hosted staging and LOCAL_TESTING). Supabase Auth refuses phone sign-in unless an SMS provider is
 enabled, so the local config enables Twilio with fake placeholder values; test numbers never reach it.
 
 ## End-to-end journey (M7)

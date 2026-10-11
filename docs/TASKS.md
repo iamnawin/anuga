@@ -242,5 +242,6 @@ roles, trip data export for pilot metrics, deletion job for consent withdrawal.
 - [x] Inspect latest source CI: all jobs passed on PR #2 and #4-#7, including real-Supabase journeys.
 - [x] Local launcher and independent browser origins, synthetic accounts, active-window visit fixture and walkthrough in docs/LOCAL_TESTING.md.
 - [!] Authenticated manual visit: synthetic hosted project Phone provider is disabled. Founder dashboard steps in LOCAL_TESTING; local Docker unavailable. No secrets in chat.
-- [x] Integration PR #8 opened: https://github.com/iamnawin/anuga/pull/8. No merge/deploy; existing PRs intact.
-- [ ] Integration PR real-Supabase CI receipt and founder manual browser journey.
+- [x] Integration PR #8 opened: https://github.com/iamnawin/anuga/pull/8. No main merge/deploy command; existing PRs intact. Existing Vercel Git automation created previews, recorded in HANDOFF.
+- [x] Integration CI 38145315706 at 719361c: all six jobs pass, real Supabase 150/150 with zero skips, ops browser 7 pass, full cross-app journey and test billing pass, both debug APKs pass. Final receipt only docs and restored staging-script executable bit; no product changes after tested SHA.
+- [ ] Founder manual browser journey after Phone-provider/test-number dashboard setup.

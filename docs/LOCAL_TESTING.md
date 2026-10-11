@@ -37,10 +37,11 @@ In Supabase project **anuga**, ref **vsvkllfgrnlbhdydysny**:
 
 1. Authentication > Sign In / Providers > Phone: enable phone sign-in. Disable
    new-user signups for this seeded test project, as the app uses existing users only.
-2. Configure the phone provider requirement for this synthetic project and add
+2. Select the **Twilio** SMS-provider configuration described in PR #2's staging
+   setup, with synthetic placeholder values for mandatory fields. Add
    these test phone numbers: `919000000001`, `919000000101`, `919000000102`,
    `919000000201`, `919000000202`. Set one six-digit **synthetic sign-in code**
-   in the dashboard. Test-number requests must use the configured code and must
+   in the dashboard's **Test phone numbers and OTPs** settings. Test-number requests must use the configured code and must
    not send paid SMS. Do not test any number outside this list.
 3. Enter that dashboard-configured code in each app. Hosted sign-in does not
    automatically use the local Docker code `123456`. Do not paste the code,

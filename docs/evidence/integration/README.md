@@ -31,8 +31,15 @@ Material icons. No tests weakened, dependencies added or access rules changed.
 
 Latest source CI runs #2 38131473596, #4 38135461326, #5 38135464723,
 #6 38135468540, #7 38135471172 all passed six jobs, including real Supabase.
-The #7 log contains `JOURNEY PASSED` through test billing. Integration-head
-CI results are recorded in HANDOFF after its PR run completes.
+The #7 log contains `JOURNEY PASSED` through test billing. Combined integration
+CI [38145315706](https://github.com/iamnawin/anuga/actions/runs/38145315706)
+at `719361cf2eb730f9f23ea8d5df9d5777927c74fe` passed all six jobs:
+real Supabase 150/150 with zero skips, ops browser 7 pass, both apps' real
+Supabase tests, complete cross-app journey through test billing, and both APKs.
+See [ci-summary.json](ci-summary.json). Final receipt changes documentation and
+restores PR #2's staging-script executable bit; product source remains identical
+to the tested SHA. Existing Vercel Git automation created previews without an
+agent deploy command; local verification uses the loopback URLs only.
 
 Local Docker real-Supabase suites/journey and Android device runs unavailable.
 Native-language review not performed. Browser plugin could not bootstrap due to
