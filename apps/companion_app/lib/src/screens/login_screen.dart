@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.loginTitle),
+        title: const Text('ANUGA', style: TextStyle(fontWeight: FontWeight.w700)),
         actions: [LanguageMenu(onChanged: widget.onLocaleChanged)],
       ),
       body: SafeArea(
@@ -86,6 +86,11 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 24),
+              Icon(Icons.people_outline, size: 48, color: Theme.of(context).colorScheme.primary),
+              const SizedBox(height: 24),
+              Text(l10n.loginTitle, style: Theme.of(context).textTheme.headlineSmall),
+              const SizedBox(height: 32),
               if (_sentTo == null) ...[
                 TextField(
                   key: const Key('phone'),
@@ -120,7 +125,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(_message!, style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 18)),
               ],
               const SizedBox(height: 32),
-              Text(l10n.syntheticBanner, textAlign: TextAlign.center),
+              Text(
+                l10n.syntheticBanner,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+              ),
             ],
           ),
         ),
