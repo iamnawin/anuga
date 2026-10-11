@@ -62,3 +62,13 @@ One writer per path; if a stream needs a file another stream owns, stop and note
 - Only S6 adds migrations, one at a time; after a SQL change run `pnpm contract:export` and both suites.
 - Each stream runs `scripts/check-all.sh` (plus its app's tests) before opening a PR and updates
   `docs/HANDOFF.md` with what it ran and what it could not run.
+
+## Keep the docs current (every agent, every time)
+
+After every task, commit or PR (not only at milestone end), update in the same commit:
+- `docs/HANDOFF.md`: date, branch, what changed, checks run and their results, checks NOT run and
+  why, blockers, and the exact next task. Another agent must be able to continue from it alone.
+- `docs/TASKS.md`: tick or annotate the items you touched.
+- `AGENTS.md` "Status": when the overall state changes (merged PRs, new streams, obsolete branches).
+- `CLAUDE.md` / `docs/SETUP.md`: when commands, tools or architecture change.
+Never leave work only in a local branch or chat; push it and record it in `docs/HANDOFF.md`.
