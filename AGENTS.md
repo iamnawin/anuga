@@ -32,14 +32,13 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - Every access rule has allowed and denied tests. Update `docs/TASKS.md` and `docs/HANDOFF.md` after each milestone.
 - Package managers: pnpm for Node, uv for Python.
 
-## Status (2026-10-11, local integration)
+## Status (2026-10-11, founder-authorized synthetic publication)
 
-- M0-M9 are merged on main through PR #1. M10 remains gated.
-- PR #2, `claude/trusting-bell-4fgv07`, remains open: synthetic hosted staging only, founder setup pending. Source UI branches remain separate; integration/local-anuga includes the web support for local testing.
-- PR #3 / `m3-ops-console` is obsolete. Do not use it.
-- Founder now approves visible ANUGA branding; older spec wording about an undecided name is stale. Keep code/package identifiers unchanged.
-- S2: supplied concept boards preserved and `docs/design/tokens.md` defines the UI contract. Corrected references are boards 13, 14 and 15.
-- S2 PR #4, S3 PR #5, S4 PR #6 and S5 PR #7 are OPEN with full local checks and curated evidence. Combined integration/local-anuga includes all designs and PR #2 browser support; checks/web builds pass and all three loopback apps are running. Hosted phone provider is disabled, so founder dashboard setup blocks sign-in. See docs/LOCAL_TESTING.md. Source PRs remain intact; no main merge/deployment.
+- M0-M9 and the combined redesigned apps are on main through PR #8 (3c6f2ac), founder-authorized merge. Final source and main CI passed six jobs, real Supabase/full journey and APKs. M10 remains gated.
+- Founder explicitly approved publishing the combined synthetic version at anuga.vercel.app. This replaces the earlier no-main-merge/no-deploy instruction for this task; no real data or paid providers authorized.
+- PR #2 and #4-#7 remain intact, their changes integrated by #8. PR #3 remains obsolete. ANUGA branding approved; identifiers unchanged.
+- Hosted Phone is now enabled and synthetic role allowed/denied smoke passes. Same-origin Flutter auth storage and BroadcastChannel isolation verified by real browser sign-ins/reloads/sign-out. Native auth settings, RPCs, DB access rules and tests preserved.
+- LIVE https://anuga.vercel.app serves root chooser and /ops/, /family/, /companion/. All four routes HTTP 200 and real three-role sign-in/reload/isolated sign-out pass. Source de8f72a, deployment dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. PR #9 contains necessary hosting fixes; CI 38150546061 pending remaining jobs before its authorized merge. All local fast/app checks/web builds pass. See latest HANDOFF.
 
 ## Parallel work and shared documents
 
@@ -61,3 +60,7 @@ Root coordinator alone updates HANDOFF, TASKS, AGENTS status and curated UI evid
 Founder explicitly requested one combined main-based integration branch/PR incorporating PR #2 and #4-#7, local servers and connected synthetic testing. The coordinator may reconcile the previously isolated stream paths and shared documents for this branch only. Source PRs remain intact. No deployment or main merge.
 
 Integration PR #8 is OPEN: https://github.com/iamnawin/anuga/pull/8. Local release apps and checks pass. Integration CI at 719361c passed all six jobs (run 38145315706), real Supabase 150/150, full journey/test billing and both APKs. Final receipt changes docs and restores the staging script's executable bit only. Founder Phone test-provider setup blocks authenticated manual browser testing. No main merge or agent deploy command; existing Vercel Git automation created previews, recorded in HANDOFF.
+
+## Publication authorization
+
+Founder explicitly approved merge of PR #8 and publishing all three synthetic apps at anuga.vercel.app. Necessary same-origin session isolation, combined build/config/workflow changes and follow-up PR merge are within this deployment task. Previous stream write limits apply to UI work; the coordinator owns these deployment integration fixes and shared receipts. No real-data or paid-provider launch.

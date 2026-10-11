@@ -182,3 +182,30 @@ See [LOCAL_TESTING.md](LOCAL_TESTING.md). From the integration checkout, run
 The launcher builds all three apps with public client settings and serves on
 127.0.0.1 ports 3100 (ops), 3101 (family), 3102 (companion), with separate role sessions.
 Hosted phone sign-in is currently disabled. No deployment or Vercel secrets are required.
+
+## Publish the combined synthetic site (founder-approved 2026-10-11)
+
+PR #8 is merged. Existing Vercel project anuga serves the combined prebuilt site:
+root chooser, /ops/, /family/, /companion/. Project root is repository root and
+Framework is Other. Root vercel.json disables Git-triggered single-app deployment.
+This is the Vercel production target for a synthetic test site, not M10 launch.
+
+Build with the public STAGING_SUPABASE_URL/STAGING_SUPABASE_ANON_KEY settings
+from deploy-staging.yml: scripts/build-staging.sh. Output: artifacts/staging/.vercel/output.
+Use authenticated CLI (no credentials in chat):
+
+```sh
+pnpm dlx vercel@59.26.0 link --yes --project anuga --scope iamnawins-projects --cwd artifacts/staging
+pnpm dlx vercel@59.26.0 deploy --prebuilt --prod --yes --scope iamnawins-projects --cwd artifacts/staging
+```
+
+Future manual Actions workflow publish Anuga synthetic test site requires a
+Vercel dashboard-scoped token in VERCEL_TOKEN and hosted synthetic sign-in code
+in STAGING_TEST_OTP repository Actions secrets. It never reads service keys into apps.
+CLI OAuth credentials must not be committed or pasted into chat.
+
+Real browser session regression: ANUGA_TEST_SITE=https://anuga.vercel.app and
+STAGING_TEST_OTP environment, node scripts/web-session-smoke.mjs. Set
+BROWSER_CHANNEL=msedge on this Windows machine; CI installs Chromium. Proof/logs
+go to ignored artifacts/web-sessions. Both Flutter web apps use app-specific storage
+and auth broadcast channels; native auth defaults remain unchanged.

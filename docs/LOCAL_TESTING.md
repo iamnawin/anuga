@@ -27,11 +27,14 @@ quickly with `-SkipBuild`. Rebuild after source or backend settings changes.
 Use the exact `127.0.0.1` URLs consistently. Separate ports keep three different
 role sessions independent. Sign-in persists in browser storage until sign-out.
 
-## Current login blocker and exact dashboard steps
+## Hosted phone setup and dashboard steps
 
-On 2026-10-11, the project's `/auth/v1/settings` returned HTTP 200 with
-`external.phone=false`. Phone sign-in is disabled. The apps can render locally,
-but sign-in and the connected manual visit cannot succeed until this is fixed.
+Phone sign-in and the synthetic test numbers are now enabled and verified on
+2026-10-11. The real hosted allowed/denied smoke and all three browser sign-ins
+pass. The setup below is retained for reference. The current synthetic sign-in
+code is `123456`, as configured by the founder; the visit pickup code is separate.
+Combined hosted URLs are `/ops/login/`, `/family/`, `/companion/` on
+`https://anuga.vercel.app`; exact publication status is in the latest HANDOFF.
 
 In Supabase project **anuga**, ref **vsvkllfgrnlbhdydysny**:
 
