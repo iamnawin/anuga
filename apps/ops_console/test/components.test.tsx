@@ -5,6 +5,7 @@ import { I18nProvider } from '@/components/I18nProvider';
 import { FareEditor } from '@/components/FareEditor';
 import { ReassignTrip, type ReassignableTrip } from '@/components/ReassignTrip';
 import { ScheduleAssignForm } from '@/components/ScheduleAssignForm';
+import { SchedulePatternForm } from '@/components/SchedulePatternForm';
 import { DbError, type CompanionOption, type OpsApi, type ScheduleRow } from '@/lib/api';
 
 const options: CompanionOption[] = [
@@ -25,6 +26,7 @@ function fakeApi(overrides: Partial<OpsApi> = {}): OpsApi {
     companionOptions: vi.fn().mockResolvedValue(options),
     assignTripCompanion: vi.fn().mockResolvedValue(undefined),
     assignScheduleCompanions: vi.fn().mockResolvedValue(undefined),
+    updateSchedulePattern: vi.fn().mockResolvedValue({ cancelled: 2, generated: 4 }),
     ...overrides,
   };
 }
@@ -102,6 +104,54 @@ describe('ScheduleAssignForm', () => {
     fireEvent.change(screen.getByLabelText('Backup companion'), { target: { value: 'far' } });
     fireEvent.click(screen.getByRole('button', { name: 'Save' }));
     expect((await screen.findByRole('alert')).textContent).toContain('not eligible');
+    expect(onSaved).not.toHaveBeenCalled();
+  });
+});
+
+describe('SchedulePatternForm', () => {
+  const schedule: ScheduleRow = {
+    schedule_id: 's1', patient_id: 'p1', patient_name: 'Lakshmi', centre_name: 'Centre 1', cluster_id: 'c1',
+    package_name: 'Basic', days_of_week: [1, 3, 5], pickup_time: '07:00:00', timezone: 'Asia/Kolkata', active: true,
+    primary_companion_id: 'asha', primary_companion_name: 'Asha', backup_companion_id: 'ravi',
+    backup_companion_name: 'Ravi', upcoming_trips: 6,
+  };
+
+  test('requires the chosen count of weekdays, without silently dropping current days', async () => {
+    const api = fakeApi();
+    const onSaved = vi.fn();
+    wrap(api, <SchedulePatternForm schedule={schedule} onSaved={onSaved} onCancel={vi.fn()} />);
+    fireEvent.change(screen.getByLabelText('Visits per week'), { target: { value: '2' } });
+    const save = screen.getByRole('button', { name: 'Save weekly visits' });
+    expect((save as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByLabelText('Fri') as HTMLInputElement).checked).toBe(true);
+    fireEvent.click(screen.getByLabelText('Wed'));
+    expect((save as HTMLButtonElement).disabled).toBe(false);
+    fireEvent.click(save);
+    await waitFor(() => expect(onSaved).toHaveBeenCalledWith({ cancelled: 2, generated: 4 }));
+    expect(api.updateSchedulePattern).toHaveBeenCalledWith('s1', [1, 5], [1, 3, 5]);
+    expect(api.assignScheduleCompanions).not.toHaveBeenCalled();
+  });
+
+  test('allows increasing to four visits and cancelling without saving', () => {
+    const api = fakeApi();
+    const onCancel = vi.fn();
+    wrap(api, <SchedulePatternForm schedule={schedule} onSaved={vi.fn()} onCancel={onCancel} />);
+    fireEvent.change(screen.getByLabelText('Visits per week'), { target: { value: '4' } });
+    fireEvent.click(screen.getByLabelText('Sun'));
+    expect((screen.getByRole('button', { name: 'Save weekly visits' }) as HTMLButtonElement).disabled).toBe(false);
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+    expect(onCancel).toHaveBeenCalled();
+    expect(api.updateSchedulePattern).not.toHaveBeenCalled();
+  });
+
+  test('keeps stale or denied edits open and displays the database error', async () => {
+    const api = fakeApi({ updateSchedulePattern: vi.fn().mockRejectedValue(new DbError({
+      code: '40001', message: 'weekly schedule changed; refresh before saving',
+    })) });
+    const onSaved = vi.fn();
+    wrap(api, <SchedulePatternForm schedule={schedule} onSaved={onSaved} onCancel={vi.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Save weekly visits' }));
+    expect((await screen.findByRole('alert')).textContent).toContain('refresh before saving');
     expect(onSaved).not.toHaveBeenCalled();
   });
 });

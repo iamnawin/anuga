@@ -6,6 +6,19 @@ export const LANGUAGES = ['en', 'te', 'hi'] as const;
 export type Language = (typeof LANGUAGES)[number];
 
 const en = {
+  'schedules.visitsPerWeek': 'Visits per week',
+  'schedules.changePattern': 'Change weekly visits',
+  'schedules.savePattern': 'Save weekly visits',
+  'schedules.savingPattern': 'Saving weekly visits...',
+  'schedules.currentPattern': 'Current pattern: {count}',
+  'schedules.chooseDays': 'Select {count} weekdays. Selected: {selected}.',
+  'schedules.patternEffect': 'Replaces future visits that have not started. Past visits, started visits and individual cancellations stay unchanged.',
+  'schedules.patternSaved': 'Weekly visits saved for {name}. {cancelled} visits cancelled; {generated} new visits created.',
+  'trips.range.1': '1 day',
+  'trips.range.3': '3 days',
+  'trips.range.7': '1 week',
+  'trips.range.14': '2 weeks',
+  'error.scheduleChanged': 'The weekly schedule changed. Refresh and try again.',
   'app.title': 'Companion ops console',
   'app.synthetic': 'Local development · synthetic data only',
   'nav.trips': 'Trips',
@@ -47,7 +60,7 @@ const en = {
 
   'trips.title': 'Trips board',
   'trips.from': 'From',
-  'trips.days': 'Days',
+  'trips.days': 'Show next',
   'trips.status': 'Status',
   'trips.allStatuses': 'All statuses',
   'trips.pickup': 'Pickup',
@@ -135,6 +148,19 @@ export type MessageKey = keyof typeof en;
 type Messages = Record<MessageKey, string>;
 
 const te: Messages = {
+  'schedules.visitsPerWeek': 'వారానికి సందర్శనలు',
+  'schedules.changePattern': 'వారపు సందర్శనలు మార్చండి',
+  'schedules.savePattern': 'వారపు సందర్శనలు సేవ్ చేయండి',
+  'schedules.savingPattern': 'వారపు సందర్శనలు సేవ్ అవుతున్నాయి...',
+  'schedules.currentPattern': 'ప్రస్తుత షెడ్యూల్: {count}',
+  'schedules.chooseDays': '{count} వారపు రోజులను ఎంచుకోండి. ఎంచుకున్నవి: {selected}.',
+  'schedules.patternEffect': 'ఇంకా ప్రారంభం కాని భవిష్యత్తు సందర్శనలు మారుతాయి. గత సందర్శనలు, ప్రారంభమైన సందర్శనలు, విడిగా రద్దు చేసిన సందర్శనలు మారవు.',
+  'schedules.patternSaved': '{name} వారపు సందర్శనలు సేవ్ అయ్యాయి. {cancelled} సందర్శనలు రద్దయ్యాయి; {generated} కొత్త సందర్శనలు సృష్టించబడ్డాయి.',
+  'trips.range.1': '1 రోజు',
+  'trips.range.3': '3 రోజులు',
+  'trips.range.7': '1 వారం',
+  'trips.range.14': '2 వారాలు',
+  'error.scheduleChanged': 'వారపు షెడ్యూల్ మారింది. రిఫ్రెష్ చేసి మళ్లీ ప్రయత్నించండి.',
   'app.title': 'సహచర ఆపరేషన్స్ కన్సోల్',
   'app.synthetic': 'లోకల్ డెవలప్‌మెంట్ · కృత్రిమ డేటా మాత్రమే',
   'nav.trips': 'ప్రయాణాలు',
@@ -176,7 +202,7 @@ const te: Messages = {
 
   'trips.title': 'ప్రయాణాల బోర్డు',
   'trips.from': 'నుండి',
-  'trips.days': 'రోజులు',
+  'trips.days': 'తదుపరి రోజులు చూపండి',
   'trips.status': 'స్థితి',
   'trips.allStatuses': 'అన్ని స్థితులు',
   'trips.pickup': 'పికప్',
@@ -261,6 +287,19 @@ const te: Messages = {
 };
 
 const hi: Messages = {
+  'schedules.visitsPerWeek': 'प्रति सप्ताह विज़िट',
+  'schedules.changePattern': 'साप्ताहिक विज़िट बदलें',
+  'schedules.savePattern': 'साप्ताहिक विज़िट सेव करें',
+  'schedules.savingPattern': 'साप्ताहिक विज़िट सेव हो रही हैं...',
+  'schedules.currentPattern': 'मौजूदा शेड्यूल: {count}',
+  'schedules.chooseDays': 'सप्ताह के {count} दिन चुनें। चुने गए: {selected}।',
+  'schedules.patternEffect': 'भविष्य की शुरू न हुई विज़िट बदलेंगी। पिछली विज़िट, शुरू हो चुकी विज़िट और अलग से रद्द की गई विज़िट नहीं बदलेंगी।',
+  'schedules.patternSaved': '{name} की साप्ताहिक विज़िट सेव हो गईं। {cancelled} विज़िट रद्द हुईं; {generated} नई विज़िट बनीं।',
+  'trips.range.1': '1 दिन',
+  'trips.range.3': '3 दिन',
+  'trips.range.7': '1 सप्ताह',
+  'trips.range.14': '2 सप्ताह',
+  'error.scheduleChanged': 'साप्ताहिक शेड्यूल बदल गया है। रिफ़्रेश करके फिर कोशिश करें।',
   'app.title': 'साथी ऑपरेशंस कंसोल',
   'app.synthetic': 'लोकल डेवलपमेंट · केवल कृत्रिम डेटा',
   'nav.trips': 'यात्राएँ',
@@ -302,7 +341,7 @@ const hi: Messages = {
 
   'trips.title': 'यात्रा बोर्ड',
   'trips.from': 'से',
-  'trips.days': 'दिन',
+  'trips.days': 'अगले दिन दिखाएँ',
   'trips.status': 'स्थिति',
   'trips.allStatuses': 'सभी स्थितियाँ',
   'trips.pickup': 'पिकअप',

@@ -1,5 +1,21 @@
 # Tasks and milestones
 
+## Role-based Anuga direction (2026-10-12)
+
+- [x] Read-only architecture review: shared Supabase auth/database; Family/Patient, Companion and Ops views. Latest stopping point recorded in HANDOFF.
+- [ ] Simplify pilot browser entry/navigation through one Anuga URL with one login and stored-role routing; validate session restoration and logout/account isolation while preserving database permissions.
+- [ ] Installable release: combine Family/Patient and Companion into one Flutter app; retain Ops on the web. Recommendation only; implementation pending.
+- PR #10 scheduling remains separate, OPEN/unmerged; no new merge/deploy authorization. M10 remains gated.
+
+## Founder testing: weekly visits (2026-10-12)
+
+- [x] Visits per week 1-4 with matching weekday selection, separate from companion assignment; readable Show next date range; en/te/hi and 48px+ taps.
+- [x] Founder chose replacement of future unstarted bookings: atomic Ops-only RPC, allowed/denied tests, cancellation/rebooking history, individual cancellations preserved, wall-clock past cutoff and stale-edit protection. No auth/RLS/state-machine change.
+- [x] Final fast checks and separate app checks passed; contract export unchanged; five real-browser UI captures; independent review findings fixed.
+- [x] PR #10 OPEN, code 56bd5c6 CI 38247279751 passed all six jobs: real Supabase 159/159 zero skips, Ops browser 8 with mobile save/reload/restore, connected journeys/test billing and both APKs. Three release web builds and isolated browser sessions pass. Final docs/evidence receipt checked without repeating app tests; its new CI may be running.
+- [!] Hosted Save: new migration must be applied to synthetic anuga through SQL Editor before feature publication. No hosted mutation, feature main merge or deploy yet.
+- [ ] Founder tests frequency change, reload persistence and unchanged active/past visits on the updated combined site.
+
 ## Founder sketch UI streams (2026-10-11)
 
 - [x] S2: inspect all 15 concept boards and seven previous ops screenshots; preserve source boards; define tokens and existing-screen mappings in `docs/design/tokens.md`.

@@ -162,3 +162,33 @@ test('the console is translated into Telugu and Hindi', async ({ browser }) => {
   await expect(page.getByRole('heading', { name: 'यात्रा बोर्ड' })).toBeVisible();
   await page.getByLabel('भाषा').selectOption('en');
 });
+
+test('mobile ops edits visits per week and sees readable date-range choices', async ({ browser }) => {
+  const page = await asOps(browser, '/schedules');
+  await page.setViewportSize({ width: 390, height: 844 });
+  const card = page.locator('[data-schedule-id="80000000-0000-0000-0000-000000000001"]');
+  await card.getByRole('button', { name: 'Change weekly visits' }).click();
+  await card.getByLabel('Visits per week').selectOption('2');
+  await expect(card.getByRole('button', { name: 'Save weekly visits' })).toBeDisabled();
+  await card.getByLabel('Wed', { exact: true }).uncheck();
+  await page.screenshot({ path: `${shots}/08-weekly-visits-mobile.png`, fullPage: true });
+  await card.getByRole('button', { name: 'Save weekly visits' }).click();
+  await expect(page.getByRole('status')).toContainText('Weekly visits saved for Lakshmi Rao');
+  await page.reload();
+  await card.getByRole('button', { name: 'Change weekly visits' }).click();
+  await expect(card.getByLabel('Visits per week')).toHaveValue('2');
+  await expect(card.getByLabel('Wed', { exact: true })).not.toBeChecked();
+
+  // Restore the seed pattern using the same real UI/RPC, preserving all history.
+  await card.getByLabel('Visits per week').selectOption('3');
+  await card.getByLabel('Wed', { exact: true }).check();
+  await card.getByRole('button', { name: 'Save weekly visits' }).click();
+  await expect(page.getByRole('status')).toContainText('Weekly visits saved for Lakshmi Rao');
+  await page.getByRole('link', { name: 'Trips', exact: true }).click();
+  const range = page.getByLabel('Show next');
+  await expect(range.locator('option')).toHaveText(['1 day', '3 days', '1 week', '2 weeks']);
+  await range.selectOption('14');
+  await expect(range).toHaveValue('14');
+  await page.screenshot({ path: `${shots}/09-trips-range-mobile.png`, fullPage: true });
+  await page.context().close();
+});

@@ -1,5 +1,21 @@
 # Environment setup
 
+## Weekly visits feature: synthetic dashboard step (2026-10-12)
+
+The current live site does not yet contain this feature. PR branch `feat/weekly-visit-pattern` needs a new database RPC before its updated web build can save weekly changes.
+
+1. In Supabase, select the existing **anuga** synthetic project (`vsvkllfgrnlbhdydysny`). Open **SQL Editor > New query**.
+2. Copy the entire `supabase/migrations/20261012000100_weekly_visit_pattern.sql` file from the reviewed feature branch and run it **once**. This retains all trip rows, history and existing access policies. It replaces booking uniqueness with a non-cancelled-slot index and installs the compatible generator plus Ops-only pattern editor. Do not reset the seed, run older migrations again or use a production project.
+3. Before publishing the updated combined site, verify the new function exists:
+
+```sql
+select to_regprocedure('public.ops_update_schedule_pattern(uuid,smallint[],smallint[])');
+```
+
+The result must be the function signature rather than NULL. No password, service-role key or new SMS setup is needed in chat or apps. Existing synthetic phone mappings stay unchanged. Main merge/publication of this new feature remain separate authorized actions; do not publish the new UI while its RPC is absent.
+
+Local/CI Supabase applies the new file with the usual migration/reset process; the hosted SQL Editor path is additive and does not reset synthetic bookings. If later switching this manually provisioned hosted project to CLI migration tracking, reconcile the complete migration history first rather than blindly replaying files.
+
 Versions below were verified on the founder's Windows 11 machine on 2026-10-08.
 Re-verify with the "check" command in each row before relying on them.
 

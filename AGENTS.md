@@ -32,7 +32,11 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - Every access rule has allowed and denied tests. Update `docs/TASKS.md` and `docs/HANDOFF.md` after each milestone.
 - Package managers: pnpm for Node, uv for Python.
 
-## Status (2026-10-11, founder-authorized synthetic publication)
+## Status (2026-10-12)
+
+- Latest stopping point: read-only role-based application review, restored by founder on 2026-10-12. Recommended one browser entry for the pilot and one Family/Patient + Companion Flutter app for installable release, retaining Ops on the web. Consolidation not implemented; next scope is shared entry/login/role routing with database security preserved. See the first section of HANDOFF. No new feature merge/deploy authorization.
+
+- PR #10 OPEN (`feat/weekly-visit-pattern` from main 64c4603): founder requested Visits per week (1-4 with weekdays), clearer Trips date range, and replacement of future unstarted visits. New Ops-only atomic RPC/UI pass final fast/app checks and independent review. Code 56bd5c6 CI 38247279751 passed all six jobs, real Supabase 159/159 zero skips, Ops browser 8, full journey/test billing and both APKs. Updated three release web builds and isolated browser sessions pass. Final receipt is docs/evidence only, its new CI may be running. No feature merge/deploy or hosted migration; live site unchanged. Founder SQL Editor step is in HANDOFF/SETUP.
 
 - M0-M9 and the combined redesigned apps are on main through PR #8 (3c6f2ac), founder-authorized merge. Final source and main CI passed six jobs, real Supabase/full journey and APKs. M10 remains gated.
 - Founder explicitly approved publishing the combined synthetic version at anuga.vercel.app. This replaces the earlier no-main-merge/no-deploy instruction for this task; no real data or paid providers authorized.

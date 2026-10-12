@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+Weekly visits (2026-10-12): `ops_update_schedule_pattern` is an Ops-only atomic editor for the explicitly requested weekly count/day changes, with future Scheduled replacement and preserved history. The new migration must precede the feature's hosted UI rollout. Existing auth, RLS, vault and transition contracts remain unchanged. Read the latest HANDOFF and SETUP weekly-visits instructions.
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 **Project:** Dialysis Companion App (ZeroOrigins), codename `companion` (brand name not final).

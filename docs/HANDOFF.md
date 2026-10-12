@@ -1,5 +1,63 @@
 # Handoff
 
+## Latest stopping point: role-based Anuga review (2026-10-12)
+
+Branch: `feat/weekly-visit-pattern` in `D:/AI-Workspace/Repos/anuga-integration`.
+This section supersedes historical next-task statements below. The checkout at
+`D:/AI-Workspace/Ideas/Anuga` is older; do not resume implementation from it.
+
+Founder restored the last conversation output and requested this handoff update.
+Work stopped after a read-only architecture review; no application consolidation
+was implemented. Recommendation: one Anuga entry point with role-based views.
+Pilot: one browser URL with simpler entry/navigation, reusing the working views.
+Installable release: one Flutter Anuga app for Family/Patient and Companion;
+retain the existing Ops web dashboard. This is a recommendation, not a completed
+feature or authorization to merge/deploy.
+
+The apps already share Supabase authentication and the database. `profiles.role`
+contains `family`, `companion`, and `ops_admin`; Patient belongs within Family
+and patient permissions, rather than being a fourth application role. Shared entry
+needs one login, stored-role routing after sign-in/session restoration, and clearing
+previous-user data on logout/account changes. Keep restricted RPCs, grants/RLS,
+audited vault reads and allowed/denied tests authoritative. Companions must never
+gain access to vault data, diagnoses or DOB.
+
+PR #10 remains OPEN and unmerged (verified with GitHub CLI on 2026-10-12).
+The restored review reported 29 files: 8 implementation, 4 tests, and 17
+documentation/evidence files. Scheduling replacement required database logic;
+keep future review documentation/evidence lean. Feature checks are recorded below;
+this update claims no new application test run or deployment.
+
+Exact next task: inspect login/session entry points and define the smallest shared
+browser entry and role-routing change, then implement within the agreed scope.
+Validate role restoration and logout/account isolation alongside existing access
+tests. Flutter consolidation remains pending. Keep PR #10 rollout separate: founder
+review, hosted synthetic migration and explicit merge/publication authorization are
+still needed. M10 remains gated.
+
+This task changes HANDOFF, TASKS and AGENTS status only. Checks: branch/clean
+worktree inspected before editing; remote main fetched; PR #10 state verified;
+`git diff --check` run before commit. App/database tests were not repeated for this
+documentation-only update. No merge, migration or deployment performed.
+
+## Weekly visits and Trips range (2026-10-12)
+
+Branch: `feat/weekly-visit-pattern`, from fetched main `64c4603`. Founder requested both Visits per week (1-4 plus weekday selection) and readable Trips range choices, then explicitly chose replacement of future unstarted visits. This expands the earlier UI-only scope only for this scheduling behavior. No main merge or deployment for this feature; existing live site stays at its verified version.
+
+PR #10 OPEN: https://github.com/iamnawin/anuga/pull/10. Code `56bd5c65785cf09fc2f3330eafc3f8be53f31846` CI https://github.com/iamnawin/anuga/actions/runs/38247279751 **passed all six jobs**. Real Supabase **159/159, zero skipped**, Ops browser **8 passed** including mobile save/reload/restore, both connected app journeys and full **JOURNEY PASSED** through notification/test billing, both debug APKs built. All three updated release web builds and loopback three-role session/reload/sign-out smoke also passed. Existing non-failing Flutter wasm/font warnings retained. CI receipt and two real-Supabase browser captures are in docs/evidence/weekly-visits. This final receipt changes documents/evidence only; whitespace checked, app tests not repeated. Its push may start another docs-only CI run, distinct from the completed code-bearing run above.
+
+Changes: new migration `20261012000100_weekly_visit_pattern.sql` adds Ops-only atomic pattern editing, stale-edit protection and replacement generation in the configured rolling window (28 days by default). Matching bookings retain IDs/companions. Removed weekdays cancel only future Scheduled bookings through existing audited transitions and notify family/assigned companions. Started, past and terminal visits stay intact. Cancelled history is retained; protected audit membership distinguishes pattern cancellations eligible for explicit rebooking from individual cancellations. Partial uniqueness protects every non-cancelled slot. Existing generator still skips all cancellations and uses the same index. Grants/RLS, auth, pickup OTP, vault and state transitions are unchanged.
+
+UI: a separate inline Change weekly visits form, 1-4 count, readable weekday checkboxes, exact-count validation and explicit replacement notice, en/te/hi. Existing companion assignment remains separate. Trips uses Show next with 1 day / 3 days / 1 week / 2 weeks; query durations unchanged. Existing patterns above four are displayed without silently dropping days; saving requires an explicitly chosen supported count. Product context pointer added for design tooling. Plan and rollout: docs/weekly-visits.md; five browser captures: docs/evidence/weekly-visits.
+
+Checks: final `scripts/check-all.sh` native exit 0: frozen pnpm install, root typecheck, PGlite **151 passed / 8 real-Supabase skips**, Ops lint/typecheck/build and **55 tests**, shared Dart format/analyze and **27 tests**, companion format/analyze and **39 passed / 3 environment skips**, family format/analyze and **35 passed / 6 environment skips**. Separate Ops pnpm lint/typecheck/test passed; separate both apps flutter analyze --fatal-infos/test passed. `pnpm contract:export` passed and left the 51-transition fixture unchanged. Nine new database tests pass: caller denial including missing profile, validation, stale/paused/expired edits, replacement/history, remove/re-add, individual cancellation with matching reason, atomic rollback and crossing pickup time inside a transaction. Final whitespace check passed. Independent review found and verified fixes for cancellation provenance and wall-clock lock waits, with no remaining important findings.
+
+Browser evidence: real synthetic Ops phone/OTP sign-in into the local new Next app, actual hosted board reads, mobile range labels/count validation, en/te/hi, desktop, 48px+ checkbox targets and no page errors PASS. No API/auth mocks. No hosted save attempted because the new RPC is not installed; anonymous non-mutating probe returned HTTP 404/PGRST202. Save/persistence browser regression passed on real local Supabase in feature CI. Latest main CI 38151353059 at 64c4603 also passed.
+
+Not run locally: real Supabase suite/full connected journey and Android device/APK (Docker/Android SDK unavailable), true simultaneous Postgres lock contention and native-language review. Eight database skips and mobile environment skips were unchanged, not weakened. No hosted migration, data mutation, reset or public deploy. A fresh loopback Ops dev server is at http://127.0.0.1:3112; its new save also requires the migration. Next-generated app AGENTS file was moved to ignored artifacts instead of committed. Original checkout/untracked founder files remain untouched.
+
+Exact next task: founder reviews PR #10 and applies the new migration once in the synthetic `anuga` SQL Editor (SETUP weekly-visits section); no hosted SQL/admin access is available in this workspace. Do not paste credentials or reset data. After code review and authorized rollout, publish the updated combined build and exercise Save, refresh Family/Companion bookings and complete the existing visit journey. Do not merge or deploy this feature automatically. Current live site remains unchanged, feature branch and PR are pushed, prior PRs intact.
+
 ## Founder-authorized combined publication (2026-10-11)
 
 FINAL: PR #8 merged at 3c6f2ac; necessary hosting/session fix PR #9 merged at 37bdae2cb77240ae06bfd000e6520613fd51903f. Published code de8f72a passed all six jobs in https://github.com/iamnawin/anuga/actions/runs/38150546061: real Supabase 150/150 with zero skips, ops browser 7 pass, both app real-Supabase tests, full JOURNEY PASSED through notifications/test billing, both APK builds. Main app/build/security/workflow contents exactly match the tested/published code; later commits are shared receipts only. Final documentation-only receipt checked with git diff --check, app tests not repeated; main push/receipt CI may be running, distinct from the completed code-bearing run above. CI receipt: docs/evidence/hosted-test/ci-summary.json.

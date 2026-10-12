@@ -52,6 +52,13 @@ a { color: var(--accent); }
 .panel { display: grid; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
 .field { display: grid; gap: 8px; font-weight: 600; min-width: 0; }
 .field small { font-size: 0.889rem; font-weight: 400; color: var(--muted); }
+.weekdays { min-width: 0; margin: 0; padding: 0; border: 0; }
+.weekdays legend { font-weight: 600; margin-bottom: 8px; }
+.weekday-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.weekday-option { display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap); padding: 8px 12px; border: 1px solid var(--boundary); border-radius: 8px; background: var(--surface); cursor: pointer; }
+.weekday-option:has(input:checked) { background: var(--selected); }
+.weekday-option input { min-height: 0; width: 20px; height: 20px; margin: 0; accent-color: var(--accent); }
+.weekday-option:has(input:disabled) { cursor: not-allowed; }
 input, select { min-height: var(--tap); min-width: 0; font: inherit; padding: 8px 12px; color: var(--fg); background: var(--surface); border: 1px solid var(--boundary); border-radius: 8px; max-width: 100%; }
 input::placeholder { color: var(--muted); opacity: 1; }
 .lang { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.889rem; }

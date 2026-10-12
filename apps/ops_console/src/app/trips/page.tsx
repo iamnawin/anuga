@@ -53,7 +53,7 @@ function TripsBoard() {
         <label className="field" htmlFor="days">
           <span>{t('trips.days')}</span>
           <select id="days" value={days} onChange={(e) => setDays(Number(e.target.value))}>
-            {DAY_OPTIONS.map((n) => <option key={n} value={n}>{n}</option>)}
+            {DAY_OPTIONS.map((n) => <option key={n} value={n}>{t(`trips.range.${n}` as 'trips.range.1')}</option>)}
           </select>
         </label>
         <label className="field" htmlFor="status">

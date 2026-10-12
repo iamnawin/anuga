@@ -27,6 +27,7 @@ describe('createOpsApi', () => {
     await api.tripBoard(new Date('2026-10-07T18:30:00Z'), new Date('2026-10-14T18:29:59Z'), []);
     await api.assignTripCompanion('trip-1', 'ravi');
     await api.assignScheduleCompanions('sched-1', 'asha', 'ravi');
+    await api.updateSchedulePattern('sched-1', [2, 4], [1, 3, 5]);
     await api.advanceTrip('trip-1', 'cancelled', 'note');
     await api.opsTransitions();
     expect(calls).toEqual([
@@ -34,6 +35,7 @@ describe('createOpsApi', () => {
       { fn: 'ops_trip_board', args: { p_from: '2026-10-07T18:30:00.000Z', p_to: '2026-10-14T18:29:59.000Z', p_statuses: null } },
       { fn: 'ops_assign_trip_companion', args: { p_trip_id: 'trip-1', p_companion_id: 'ravi' } },
       { fn: 'ops_assign_schedule_companions', args: { p_schedule_id: 'sched-1', p_primary_id: 'asha', p_backup_id: 'ravi' } },
+      { fn: 'ops_update_schedule_pattern', args: { p_schedule_id: 'sched-1', p_days_of_week: [2, 4], p_expected_days: [1, 3, 5] } },
       { fn: 'advance_trip', args: { p_trip_id: 'trip-1', p_to_status: 'cancelled', p_note: 'note' } },
       { fn: 'from:trip_transitions', args: { columns: 'from_status,to_status,actor,requires_otp', column: 'actor', value: 'ops' } },
     ]);
