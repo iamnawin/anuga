@@ -149,6 +149,7 @@ export interface OpsApi {
   companionOptions(patientId: string): Promise<CompanionOption[]>;
   opsTransitions(): Promise<Transition[]>;
   assignScheduleCompanions(scheduleId: string, primaryId: string, backupId: string): Promise<void>;
+  updateSchedulePattern(scheduleId: string, days: number[], expectedDays: number[]): Promise<{ cancelled: number; generated: number }>;
   assignTripCompanion(tripId: string, companionId: string): Promise<void>;
   advanceTrip(tripId: string, to: TripStatus, note: string | null): Promise<void>;
   recordTripFare(tripId: string, farePaise: number): Promise<void>;
@@ -160,6 +161,9 @@ export interface OpsApi {
 export function createOpsApi(client: RpcClient): OpsApi {
   return {
     scheduleBoard: () => call(client.rpc('ops_schedule_board')),
+    updateSchedulePattern: (scheduleId, days, expectedDays) => call(client.rpc('ops_update_schedule_pattern', {
+      p_schedule_id: scheduleId, p_days_of_week: days, p_expected_days: expectedDays,
+    })),
     tripBoard: (from, to, statuses) => call(client.rpc('ops_trip_board', {
       p_from: from.toISOString(),
       p_to: to.toISOString(),

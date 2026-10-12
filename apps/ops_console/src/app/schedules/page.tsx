@@ -6,6 +6,7 @@ import { ErrorMessage } from '@/components/ErrorMessage';
 import { useI18n } from '@/components/I18nProvider';
 import { OpsShell } from '@/components/OpsShell';
 import { ScheduleAssignForm } from '@/components/ScheduleAssignForm';
+import { SchedulePatternForm } from '@/components/SchedulePatternForm';
 import type { ScheduleRow } from '@/lib/api';
 import { formatClock } from '@/lib/format';
 
@@ -13,7 +14,7 @@ function SchedulesBoard() {
   const { t } = useI18n();
   const api = useOpsApi();
   const [rows, setRows] = useState<ScheduleRow[] | null>(null);
-  const [editing, setEditing] = useState<string | null>(null);
+  const [editing, setEditing] = useState<{ id: string; kind: 'companions' | 'pattern' } | null>(null);
   const [error, setError] = useState<unknown>(null);
   const [notice, setNotice] = useState<string | null>(null);
 
@@ -51,21 +52,34 @@ function SchedulesBoard() {
                 <dt>{t('schedules.centre')}</dt><dd>{s.centre_name} · {s.package_name}</dd>
                 <dt>{t('schedules.days')}</dt>
                 <dd>{s.days_of_week.map((d) => t(`day.${d}` as 'day.1')).join(', ')}</dd>
+                <dt>{t('schedules.visitsPerWeek')}</dt><dd>{new Set(s.days_of_week).size}</dd>
                 <dt>{t('schedules.pickup')}</dt><dd>{formatClock(s.pickup_time)}</dd>
                 <dt>{t('schedules.primary')}</dt><dd data-col="primary">{s.primary_companion_name ?? '—'}</dd>
                 <dt>{t('schedules.backup')}</dt><dd data-col="backup">{s.backup_companion_name ?? '—'}</dd>
                 <dt>{t('schedules.upcoming')}</dt><dd>{s.upcoming_trips}</dd>
               </dl>
-              {editing === s.schedule_id ? (
+              {editing?.id === s.schedule_id && editing.kind === 'pattern' ? (
+                <SchedulePatternForm schedule={s} onCancel={() => setEditing(null)} onSaved={(result) => {
+                  setEditing(null);
+                  setNotice(t('schedules.patternSaved', { name: s.patient_name, ...result }));
+                  void load();
+                }} />
+              ) : editing?.id === s.schedule_id ? (
                 <ScheduleAssignForm schedule={s} onCancel={() => setEditing(null)} onSaved={() => {
                   setEditing(null);
                   setNotice(t('schedules.saved', { name: s.patient_name }));
                   void load();
                 }} />
               ) : (
-                <button type="button" className="btn" onClick={() => { setNotice(null); setEditing(s.schedule_id); }}>
-                  {t('schedules.change')}
-                </button>
+                <div className="actions">
+                  <button type="button" className="btn" disabled={!s.active}
+                    onClick={() => { setNotice(null); setEditing({ id: s.schedule_id, kind: 'pattern' }); }}>
+                    {t('schedules.changePattern')}
+                  </button>
+                  <button type="button" className="btn" onClick={() => { setNotice(null); setEditing({ id: s.schedule_id, kind: 'companions' }); }}>
+                    {t('schedules.change')}
+                  </button>
+                </div>
               )}
             </li>
           ))}

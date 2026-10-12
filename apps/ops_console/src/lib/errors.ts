@@ -14,6 +14,8 @@ export function describeError(error: unknown): ErrorView {
   }
   const detail = [error.message, error.hint].filter(Boolean).join(' — ') || null;
   switch (error.code) {
+    case '40001':
+      return { key: 'error.scheduleChanged', detail };
     case 'P0001':
       return { key: /not eligible/i.test(error.message) ? 'error.notEligible' : 'error.invalid', detail };
     case '22023':

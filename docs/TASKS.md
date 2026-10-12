@@ -1,5 +1,14 @@
 # Tasks and milestones
 
+## Founder testing: weekly visits (2026-10-12)
+
+- [x] Visits per week 1-4 with matching weekday selection, separate from companion assignment; readable Show next date range; en/te/hi and 48px+ taps.
+- [x] Founder chose replacement of future unstarted bookings: atomic Ops-only RPC, allowed/denied tests, cancellation/rebooking history, individual cancellations preserved, wall-clock past cutoff and stale-edit protection. No auth/RLS/state-machine change.
+- [x] Final fast checks and separate app checks passed; contract export unchanged; five real-browser UI captures; independent review findings fixed.
+- [ ] Feature PR and real-Supabase CI/full journey receipt.
+- [!] Hosted Save: new migration must be applied to synthetic anuga through SQL Editor before feature publication. No hosted mutation, feature main merge or deploy yet.
+- [ ] Founder tests frequency change, reload persistence and unchanged active/past visits on the updated combined site.
+
 ## Founder sketch UI streams (2026-10-11)
 
 - [x] S2: inspect all 15 concept boards and seven previous ops screenshots; preserve source boards; define tokens and existing-screen mappings in `docs/design/tokens.md`.

@@ -32,7 +32,9 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - Every access rule has allowed and denied tests. Update `docs/TASKS.md` and `docs/HANDOFF.md` after each milestone.
 - Package managers: pnpm for Node, uv for Python.
 
-## Status (2026-10-11, founder-authorized synthetic publication)
+## Status (2026-10-12)
+
+- New `feat/weekly-visit-pattern` from main 64c4603: founder requested Visits per week (1-4 with weekdays), clearer Trips date range, and replacement of future unstarted visits. New Ops-only atomic RPC and UI pass final local fast/app checks (PGlite 151/8 skips, Ops 55); independent review fixes verified. PR/real CI receipt pending. No feature merge/deploy or hosted migration; existing live site remains unchanged. Exact next task and required synthetic SQL Editor step are in HANDOFF/SETUP.
 
 - M0-M9 and the combined redesigned apps are on main through PR #8 (3c6f2ac), founder-authorized merge. Final source and main CI passed six jobs, real Supabase/full journey and APKs. M10 remains gated.
 - Founder explicitly approved publishing the combined synthetic version at anuga.vercel.app. This replaces the earlier no-main-merge/no-deploy instruction for this task; no real data or paid providers authorized.

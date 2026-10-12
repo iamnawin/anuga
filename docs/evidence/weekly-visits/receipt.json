@@ -1,0 +1,108 @@
+{
+  "results": [
+    {
+      "lang": "en",
+      "sizes": [
+        {
+          "width": 90.90625,
+          "height": 48
+        },
+        {
+          "width": 83.03125,
+          "height": 48
+        },
+        {
+          "width": 90.125,
+          "height": 48
+        },
+        {
+          "width": 83.8125,
+          "height": 48
+        },
+        {
+          "width": 73.40625,
+          "height": 48
+        },
+        {
+          "width": 78.828125,
+          "height": 48
+        },
+        {
+          "width": 83.9375,
+          "height": 48
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "lang": "te",
+      "sizes": [
+        {
+          "width": 94.125,
+          "height": 48
+        },
+        {
+          "width": 113.4375,
+          "height": 48
+        },
+        {
+          "width": 92.203125,
+          "height": 48
+        },
+        {
+          "width": 91.859375,
+          "height": 48
+        },
+        {
+          "width": 86.375,
+          "height": 48
+        },
+        {
+          "width": 80.328125,
+          "height": 48
+        },
+        {
+          "width": 86.71875,
+          "height": 48
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "lang": "hi",
+      "sizes": [
+        {
+          "width": 83.765625,
+          "height": 48
+        },
+        {
+          "width": 90.203125,
+          "height": 48
+        },
+        {
+          "width": 76.625,
+          "height": 48
+        },
+        {
+          "width": 77.4375,
+          "height": 48
+        },
+        {
+          "width": 83.625,
+          "height": 48
+        },
+        {
+          "width": 83.703125,
+          "height": 48
+        },
+        {
+          "width": 78.0625,
+          "height": 48
+        }
+      ],
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "save": "not attempted, hosted RPC not installed"
+}
