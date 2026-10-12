@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-12",
+  "branch": "feat/weekly-visit-pattern",
+  "pull_request": "https://github.com/iamnawin/anuga/pull/10",
+  "tested_code_sha": "56bd5c65785cf09fc2f3330eafc3f8be53f31846",
+  "run": "https://github.com/iamnawin/anuga/actions/runs/38247279751",
+  "conclusion": "success",
+  "jobs": ["db-tests", "ops-console", "shared-dart", "supabase-local", "companion-app", "family-app"],
+  "all_six_jobs_passed": true,
+  "real_supabase": { "passed": 159, "failed": 0, "skipped": 0 },
+  "ops_browser": { "passed": 8, "includes_weekly_mobile_save_reload_restore": true },
+  "connected_companion_and_family_journeys": "passed",
+  "full_journey_with_notifications_and_test_billing": "JOURNEY PASSED",
+  "companion_and_family_debug_apks": "built",
+  "local": {
+    "check_all": "exit 0",
+    "pglite": { "passed": 151, "skipped": 8 },
+    "ops_units": 55,
+    "shared_dart": 27,
+    "companion": { "passed": 39, "skipped": 3 },
+    "family": { "passed": 35, "skipped": 6 },
+    "separate_app_checks": "passed",
+    "contract_export": "passed; 51-transition fixture unchanged",
+    "three_release_web_builds": "passed",
+    "real_combined_browser_session_isolation": "passed",
+    "hosted_rpc_probe": "HTTP 404 PGRST202, no mutation"
+  },
+  "not_run": ["physical Android device", "native-language review", "simultaneous PostgreSQL lock-contention sessions", "hosted weekly save"],
+  "feature_deployed": false,
+  "feature_merged": false,
+  "hosted_migration_applied": false,
+  "receipt_changes": "documentation and evidence only; new receipt-head CI is separate from the verified code run"
+}
