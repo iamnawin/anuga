@@ -1,5 +1,45 @@
 # Handoff
 
+## Latest stopping point: role-based Anuga review (2026-10-12)
+
+Branch: `feat/weekly-visit-pattern` in `D:/AI-Workspace/Repos/anuga-integration`.
+This section supersedes historical next-task statements below. The checkout at
+`D:/AI-Workspace/Ideas/Anuga` is older; do not resume implementation from it.
+
+Founder restored the last conversation output and requested this handoff update.
+Work stopped after a read-only architecture review; no application consolidation
+was implemented. Recommendation: one Anuga entry point with role-based views.
+Pilot: one browser URL with simpler entry/navigation, reusing the working views.
+Installable release: one Flutter Anuga app for Family/Patient and Companion;
+retain the existing Ops web dashboard. This is a recommendation, not a completed
+feature or authorization to merge/deploy.
+
+The apps already share Supabase authentication and the database. `profiles.role`
+contains `family`, `companion`, and `ops_admin`; Patient belongs within Family
+and patient permissions, rather than being a fourth application role. Shared entry
+needs one login, stored-role routing after sign-in/session restoration, and clearing
+previous-user data on logout/account changes. Keep restricted RPCs, grants/RLS,
+audited vault reads and allowed/denied tests authoritative. Companions must never
+gain access to vault data, diagnoses or DOB.
+
+PR #10 remains OPEN and unmerged (verified with GitHub CLI on 2026-10-12).
+The restored review reported 29 files: 8 implementation, 4 tests, and 17
+documentation/evidence files. Scheduling replacement required database logic;
+keep future review documentation/evidence lean. Feature checks are recorded below;
+this update claims no new application test run or deployment.
+
+Exact next task: inspect login/session entry points and define the smallest shared
+browser entry and role-routing change, then implement within the agreed scope.
+Validate role restoration and logout/account isolation alongside existing access
+tests. Flutter consolidation remains pending. Keep PR #10 rollout separate: founder
+review, hosted synthetic migration and explicit merge/publication authorization are
+still needed. M10 remains gated.
+
+This task changes HANDOFF, TASKS and AGENTS status only. Checks: branch/clean
+worktree inspected before editing; remote main fetched; PR #10 state verified;
+`git diff --check` run before commit. App/database tests were not repeated for this
+documentation-only update. No merge, migration or deployment performed.
+
 ## Weekly visits and Trips range (2026-10-12)
 
 Branch: `feat/weekly-visit-pattern`, from fetched main `64c4603`. Founder requested both Visits per week (1-4 plus weekday selection) and readable Trips range choices, then explicitly chose replacement of future unstarted visits. This expands the earlier UI-only scope only for this scheduling behavior. No main merge or deployment for this feature; existing live site stays at its verified version.

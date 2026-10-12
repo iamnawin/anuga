@@ -1,5 +1,12 @@
 # Tasks and milestones
 
+## Role-based Anuga direction (2026-10-12)
+
+- [x] Read-only architecture review: shared Supabase auth/database; Family/Patient, Companion and Ops views. Latest stopping point recorded in HANDOFF.
+- [ ] Simplify pilot browser entry/navigation through one Anuga URL with one login and stored-role routing; validate session restoration and logout/account isolation while preserving database permissions.
+- [ ] Installable release: combine Family/Patient and Companion into one Flutter app; retain Ops on the web. Recommendation only; implementation pending.
+- PR #10 scheduling remains separate, OPEN/unmerged; no new merge/deploy authorization. M10 remains gated.
+
 ## Founder testing: weekly visits (2026-10-12)
 
 - [x] Visits per week 1-4 with matching weekday selection, separate from companion assignment; readable Show next date range; en/te/hi and 48px+ taps.
