@@ -1,5 +1,14 @@
 # Tasks and milestones
 
+## Companion cancellation notification (2026-10-16, PR preparation)
+
+- [x] Existing shared transition sends a safe assigned-companion cancellation notice; only cancellation pushes deduplicate, including PR #10 compatibility.
+- [x] Allowed/denied, rollback/retry, recipient/localization, dispatcher and unchanged PR #10 fixture regression checks pass; final PGlite suite 148 pass/9 skips; typecheck and unchanged contract export pass.
+- [x] Real local Supabase: 157 passed, zero skips, including simultaneous PG cancellation; real Edge cancellation delivery in en/te/hi and repeated-dispatch dedupe verified.
+- [x] Full connected browser/Dart/Edge journey: JOURNEY PASSED, including pickup/return, localized notifications and existing test-mode billing/payment. Local services stopped; no validation blockers remain.
+- [x] Required `scripts/check-all.sh` before publication (2026-10-16): passed, including Ops 52/shared Dart 27/companion 39/family 35; environment skips recorded in HANDOFF.
+- Founder authorizes commit/push and a separate PR on 2026-10-16. No new policy, app consolidation, existing migration edit, merge or deployment. Worktree: `D:/AI-Workspace/Repos/anuga-cancellation`. UI work remains separate/paused pending founder direction.
+
 ## Founder sketch UI streams (2026-10-11)
 
 - [x] S2: inspect all 15 concept boards and seven previous ops screenshots; preserve source boards; define tokens and existing-screen mappings in `docs/design/tokens.md`.

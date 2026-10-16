@@ -32,7 +32,9 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - Every access rule has allowed and denied tests. Update `docs/TASKS.md` and `docs/HANDOFF.md` after each milestone.
 - Package managers: pnpm for Node, uv for Python.
 
-## Status (2026-10-11, founder-authorized synthetic publication)
+## Status (2026-10-16; published-site state unchanged)
+
+- Follow-up `feat/companion-cancellation-notification` from main `64c4603`: shared assigned-companion cancellation notices plus cancellation-only duplicate protection. PGlite 148 pass/9 skips; real local Supabase 157 pass/zero skips, including concurrent PG; en/te/hi Edge delivery and full connected JOURNEY PASSED on 2026-10-13. Founder now authorizes commit/push and a separate PR; no merge/deploy. PR #10 code remains untouched; test-only snapshot verifies compatibility. UI is the next product priority, paused pending founder direction. Publication receipt/checks in HANDOFF.
 
 - M0-M9 and the combined redesigned apps are on main through PR #8 (3c6f2ac), founder-authorized merge. Final source and main CI passed six jobs, real Supabase/full journey and APKs. M10 remains gated.
 - Founder explicitly approved publishing the combined synthetic version at anuga.vercel.app. This replaces the earlier no-main-merge/no-deploy instruction for this task; no real data or paid providers authorized.
