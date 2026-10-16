@@ -221,6 +221,19 @@ Blocked by: pilot go/no-go metrics, health-tech legal review, brand name, Supaba
 paid services authorization, breach runbook with a named owner, real-Supabase test run.
 Not started without explicit founder approval.
 
+## Research cleanup (2026-10-12, local/uncommitted)
+
+Checkpoint update (2026-10-16): founder authorized committing the retained research,
+design inputs and handoff before the documentation bootstrap. Earlier no-commit
+wording below records the prior task boundary. Application/runtime checks are not
+repeated for the checkpoint; product inventory is the next authorized task.
+
+- [x] Review three research documents; qualify unsupported competitor claims and old-snapshot gap counts.
+- [x] Inspect four generated `.claude-flow` JSON artifacts and remove only that hook-output folder; preserve documents/screenshots.
+- [x] Update HANDOFF; separate proposed N1-N5 operations from X1 mobile consolidation; keep business policies pending.
+- [ ] Founder policy review and reconcile gaps against current main/PR #10 before implementation planning.
+- No app/dependency/migration/config changes; no commit, push, deploy or publish authorized.
+
 ## Backlog (from spec, unscheduled)
 
 Requests ("I need..."), medicine refill reminders, live companion location during active trips,
