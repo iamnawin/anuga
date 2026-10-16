@@ -1,5 +1,144 @@
 # Handoff
 
+## Cancellation PR preparation (2026-10-16)
+
+Founder now authorizes committing/pushing this completed cancellation slice and
+opening/updating its PR. This supersedes the earlier no-commit/no-push restriction
+for this slice only. No merge, deployment, hosted migration or UI change authorized.
+Worktree/branch: `D:/AI-Workspace/Repos/anuga-cancellation`,
+`feat/companion-cancellation-notification`, based on main `64c4603` (fresh fetch).
+Seven files: the new migration, cancellation regression tests, unchanged test-only
+PR #10 SQL fixture, and AGENTS/HANDOFF/TASKS/SETUP. Research drafts/design inputs in
+the older Ideas checkout remain local and are not bundled into this implementation.
+
+Required `scripts/check-all.sh` **passed**, exit 0, on 2026-10-16: frozen install,
+root typecheck, PGlite 148 pass/9 environment skips, Ops lint/typecheck/52 tests/build,
+shared Dart format/analyze/27 tests, companion format/analyze/39 pass/3 environment
+skips, family format/analyze/35 pass/6 environment skips. App/package/lockfile diff
+remains empty. Log: ignored `artifacts-cancellation-check-all.log`.
+The 2026-10-13 real
+Supabase 157/157, localized Edge probe and full connected journey receipts below
+apply to the unchanged implementation. No real-stack rerun is needed solely for
+documentation/publication; do not represent prior results as a fresh run.
+No PR exists for this branch yet. Create a separate cancellation PR, then link it
+from PR #10's description without changing that branch's code. UI work is paused
+pending founder direction and remains the next product priority.
+
+## Cancellation notification complete (2026-10-13, local/uncommitted)
+
+Branch/worktree unchanged: `feat/companion-cancellation-notification` in
+`D:/AI-Workspace/Repos/anuga-cancellation`, HEAD and fetched main still `64c4603`.
+This receipt supersedes the missing-tool blockers in the 2026-10-12 receipt below.
+No additional application, migration or test source changes were needed.
+
+Ready for review. The uncommitted implementation files are
+`supabase/migrations/20261012000200_companion_cancellation_notification.sql`,
+`supabase/tests/cancellation_notification.test.ts`, and the unchanged PR #10 snapshot
+`supabase/tests/fixtures/weekly_visit_pattern_pr10.sql`. Supporting documentation:
+AGENTS, HANDOFF, TASKS and SETUP. This is the authoritative continuation worktree;
+the older Ideas/Anuga checkout retains research and a pointer here.
+
+- Installed Docker 29.1.3 in Ubuntu WSL and pinned Supabase CLI 2.120.0 under
+  `D:/AI-Workspace/tools/supabase-2.120.0`; no repository dependency/config changes.
+  Playwright browsers are under `D:/AI-Workspace/tools/playwright`.
+- Disposable local Supabase/Postgres 17.11 only, with existing synthetic seed and
+  all migrations including the new cancellation migration. No hosted database use.
+- `pnpm db:test:supabase`: **157 passed, 0 failed, 0 skipped**. Real two-connection
+  cancellation regression passed, along with auth/storage/Edge Function checks.
+- Additional local runtime probe: assigned companion cancellation delivered through
+  real Edge/REST/test adapter in en/te/hi; safe exact text and payload; repeated
+  dispatch leaves one delivery. Script/log are ignored, under `artifacts/cancellation`
+  and `artifacts-cancellation-edge.log`.
+- Ops production build and root typecheck passed; exported 51-transition contract
+  unchanged. Programmatic diff review confirms only the notice is added to the main
+  transition body, PR #10 fixture matches immutable `c561a9d`, whitespace is clean,
+  and apps/package/lockfiles/contracts are unchanged. PR #10 remains OPEN/unmerged.
+- First real run: 152 passed, five Edge checks failed because WSL had restarted
+  without restarting the Edge container. Keeping a WSL process alive, starting that
+  container and resetting the disposable local DB resolved it; final suite above is green.
+- Full existing `scripts/e2e-journey.sh`: **JOURNEY PASSED**, exit 0. All four Ops
+  browser checks and five family/companion Dart checks passed; pickup OTP, handover,
+  return, family inbox, Edge dispatch and test-mode invoice/payment completed.
+  Final synthetic trip completed; invoice paid/payment captured; 37 test-adapter
+  deliveries (19 push, 18 WhatsApp). No live provider or new billing rule.
+  First attempt stopped before app steps due to MSYS path conversion; the corrected
+  ignored WSL CLI wrapper resolved it without editing the repository script.
+
+Logs: ignored `artifacts-cancellation-supabase.log`, `artifacts-cancellation-ops-build.log`,
+`artifacts-cancellation-journey.log`, and `artifacts/cancellation/journey/`.
+Local tooling/WSL invocation notes added to SETUP; TASKS and AGENTS updated.
+Supabase stopped with local data retained; no running containers. Docker service/socket
+stopped and autostart disabled (verified inactive/disabled), so a later WSL boot does
+not restart them. Temporary WSL keep-alive stopped. Tools/images remain for reuse.
+Broad app unit/analyzer/APK suites and check-all were not rerun: app source unchanged,
+no push/PR; the actual connected browser/Dart journey and relevant SQL checks passed.
+No commit, push, PR creation, merge, deployment, live provider or business-policy change.
+App consolidation remains separate. Requested implementation/validation/review are complete;
+there are no remaining validation blockers for this slice. Exact next task: founder
+reviews this uncommitted diff; commit/PR or rollout requires separate authorization.
+Keep future Ops intake work as a separate task; do not bundle PR #10 or unapproved policies.
+
+## Companion cancellation notification (2026-10-12, local only)
+
+Branch `feat/companion-cancellation-notification`, new worktree
+`D:/AI-Workspace/Repos/anuga-cancellation`, based on fetched main `64c4603`.
+Founder authorized the narrow task in the cleaned research proposal, but explicitly
+prohibited commit/push/merge/deploy. All changes remain uncommitted in this worktree.
+This section supersedes historical next-task statements below for this task.
+
+Implemented one new migration `20261012000200_companion_cancellation_notification.sql`:
+the existing shared transition helper adds a push `trip_status_changed` notification
+for the currently assigned companion when a permitted cancellation succeeds. Payload
+is trip id + cancelled status only; free-text reason remains in existing event/family
+history. No new actor, transition, grant/RLS change, cutoff, charge or billing policy.
+Existing outbox, message renderer, en/te/hi text and dispatcher are reused unchanged.
+
+A partial unique index on trip/recipient covers cancellation push rows only;
+`private.notify_user` handles that specific conflict. This includes already-sent rows,
+without suppressing repeated assignment/issue or other-template notices. It lets
+PR #10's unchanged explicit cancellation sender coexist with the new shared sender:
+two internal calls converge on one row, with no PR merge or weekday-work rebuild.
+PR #10 verified OPEN/unmerged at `c561a9d27a2098c3ee5932b60e4e09ceb6ccb46e`.
+Its exact SQL is retained as a test-only fixture applied inside a rolled-back database
+transaction. The PR #10 worktree/source remains clean and unchanged.
+
+Changed files here: the new migration, `cancellation_notification.test.ts`,
+`tests/fixtures/weekly_visit_pattern_pr10.sql`, HANDOFF, TASKS and AGENTS status.
+Original research checkout's HANDOFF gets a pointer to this implementation; its
+prior local research/TASKS/design inputs are preserved. No app, dependency/lockfile,
+configuration, existing migration or production template changed.
+
+Validation:
+- Frozen pnpm install completed; package/lockfile unchanged.
+- Red run before migration: missing companion rows reproduced; denied-call test passed.
+- Final `pnpm db:test`: 157 tests, **148 pass, 9 skipped, 0 fail**. Includes the
+  new six passing regression tests (one true-concurrency test skips without real PG),
+  existing dispatcher/test-adapter end-to-end and database first journey.
+- Cases cover owner/editor/Ops, all active Ops states, patient/viewer/stranger/
+  assigned/unassigned companion/anon denial, direct sender/outbox denial, unassigned
+  trips, rollback, invalid-transition retry, current-companion reassignment, dispatcher
+  retries, safe exact en/te/hi text, cancellation-only dedupe and PR #10 remove/re-add/
+  individual-cancellation history. Temporary fixture memberships cleaned up; full suite passes.
+- `pnpm typecheck` passed. `pnpm contract:export` produced unchanged 51-transition
+  fixture. Diff review confirmed shared transition matches main except the added
+  notice, fixture matches PR #10, and no package/app edits. Whitespace checks passed.
+- Ignored test log: `artifacts-cancellation-tests.log`. No screenshots/evidence package added.
+
+Checks blocked/not run: real-Supabase suite, simultaneous committed PG connection
+test and full connected browser/Dart/Edge journey; Docker/Postgres tools are absent
+in Windows and WSL, no local DATABASE_URL. Nine skips = eight existing Supabase-only
+checks plus the new concurrency test. PGlite is runtime evidence, not real-Postgres
+concurrency or hosted delivery evidence. App/Flutter suites and check-all were not
+run: app code unchanged, no PR/push; focused SQL/runtime checks above were run.
+No hosted SQL mutation, credential use, provider enablement, commit or publication.
+
+Exact next task: on an authorized local Supabase environment apply migrations/seed
+to a disposable synthetic database, run `pnpm db:test:supabase` (including the true
+concurrency test), then the existing `scripts/e2e-journey.sh` with Edge/browser/Dart.
+Review this uncommitted diff before any separately authorized commit or rollout.
+Business policies and app consolidation remain separate/pending. Do not merge PR #10
+or deploy this feature automatically; the live site has not changed.
+
 ## Founder-authorized combined publication (2026-10-11)
 
 FINAL: PR #8 merged at 3c6f2ac; necessary hosting/session fix PR #9 merged at 37bdae2cb77240ae06bfd000e6520613fd51903f. Published code de8f72a passed all six jobs in https://github.com/iamnawin/anuga/actions/runs/38150546061: real Supabase 150/150 with zero skips, ops browser 7 pass, both app real-Supabase tests, full JOURNEY PASSED through notifications/test billing, both APK builds. Main app/build/security/workflow contents exactly match the tested/published code; later commits are shared receipts only. Final documentation-only receipt checked with git diff --check, app tests not repeated; main push/receipt CI may be running, distinct from the completed code-bearing run above. CI receipt: docs/evidence/hosted-test/ci-summary.json.

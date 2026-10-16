@@ -97,6 +97,33 @@ supabase_edge_runtime_companion`); the local runtime can keep serving the old co
 
 ## Real Supabase verification (Docker)
 
+### Windows + Ubuntu WSL validation (verified 2026-10-13)
+
+Docker 29.1.3 is installed in Ubuntu WSL. Supabase CLI 2.120.0 is extracted at
+`D:/AI-Workspace/tools/supabase-2.120.0/supabase` (Linux executable).
+Run from the intended worktree; use only a disposable local synthetic database.
+
+```powershell
+wsl -d Ubuntu -u root -- systemctl start docker
+wsl -d Ubuntu -u root -- /mnt/d/AI-Workspace/tools/supabase-2.120.0/supabase start -x studio,logflare,vector,imgproxy
+wsl -d Ubuntu -u root -- /mnt/d/AI-Workspace/tools/supabase-2.120.0/supabase status -o env
+```
+
+Keep a WSL terminal/process alive during native Windows tests: when WSL exits,
+Docker containers restart, but the Edge container may stay stopped. Check it with
+`docker ps` in WSL and start `supabase_edge_runtime_companion` if needed.
+Load local status values into process env without publishing keys; Windows Node
+can reach API `127.0.0.1:54321` and database `127.0.0.1:54322`.
+
+For Git Bash's existing journey script, an ignored wrapper calls the Linux CLI via
+`wsl.exe` and sets `MSYS_NO_PATHCONV=1` inside that wrapper only. Leave normal MSYS
+path conversion enabled for native Node/Flutter. Set `SUPABASE_CLI` to `bash` plus
+the wrapper path, and `PLAYWRIGHT_BROWSERS_PATH=D:/AI-Workspace/tools/playwright`.
+The cancellation worktree keeps the wrapper and logs under ignored `artifacts/`.
+No project configuration change is needed. Stop the local stack after validation.
+Docker service/socket autostart is disabled after this task; start Docker explicitly
+with the command above for the next run.
+
 **Status: passing** (GitHub Actions run 37748137710, 60/60, 0 skipped). PGlite results alone do not count; keep `supabase-local` green.
 
 Covers: migrations on Postgres 17 with Supabase's real `auth` schema and roles; every RLS/grant
