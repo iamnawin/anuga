@@ -1,5 +1,35 @@
 # Tasks and milestones
 
+Current product-completion work (2026-10-16): [WORK_BOARD](delivery/WORK_BOARD.md).
+M0-M10 below are milestone history, not a complete screen inventory.
+
+## Excalidraw reconciliation (2026-10-16)
+
+- [x] Verify 12 embedded boards/48 concepts versus 15 standalone PNGs with corrections.
+- [x] Visually inspect all embedded boards and record old/corrected differences.
+- [x] Add consent 04 and Patient-home 25 specs; map destinations 13/25/31/41.
+- [x] Review D1/pilot user-provisioning direction; see ADR 0006.
+- [ ] Resolve remaining D2 contract and simplified Patient routing before code.
+- Documentation-only; no Excalidraw/app edits, runtime tests or publication.
+
+## Product inventory bootstrap (ANU-001)
+
+- [x] Checkpoint existing local research/design before bootstrap: 5ec8f77.
+- [x] Audit main 64c4603, open PR #10/#11 and historical release separately.
+- [x] Inventory 36 existing views, 22 absent concept destinations, 14 component
+      contracts, 21 capabilities and every 60 board-panel instance.
+- [x] Add linked docs start, contributor agreement/board/templates and first
+      entry/login/OTP/role-home slice specs. Preserve M0-M10 receipts.
+- [x] Reconcile dated brand/storage/model and agent rules without new product policy.
+- [x] Founder pilot direction recorded in ADR 0006: D1 resolved; Ops provisions users;
+      backend permissions/setup-pending target, self-registration deferred.
+- [ ] Specify remaining D2 readiness/provisioning/patient/consent contracts under
+      ANU-002/003 before implementation.
+- Documentation verification and skips: [ANU-001 receipt](delivery/tasks/ANU-001.md).
+  Bootstrap review/corrections committed under explicit founder authority;
+  no push/merge/deploy or app/DB/runtime verification this task.
+
+
 ## Founder sketch UI streams (2026-10-11)
 
 - [x] S2: inspect all 15 concept boards and seven previous ops screenshots; preserve source boards; define tokens and existing-screen mappings in `docs/design/tokens.md`.

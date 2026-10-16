@@ -2,17 +2,14 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Project:** Dialysis Companion App (ZeroOrigins), codename `companion` (brand name not final).
+**Project:** Anuga (ZeroOrigins), codename `companion`; ANUGA wordmark, identifiers unchanged.
 
 ## Read first
 
-1. `docs/HANDOFF.md`: current state, last checks run, blockers and the **exact next task**.
-2. `docs/PRODUCT_SPEC.md`: product requirements, roles, scope limits, data model and access rules.
-3. `docs/TASKS.md`: milestones with acceptance criteria. Work one milestone at a time.
-4. `Pilot BRD.md`: business case for the manual pilot. `docs/adr/`: decisions that changed the spec.
-
-Founder decision (ADR 0001): build the MVP now, in parallel with the manual pilot. Production
-launch is a separate, gated milestone (M10).
+Read [AGENTS.md](AGENTS.md), [docs/README.md](docs/README.md), current HANDOFF,
+assigned task/spec and [working agreement](docs/delivery/WORKING_AGREEMENT.md).
+AGENTS and that agreement own policy; architecture/command notes below supplement
+them. M10/production remains separately gated (ADR 0001).
 
 ## Commands
 
@@ -95,17 +92,13 @@ The database is the security boundary; apps are thin clients over RPCs:
 - **Ops console** is a client-side Next.js app using the anon key + the user's JWT; it never holds
   a service-role key. RPC wrappers in `src/lib/api.ts` take an injectable client for tests.
 
-## Rules for this repo
+## Contribution rules
 
-- Every access rule gets an allowed and a denied test. Run `pnpm db:test` before declaring a change done.
-- After each milestone, update `docs/TASKS.md` and `docs/HANDOFF.md` (including checks that could not run).
-- Synthetic data only; never real patient data, production credentials, paid services or public
-  deploys without separate founder authorization. External integrations use `test` adapters.
-- Ask before adding any third-party SDK that receives patient data, or anything clinical.
-- Write an ADR in `docs/adr/` for any decision that changes `docs/PRODUCT_SPEC.md`.
-- UI: large tap targets, high contrast, English + Telugu + Hindi from day one; many users are elderly.
-- Feature branches and small commits; `main` stays releasable.
-- `.claude/` contains a spec workflow (kfc): specs in `.claude/specs/<feature>/`, steering in `.claude/steering/`.
+Use [the single working agreement](docs/delivery/WORKING_AGREEMENT.md), including
+DB-enforced access, allowed/denied tests, coordinator-owned shared docs, isolated
+worktrees and task-specific commit/publication authority. For prose-only changes,
+run documentation checks and state app/database tests not run. Source/permission
+changes retain all required app/DB checks. Never edit generated output manually.
 
 ## Combined local browser testing
 
@@ -115,6 +108,9 @@ Uses only public anon/publishable settings, loopback servers on ports 3100-3102,
 separate role sessions and existing synthetic backend. Guide: docs/LOCAL_TESTING.md.
 Database access rules, app RPCs and auth adapters are unchanged.
 
-## Founder-authorized synthetic site publication
+## Historical synthetic site publication (2026-10-11)
 
 PR #8 main merge and combined anuga.vercel.app publication authorized in chat. Build via scripts/build-staging.sh, publish existing project prebuilt with pnpm dlx vercel@59.26.0. Manual deploy-anuga-test.yml supports future publishing; Git auto-deploy disabled to prevent ops-only replacement. Web storage and SDK auth broadcast channels isolated per Flutter app; native defaults, OTP/RPC/RLS rules unchanged. Commands and scope in SETUP; verification in HANDOFF. M10 still gated.
+
+Current task/status is in HANDOFF and WORK_BOARD; historical publication commands
+do not authorize a new deployment. Runtime/release receipts remain separately dated.

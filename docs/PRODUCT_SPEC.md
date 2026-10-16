@@ -1,10 +1,29 @@
-# Product spec: Dialysis Companion (codename `companion`)
+# Product spec: Anuga (codename `companion`)
 
 Shared product requirements for every contributor and agent. `CLAUDE.md` and `AGENTS.md`
 point here. Business case and pilot plan: `Pilot BRD.md`. Delivery plan: `docs/TASKS.md`.
 
-Brand name is **not final** (Anuga was dropped: it clashes with the Anuga food trade fair).
-Use the codename `companion` in code, packages and folders until a name is chosen.
+Current brand: **ANUGA** wordmark, Anuga in prose, as already approved in the
+2026-10-11 design contract. Package identifiers remain `companion`; final store
+identifiers/app consolidation need a separate decision. See [ADR 0005](adr/0005-documentation-baseline.md).
+
+Current implementation status (2026-10-16): this spec includes desired scope, not
+a statement that every listed capability ships. Use the [feature matrix](product/FEATURE_MATRIX.md)
+and [screen inventory](product/SCREEN_INVENTORY.md). M0-M9 establish their tested
+milestone scope only; login cannot create accounts, patient intake/setup UI is
+absent, live location/refill/request/invite flows are not complete, and PR #10/#11
+remain open. Production M10 remains gated.
+
+## Accepted pilot entry direction (2026-10-16; target, not implemented)
+
+ANUGA welcome has Family/Patient and Companion sign-in links; Ops retains its
+dedicated URL. Ops provisions pilot users; self-service registration stays deferred.
+Authorised backend role/patient records govern access. Authenticated users with
+confirmed incomplete setup receive setup pending, distinct from lookup failure,
+wrong role, revoked access or a normal empty home. [ADR 0006](adr/0006-pilot-entry-and-provisioning.md)
+records this founder decision, existing Auth conflicts and unresolved readiness/
+provisioning procedure plus patient/schedule/consent contracts. No code or access
+policy was changed to implement it in this documentation task.
 
 ## 1. What we are building
 
@@ -152,7 +171,10 @@ Repo layout: `apps/family_app`, `apps/companion_app` (Flutter), `apps/ops_consol
 
 ## 6. Data model and access rules
 
-As built (first milestone) in `supabase/migrations/`. Tables marked *later* are still to come.
+Schema baseline reconciled 2026-10-16 against main migrations 0100-0900.
+Historical first-milestone model below is supplemented by audited storage/consent
+and invoices, invoice_lines, payments, trip fare columns and notification_deliveries;
+see the actual migrations and feature matrix for current status.
 
 - `profiles` (auth user, role: family | companion | ops_admin, name, phone, language)
 - `patients` (name, dob, home address + location, centre, mobility notes, emergency contacts).
@@ -168,7 +190,9 @@ As built (first milestone) in `supabase/migrations/`. Tables marked *later* are 
 - `vault_documents`, `vitals`, `medicines`
 - `audit_log` (append-only)
 - `app_settings` (business values: visibility window, OTP limits, generation window)
-- *Later:* `requests`, `subscriptions`, `payments`, live location, H3 density.
+- Not yet complete as workflows: requests, subscriptions, live location and H3
+  density. Payments/invoices are implemented in **test mode** by migration 0900;
+  that does not provide production checkout, booking checkout or companion payouts.
 
 **Access rules (each has allowed and denied tests in `supabase/tests/`):**
 
@@ -182,7 +206,9 @@ As built (first milestone) in `supabase/migrations/`. Tables marked *later* are 
 - Ops vault access requires an active `ops_vault_access` consent given by the patient's owner.
 - Trip state changes happen only through `advance_trip()` / `verify_pickup_otp()`, which check the
   caller's relationship to the trip against `trip_transitions` and notify the family.
-- Storage buckets are private; files are served via short-lived signed URLs after an access check (later milestone).
+- Private vault storage and short-lived signed URLs are implemented by M8
+  (migration 0800 and vault-files); reads authorize and audit. Photo upload/view
+  exists; app PDF support and deletion-after-withdrawal remain pending.
 
 ## 7. Privacy and compliance (India), designed in from day one
 

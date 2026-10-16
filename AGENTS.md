@@ -1,66 +1,72 @@
 # AGENTS.md
 
-Instructions for any coding agent (Codex, Gemini, Claude Code, others) working in this repository.
-Claude Code also reads `CLAUDE.md`, which has the same rules plus architecture notes.
+Mandatory entry point for every coding agent. CLAUDE.md adds architecture notes;
+the single policy is [working agreement](docs/delivery/WORKING_AGREEMENT.md).
 
-## Read first
+## Read before editing
 
-1. `docs/HANDOFF.md`: current state and the exact next task.
-2. `docs/PRODUCT_SPEC.md`: shared product requirements, scope limits, data model and access rules.
-3. `docs/TASKS.md`: milestones and acceptance criteria.
-4. `docs/SETUP.md`: verified tool versions and setup commands.
-
-## Commands
-
-```sh
-pnpm install --frozen-lockfile
-pnpm db:test       # database tests (PGlite + PostGIS, no Docker)
-pnpm typecheck
-scripts/check-all.sh   # every fast CI check in one go (run before pushing)
-cd apps/ops_console && pnpm lint && pnpm typecheck && pnpm test   # ops console
-cd apps/companion_app && flutter pub get && flutter analyze --fatal-infos && flutter test   # companion app
-cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutter test      # family app
-```
+1. [docs/README.md](docs/README.md) and [current HANDOFF](docs/HANDOFF.md).
+2. [PRODUCT_SPEC](docs/PRODUCT_SPEC.md), [screen inventory](docs/product/SCREEN_INVENTORY.md),
+   [feature/access matrix](docs/product/FEATURE_MATRIX.md), assigned work-board task/spec.
+3. [Agreement](docs/delivery/WORKING_AGREEMENT.md), [tokens](docs/design/tokens.md),
+   [TASKS history](docs/TASKS.md), [SETUP](docs/SETUP.md).
+4. Fetch origin; record branch/base SHA and local changes. Read current main's
+   handoff, not a stale local branch. Preserve other worktrees/uncommitted work.
 
 ## Non-negotiables
 
-- Patient permissions are enforced in the database (grants, RLS, restricted functions). Never move
-  an access check into app code only.
-- Companions never see vault data, diagnoses or date of birth. Vault reads only via audited functions.
-- No emergencies, no clinical tasks, no medicine sales (see spec section 1).
-- Synthetic data only. No production credentials, paid services or public deploys without founder authorization.
-- Every access rule has allowed and denied tests. Update `docs/TASKS.md` and `docs/HANDOFF.md` after each milestone.
-- Package managers: pnpm for Node, uv for Python.
+- Database grants/RLS/restricted functions enforce permissions; no app-only check.
+  Every changed access rule needs allowed and denied tests.
+- Companions never see vault data, diagnoses or date of birth. Vault reads use
+  audited functions; Ops needs active owner ops_vault_access consent.
+- Synthetic data only; no emergencies, clinical tasks or medicine sales. No real
+  patient data, paid providers or production/public deploy without separate authority.
+- Reuse app/handler/contracts. Styling does not alter Auth/RPC/data flow, DB rules
+  or tokens. Keep two Flutter apps, Ops Next.js, shared Dart and Supabase.
+- One writer per reserved path set, isolated worktree/branch. Coordinator alone
+  updates shared inventories, HANDOFF, TASKS, status and curated evidence from receipts.
+- 48px targets, high contrast, uncapped large text, dark/keyboard support; every
+  new en string needs te/hi. Images do not approve features/prices/permissions.
+- Never infer completion/release from milestones, screenshots or PR numbers.
+  Record acceptance and environment/SHA separately; unknown stays Unknown.
+- Keep docs current per task/authorized commit, including checks/skips. Task-specific
+  commit/push/PR/publication boundaries override historical automation. Never edit
+  generated outputs or commit secrets, build output or local tool state.
 
-## Status (2026-10-11, founder-authorized synthetic publication)
+## Checks
 
-- M0-M9 and the combined redesigned apps are on main through PR #8 (3c6f2ac), founder-authorized merge. Final source and main CI passed six jobs, real Supabase/full journey and APKs. M10 remains gated.
-- Founder explicitly approved publishing the combined synthetic version at anuga.vercel.app. This replaces the earlier no-main-merge/no-deploy instruction for this task; no real data or paid providers authorized.
-- PR #2 and #4-#7 remain intact, their changes integrated by #8. PR #3 remains obsolete. ANUGA branding approved; identifiers unchanged.
-- Hosted Phone is now enabled and synthetic role allowed/denied smoke passes. Same-origin Flutter auth storage and BroadcastChannel isolation verified by real browser sign-ins/reloads/sign-out. Native auth settings, RPCs, DB access rules and tests preserved.
-- LIVE https://anuga.vercel.app serves root chooser and /ops/, /family/, /companion/. All four routes HTTP 200 and real three-role sign-in/reload/isolated sign-out pass. Source de8f72a, deployment dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. PR #9 merged at 37bdae2c; code CI 38150546061 passed all six jobs, real Supabase 150/150, full journey/test billing and both APKs. Main app code exactly matches verified published source. Final receipt is docs-only; its new CI may be running. Next: founder manual active-window visit from LOCAL_TESTING. M10 remains gated.
+Use pnpm for Node, uv/uvx for Python. Tool versions in SETUP. Source changes retain:
 
-## Parallel work and shared documents
+```sh
+pnpm install --frozen-lockfile
+pnpm db:test
+pnpm typecheck
+scripts/check-all.sh
+cd apps/ops_console && pnpm lint && pnpm typecheck && pnpm test
+cd apps/companion_app && flutter pub get && flutter analyze --fatal-infos && flutter test
+cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutter test
+```
 
-One writer per path, isolated worktree/branch and separate PR per stream. S2 precedes S3-S5.
+SQL/shared-contract changes: new migrations only, one at a time; run
+`pnpm contract:export`, both contract suites and authoritative real-Supabase tests.
+Prose-only tasks validate links/IDs/coverage/whitespace and record runtime not run;
+do not run all app tests just for prose. No tools installation in bootstrap.
 
-| Stream | Owns | Depends on |
-| --- | --- | --- |
-| S1 Staging | `.github/workflows/deploy-staging.yml`, `scripts/build-staging.sh`, `scripts/staging-smoke.ts` | founder secrets |
-| S2 Tokens | `docs/design/tokens.md`, founder-supplied reference boards | sketches |
-| S3 Ops UI | `apps/ops_console/src/app/**`, presentation `src/components/**`; no `src/lib/**` or auth/API logic | S2 |
-| S4 Companion UI | `apps/companion_app/lib/` widgets/screens and l10n; no RPC/auth/action logic | S2 |
-| S5 Family UI | `apps/family_app/lib/` widgets/screens and l10n; no RPC/auth/payment/upload adapters | S2 |
-| S6 Backend | new `supabase/migrations/` files, `supabase/tests/`, `packages/shared_dart/` | none |
+## Status (2026-10-16)
 
-Root coordinator alone updates HANDOFF, TASKS, AGENTS status and curated UI evidence in each worktree before its task commit. Workers return receipts and do not edit shared documents. Every task commit includes its documentation updates. Every completed task is pushed and has a PR; do not merge main. Run `scripts/check-all.sh` plus the app checks before each PR and report unavailable checks exactly. UI streams preserve all handlers, state transitions, access rules and data flow. Tap targets at least 48 pixels, high contrast, larger text supported, te/hi for each new en string.
+Main `64c4603` includes M0-M9 and combined synthetic apps via #8/#9. Historical
+source `de8f72a`, CI/deployment/session receipts: docs/evidence/hosted-test.
+This audit did not reverify live runtime; M10 remains gated.
+PR #10 (`c561a9d`, weekdays/range wording) and #11 (`1a91a68`, cancellation notices)
+are open/unmerged, absent from main/release. #2/#4-#7 remain open but integrated by
+#8; #3 is obsolete. Recheck remote state before integration.
 
-## Integration authorization (2026-10-11)
-
-Founder explicitly requested one combined main-based integration branch/PR incorporating PR #2 and #4-#7, local servers and connected synthetic testing. The coordinator may reconcile the previously isolated stream paths and shared documents for this branch only. Source PRs remain intact. No deployment or main merge.
-
-Integration PR #8 is OPEN: https://github.com/iamnawin/anuga/pull/8. Local release apps and checks pass. Integration CI at 719361c passed all six jobs (run 38145315706), real Supabase 150/150, full journey/test billing and both APKs. Final receipt changes docs and restores the staging script's executable bit only. Founder Phone test-provider setup blocks authenticated manual browser testing. No main merge or agent deploy command; existing Vercel Git automation created previews, recorded in HANDOFF.
-
-## Publication authorization
-
-Founder explicitly approved merge of PR #8 and publishing all three synthetic apps at anuga.vercel.app. Necessary same-origin session isolation, combined build/config/workflow changes and follow-up PR merge are within this deployment task. Previous stream write limits apply to UI work; the coordinator owns these deployment integration fixes and shared receipts. No real-data or paid-provider launch.
+ANU-001 bootstrap reviewed against acceptance criteria; founder authorised its
+documentation-only commit on docs/product-inventory-bootstrap. Initial checkpoint
+5ec8f77 remains on the original branch. No push/PR/issues/merge/deploy or additional
+agents. ADR 0006 records ANU-002 pilot welcome/two sign-in links, dedicated Ops URL,
+Ops user provisioning and backend-authorised setup-pending direction; current Auth
+conflicts and remaining readiness/patient-consent contracts are documented.
+ANU-002/003 are disjoint proposed contributor packages, not running agents.
+Next: specify the backend provisioning/readiness contract before any app/Auth/SQL
+implementation; no application code is authorised by this documentation task.

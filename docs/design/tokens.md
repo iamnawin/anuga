@@ -87,7 +87,16 @@ Spacing scale: 4, 8, 12, 16, 24, 32, 48. Observed mobile gutter about 16; implem
 
 Unmatched and intentionally not built: board 2 panels 05-08 patient setup; board 13 panels 09-12 recurring setup and checkout; board 14 panels 21-23 medicines, requests, invites; board 7 panels 27-28 request/help capabilities; board 9 panels 29-30 onboarding; board 11 panel 44 roster; board 15 panels 45,47,48 requests, coverage and ops vault UI. Borrow their visual vocabulary only where mapped above. Never expose vault data to companions.
 
-## Verification and delivery
+## Current audit note (2026-10-16)
+
+The [screen inventory](../product/SCREEN_INVENTORY.md) now maps all 60 panel instances
+and separates main, open PRs and release receipts. This token contract stays unchanged.
+Combined synthetic publication already occurred via PR #8/#9; the older stream
+instructions below record their 2026-10-11 delivery plan, not current PR status or
+new cherry-pick/deploy authority. [Working agreement](../delivery/WORKING_AGREEMENT.md)
+and current work-board reservations govern new contributions.
+
+## Historical verification and delivery (2026-10-11)
 
 Each UI PR cites the panel mappings above, adds per-screen deviations and actual implementation screenshots, and reports exact checks. Run `scripts/check-all.sh` plus the app's analyze/tests or lint/typecheck/tests. Record runtime failures explicitly. Supabase-local journeys require Docker; staging remains PR #2 plus founder dashboard steps and is not included in these main-based UI branches. No deploy or main merge.
 
