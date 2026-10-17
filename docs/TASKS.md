@@ -5,9 +5,10 @@ M0-M10 below are milestone history, not a complete screen inventory.
 
 ## ANU-003 supported first-use slice (2026-10-17)
 
-Preview follow-up: fix confirmed mobile navigation clipping, stale active-app
-highlight and app selection lost on refresh; verify Welcome links and browser
-Back. Scope is the separate demo shell, not ANU-003/backend capabilities.
+Preview follow-up completed/published and pushed in `1d25ada`: fixed confirmed
+mobile navigation clipping, stale active-app highlight and app selection lost on
+refresh; Welcome links and browser Back verified. Hosted entry 9/9 and journey
+10/10. Scope is the separate demo shell, not ANU-003/backend capabilities.
 [Regression and publication receipt](evidence/preview-navigation/README.md).
 
 Publication continuation: founder authorized owned commits/normal push and a
@@ -23,10 +24,12 @@ not close the blocked capabilities or real rollout/native/human acceptance below
 - [ ] Patient intake/schedule workflow, explicit owner-consent capture, approved help
   destination and simplified Patient-mode decision; no unsupported controls added.
 - [ ] Native/human language/accessibility and later rollout acceptance. ANU-002
-  remaining checks unchanged. No commit/push/merge/deploy or hosted changes.
+  remaining checks unchanged. Preview source is committed/pushed and the separate
+  synthetic demo published; no merge, hosted backend changes or product rollout.
 
-[Actual verification and blockers](evidence/anu003/README.md). Source remains local;
-implementation of the supported slice does not approve the blocked capabilities.
+[Actual verification and blockers](evidence/anu003/README.md). Supported source is
+included in the pushed preview branch; its implementation does not approve the
+blocked capabilities.
 
 ## ANU-002 lifecycle local implementation and review (2026-10-17)
 

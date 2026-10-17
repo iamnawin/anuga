@@ -1,6 +1,8 @@
 # Work board
 
 Updated 2026-10-17. This repository board owns task status; GitHub PRs own review.
+Navigation fix `1d25ada` is pushed to `feat/anu003-family-first-use`; the dedicated
+synthetic preview is published. Documentation reconciliation adds no runtime change.
 M0–M10 remain in [TASKS](../TASKS.md). Base for new work is fetched main `64c4603`,
 recheck before starting. One active writer/path set, isolated worktrees. None of
 the proposed parallel contributors is running. ANU-002 is reserved to the sole

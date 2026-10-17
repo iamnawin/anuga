@@ -1,6 +1,26 @@
 # Handoff
 
-## Current: preview switching/refresh usability fix (2026-10-17)
+## Current: documentation and push reconciliation (2026-10-17)
+
+Founder requested updated handoff/related docs and pushing any remaining work.
+Branch `feat/anu003-family-first-use`, sole coordinator, clean starting HEAD
+`1d25ada7b9f109d22d1aad9eeee0e0fc97864297`; fresh fetch confirmed origin already
+has that exact navigation-fix commit. No source work was left uncommitted.
+
+Reconciled docs index, task status and work board with the published synthetic
+preview and existing push. Earlier no-push/local-only statements describe older
+task boundaries; the authorized preview publication includes its owned ancestors.
+The runtime/deployment and remaining acceptance gates below are unchanged.
+
+Validation: all 87 relative Markdown links in changed docs resolve;
+`git diff --check` passes. Runtime suites not repeated for prose-only changes. The commit containing this
+receipt is authorized for normal branch push; verify remote HEAD after pushing.
+No PR/merge or additional deployment is part of this task.
+Exact next task: founder retries switching/refresh on the same demo; resolve
+ANU-003 B1-B4 before implementing blocked interactions. Native/human/rollout
+acceptance remains open. See the next section for existing runtime evidence.
+
+## Previous: preview switching/refresh usability fix (2026-10-17)
 
 Founder reported the preview was not working properly and confirmed the failing
 action was switching apps or refreshing. Sole coordinator, branch

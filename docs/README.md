@@ -2,6 +2,8 @@
 
 Interactive synthetic demo: https://anuga-interactive-preview.vercel.app.
 [Usage/build guide](../preview/README.md), [publication evidence](evidence/interactive-preview/README.md).
+[Switching/refresh fix and verification](evidence/preview-navigation/README.md),
+source commit `1d25ada`, pushed to `feat/anu003-family-first-use`.
 It runs browser-local fixtures in a separate Vercel project; real backend, native,
 human-language/accessibility and rollout acceptance remain separate.
 
@@ -29,8 +31,10 @@ F1-F4 provisional development assumptions, NOT rollout approval.
 [actual local evidence](evidence/anu002-lifecycle/README.md) and
 [remaining checks](delivery/tasks/ANU-002-VERIFY.md) distinguish local verification
 from native acceptance/release. [Review and commit receipt](evidence/anu002-review/README.md).
-Latest authority permits an ANU-002-only local commit; no real-user/hosted changes,
-push, merge or deployment.
+The earlier ANU-002-only local-commit boundary is historical. Authorized separate
+synthetic-preview publication includes the owned ANU-003 source and ANU-002
+ancestors on `feat/anu003-family-first-use`, now pushed. No merge, real-user
+rollout, hosted backend change or existing live-site replacement is authorized.
 
 Current partial task: [ANU-002: implement entry and role access](delivery/tasks/ANU-002.md).
 Its companion package [ANU-003: specify Family first-use](delivery/tasks/ANU-003.md)
