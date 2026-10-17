@@ -40,6 +40,11 @@ included; no merge or PR creation. Build artifacts, environment files, cookies
 and local diagnostics remain ignored. [Usage/build guide](../preview/README.md).
 The commit containing this receipt records the supported UI and demo together;
 its branch includes the previously reviewed ANU-001/ANU-002 ancestor commits.
+Source/publication commit `f2d57155f6ea4917206a23d667027e6bc55c4cd3` was pushed
+normally to `origin/feat/anu003-family-first-use`; `git ls-remote` confirmed that
+exact remote head and the working tree was clean. This subsequent documentation
+receipt records the actual push; no application or deployment change. No PR or
+merge was created. Remote CI results are not claimed by the local check receipt.
 No ancestral backend migration was applied to hosted Supabase. Final hosted
 browser checks passed 8/8, zero page errors/hosted Supabase requests. Final staged
 review: 74 owned files, 311 local Markdown links valid, no credential-pattern or
