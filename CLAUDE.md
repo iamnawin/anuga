@@ -13,6 +13,11 @@ them. M10/production remains separately gated (ADR 0001).
 
 ## Commands
 
+Separate browser-local synthetic demo: [preview/README.md](preview/README.md).
+Build with `node scripts/build-interactive-preview.mjs`, check with
+`node --test preview/demo-core.test.mjs` and `node preview/verify-browser.mjs`.
+Its isolated Vercel project must never be confused with the live `anuga` project.
+
 ```sh
 pnpm install --frozen-lockfile
 pnpm db:test            # all DB tests on PGlite + PostGIS (no Docker), ~30 s

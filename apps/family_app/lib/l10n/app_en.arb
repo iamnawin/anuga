@@ -22,13 +22,13 @@
   "invalidCode": "Enter the 6-digit code.",
   "notFamily": "This account is not a family account.",
   "signOut": "Sign out",
-  "noPatients": "No patient is linked to this account yet. Ask the family owner to add you.",
+  "noPatients": "No patient is currently linked to this account. Refresh to check for changes.",
   "patientLabel": "Patient",
   "tabBookings": "Bookings",
   "tabInbox": "Updates",
   "refresh": "Refresh",
   "loading": "Loading…",
-  "noTrips": "No visits in the next two weeks.",
+  "noTrips": "There are no visits for this patient in this date range.",
   "companionLabel": "Companion: {name}",
   "@companionLabel": {
     "placeholders": {
@@ -184,5 +184,8 @@
   "accessUnconfirmed": "Your account access is not confirmed. Ask Ops to check your pilot account.",
   "accessError": "Your access could not be checked. Try again.",
   "accessPending": "Your pilot account setup is pending. Ops needs to finish your access setup.",
-  "accessDisabled": "Your account access is disabled."
+  "accessDisabled": "Your account access is disabled.",
+  "linkedPatientsTitle": "Your patients",
+  "noTripsTitle": "No visits to show",
+  "bookingWindow": "Yesterday through the next two weeks."
 }

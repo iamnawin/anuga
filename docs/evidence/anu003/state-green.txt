@@ -1,0 +1,28 @@
+Resolving dependencies...
+Downloading packages...
+  cross_file 0.3.5+5 (0.4.0 available)
+  gotrue 2.27.2 (2.27.3 available)
+  image_picker_ios 0.8.13+9 (0.8.13+12 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  realtime_client 2.13.0 (2.13.2 available)
+  shared_preferences_android 2.4.28 (2.5.0 available)
+  supabase 2.16.2 (2.16.5 available)
+  supabase_flutter 2.18.0 (2.18.3 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+  vm_service 15.3.0 (15.4.0 available)
+Got dependencies!
+12 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/home_states_test.dart
+00:00 +0: empty linked-patient state refreshes without promising setup or help
+00:01 +1: initial linked-patient error and explicit denial both allow retry
+00:01 +2: refresh hides previous patient and visits before a revoked link returns empty
+00:01 +3: failed booking refresh removes stale visits and supports a visible retry
+00:02 +4: patient switching ignores a late result for the previous patient; refresh preserves selection
+00:02 +5: owner keeps existing visit actions and Patient routing
+00:02 +6: editor keeps existing visit actions and Patient routing
+00:03 +7: viewer keeps existing visit actions and Patient routing
+00:03 +8: patient keeps existing visit actions and Patient routing
+00:03 +9: All tests passed!

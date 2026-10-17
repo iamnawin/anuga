@@ -1,0 +1,127 @@
+{
+  "environment": "loopback synthetic UI fixture; production widgets, no real Auth/DB",
+  "results": [
+    {
+      "state": "empty",
+      "locale": "en",
+      "width": 360,
+      "dark": false,
+      "scale": 1.15,
+      "errors": []
+    },
+    {
+      "state": "empty",
+      "locale": "te",
+      "width": 360,
+      "dark": true,
+      "scale": 2,
+      "errors": []
+    },
+    {
+      "state": "empty",
+      "locale": "hi",
+      "width": 430,
+      "dark": false,
+      "scale": 3,
+      "errors": []
+    },
+    {
+      "state": "patients-error",
+      "locale": "en",
+      "width": 360,
+      "dark": false,
+      "scale": 1.15,
+      "errors": []
+    },
+    {
+      "state": "patients-denied",
+      "locale": "te",
+      "width": 430,
+      "dark": true,
+      "scale": 2,
+      "errors": []
+    },
+    {
+      "state": "loading",
+      "locale": "en",
+      "width": 360,
+      "dark": false,
+      "scale": 1.15,
+      "errors": []
+    },
+    {
+      "state": "bookings-loading",
+      "locale": "en",
+      "width": 430,
+      "dark": false,
+      "scale": 1.15,
+      "errors": []
+    },
+    {
+      "state": "bookings-empty",
+      "locale": "hi",
+      "width": 430,
+      "dark": true,
+      "scale": 2,
+      "errors": []
+    },
+    {
+      "state": "bookings-error",
+      "locale": "te",
+      "width": 360,
+      "dark": false,
+      "scale": 1.15,
+      "errors": []
+    },
+    {
+      "state": "bookings-denied",
+      "locale": "en",
+      "width": 430,
+      "dark": false,
+      "scale": 1.15,
+      "errors": []
+    },
+    {
+      "state": "populated",
+      "locale": "en",
+      "width": 1440,
+      "dark": false,
+      "scale": 1.15,
+      "errors": []
+    },
+    {
+      "state": "multi",
+      "locale": "en",
+      "width": 360,
+      "dark": true,
+      "scale": 2,
+      "errors": []
+    },
+    {
+      "state": "populated",
+      "locale": "te",
+      "width": 430,
+      "dark": true,
+      "scale": 1.15,
+      "errors": []
+    },
+    {
+      "state": "populated",
+      "locale": "hi",
+      "width": 1440,
+      "dark": false,
+      "scale": 2,
+      "errors": []
+    },
+    {
+      "state": "populated",
+      "locale": "en",
+      "width": 360,
+      "dark": false,
+      "scale": 3,
+      "errors": []
+    }
+  ],
+  "nativeLanguageReview": "not performed",
+  "deviceAcceptance": "not performed"
+}

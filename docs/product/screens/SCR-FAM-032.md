@@ -1,8 +1,10 @@
 # SCR-FAM-032 — simplified Patient home (design screen 25)
 
 Concept specification for review, pending decision; not Approved or implemented.
-ANU-003, owner Unassigned. FEAT-015; design board 7:25, linked visit concept 26.
-Current patient-level users enter the existing Family HomeScreen SCR-FAM-001.
+ANU-003, owner Codex coordinator for the supported existing-home slice only. FEAT-015; design board 7:25, linked visit concept 26.
+Current patient-level users continue to enter the existing Family HomeScreen
+SCR-FAM-001. Its loading/empty/error/retry and linked-patient refresh improvements
+apply equally to Patient access without changing routing or grants.
 No distinct Patient-home route or automatically selected simplified mode exists.
 
 Scenario: a patient wants their next actual visit and a few clear actions. The
@@ -41,3 +43,9 @@ recorded; actual empty/populated/error states; permitted/denied actions enforced
 by SQL; back to visit/home works; no unsupported help control; existing owner/
 editor/viewer behavior preserved. No runtime or implementation evidence for this
 new destination exists. Review alongside SCR-FAM-001 before scheduling code work.
+
+ANU-003 local follow-up (2026-10-17): no simplified-mode route/help controls were
+built. Recommended default is to keep the existing Family route until an explicit
+mode/routing decision, preserving owner/editor/viewer behavior. No approved help
+destination was found; a real destination and authorised workflow are needed before
+Help/Call can be offered. [Current receipt](../../evidence/anu003/README.md).

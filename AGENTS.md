@@ -78,3 +78,33 @@ docs/evidence/anu002-review/README.md and docs/delivery/tasks/ANU-002-VERIFY.md.
 Sole implementation writer remains the coordinator; one read-only backend review
 completed without edits. ANU-003 was inspected only and remains separately owned,
 unassigned and documentation-only; see the review receipt for exact dependencies.
+
+## Current ANU-003 authority (2026-10-17)
+
+Latest founder request authorises the unblocked Family first-use implementation.
+Sole coordinator owns the explicit ANU-003 reservation on feat/anu003-family-first-use
+from 96bdc59 in the isolated inventory worktree; no other worktree/path ownership
+changes. Preserve Auth/SQL/shared APIs, patient/schedule creation, owner consent and
+Patient routing. No approved help destination found. No commit/push/merge/deploy or
+hosted modifications. ANU-002 remains Partial for native/human/rollout acceptance.
+
+ANU-003 supported home/bookings slice is now locally implemented and checked;
+see docs/evidence/anu003/README.md. Overall task remains Partial for B1-B4 and
+remaining acceptance; ANU-002-VERIFY stays open and unchanged.
+
+## Interactive synthetic preview authority (2026-10-17)
+
+Latest founder request authorises publishing a separate interactive synthetic demo,
+including necessary owned commits/normal branch push and Vercel preview deployment.
+Keep hosted Supabase and the existing live site unchanged; no merge or real-user
+rollout. Sole coordinator reserves preview/**, scripts/build-interactive-preview.mjs,
+preview verification, and required shared receipts. Simulation is separate from
+production application/Auth/SQL permissions, with browser-local synthetic state.
+ANU-002 rollout defaults remain unapproved. ANU-003 and demo status/limitations
+must distinguish implementation, simulated preview and real deployed acceptance.
+
+Delivered demo project: `anuga-interactive-preview`, public alias
+https://anuga-interactive-preview.vercel.app. Its production target serves only
+the synthetic simulator. Never deploy these artifacts to the `anuga` project.
+Existing Anuga domain/backend and M10 scope remain unchanged. Current receipt:
+docs/evidence/interactive-preview/README.md; preview/README.md owns usage/commands.

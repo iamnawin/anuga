@@ -1,5 +1,12 @@
 # Environment setup
 
+## Separate interactive demo (2026-10-17)
+
+[Preview guide and build/check commands](../preview/README.md) describe the isolated
+browser-local synthetic simulator at https://anuga-interactive-preview.vercel.app.
+Its dedicated Vercel project is separate from `anuga`; do not publish its prebuilt
+output to the existing live site. No hosted Supabase configuration is used.
+
 Versions below were verified on the founder's Windows 11 machine on 2026-10-08.
 Re-verify with the "check" command in each row before relying on them.
 

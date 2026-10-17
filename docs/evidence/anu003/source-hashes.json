@@ -1,0 +1,118 @@
+{
+  "base": "96bdc59527d6f2277f484d09eb057c925147b849",
+  "branch": "feat/anu003-family-first-use",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "e731fbc0d0547317355f28ce3cd2270fb91ca013b6fc3ec174b7520ea4492135",
+      "baselineSha256": "b6070457581d4403e7dd042d09b2fe43c851372a753a8eab6508ca0137bcc5d4"
+    },
+    {
+      "path": "apps/family_app/PRODUCT.md",
+      "sha256": "b7af754ec581c099826448c41a881c294dcd7e23050d83569ca4c683c3dadc44",
+      "baselineSha256": null
+    },
+    {
+      "path": "apps/family_app/lib/l10n/app_en.arb",
+      "sha256": "8ae406da9155000b1f6f29661f845850e8826028f0fe5d1bf89337aad902bb18",
+      "baselineSha256": "54bb738ea6e9832efb0e07d1e15be278fa119c872d7b696a64cdd3badecf1aa8"
+    },
+    {
+      "path": "apps/family_app/lib/l10n/app_hi.arb",
+      "sha256": "9f631304206c089b2489511927f5fc0535ca79316424da1608ccfe1e8fe2cc05",
+      "baselineSha256": "9e9cd2c2ef3754a45f4be6adbee54cfe41e451233c975ea92955f7c7c6f10c49"
+    },
+    {
+      "path": "apps/family_app/lib/l10n/app_te.arb",
+      "sha256": "744874f4227a183b8039f9e4a0cba68d3e5c06228f5ffd405e7b4f3b0041287d",
+      "baselineSha256": "5ad0ca51510c8f30338616959384b62d707763cd63a5940d8176fb1bf94caa0d"
+    },
+    {
+      "path": "apps/family_app/lib/src/screens/bookings_tab.dart",
+      "sha256": "2373340847fffefea1af2f34d1b44381afc4287b8febc4069eee90967d7d6469",
+      "baselineSha256": "90abafa22df98318d8cff9e0962b9d5d4a096d1c3cc7b9dea45ef26bcd84a1fc"
+    },
+    {
+      "path": "apps/family_app/lib/src/screens/home_screen.dart",
+      "sha256": "03d98321fa383013c8425834bb6d97c7c98cd5e65389a5c1caffc2d116f7e226",
+      "baselineSha256": "68c69d16e672093d6d8210e252c03cfd27cd710ef018782767512a99f594414d"
+    },
+    {
+      "path": "apps/family_app/test/full_app_test.dart",
+      "sha256": "c53c11e4ac1d95b33ab0cb25c4ca83e8f579554510f1f1d5d7dc2de0e4ad5cc2",
+      "baselineSha256": "8e5c7edff95427dff479517ae1ca1c0311bb0222de693419dd20ebdaf72a67a5"
+    },
+    {
+      "path": "apps/family_app/test/home_preview.dart",
+      "sha256": "caac806517d6464c59bda438ef8ff6bb60e5e9f1c8a239ef7d8788514da7456c",
+      "baselineSha256": null
+    },
+    {
+      "path": "apps/family_app/test/home_states_test.dart",
+      "sha256": "b6fcc426c4fe20819e3b124f31bbb559e5fd95356c97c708864aa62dbb3d98c3",
+      "baselineSha256": null
+    },
+    {
+      "path": "scripts/verify-family-first-use.mjs",
+      "sha256": "2ee07017ca4bbc0151d7cf4ee12c23e73097fe166ee58b3aeb2a0528dfe8f9db",
+      "baselineSha256": null
+    },
+    {
+      "path": "docs/HANDOFF.md",
+      "sha256": "efe0ba7f92586632e0e38f9a3d758645250ff0cdac59b9b2af8d99e7ffb1b42c",
+      "baselineSha256": "6807aa485e7d2d0c58ae300a07faea8528477a0d99188a91d24624991d1b941f"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "8e115981118d31447a14c0b6f5a9e5e73a98fcd0a412356dfa890689cae81846",
+      "baselineSha256": "ef0ee562bf6b617456aa9126b288da4b8ddfa664f60045bf6428d7720ea60948"
+    },
+    {
+      "path": "docs/TASKS.md",
+      "sha256": "6f2270a25ff78d46ec9573fc06b8a1afe4736bcdd1d814b815a07291179cafd3",
+      "baselineSha256": "1112e441ab50266e82e4bfd3b7b6571436c0c1b59f079c9b1a9c97365ee73c45"
+    },
+    {
+      "path": "docs/delivery/WORKING_AGREEMENT.md",
+      "sha256": "8bf6e808338b6160c5b2da09d4ddb0a558e78f0c90fc5c77f09ad3eaf400fa0f",
+      "baselineSha256": "2a6273c0f6d1f803946b60b37b23dadb0d0ec8850f1f0ca91cf07583fcd87cb2"
+    },
+    {
+      "path": "docs/delivery/WORK_BOARD.md",
+      "sha256": "4da627ad63b8f4a010a723c47b26ed34a1f3af487eeea52f55ca6270179793e1",
+      "baselineSha256": "6a7563c1c89fc48baa59025ea02b356862eb43c5d1a39606657ef3b7e82735bc"
+    },
+    {
+      "path": "docs/delivery/tasks/ANU-003.md",
+      "sha256": "fe6118ba9a0b288e91f7b2e35c217cab6d9c4599bfbc00e4cc2b85983d6612d5",
+      "baselineSha256": "731af4ea45e2d635d8d264d66c30e4cf4fe37a641953ddf1f2d63057b8c0c583"
+    },
+    {
+      "path": "docs/product/COMPONENT_INVENTORY.md",
+      "sha256": "613bbe52cfb9631a595f6dd5accff7f09d2758b2b31b406cbff1b65b5cd1f9dc",
+      "baselineSha256": "f8634d70110c6f1697272a6fb895bb99036d39167b8a3eb28392442481f96d1d"
+    },
+    {
+      "path": "docs/product/FEATURE_MATRIX.md",
+      "sha256": "f1294ea3128dfc0d9d31ab5891966c907f09bc2dafc2e861fe1f2c9c99fd9d76",
+      "baselineSha256": "6ec7d77373f8789225f0ab935eebaa513f6a233f2d769bae2b73fdf35dea1f76"
+    },
+    {
+      "path": "docs/product/SCREEN_INVENTORY.md",
+      "sha256": "4ffbb52964e74eb5ce0b08fee939fcedd827cc312f72aa449a5d09ee254f43ec",
+      "baselineSha256": "54dfee54845f50a45e22a926911a7b205da454562ab24d26e8245fcf623f0363"
+    },
+    {
+      "path": "docs/product/screens/SCR-FAM-001.md",
+      "sha256": "ac2e6981ce61d1b7af86b9410d40bdc510e0a9808b9ae53b22b7e4d2883e1a57",
+      "baselineSha256": "52f5418e3d2491b3af828af2136600e688395096b7fc9c1e7cd082b8a550d875"
+    },
+    {
+      "path": "docs/product/screens/SCR-FAM-032.md",
+      "sha256": "2749e1001ad6fbcbefa4bb100e9e7c2ee41c3faa658b3fb2c6a75769cce714b4",
+      "baselineSha256": "50749e7fdf9132f6ad57c5b550cc2bda543f7d68400b9ea9d7183e2b5216f787"
+    }
+  ],
+  "evidenceDirectory": "docs/evidence/anu003",
+  "notes": "Actual web fixtures, not real Auth/DB. Generated build output and local tool state excluded."
+}

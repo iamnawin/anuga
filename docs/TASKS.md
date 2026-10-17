@@ -3,6 +3,26 @@
 Current product-completion work (2026-10-16): [WORK_BOARD](delivery/WORK_BOARD.md).
 M0-M10 below are milestone history, not a complete screen inventory.
 
+## ANU-003 supported first-use slice (2026-10-17)
+
+Publication continuation: founder authorized owned commits/normal push and a
+separate synthetic demo. See [preview receipt](evidence/interactive-preview/README.md)
+and [usage guide](../preview/README.md). The public demo is a simulation and does
+not close the blocked capabilities or real rollout/native/human acceptance below.
+
+- [x] Claim from committed ANU-002 96bdc59; separate branch, sole coordinator writer.
+- [x] Visible home/booking refresh; loading, neutral empty, error and denied states.
+- [x] Clear stale patient/visit data on revalidation; preserve valid selection,
+  ignore late responses, retain existing four-level actions and Patient routing.
+- [x] en/te/hi text and supported Family regression/permission tests.
+- [ ] Patient intake/schedule workflow, explicit owner-consent capture, approved help
+  destination and simplified Patient-mode decision; no unsupported controls added.
+- [ ] Native/human language/accessibility and later rollout acceptance. ANU-002
+  remaining checks unchanged. No commit/push/merge/deploy or hosted changes.
+
+[Actual verification and blockers](evidence/anu003/README.md). Source remains local;
+implementation of the supported slice does not approve the blocked capabilities.
+
 ## ANU-002 lifecycle local implementation and review (2026-10-17)
 
 - [x] Pending/active/disabled, minimal self resolver, audited/versioned owner-only

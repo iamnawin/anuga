@@ -21,6 +21,7 @@ class BookingsTab extends StatefulWidget {
 class _BookingsTabState extends State<BookingsTab> {
   List<FamilyBoardRow>? _rows;
   Object? _error;
+  int _request = 0;
 
   @override
   void initState() {
@@ -29,16 +30,22 @@ class _BookingsTabState extends State<BookingsTab> {
   }
 
   Future<void> _load() async {
+    if (!mounted) return;
+    final request = ++_request;
+    setState(() {
+      _rows = null;
+      _error = null;
+    });
     try {
       final rows = await widget.api.tripBoard(widget.patient.patientId);
-      if (mounted) {
+      if (mounted && request == _request) {
         setState(() {
           _rows = rows;
           _error = null;
         });
       }
     } catch (e) {
-      if (mounted) setState(() => _error = e);
+      if (mounted && request == _request) setState(() => _error = e);
     }
   }
 
@@ -50,18 +57,40 @@ class _BookingsTabState extends State<BookingsTab> {
     return RefreshIndicator(
       onRefresh: _load,
       child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16),
         children: [
           CareHeading(l10n.tabBookings),
+          Text(l10n.bookingWindow, style: Theme.of(context).textTheme.bodySmall),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: TextButton.icon(
+              key: const Key('bookings-refresh'),
+              onPressed: rows == null && _error == null ? null : _load,
+              icon: const Icon(Icons.refresh),
+              label: Text(l10n.refresh),
+            ),
+          ),
           if (widget.patient.accessLevel == AccessLevel.viewer)
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: Text(l10n.viewOnly, key: const Key('view-only')),
             ),
-          if (_error != null)
-            Text(describeError(l10n, _error!), style: TextStyle(color: Theme.of(context).colorScheme.error)),
+          if (_error != null) CarePanel(child: Semantics(liveRegion: true, child: Text(describeError(l10n, _error!)))),
           if (rows == null && _error == null) Text(l10n.loading),
-          if (rows != null && rows.isEmpty) Text(l10n.noTrips),
+          if (rows != null && rows.isEmpty)
+            CarePanel(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.event_note, size: 32, color: Theme.of(context).colorScheme.primary),
+                  const SizedBox(height: 16),
+                  Text(l10n.noTripsTitle, style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(height: 8),
+                  Text(l10n.noTrips),
+                ],
+              ),
+            ),
           for (final row in rows ?? const <FamilyBoardRow>[])
             Card(
               key: Key('booking-${row.tripId}'),

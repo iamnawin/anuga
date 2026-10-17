@@ -1,5 +1,15 @@
 # Feature matrix
 
+## ANU-003 supported local slice (2026-10-17)
+
+Owner Codex coordinator; feat/anu003-family-first-use from reviewed 96bdc59.
+Family home/bookings loading, neutral empty, explicit denial/error/retry, visible
+refresh and stale-data/selection handling implemented locally. Existing components,
+Auth/SQL, owner consent, creation permissions and Patient routing preserved.
+No setup/help/Patient-mode controls beyond supported contracts.
+[Actual results and blockers](../evidence/anu003/README.md). ANU-003 Partial; no new
+release. ANU-002 stays Partial for device/human/rollout checks.
+
 ## ANU-002 working-tree update (2026-10-17)
 
 Implementation locally complete and reviewed over base 69bbb36 on
@@ -23,7 +33,7 @@ implementation is not equivalent to production/provider readiness.
 | ID | User outcome | Roles/screens | UI | API/data | Permissions | Tests/evidence | Provider/configuration | Blocker/task/release |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | FEAT-001 | Existing users enter the correct role app | All roles; AUTH-001-007, OPS-001 | Phone/OTP/welcome and authoritative lifecycle gates locally implemented; native/rollout acceptance open | Auth SDK; profiles account_state/version + role; my_account_access; no public signup or app management | DB active-state AND role/patient checks; private owner-only audited management; no activation grants/consent | Current lifecycle evidence: real SQL/Auth/Storage, live UI denial, same-origin sessions and te/hi web renders; E-RELEASE stays historical | Synthetic test phones; live SMS not ready | ANU-002 Partial/unreleased; BE locally implemented, F1-F4 only provisional; native/human/rollout gates remain; main release unchanged |
-| FEAT-002 | Link/provision patient and reach Family home | Family four levels; FAM-001,020-023 | Home implemented; setup Missing | create_patient in 0300 creates patient/owner/trips consent; no app caller in shared FamilyApi | create_patient requires family role; do not assume Ops creator; family_my_patients restricts to linked profiles | family_app.test; access.test; full_app_test no-patient assertion | Ops provisions pilot users (accepted target); no authorised user-readiness or patient-setup workflow configured/verified | D2/D6; ANU-003; home main, setup not released |
+| FEAT-002 | Link/provision patient and reach Family home | Family four levels; FAM-001,020-023 | Home first-use read states locally implemented/tested; creation/setup Missing | create_patient in 0300 creates patient/owner/trips consent; no app caller in shared FamilyApi | create_patient requires family role; do not assume Ops creator; family_my_patients restricts to linked profiles | family_app.test; access.test; full_app_test no-patient assertion | Ops provisions pilot users; authoritative lifecycle verified locally in ANU-002; patient-setup workflow remains unbuilt | D2/D6; ANU-003 supported first-use states local, setup not released |
 | FEAT-003 | See and manage recurring visits | Family/Companion/Ops; FAM-002, COMP-001, OPS-002/004 | Lists/assignment implemented; setup/generation UI Missing; weekday edits Open PR #10 | schedules, ops_generate_trips and read boards on main; weekly pattern mutation only PR #10 | Ops assignments/generation; Family linked reads; Companion assigned projection | platform.test; ops_console.test; family_app.test; PR #10 tests separate | No automatic generator/job established by UI | ANU-005; main lists; PR #10 unreleased |
 | FEAT-004 | Complete authorized visit and pickup | Family four levels/assigned Companion/Ops; FAM-003-005, COMP-002-005 | Implemented state/OTP/note/cancel; no map/ready actor | 0300 trip_transitions, advance_trip, issue_pickup_otp, verify_pickup_otp; shared Dart | Owner/editor cancel scheduled; owner/editor/patient issue pickup; viewer no writes; assigned companion and Ops forward/return per SQL | platform/access/contract/journey tests; app trip tests; E-RELEASE journey | No clinical actions or dispatch; test notifications only | D5; ANU-005; main + historical synthetic |
 | FEAT-005 | Store/read private report photos | Family four levels; FAM-006-009 | Photo flow implemented; PDF UI/folders/history Missing | 0400 audited read; 0800 private storage, signed URLs; vault-files | All linked Family levels read; owner/editor write with owner vault consent; Ops consented audited reads; Companion denied | vault.test; vault_storage.test; vault_files_function/unit; records_test | Storage/vault-files in release receipt; actual current schema Unknown | D7; ANU-005; main photo flow, PDF not released |

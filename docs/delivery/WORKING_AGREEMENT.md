@@ -117,3 +117,20 @@ docs/evidence. No push/merge/deploy/hosted changes. A skill-directed read-only
 backend reviewer made no edits; coordinator remains sole writer. ANU-003 inspection
 is read-only in this step. Local implementation complete does not close remaining
 device, human language/accessibility or F1-F4 rollout gates.
+
+## ANU-003 supported implementation (2026-10-17)
+
+Latest request expands the original spec-only package to the explicitly reserved
+Family home/bookings widgets, localisations and tests. The coordinator is the sole
+writer on feat/anu003-family-first-use based on reviewed 96bdc59, not stale main.
+Coordinator-only shared docs/evidence updates are included. No Auth/SQL/shared API,
+other app, design token or creation/consent/routing change. No commit/push/merge/
+deploy/hosted changes. Earlier ANU-002 commit authority does not extend to this task.
+
+## Interactive preview publication (2026-10-17)
+
+Founder now authorises an interactive, clearly labelled synthetic preview with
+working forms/navigation/validation and consistent demo state. This supersedes
+the preceding no-commit/push/deploy boundary only for the owned ANU-003/demo
+publication. No hosted backend changes, real accounts, merge or existing live-site
+replacement. Coordinator solely owns preview/** and its build/test/evidence/docs.

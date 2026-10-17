@@ -90,11 +90,12 @@ void main() {
     expect(byKey('cancel-trip'), findsNothing);
   });
 
-  testWidgets('an account with no linked patient is told what to do', (tester) async {
+  testWidgets('an account with no linked patient sees its current links and refresh', (tester) async {
     final backend = FakeFamilyBackend()..patients.clear();
     await pumpApp(tester, backend, FakePhoneAuth());
     await signIn(tester, '9000000101');
-    expect(find.textContaining('No patient is linked'), findsOneWidget);
+    expect(find.textContaining('No patient is currently linked'), findsOneWidget);
+    expect(byKey('home-retry'), findsOneWidget);
   });
 
   testWidgets('the app switches to Telugu and Hindi', (tester) async {

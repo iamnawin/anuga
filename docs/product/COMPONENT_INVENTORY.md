@@ -1,5 +1,15 @@
 # Component inventory
 
+## ANU-003 supported local slice (2026-10-17)
+
+Owner Codex coordinator; feat/anu003-family-first-use from reviewed 96bdc59.
+Family home/bookings loading, neutral empty, explicit denial/error/retry, visible
+refresh and stale-data/selection handling implemented locally. Existing components,
+Auth/SQL, owner consent, creation permissions and Patient routing preserved.
+No setup/help/Patient-mode controls beyond supported contracts.
+[Actual results and blockers](../evidence/anu003/README.md). ANU-003 Partial; no new
+release. ANU-002 stays Partial for device/human/rollout checks.
+
 ## ANU-002 working-tree update (2026-10-17)
 
 Implementation locally complete and reviewed over base 69bbb36 on

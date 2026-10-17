@@ -1,6 +1,103 @@
 # Handoff
 
-## Current: ANU-002 reviewed local implementation commit (2026-10-17)
+## Current: interactive synthetic preview publication (2026-10-17)
+
+Resumed the latest recorded founder-authorized demo task on
+`feat/anu003-family-first-use`, base `96bdc59`, in
+`D:/AI-Workspace/Repos/anuga-product-inventory`. Preserved the existing supported
+ANU-003 implementation and evidence. Sole coordinator writer; other worktrees and
+the remaining ANU-002/native/human/rollout gates are unchanged.
+
+Public synthetic demo: https://anuga-interactive-preview.vercel.app.
+Actual Family, Companion and Ops web builds use only the unreachable
+`synthetic-anuga.invalid` hostname, answered by the demo service worker. IndexedDB
+shares simulated visits across role tabs; app sessions remain separate. The
+always-visible simulation label and guide describe accounts, reset, limitations
+and unavailable features. No hosted Supabase or real-user mutation.
+
+Dedicated Vercel project `anuga-interactive-preview`
+(`prj_31olZNOfP2UD4kW24PBp9hB1HVVx`), deployment
+`dpl_Bg21GnKrJWod9LaX1MRPgPWPzfSk`. Its production alias hosts only the synthetic
+demo; this does not launch M10. The initial preview on the existing `anuga` project
+was unsuitable: protection redirects prevented service-worker startup. That
+protected draft remains, but is not the delivered demo. Vercel CLI generated a
+project automation-bypass token while diagnosing it; no token/cookie is committed.
+No protection toggle or existing-domain change. Existing `anuga.vercel.app` still
+points at `dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3`, confirmed by CLI inspection.
+
+Fresh checks: simulator 6/6; local browser 8/8; scripts/check-all.sh exit 0
+(PGlite 157/9 environment skips, Ops 60, shared Dart 28, Companion 51/3 skips,
+Family 58/6 skips; all lint/format/analyze/typecheck/build checks pass).
+Hosted browser outcome, deployment hashes and final publication receipt:
+[interactive preview evidence](evidence/interactive-preview/README.md).
+The initial hosted harness timed out waiting for slow assets/network-idle despite
+rendered Family UI. Final harness waits for actual screen assertions and uses
+HTTP/1 in this environment; no app behavior was changed to make the test pass.
+
+Latest preview authority supersedes the previous no-commit/push/deploy boundary
+for these owned ANU-003/demo changes only. Commit and normal branch push are
+included; no merge or PR creation. Build artifacts, environment files, cookies
+and local diagnostics remain ignored. [Usage/build guide](../preview/README.md).
+The commit containing this receipt records the supported UI and demo together;
+its branch includes the previously reviewed ANU-001/ANU-002 ancestor commits.
+No ancestral backend migration was applied to hosted Supabase. Final hosted
+browser checks passed 8/8, zero page errors/hosted Supabase requests. Final staged
+review: 74 owned files, 311 local Markdown links valid, no credential-pattern or
+forbidden-artifact findings, whitespace check clean. Logs normalized to UTF-8/LF.
+Exact next task: founder tries the demo; review the supported ANU-003 diff and
+resolve its B1-B4 decisions before implementing intake/help/Patient-mode changes.
+No further feature task, main merge or product deployment is inferred.
+
+## Previous: ANU-003 supported Family first-use slice (2026-10-17)
+
+Owner Codex coordinator, sole writer; branch feat/anu003-family-first-use in the
+isolated inventory worktree. Base 96bdc59527d6f2277f484d09eb057c925147b849 confirmed
+ancestor/HEAD; fetched main 64c4603. Clean on entry. All this task's changes remain
+uncommitted; nothing staged, pushed, merged, deployed or modified on hosted systems.
+Other worktrees/owners, ANU-002 Auth/lifecycle, backend and shared APIs untouched.
+
+Supported slice locally implemented: home loading, neutral zero-linked-patient
+state, generic error versus explicit denial with visible Refresh; booking-range
+caption, empty/error/loading and visible/pull refresh. Reload hides previous
+patient/visit data, rejects late completions and preserves a still-authorised
+selected UUID; changed selection/access resets Bookings. Existing visit actions,
+owner consent, records/bills permission gates and Patient routing preserved.
+No unsupported create/setup/help/calendar/simplified-mode controls added.
+
+Checks PASS: scripts/check-all.sh (PGlite 157/9 real-only skips; Ops 60; shared Dart 28;
+Companion 51/3 skips; Family 58/6 skips, all format/analyze/lint/typecheck/build checks).
+State tests 9/9; five failed on the old implementation, four pre-existing permission
+scenarios passed. Last targeted rerun includes an explicit loading assertion added
+after full-suite success. Preview web build PASS with absolute output path; 15 actual
+web fixture scenarios PASS, including en/te/hi, dark/light, 360/430/1440 and 1.15/2/3x
+text plus keyboard focus/scroll captures. No browser page/console errors. Glyphs,
+empty/error/loading, large text and reused navigation visually inspected.
+All preview data are labelled synthetic UI fixtures, NOT real Auth/DB acceptance.
+[Receipt, exact commands/limitations and changed-file hashes](evidence/anu003/README.md).
+
+Specific blockers/recommendations in ANU-003 B1-B4: approve patient intake/schedule
+workflow within existing Family-only patient creation and owner/editor/Ops schedule
+permissions; specify explicit owner-consent capture before future intake invokes
+create_patient; supply one approved non-emergency help URI; decide any future
+simplified Patient-mode routing. Recommendation preserves current Family routing,
+permissions and purpose-consent UI. No real help destination found; no fake action.
+
+ANU-002 implementation remains locally complete at 96bdc59; overall Partial for
+native/device, human te/hi/accessibility, actual F1-F4 rollout approval, roster and
+operator. Its ANU-002-VERIFY and all saved evidence remain unchanged. New real Auth/
+Storage/device/hosted runs were not needed for this UI-only change and not performed.
+In-app browser connection failed due an environment module-mode problem; existing
+Playwright/Edge fallback used locally. First preview build failed on Windows
+relative shader-output paths; absolute output worked. Initial Hindi captures
+preceded fallback-font readiness; final captures wait for fonts/network and replace
+them. Lazy-list text matching/scrolling in the capture harness corrected before pass.
+
+Exact next task: review this uncommitted supported slice and its scope/evidence;
+resolve B1-B4 before any new creation/help/Patient-mode UI. Native/human acceptance
+and later rollout authority remain separate. Do not commit/push/merge/deploy or
+start another task without its task authority. Local visual server/browser closed.
+
+## Previous: ANU-002 reviewed local implementation commit (2026-10-17)
 
 Implementation locally complete; ANU-002 remains Partial for device, human
 language/accessibility and rollout acceptance. Sole implementation writer Codex

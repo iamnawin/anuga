@@ -1,0 +1,16 @@
+{
+  "base": "https://anuga-interactive-preview.vercel.app",
+  "simulated": true,
+  "results": [
+    "phone validation",
+    "simulated Family login and two-patient home",
+    "simulated Ops login/trips",
+    "simulated Companion login",
+    "Family issues simulated pickup code",
+    "Companion journey and separate pickup-code validation",
+    "same changed visit appears in Ops",
+    "reload preserves role session and shared demo state"
+  ],
+  "forbiddenHostedRequests": [],
+  "pageErrors": []
+}

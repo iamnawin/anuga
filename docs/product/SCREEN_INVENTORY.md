@@ -1,5 +1,15 @@
 # Screen inventory
 
+## ANU-003 supported local slice (2026-10-17)
+
+Owner Codex coordinator; feat/anu003-family-first-use from reviewed 96bdc59.
+Family home/bookings loading, neutral empty, explicit denial/error/retry, visible
+refresh and stale-data/selection handling implemented locally. Existing components,
+Auth/SQL, owner consent, creation permissions and Patient routing preserved.
+No setup/help/Patient-mode controls beyond supported contracts.
+[Actual results and blockers](../evidence/anu003/README.md). ANU-003 Partial; no new
+release. ANU-002 stays Partial for device/human/rollout checks.
+
 ## ANU-002 working-tree update (2026-10-17)
 
 Implementation locally complete and reviewed over base 69bbb36 on
@@ -53,7 +63,7 @@ column. See next section for the intentionally absent dedicated destinations.
 | SCR-AUTH-005 | Companion login OTP; Companion | /companion/ signed out -> code state | [login_screen.dart](../../apps/companion_app/lib/src/screens/login_screen.dart) | 1:03 | Auth verifyOTP/verifyOtp; my_account_access; signOut | FEAT-001; CMP-004; CMP-005 | Six-digit validation, server failure, wrong role/sign-out, change number; no timed resend; Flutter restore/post-OTP/resume role gate locally tested; missing profile/error retry; lifecycle locally verified; rollout gated |
 | SCR-AUTH-006 | Ops phone sign-in; Ops | /ops/login/ | [page.tsx](../../apps/ops_console/src/app/login/page.tsx) | 1:02 | Auth signInWithOtp; shouldCreateUser=false | FEAT-001; CMP-003; CMP-005 | Phone validation, busy/send failure, success -> code; new account unsupported; role selection outside form |
 | SCR-AUTH-007 | Ops login OTP; Ops | /ops/login/ -> code state | [page.tsx](../../apps/ops_console/src/app/login/page.tsx) | 1:03 | Auth verifyOTP/verifyOtp; my_account_access; signOut | FEAT-001; CMP-004; CMP-005 | Six-digit validation, server failure, wrong role/sign-out, change number; no timed resend; Flutter restore/post-OTP/resume role gate locally tested; missing profile/error retry; lifecycle locally verified; rollout gated |
-| SCR-FAM-001 | Home and patient picker; Owner/editor/patient/viewer | Family signed in | [home_screen.dart](../../apps/family_app/lib/src/screens/home_screen.dart) | 4:13; 7:25 | family_my_patients | FEAT-002; CMP-002; CMP-013 | Loading/error/no linked patient; first selected; multi-patient picker; no retry button on initial patient failure; no create-patient CTA |
+| SCR-FAM-001 | Home and patient picker; Owner/editor/patient/viewer | Family signed in | [home_screen.dart](../../apps/family_app/lib/src/screens/home_screen.dart) | 4:13; 7:25 | family_my_patients | FEAT-002; CMP-002; CMP-013 | Loading, neutral empty, error/denied with visible refresh; preserve valid selection on recheck; no stale patient content; no creation/help CTA; ANU-003 locally verified |
 | SCR-FAM-002 | Bookings list; All four Family levels | Home -> Bookings | [bookings_tab.dart](../../apps/family_app/lib/src/screens/bookings_tab.dart) | 4:14 | family_trip_board | FEAT-003; CMP-007; CMP-008 | Loading/error/empty; pull refresh; viewer note; no calendar/routine editor |
 | SCR-FAM-003 | Visit detail, timeline and completed state; All four Family levels | Booking tap/back to Bookings | [trip_screen.dart](../../apps/family_app/lib/src/screens/trip_screen.dart) | 4:15-16; 5:17; 7:26 | family_trip_timeline | FEAT-004; CMP-009 | Event loading/error; current/completed status; no live map/ETA/call/reschedule or per-visit receipt |
 | SCR-FAM-004 | Issue pickup code dialog; Owner/editor/patient; viewer denied | Visit -> pickup code | [trip_screen.dart](../../apps/family_app/lib/src/screens/trip_screen.dart) | 4:16; 7:26 | issue_pickup_otp | FEAT-004; CMP-010 | Busy/error; display server code only in scheduled/en_route; close; distinct from login OTP |

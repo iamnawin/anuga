@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-17 Asia/Calcutta",
+  "branch": "feat/anu003-family-first-use",
+  "HEAD": "96bdc59527d6f2277f484d09eb057c925147b849",
+  "main": "64c4603e5812358f6030ab8c9038747a93ba9b40",
+  "baselineFiles": 549,
+  "unchangedBaselineFiles": 531,
+  "modifiedBaselineFiles": 18,
+  "missing": [],
+  "outsideReservation": [],
+  "protectedPathsVerified": 304,
+  "changedProtected": [],
+  "localMarkdownLinks": 287,
+  "brokenLinks": [],
+  "textWhitespaceFindings": [],
+  "credentialPatternFindings": [],
+  "staged": "",
+  "screenshots": 24,
+  "scopeNotes": "Auth/DB/shared API and prior ANU-002 receipts unchanged. UI source reserved to sole coordinator. No commit/push/merge/deploy/hosted action."
+}

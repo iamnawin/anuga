@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   FamilyPatient? _selected;
   Object? _error;
   int _tab = 0;
+  int _request = 0;
 
   @override
   void initState() {
@@ -50,16 +51,26 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _load() async {
+    if (!mounted) return;
+    final request = ++_request;
+    final previousId = _selected?.patientId;
+    final previousLevel = _selected?.accessLevel;
+    setState(() {
+      _patients = null;
+      _selected = null;
+      _error = null;
+    });
     try {
       final patients = await widget.api.myPatients();
-      if (!mounted) return;
+      if (!mounted || request != _request) return;
       setState(() {
         _patients = patients;
-        _selected = patients.isEmpty ? null : patients.first;
+        _selected = patients.where((p) => p.patientId == previousId).firstOrNull ?? patients.firstOrNull;
+        if (_selected?.patientId != previousId || _selected?.accessLevel != previousLevel) _tab = 0;
         _error = null;
       });
     } catch (e) {
-      if (mounted) setState(() => _error = e);
+      if (mounted && request == _request) setState(() => _error = e);
     }
   }
 
@@ -89,14 +100,48 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     Widget body;
-    if (_error != null) {
-      body = Center(child: Text(describeError(l10n, _error!)));
-    } else if (patients == null) {
-      body = Center(child: Text(l10n.loading));
-    } else if (selected == null) {
-      body = Padding(
+    if (_error != null || patients == null || selected == null) {
+      final loading = patients == null && _error == null;
+      body = ListView(
         padding: const EdgeInsets.all(24),
-        child: Text(l10n.noPatients, style: const TextStyle(fontSize: 18)),
+        children: [
+          CareHeading(l10n.linkedPatientsTitle),
+          CarePanel(
+            child: Semantics(
+              liveRegion: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Icon(
+                    _error != null ? Icons.info_outline : Icons.people_outline,
+                    size: 40,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    loading
+                        ? l10n.loading
+                        : _error != null
+                        ? describeError(l10n, _error!)
+                        : l10n.noPatients,
+                  ),
+                  if (loading) ...[
+                    const SizedBox(height: 16),
+                    const LinearProgressIndicator(),
+                  ] else ...[
+                    const SizedBox(height: 24),
+                    FilledButton.icon(
+                      key: const Key('home-retry'),
+                      onPressed: _load,
+                      icon: const Icon(Icons.refresh),
+                      label: Text(l10n.refresh),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ],
       );
     } else {
       body = LayoutBuilder(
@@ -183,6 +228,12 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w700, letterSpacing: 1),
         ),
         actions: [
+          IconButton(
+            key: const Key('home-refresh'),
+            tooltip: l10n.refresh,
+            icon: const Icon(Icons.refresh, size: 28),
+            onPressed: patients == null && _error == null ? null : _load,
+          ),
           if (selected != null)
             IconButton(
               key: const Key('privacy'),
