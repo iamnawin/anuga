@@ -1,0 +1,630 @@
+
+=== root: install, typecheck, database tests (PGlite)
+Scope: all 2 workspace projects
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+╭ Warning ─────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│   Ignored build scripts: unrs-resolver@1.12.2.                               │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed     │
+│   to run scripts.                                                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Done in 2.2s using pnpm v10.33.0
+
+   ╭──────────────────────────────────────────╮
+   │                                          │
+   │   Update available! 10.33.0 → 12.14.0.   │
+   │   Changelog: https://pnpm.io/v/12.14.0   │
+   │     To update, run: pnpm add -g pnpm     │
+   │                                          │
+   ╰──────────────────────────────────────────╯
+
+
+> companion@ typecheck D:\AI-Workspace\Repos\anuga-product-inventory
+> tsc -p tsconfig.json
+
+
+> companion@ db:test D:\AI-Workspace\Repos\anuga-product-inventory
+> node --test --test-isolation=none "supabase/tests/*.test.ts"
+
+▶ patients
+  ✔ owner and viewer can read their patient (15.7562ms)
+  ✔ ops can read patients (3.9491ms)
+  ✔ a family account without patient_access sees nothing (4.9165ms)
+  ✔ companions cannot read the patients table, even for their own trips (1.8609ms)
+  ✔ anon has no table privileges (2.5252ms)
+  ✔ owner can update; viewer update affects nothing (10.3618ms)
+  ✔ direct insert is not granted; create_patient makes the caller owner (10.0511ms)
+  ✔ companions cannot create patients (6.8966ms)
+✔ patients (10953.1886ms)
+▶ profiles
+  ✔ users read only their own profile; ops read all (5.5167ms)
+  ✔ users cannot change their own role (2.2624ms)
+✔ profiles (8.0843ms)
+▶ trips and schedules
+  ✔ family sees trips of their patient; strangers see none (6.9579ms)
+  ✔ a companion sees only trips assigned to them (8.8936ms)
+  ✔ nobody can write trips directly (10.4164ms)
+  ✔ family cannot set companions on a schedule directly (2.0909ms)
+  ✔ trip_otps is unreadable for every app role (5.4377ms)
+  ✔ trip_events are append-only for app roles (4.0711ms)
+✔ trips and schedules (38.5336ms)
+▶ companion restricted projection
+  ✔ returns only trip-essential patient fields inside the window (38.1325ms)
+  ✔ hides patient details outside the time window (5.231ms)
+  ✔ does not include trips assigned to another companion (5.963ms)
+  ✔ family and ops accounts cannot call it (2.739ms)
+✔ companion restricted projection (52.5505ms)
+▶ family trip board
+  ✔ shows companion names to family (5.1779ms)
+  ✔ denies strangers and companions (6.1692ms)
+✔ family trip board (11.5908ms)
+▶ assignment rules
+  ✔ only ops can assign companions (2.7046ms)
+  ✔ rejects a companion outside the cluster radius (4.0191ms)
+  ✔ rejects an unverified companion (2.8731ms)
+  ✔ rejects the same companion as primary and backup (1.9931ms)
+  ✔ swapping primary and backup moves future unstarted trips to the new primary (16.3755ms)
+✔ assignment rules (28.4098ms)
+▶ trip generation
+  ✔ generates Mon/Wed/Fri at 07:00 IST and is idempotent (8.6153ms)
+  ✔ family cannot generate trips (2.3897ms)
+✔ trip generation (11.3402ms)
+✔ trip_contract.json matches the database state machine (7.485ms)
+▶ withCors
+  ✔ answers a preflight without calling the handler (21.2755ms)
+  ✔ keeps the handler status, body and headers, and adds the CORS headers (3.6463ms)
+✔ withCors (25.1307ms)
+▶ dispatch permissions
+  ✔ app users and anon cannot drive the dispatcher or read deliveries (26.3519ms)
+  ✔ the service role can claim (7.1986ms)
+✔ dispatch permissions (34.6144ms)
+▶ claim, lease and retry
+  ✔ a claimed row is leased: a second claim does not return it (6.9171ms)
+  ✔ an expired lease is claimed again (a crashed worker does not lose the row) (11.4767ms)
+  ✔ transient failures back off exponentially, then fail after the attempt limit (41.2463ms)
+  ✔ a backed-off row is not claimed before its time (9.707ms)
+  ✔ permanent failures fail at once; finished rows cannot be marked again (12.6306ms)
+✔ claim, lease and retry (82.5032ms)
+▶ dispatcher end to end (test adapter)
+  ✔ a trip status change reaches every family member, in their language (44.3431ms)
+✔ dispatcher end to end (test adapter) (44.6322ms)
+﹣ the Edge Function refuses non-service callers (0.1909ms) # needs Supabase local with the edge runtime
+﹣ the Edge Function delivers a status change through the test adapter (0.0984ms) # needs Supabase local with the edge runtime
+▶ render
+  ✔ every template and status has text in en, te and hi (36.5518ms)
+  ✔ uses the recipient language and falls back to English (0.285ms)
+  ✔ never copies the companion note into an outbound message, only says there is one (0.4145ms)
+  ✔ bills show the month and the amount in rupees with Indian grouping (1.0974ms)
+  ✔ unknown templates are an error, not a blank message (0.1423ms)
+✔ render (39.0954ms)
+▶ selectAdapters
+  ✔ defaults to the test adapter for every channel (0.2516ms)
+  ✔ a live provider needs founder authorization (0.2505ms)
+  ✔ even when authorized, live adapters do not exist yet, so nothing is sent (0.1421ms)
+  ✔ rejects unknown values (0.1061ms)
+✔ selectAdapters (0.976ms)
+▶ dispatchOnce
+  ✔ sends through the test adapter and records the rendered message (0.4336ms)
+  ✔ transient errors retry; permanent errors and missing adapters fail (0.7734ms)
+  ✔ a retry the database turns into a final failure is counted as failed (0.2256ms)
+  ✔ drain keeps claiming full pages until a short one (0.2383ms)
+✔ dispatchOnce (1.8938ms)
+▶ restStore
+  ✔ calls the dispatch RPCs with the service-role key (2.3344ms)
+  ✔ surfaces HTTP errors (0.9001ms)
+✔ restStore (3.5841ms)
+▶ family_my_patients
+  ✔ returns each patient with the caller's own access level (10.2093ms)
+  ✔ a family account without access gets an empty list (4.8556ms)
+  ✔ companions, ops and anon are denied (8.3516ms)
+✔ family_my_patients (23.7403ms)
+▶ family_trip_timeline
+  ✔ family sees the status events oldest first, with notes but no locations (21.6522ms)
+  ✔ strangers and companions are denied; unknown trips look the same as forbidden ones (7.1847ms)
+✔ family_trip_timeline (29.0949ms)
+▶ my_notifications
+  ✔ family inbox has one push row per status change, newest first (11.0675ms)
+  ✔ each user sees only their own notifications (19.1468ms)
+  ✔ the page size is clamped (8.7661ms)
+  ✔ anon is denied (2.9529ms)
+✔ my_notifications (42.5293ms)
+▶ first journey
+  ✔ ops assigns the trip to the backup companion because the primary is unavailable (10.3244ms)
+  ✔ family sees the booking with the assigned companion (12.2567ms)
+  ✔ companion sets off and sees the restricted pickup sheet (10.8017ms)
+  ✔ companion cannot mark pickup without the OTP (3.6753ms)
+  ✔ a viewer cannot issue the pickup OTP; the owner can (12.5861ms)
+  ✔ a wrong code is rejected and the failed attempt is counted (6.7219ms)
+  ✔ another companion cannot use the code (5.3875ms)
+  ✔ the assigned companion verifies the OTP at pickup (6.032ms)
+  ✔ the same code cannot be reused (3.9517ms)
+  ✔ companion reaches the centre and hands over to staff (11.0097ms)
+  ✔ family cannot move the trip forward (10.5396ms)
+  ✔ return journey completes with a post-visit note (19.5378ms)
+  ✔ family received a status update for every step, in order (12.9301ms)
+  ✔ the timeline is visible to family and records who acted (8.445ms)
+  ✔ a completed trip cannot move again (7.0964ms)
+✔ first journey (143.8192ms)
+▶ exceptions
+  ✔ family can cancel a scheduled trip but not one already under way (13.359ms)
+  ✔ companion reports an issue and ops resolves it back into the journey (14.9787ms)
+  ✔ an OTP locks after the configured number of wrong attempts (31.2014ms)
+✔ exceptions (60.0733ms)
+▶ ops schedule board
+  ✔ ops sees the weekly pattern with primary and backup names (7.9261ms)
+  ✔ family, companions and strangers are denied (21.6161ms)
+✔ ops schedule board (29.9202ms)
+▶ ops trip board
+  ✔ lists trips in range with companion, primary and backup (11.3059ms)
+  ✔ filters by status (14.1879ms)
+  ✔ flags a scheduled trip whose pickup time has passed as late (9.2444ms)
+  ✔ rejects an inverted or too-wide date range (7.6533ms)
+  ✔ family and companions are denied (9.5853ms)
+✔ ops trip board (52.7401ms)
+▶ ops exception queue
+  ✔ contains late, no_show and issue_reported trips with the latest note (26.6305ms)
+  ✔ the late threshold is a business setting, not code (15.7222ms)
+  ✔ resolving an issue removes it from the queue (22.1144ms)
+  ✔ family and companions are denied (12.8554ms)
+✔ ops exception queue (78.2735ms)
+▶ ops companion options
+  ✔ explains why each companion in the cluster is or is not eligible (16.6992ms)
+  ✔ agrees with the assignment RPC for every companion (27.2272ms)
+  ✔ family and companions are denied (12.5418ms)
+✔ ops companion options (57.0417ms)
+✔ anon cannot call any ops console function (10.4298ms)
+▶ trip fares
+  ✔ ops records the actual fare; family and companions cannot (28.5204ms)
+✔ trip fares (28.7478ms)
+▶ invoices
+  ✔ one line per completed visit at the package price, plus fares; India-time month boundaries (32.7468ms)
+  ✔ only ops can generate, issue or list invoices (21.9928ms)
+  ✔ an empty invoice cannot be issued; an issued one cannot be rebuilt and freezes its fares (28.0739ms)
+  ✔ the monthly fee comes from the package (34.0561ms)
+✔ invoices (117.4802ms)
+▶ family bills and payments
+  ✔ owner sees issued bills with lines; drafts are hidden; viewers and companions are refused (45.5272ms)
+  ✔ only the owner can start a payment; a repeated start reuses the open attempt (22.3282ms)
+  ✔ provider callbacks are service-role only; a wrong amount fails the payment, the right one pays the bill once (46.3197ms)
+  ✔ ops sees invoices across patients with visit and fare totals (5.8621ms)
+✔ family bills and payments (120.7543ms)
+﹣ payments: owner starts, a signed webhook pays the bill once, everyone else is refused (0.1156ms) # needs Supabase local with the edge runtime
+﹣ payments: test-mode completion goes through the same owner check (0.0721ms) # needs Supabase local with the edge runtime
+▶ selectPaymentAdapter
+  ✔ test adapter by default, with a webhook secret (0.5426ms)
+  ✔ razorpay needs keys, and only test keys without founder authorization (0.4775ms)
+✔ selectPaymentAdapter (1.2749ms)
+▶ razorpay adapter
+  ✔ creates an order in paise with basic auth and exposes only the key id (0.7933ms)
+✔ razorpay adapter (1.0144ms)
+▶ payments handler
+  ✔ start: the database authorizes first, then an order is created and stored (1.3813ms)
+  ✔ an existing order is reused; a refusal creates nothing (1.122ms)
+  ✔ complete-test works only with the test adapter (1.3415ms)
+  ✔ needs a bearer token, POST and a known action (1.0654ms)
+✔ payments handler (5.1864ms)
+▶ webhooks
+  ✔ a correctly signed capture is recorded (10.2891ms)
+  ✔ missing, wrong or stale signatures are rejected and change nothing (12.097ms)
+  ✔ other events are acknowledged and ignored (1.51ms)
+✔ webhooks (24.3317ms)
+✔ new Auth identity is pending; resolver is self-only and has no private fields (9.6872ms)
+✔ active users including Ops and service cannot manage lifecycle or self-promote (29.4693ms)
+✔ state changes audit atomically, reject stale versions, and do not create patient grants/consent (27.5959ms)
+✔ existing caller claims cannot read or mutate after disable, including direct-ID RPC paths (19.409ms)
+✔ reactivation never recreates revoked patient grants or withdrawn consent (10.0147ms)
+✔ catalog: every protected authenticated RPC rejects inactive callers before its argument validation (73.1178ms)
+✔ all granted RLS tables and own-profile edits are denied for inactive identities (44.5764ms)
+✔ privileged direct role/state writes require audit context; service cannot forge management context (3.3362ms)
+✔ disabled candidates are ineligible and inactive recipients are not newly claimed (11.5276ms)
+✔ audit insertion failure rolls back account state and version (3.7159ms)
+✔ patient links never turn Companion/Ops into a Family owner or expose companion clinical data (21.9737ms)
+✔ dry run classifies exactly reviewed synthetic identities without changing its inputs (0.4852ms)
+✔ unknown, missing, duplicate, role mismatch and missing profile all abort classification (2.2473ms)
+✔ real/unlabelled inventories, invalid states and absent synthetic authority do not pass (0.301ms)
+﹣ real owner transactions serialize state/version and bound a blocked cutover without partial changes (0.0769ms) # requires isolated real Postgres connections
+✔ populated cutover aborts atomically on unknowns/mismatches/audit failure; explicit synthetic roster preserves access (9873.4033ms)
+﹣ no storage bucket is public (0.0926ms) # needs real Supabase (storage schema)
+﹣ API roles cannot list storage objects without a policy (0.0628ms) # needs real Supabase
+﹣ real auth.uid() resolves the request JWT (0.1857ms) # needs real Supabase auth schema
+✔ anon cannot call any app function (6.3917ms)
+▶ vault tables
+  ✔ no app role can SELECT vault tables directly (so no read escapes the audit) (29.7838ms)
+  ✔ owner can add a vitals entry and the write is audited (7.8053ms)
+  ✔ viewers and companions cannot write to the vault (7.1506ms)
+✔ vault tables (45.0403ms)
+▶ audited vault reads
+  ✔ family members read through the functions and each read is logged (27.2569ms)
+  ✔ companions are denied and the denial leaves no data behind (7.0312ms)
+  ✔ ops are denied without consent, allowed with it, and denied again after withdrawal (15.0119ms)
+  ✔ a consent given by a non-owner does not unlock ops access (4.784ms)
+  ✔ the owner can review who read the vault; the viewer cannot (13.4942ms)
+✔ audited vault reads (68.0389ms)
+﹣ vault files: owner uploads, family downloads with a short-lived URL, others are refused (0.0902ms) # needs Supabase local with storage and the edge runtime
+▶ vault-files handler
+  ✔ upload: database first, then a signed URL for the path the database chose (1.5161ms)
+  ✔ confirm: only marks uploaded when the object exists (0.7214ms)
+  ✔ download: the audited authorization runs before signing, with the lifetime from the database (0.3661ms)
+  ✔ a database refusal signs nothing and maps to 403 / 400 (1.4005ms)
+  ✔ requires a signed-in user, POST, JSON and a known action (1.4023ms)
+  ✔ the REST deps call PostgREST as the user and Storage as the service role (0.8768ms)
+✔ vault-files handler (6.616ms)
+▶ creating vault documents
+  ✔ the owner gets a server-generated path under the patient, and the row waits for its file (6.7588ms)
+  ✔ viewers, companions and ops cannot create documents (7.5908ms)
+  ✔ clients can no longer insert document rows (or choose a storage path) directly (3.2924ms)
+  ✔ file type, size and title are checked (18.1336ms)
+  ✔ without the owner's vault consent nothing new goes into the vault (11.2751ms)
+✔ creating vault documents (47.6492ms)
+▶ upload confirmation
+  ✔ editors get the pending path; only the service role marks it uploaded, once (25.37ms)
+✔ upload confirmation (25.8324ms)
+▶ downloading vault documents
+  ✔ family members get the path, and each request is an audited vault read (17.2568ms)
+  ✔ companions are denied; ops need the owner's ops consent; unknown ids look forbidden (22.0533ms)
+  ✔ a document still waiting for its file cannot be downloaded (10.0033ms)
+✔ downloading vault documents (49.8306ms)
+▶ consents
+  ✔ the owner sees every purpose and can change them; changes are audited (12.6726ms)
+  ✔ a viewer sees the status but cannot change it; strangers and companions see nothing (18.539ms)
+✔ consents (31.477ms)
+ℹ tests 166
+ℹ suites 38
+ℹ pass 157
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 9
+ℹ todo 0
+ℹ duration_ms 33012.0575
+
+=== ops console: lint, typecheck, unit tests, build
+
+> @companion/ops_console@ lint D:\AI-Workspace\Repos\anuga-product-inventory\apps\ops_console
+> eslint .
+
+
+> @companion/ops_console@ typecheck D:\AI-Workspace\Repos\anuga-product-inventory\apps\ops_console
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+
+> @companion/ops_console@ test D:\AI-Workspace\Repos\anuga-product-inventory\apps\ops_console
+> vitest run
+
+
+ RUN  v5.0.3 D:/AI-Workspace/Repos/anuga-product-inventory/apps/ops_console
+
+
+ Test Files  7 passed (7)
+      Tests  60 passed (60)
+   Start at  17:02:25
+   Duration  3.88s (environment 74%, setup 15%, transform 5%, tests 4%, import 1%)
+
+
+> @companion/ops_console@ build D:\AI-Workspace\Repos\anuga-product-inventory\apps\ops_console
+> next build
+
+▲ Next.js 16.4.0 (Turbopack)
+✓ Running next.config.ts took 41ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 938ms
+  Running TypeScript ...
+  Finished TypeScript in 2.8s ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/8) ...
+  Generating static pages using 9 workers (2/8)
+  Generating static pages using 9 workers (4/8)
+  Generating static pages using 9 workers (6/8)
+✓ Generating static pages using 9 workers (8/8) in 1337ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /billing
+├ ○ /exceptions
+├ ○ /login
+├ ○ /schedules
+└ ○ /trips
+
+
+○  (Static)  prerendered as static content
+
+
+=== shared_dart: format, analyze, test
+Resolving dependencies...
+Downloading packages...
+Got dependencies!
+Formatted 12 files (0 changed) in 0.07 seconds.
+Analyzing shared_dart...
+No issues found!
+00:00 +0: loading test\account_access_test.dart
+00:00 +0: test\account_access_test.dart: authoritative lifecycle parsing never infers active from a role
+00:00 +1: test\api_test.dart: companion trips parse visible and hidden rows
+00:00 +2: test\api_test.dart: advance sends the database status value
+00:00 +3: test\api_test.dart: a wrong OTP is a result, not an exception
+00:00 +4: test\api_test.dart: successful OTP returns the picked_up status
+00:00 +5: test\api_test.dart: family board flags a trip covered by the backup
+00:00 +6: test\api_test.dart: family cancel and OTP issue call the right functions
+00:00 +7: test\api_test.dart: ops calls pass schedule, companions and dates
+00:00 +8: test\family_and_helpers_test.dart: FamilyApi (M5 read models) myPatients parses access levels and what each level may do
+00:00 +9: test\family_and_helpers_test.dart: FamilyApi (M5 read models) access levels mirror the SQL rules
+00:00 +10: test\family_and_helpers_test.dart: FamilyApi (M5 read models) timeline parses events (bigint ids arrive as numbers)
+00:00 +11: test\family_and_helpers_test.dart: FamilyApi (M5 read models) notifications parse payload status and pass the limit only when given
+00:00 +12: test\family_and_helpers_test.dart: FamilyApi (M8 vault and consents) vault documents parse status and type; the read states its purpose
+00:00 +13: test\family_and_helpers_test.dart: FamilyApi (M8 vault and consents) consents parse purposes; setConsent sends the database value
+00:00 +14: test\family_and_helpers_test.dart: FamilyApi (M9 bills) invoices and lines parse amounts in paise and dates
+00:00 +15: test\family_and_helpers_test.dart: India helpers normalizes mobile numbers to E.164
+00:00 +16: test\family_and_helpers_test.dart: India helpers six-digit codes
+00:00 +17: test\family_and_helpers_test.dart: India helpers India-time days
+00:00 +18: test\family_and_helpers_test.dart: India helpers RpcException classifies SQLSTATEs
+00:00 +19: test\trip_state_machine_test.dart: agreement with the SQL contract trip statuses match public.trip_status (values and order)
+00:00 +20: test\trip_state_machine_test.dart: agreement with the SQL contract actors match public.transition_actor
+00:00 +21: test\trip_state_machine_test.dart: agreement with the SQL contract transitions match public.trip_transitions exactly
+00:00 +22: test\trip_state_machine_test.dart: state machine behaviour companion walks the full journey; pickup needs the OTP
+00:00 +23: test\trip_state_machine_test.dart: state machine behaviour ops can never skip the pickup OTP from en route
+00:00 +24: test\trip_state_machine_test.dart: state machine behaviour family may only cancel a scheduled trip
+00:00 +25: test\trip_state_machine_test.dart: state machine behaviour terminal statuses have no exits for anyone
+00:00 +26: test\trip_state_machine_test.dart: state machine behaviour only ops resolve an issue
+00:00 +27: test\trip_state_machine_test.dart: state machine behaviour unknown database values are rejected
+00:00 +28: All tests passed!
+
+=== companion_app: format, analyze, test
+
+┌─────────────────────────────────────────────────────────┐
+│ A new version of Flutter is available!                  │
+│                                                         │
+│ To update to the latest version, run "flutter upgrade". │
+└─────────────────────────────────────────────────────────┘
+Resolving dependencies...
+Downloading packages...
+  gotrue 2.27.2 (2.27.3 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  realtime_client 2.13.0 (2.13.2 available)
+  shared_preferences_android 2.4.28 (2.5.0 available)
+  supabase 2.16.2 (2.16.5 available)
+  supabase_flutter 2.18.0 (2.18.3 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+  vm_service 15.3.0 (15.4.0 available)
+Got dependencies!
+10 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Formatted 20 files (0 changed) in 0.08 seconds.
+Resolving dependencies...
+Downloading packages...
+  gotrue 2.27.2 (2.27.3 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  realtime_client 2.13.0 (2.13.2 available)
+  shared_preferences_android 2.4.28 (2.5.0 available)
+  supabase 2.16.2 (2.16.5 available)
+  supabase_flutter 2.18.0 (2.18.3 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+  vm_service 15.3.0 (15.4.0 available)
+Got dependencies!
+10 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing companion_app...
+No issues found! (ran in 50.8s)
+Resolving dependencies...
+Downloading packages...
+  gotrue 2.27.2 (2.27.3 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  realtime_client 2.13.0 (2.13.2 available)
+  shared_preferences_android 2.4.28 (2.5.0 available)
+  supabase 2.16.2 (2.16.5 available)
+  supabase_flutter 2.18.0 (2.18.3 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+  vm_service 15.3.0 (15.4.0 available)
+Got dependencies!
+10 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart
+00:00 +0: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/format_test.dart: (setUpAll)
+00:00 +0: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/format_test.dart: times are shown in India time
+00:00 +1: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +1: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/journey_test.dart: journey 3: companion sets off, picks up with the family code and hands over
+  Skip: run through scripts/e2e-journey.sh
+00:00 +1 ~1: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +1 ~1: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/journey_test.dart: journey 5: companion runs the return journey and completes with a note
+  Skip: run through scripts/e2e-journey.sh
+00:00 +1 ~2: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +2 ~2: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +2 ~2: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/supabase_local_test.dart: companion runs a full trip on Supabase local
+  Skip: set SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY (Supabase local)
+00:00 +2 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +3 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +4 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +5 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +6 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +7 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +8 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +9 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +10 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +11 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +12 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +13 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +14 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:00 +15 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: restored session cannot fetch data during role lookup
+00:01 +16 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: a family account cannot use the companion app
+00:01 +17 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: a family account cannot use the companion app
+00:02 +18 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: a family account cannot use the companion app
+00:02 +19 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: a family account cannot use the companion app
+00:02 +20 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/trip_screen_test.dart: trip screen in scheduled shows exactly its allowed steps
+00:02 +21 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: lookup failure is retryable and never implies pending
+00:02 +22 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: lookup failure is retryable and never implies pending
+00:02 +23 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/trip_screen_test.dart: trip screen in companion_en_route shows exactly its allowed steps
+00:02 +24 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: resume revalidates a changed backend role
+00:02 +25 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:02 +26 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:02 +27 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:02 +28 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +29 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +30 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +31 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +32 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +33 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +34 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +35 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +36 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +37 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +38 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:03 +39 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:04 +40 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:04 +41 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:04 +42 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: full trip from pickup to completion
+00:04 +43 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/trip_screen_test.dart: a malformed OTP is not sent to the server
+00:04 +44 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/auth_access_test.dart: authoritative AccountState.pending blocks home until explicit recheck or event
+00:04 +45 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: the app switches to Telugu and Hindi
+00:04 +46 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: the app switches to Telugu and Hindi
+00:04 +47 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: the app switches to Telugu and Hindi
+00:04 +48 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/full_trip_test.dart: the app switches to Telugu and Hindi
+00:05 +49 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/trip_screen_test.dart: reporting an issue needs a description
+00:05 +50 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/companion_app/test/trip_screen_test.dart: no-show asks for confirmation first
+00:05 +51 ~3: All tests passed!
+
+=== family_app: format, analyze, test
+Resolving dependencies...
+Downloading packages...
+  cross_file 0.3.5+5 (0.4.0 available)
+  gotrue 2.27.2 (2.27.3 available)
+  image_picker_ios 0.8.13+9 (0.8.13+12 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  realtime_client 2.13.0 (2.13.2 available)
+  shared_preferences_android 2.4.28 (2.5.0 available)
+  supabase 2.16.2 (2.16.5 available)
+  supabase_flutter 2.18.0 (2.18.3 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+  vm_service 15.3.0 (15.4.0 available)
+Got dependencies!
+12 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Formatted 31 files (0 changed) in 0.13 seconds.
+Resolving dependencies...
+Downloading packages...
+  cross_file 0.3.5+5 (0.4.0 available)
+  gotrue 2.27.2 (2.27.3 available)
+  image_picker_ios 0.8.13+9 (0.8.13+12 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  realtime_client 2.13.0 (2.13.2 available)
+  shared_preferences_android 2.4.28 (2.5.0 available)
+  supabase 2.16.2 (2.16.5 available)
+  supabase_flutter 2.18.0 (2.18.3 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+  vm_service 15.3.0 (15.4.0 available)
+Got dependencies!
+12 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing family_app...
+No issues found! (ran in 7.4s)
+Resolving dependencies...
+Downloading packages...
+  cross_file 0.3.5+5 (0.4.0 available)
+  gotrue 2.27.2 (2.27.3 available)
+  image_picker_ios 0.8.13+9 (0.8.13+12 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  realtime_client 2.13.0 (2.13.2 available)
+  shared_preferences_android 2.4.28 (2.5.0 available)
+  supabase 2.16.2 (2.16.5 available)
+  supabase_flutter 2.18.0 (2.18.3 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+  vm_service 15.3.0 (15.4.0 available)
+Got dependencies!
+12 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/auth_access_test.dart
+00:00 +0: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:00 +0: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/journey_test.dart: journey 2: family sees the booking with the backup companion and issues the pickup code
+  Skip: run through scripts/e2e-journey.sh
+00:00 +0 ~1: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:00 +0 ~1: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/journey_test.dart: journey 4: family sees the handover in the timeline and the updates inbox
+  Skip: run through scripts/e2e-journey.sh
+00:00 +0 ~2: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:00 +0 ~2: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/journey_test.dart: journey 6: family sees the visit completed with the post-visit note
+  Skip: run through scripts/e2e-journey.sh
+00:00 +0 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:00 +0 ~3: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/journey_test.dart: journey 9: owner pays the bill (test mode); the viewer cannot see bills
+  Skip: run through scripts/e2e-journey.sh
+00:00 +0 ~4: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:00 +1 ~4: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:01 +1 ~4: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/supabase_local_test.dart: family journey on Supabase local
+  Skip: set SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY (Supabase local)
+00:01 +1 ~5: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:01 +1 ~5: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/supabase_local_test.dart: family vault on Supabase local: consent, upload, view, refusals
+  Skip: set SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY (Supabase local)
+00:01 +1 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:02 +2 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:02 +3 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:02 +4 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/bills_test.dart: owner opens a due bill, sees the lines and pays in test mode
+00:02 +5 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: a companion account cannot use the family app
+00:02 +6 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: a companion account cannot use the family app
+00:02 +7 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/records_test.dart: records tab owner with consent: sees reports, add button true
+00:02 +8 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/records_test.dart: records tab owner with consent: sees reports, add button true
+00:03 +9 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: owner on a scheduled visit: code true, cancel true
+00:03 +10 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: owner on a scheduled visit: code true, cancel true
+00:03 +11 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: owner on a scheduled visit: code true, cancel true
+00:03 +12 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: owner on a scheduled visit: code true, cancel true
+00:03 +13 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: owner on a scheduled visit: code true, cancel true
+00:03 +14 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: owner on a scheduled visit: code true, cancel true
+00:03 +15 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +16 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +17 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +18 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +19 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +20 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +21 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +22 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +23 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:03 +24 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:04 +25 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:04 +26 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:04 +27 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:04 +28 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:04 +29 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:04 +30 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: owner: bookings, pickup code, live updates
+00:04 +31 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: a viewer never sees the pickup code button, in any status
+00:04 +32 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/records_test.dart: records tab owner adds a report photo: start, put, confirm, then the list shows it
+00:04 +33 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/records_test.dart: records tab owner adds a report photo: start, put, confirm, then the list shows it
+00:05 +34 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/records_test.dart: records tab owner adds a report photo: start, put, confirm, then the list shows it
+00:05 +35 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/auth_access_test.dart: phone and code validation make no auth call; failures allow retry
+00:05 +36 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: the code is offered only while the visit awaits pickup
+00:05 +37 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: the code is offered only while the visit awaits pickup
+00:05 +38 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: the code is offered only while the visit awaits pickup
+00:05 +39 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: an account with no linked patient sees its current links and refresh
+00:05 +40 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/auth_access_test.dart: sending disables repeated submits and phone edits
+00:05 +41 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/home_states_test.dart: editor keeps existing visit actions and Patient routing
+00:05 +42 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/home_states_test.dart: editor keeps existing visit actions and Patient routing
+00:05 +43 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/home_states_test.dart: editor keeps existing visit actions and Patient routing
+00:05 +44 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: owner gets a pickup code and sees it large, with instructions
+00:05 +45 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: owner gets a pickup code and sees it large, with instructions
+00:06 +46 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: the app switches to Telugu and Hindi
+00:06 +47 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/full_app_test.dart: the app switches to Telugu and Hindi
+00:06 +48 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/home_states_test.dart: viewer keeps existing visit actions and Patient routing
+00:06 +49 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/home_states_test.dart: viewer keeps existing visit actions and Patient routing
+00:06 +50 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/home_states_test.dart: viewer keeps existing visit actions and Patient routing
+00:06 +51 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/auth_access_test.dart: authoritative AccountState.disabled blocks home until explicit recheck or event
+00:06 +52 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: cancel asks first, records the reason and updates the timeline
+00:06 +53 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: cancel asks first, records the reason and updates the timeline
+00:06 +54 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: cancel asks first, records the reason and updates the timeline
+00:06 +55 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: cancel asks first, records the reason and updates the timeline
+00:06 +56 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: a visit the companion already started cannot be cancelled by family
+00:06 +57 ~6: D:/AI-Workspace/Repos/anuga-product-inventory/apps/family_app/test/trip_screen_test.dart: timeline shows who did what, with notes
+00:07 +58 ~6: All tests passed!
+
+=== ALL CHECKS PASSED

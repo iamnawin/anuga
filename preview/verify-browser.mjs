@@ -37,6 +37,18 @@ try{
  last=ops.page;await ops.page.bringToFront();await ops.f.getByRole('button',{name:'Refresh',exact:true}).click();await ops.f.getByRole('row').filter({hasText:'Picked up'}).first().waitFor();results.push('same changed visit appears in Ops');
  await family.page.reload();await family.f.locator('flutter-view').waitFor();await family.f.locator('flt-semantics-placeholder').evaluate(e=>e.click());await family.f.getByText(/Picked up/).last().waitFor();results.push('reload preserves role session and shared demo state');
  await family.page.screenshot({path:output+'/family-updated.png'});
+ // Exercise the founder-reported case: switch roles within one tab, then return.
+ await family.page.getByRole('button',{name:'Companion',exact:true}).click();
+ await family.f.locator('flutter-view').waitFor({timeout:180000});
+ await family.f.locator('flt-semantics-placeholder').evaluate(e=>e.click());
+ await family.f.getByRole('group',{name:/Lakshmi Rao/}).first().waitFor();
+ results.push('same-tab switch restores the independent Companion session');
+ await family.page.getByRole('button',{name:'Family / Patient',exact:true}).click();
+ await family.f.locator('flutter-view').waitFor({timeout:180000});
+ await family.f.locator('flt-semantics-placeholder').evaluate(e=>e.click());
+ await family.f.getByText('Lakshmi Rao (synthetic)',{exact:true}).last().waitFor();
+ await family.f.getByText(/Picked up/).last().waitFor();
+ results.push('switching back retains the Family session and changed visit');
  assert.deepEqual(forbidden,[]);assert.deepEqual(errors,[]);
  await writeFile(output+'/results.json',JSON.stringify({base,simulated:true,results,forbiddenHostedRequests:forbidden,pageErrors:errors},null,2));console.log(JSON.stringify({passed:results.length,forbiddenHostedRequests:forbidden,pageErrors:errors}));
 }catch(e){if(last){await last.screenshot({path:output+'/failure.png'}).catch(()=>{});await writeFile(output+'/failure-semantics.json',JSON.stringify(await Promise.all(last.frames().map(f=>f.locator('flt-semantics').evaluateAll(es=>es.map(e=>({role:e.getAttribute('role'),label:e.getAttribute('aria-label'),text:e.textContent,rect:{x:e.getBoundingClientRect().x,y:e.getBoundingClientRect().y,w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height}}))).catch(()=>[]))),null,2));await writeFile(output+'/failure.txt',(await Promise.all(last.frames().map(f=>f.locator('body').innerText().catch(()=>'')))).join('\n\nFRAME\n')); }throw e;

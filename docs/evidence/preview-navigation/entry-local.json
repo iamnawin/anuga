@@ -1,0 +1,41 @@
+{
+  "base": "http://127.0.0.1:3211",
+  "results": [
+    {
+      "name": "Welcome centred with no horizontal overflow at 360px",
+      "passed": true
+    },
+    {
+      "name": "All preview controls visible and at least 48px at 360px",
+      "passed": true
+    },
+    {
+      "name": "Welcome centred with no horizontal overflow at 1356px",
+      "passed": true
+    },
+    {
+      "name": "All preview controls visible and at least 48px at 1356px",
+      "passed": true
+    },
+    {
+      "name": "Welcome centred with no horizontal overflow at 1920px",
+      "passed": true
+    },
+    {
+      "name": "All preview controls visible and at least 48px at 1920px",
+      "passed": true
+    },
+    {
+      "name": "Welcome link synchronizes selected app and bookmark URL",
+      "passed": true
+    },
+    {
+      "name": "Reload preserves chosen app",
+      "passed": true
+    },
+    {
+      "name": "Browser Back restores the previous app",
+      "passed": true
+    }
+  ]
+}

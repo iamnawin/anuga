@@ -5,6 +5,11 @@ M0-M10 below are milestone history, not a complete screen inventory.
 
 ## ANU-003 supported first-use slice (2026-10-17)
 
+Preview follow-up: fix confirmed mobile navigation clipping, stale active-app
+highlight and app selection lost on refresh; verify Welcome links and browser
+Back. Scope is the separate demo shell, not ANU-003/backend capabilities.
+[Regression and publication receipt](evidence/preview-navigation/README.md).
+
 Publication continuation: founder authorized owned commits/normal push and a
 separate synthetic demo. See [preview receipt](evidence/interactive-preview/README.md)
 and [usage guide](../preview/README.md). The public demo is a simulation and does

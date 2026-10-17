@@ -1,0 +1,47 @@
+{
+  "base": "http://127.0.0.1:3211",
+  "results": [
+    {
+      "name": "Welcome centred with no horizontal overflow at 360px",
+      "passed": true
+    },
+    {
+      "name": "All preview controls visible and at least 48px at 360px",
+      "passed": false,
+      "error": "[{\"x\":8,\"right\":87.296875,\"height\":44},{\"x\":95.296875,\"right\":159.890625,\"height\":75},{\"x\":167.890625,\"right\":261.625,\"height\":44},{\"x\":269.625,\"right\":316.359375,\"height\":44},{\"x\":324.359375,\"right\":383.765625,\"height\":56}]"
+    },
+    {
+      "name": "Welcome centred with no horizontal overflow at 1356px",
+      "passed": true
+    },
+    {
+      "name": "All preview controls visible and at least 48px at 1356px",
+      "passed": false,
+      "error": "[{\"x\":16,\"right\":111.484375,\"height\":44},{\"x\":119.484375,\"right\":257.859375,\"height\":44},{\"x\":265.859375,\"right\":377.828125,\"height\":44},{\"x\":385.828125,\"right\":444.09375,\"height\":44},{\"x\":452.09375,\"right\":569.359375,\"height\":44}]"
+    },
+    {
+      "name": "Welcome centred with no horizontal overflow at 1920px",
+      "passed": true
+    },
+    {
+      "name": "All preview controls visible and at least 48px at 1920px",
+      "passed": false,
+      "error": "[{\"x\":16,\"right\":111.484375,\"height\":44},{\"x\":119.484375,\"right\":257.859375,\"height\":44},{\"x\":265.859375,\"right\":377.828125,\"height\":44},{\"x\":385.828125,\"right\":444.09375,\"height\":44},{\"x\":452.09375,\"right\":569.359375,\"height\":44}]"
+    },
+    {
+      "name": "Welcome link synchronizes selected app and bookmark URL",
+      "passed": false,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'Welcome'\n- 'Family / Patient'\n"
+    },
+    {
+      "name": "Reload preserves chosen app",
+      "passed": false,
+      "error": "The expression evaluated to a falsy value:\n\n  assert.ok((await page.locator('iframe').getAttribute('src')).startsWith('/family/'))\n"
+    },
+    {
+      "name": "Browser Back restores the previous app",
+      "passed": false,
+      "error": "page.goBack: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for navigation until \"domcontentloaded\"\u001b[22m\n"
+    }
+  ]
+}

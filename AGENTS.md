@@ -108,3 +108,9 @@ https://anuga-interactive-preview.vercel.app. Its production target serves only
 the synthetic simulator. Never deploy these artifacts to the `anuga` project.
 Existing Anuga domain/backend and M10 scope remain unchanged. Current receipt:
 docs/evidence/interactive-preview/README.md; preview/README.md owns usage/commands.
+
+Preview usability follow-up (2026-10-17): founder reports layout/navigation not
+working properly. Coordinator reserves preview/index.html, preview/verify-entry.mjs,
+preview/verify-browser.mjs
+and required docs/evidence for a focused fix and update to the same isolated demo.
+No change to application/Auth/SQL code or the existing Anuga site/backend.

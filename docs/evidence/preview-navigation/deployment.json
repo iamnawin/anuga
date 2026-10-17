@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-17",
+  "base": "22a9969",
+  "branch": "feat/anu003-family-first-use",
+  "projectId": "prj_31olZNOfP2UD4kW24PBp9hB1HVVx",
+  "deploymentId": "dpl_DRzRP9fKc4SVfqzosjoa7ctjWGTT",
+  "url": "https://anuga-interactive-preview.vercel.app",
+  "immutableUrl": "https://anuga-interactive-preview-jyrv7bbxq-iamnawins-projects.vercel.app",
+  "changedRuntimeAsset": "index.html",
+  "unchangedPriorAssets": 136,
+  "hashes": [
+    {
+      "path": "preview/index.html",
+      "sha256": "1c591a84470935542969b218a8fc58b688f34989fd84585797dad21328e6fbd5"
+    },
+    {
+      "path": "preview/verify-entry.mjs",
+      "sha256": "a680521008e445e83c9127c340ab81c62df272b9fd9e20ad08c04db7c1b5a9e3"
+    },
+    {
+      "path": "preview/verify-browser.mjs",
+      "sha256": "0963bf72929b181d5c08f742bd2f279c82cfa5f0378edf924d5600d58b37516d"
+    }
+  ]
+}

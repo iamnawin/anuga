@@ -1,6 +1,48 @@
 # Handoff
 
-## Current: interactive synthetic preview publication (2026-10-17)
+## Current: preview switching/refresh usability fix (2026-10-17)
+
+Founder reported the preview was not working properly and confirmed the failing
+action was switching apps or refreshing. Sole coordinator, branch
+`feat/anu003-family-first-use`, clean task base `22a9969`, same isolated worktree.
+Scope is only preview shell, browser regressions and required documentation.
+
+Fixed stale Welcome/app highlighting, selected app lost on reload and iframe
+history interfering with browser Back. The shell now owns app-switch history,
+keeps the selected path in the URL, intercepts the actual Welcome sign-in links
+and marks the active app with aria-current. Mobile controls wrap without label
+squeezing/clipping, meet 48px targets, and the frame fills remaining viewport
+height beneath the naturally sized header. Existing welcome page, app builds,
+Auth/RPC/SQL and browser-local simulated records/sessions remain unchanged.
+
+The screenshot's rightward welcome offset was not reproduced at standard browser
+widths: before and after, centring/overflow checks pass at 360/1356/1920px. Do not
+claim a diagnosed cause for that particular screenshot. Confirmed functional and
+mobile faults have explicit failing-before/passing-after regressions.
+
+Updated the same isolated demo alias https://anuga-interactive-preview.vercel.app,
+deployment `dpl_DRzRP9fKc4SVfqzosjoa7ctjWGTT`; immutable URL
+https://anuga-interactive-preview-jyrv7bbxq-iamnawins-projects.vercel.app.
+Only deployed index.html changed; hashes confirmed all 136 other published
+assets match the previous receipt. No app rebuild was needed for a static shell
+fix; copying the edited HTML into existing prebuilt output is the entire build
+step. A normal full build uses the same source via the existing build script.
+Existing Anuga project/domain/backend remain separate.
+
+Exact fresh checks/results and screenshot/deployment/source-hash receipt:
+[preview navigation verification](evidence/preview-navigation/README.md).
+PASS: entry local/hosted 9/9 each; journey local/hosted 10/10 each including
+same-tab role switching and refresh, zero page errors/hosted backend requests;
+simulator 6/6. check-all exit 0 (PGlite 157/9 real-only skips, Ops 60, shared Dart
+28, Companion 51/3 skips, Family 58/6 skips, all static/build checks pass).
+Real backend/native/device/human acceptance not rerun for this shell-only fix.
+The commit containing this section records the fix and receipt together; latest
+preview publication authority includes its normal branch push, not a PR/merge or
+product rollout. Remote CI is not claimed. Native/human/ANU-003 B1-B4 gates remain.
+Exact next task: founder refreshes the same demo URL and retries switching apps;
+other product work still requires its own task scope.
+
+## Previous: interactive synthetic preview publication (2026-10-17)
 
 Resumed the latest recorded founder-authorized demo task on
 `feat/anu003-family-first-use`, base `96bdc59`, in

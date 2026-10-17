@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>ANUGA · interactive synthetic preview</title>
 <style>iframe[hidden]{display:none}
-:root{font-family:system-ui,sans-serif;color:#10243a;background:#f7fbfa;color-scheme:light}*{box-sizing:border-box}body{margin:0}header{height:112px;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:8px 16px;background:#eaf7f4;border-bottom:1px solid #6a8588}header p{margin:0;font-size:14px}nav{display:flex;gap:8px;align-items:center;overflow-x:auto}strong{color:#00666b}button,a,select{font:inherit;font-size:16px;min-height:44px;border-radius:8px;border:1px solid #00666b;padding:8px 14px;color:#005357;background:white;cursor:pointer}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #185e83;outline-offset:2px}button.primary{background:#00666b;color:white}iframe{border:0;display:block;width:100%;height:calc(100dvh - 112px);background:#f7fbfa}dialog{max-width:800px;max-height:85dvh;overflow:auto;border:1px solid #6a8588;border-radius:12px;padding:24px;color:#10243a;background:#fff}dialog::backdrop{background:#10243a99}h1{font-size:26px}table{border-collapse:collapse;width:100%;font-size:15px}td,th{text-align:left;border-bottom:1px solid #d5e4e2;padding:10px 6px}code{font-size:16px;font-weight:700;white-space:nowrap}li{margin:8px 0}#status{font-size:14px}#loading{padding:24px}label{display:block;margin:16px 0}select{max-width:100%}@media(max-width:500px){header{padding:8px;height:124px}iframe{height:calc(100dvh - 124px)}nav button{font-size:14px;padding:8px 10px}dialog{padding:16px}td,th{font-size:13px}}
+:root{font-family:system-ui,sans-serif;color:#10243a;background:#f7fbfa;color-scheme:light}*{box-sizing:border-box}body{margin:0;height:100dvh;display:flex;flex-direction:column;overflow:hidden;min-width:0}header{flex:none;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:12px 16px;background:#eaf7f4;border-bottom:1px solid #6a8588}header p{margin:0;font-size:14px}nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center}nav button{flex:none;white-space:nowrap}strong{color:#00666b}button,a,select{font:inherit;font-size:16px;min-height:48px;border-radius:8px;border:1px solid #00666b;padding:8px 14px;color:#005357;background:white;cursor:pointer}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #185e83;outline-offset:2px}button.primary{background:#00666b;color:white}iframe{border:0;display:block;width:100%;flex:1;min-height:0;background:#f7fbfa}dialog{max-width:800px;max-height:85dvh;overflow:auto;border:1px solid #6a8588;border-radius:12px;padding:24px;color:#10243a;background:#fff}dialog::backdrop{background:#10243a99}h1{font-size:26px}table{border-collapse:collapse;width:100%;font-size:15px}td,th{text-align:left;border-bottom:1px solid #d5e4e2;padding:10px 6px}code{font-size:16px;font-weight:700;white-space:nowrap}li{margin:8px 0}#status{font-size:14px}#loading{padding:24px}label{display:block;margin:16px 0}select{max-width:100%}@media(max-width:500px){header{padding:12px 8px}nav button{font-size:14px;padding:8px 10px}dialog{padding:16px}td,th{font-size:13px}}
 </style></head><body>
 <header><p><strong>ANUGA · SIMULATED PREVIEW</strong> — no real login, SMS, bookings or money. Browser-local data.</p><nav aria-label="Preview navigation"><button class="primary" data-screen="/welcome/">Welcome</button><button data-screen="/family/">Family / Patient</button><button data-screen="/companion/">Companion</button><button data-screen="/ops/login/">Ops</button><button id="guide-open">Demo guide</button></nav></header>
 <p id="loading" role="status">Preparing synthetic demo…</p><iframe title="ANUGA simulated application" hidden></iframe>
@@ -19,11 +19,37 @@ try{
  if(!navigator.serviceWorker.controller)await new Promise(r=>navigator.serviceWorker.addEventListener('controllerchange',r,{once:true}));
  const data=await(await fetch(api+'/demo/info')).json();
  for(const a of data.accounts){const row=document.createElement('tr');for(const v of [a.name+' · '+a.role,a.phone,a.state]){const c=document.createElement('td');c.textContent=v;row.append(c)}document.querySelector('#accounts').append(row)}
- function open(screen){const url=new URL(screen,location.origin);if(url.origin!==location.origin||!/^\/(welcome|family|companion|ops)\//.test(url.pathname))return;frame.src=url.pathname+url.search;document.querySelectorAll('[data-screen]').forEach(b=>b.classList.toggle('primary',b.dataset.screen===url.pathname));}
+ function screenUrl(screen){const url=new URL(screen,location.origin);return url.origin===location.origin&&/^\/(welcome|family|companion|ops)\//.test(url.pathname)?url:null;}
+ function select(screen){
+  const url=screenUrl(screen);if(!url)return;
+  document.querySelectorAll('[data-screen]').forEach(button=>{
+   const active=button.dataset.screen.split('/')[1]===url.pathname.split('/')[1];
+   button.classList.toggle('primary',active);
+   if(active)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');
+  });
+ }
+ function open(screen,push=true){
+  const url=screenUrl(screen);if(!url)return;
+  const path=url.pathname+url.search,parent=new URL(location.href);parent.searchParams.set('screen',path);
+  if(parent.href!==location.href)history[push?'pushState':'replaceState'](null,'',parent);
+  select(path);
+  // The shell owns browser history; avoid extra iframe navigation entries.
+  if(frame.hasAttribute('src'))frame.contentWindow.location.replace(path);else frame.src=path;
+ }
+ frame.addEventListener('load',()=>{
+  const url=screenUrl(frame.contentWindow.location.href);if(!url)return;
+  select(url.pathname);
+  const parent=new URL(location.href);parent.searchParams.set('screen',url.pathname+url.search);
+  history.replaceState(null,'',parent);
+  if(url.pathname==='/welcome/')frame.contentDocument.querySelectorAll('#sign-in a').forEach(link=>{
+   link.addEventListener('click',event=>{event.preventDefault();open(link.getAttribute('href'));});
+  });
+ });
+ window.addEventListener('popstate',()=>open(new URLSearchParams(location.search).get('screen')??'/welcome/',false));
  document.querySelectorAll('[data-screen]').forEach(b=>b.onclick=()=>open(b.dataset.screen));
  document.querySelector('#apply').onclick=async()=>{const scenario=document.querySelector('#scenario').value;await fetch(api+'/demo/scenario',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({scenario})});document.querySelector('#status').textContent='Simulated scenario applied. Refresh the relevant app. Reset restores starting fixtures.';};
  document.querySelector('#reset').onclick=async()=>{await fetch(api+'/demo/reset',{method:'POST'});localStorage.clear();location.href='/';};
- open(new URLSearchParams(location.search).get('screen')??'/welcome/');frame.hidden=false;document.querySelector('#loading').remove();
+ open(new URLSearchParams(location.search).get('screen')??'/welcome/',false);frame.hidden=false;document.querySelector('#loading').remove();
  if(!sessionStorage.getItem('demo-guide-seen')){guide.showModal();sessionStorage.setItem('demo-guide-seen','yes')}
 }catch(e){document.querySelector('#loading').textContent='Demo could not initialise. Enable service workers/site storage and reload. No hosted backend has been used.';console.error(e)}
 </script></body></html>

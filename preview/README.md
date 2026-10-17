@@ -36,12 +36,16 @@ From the repository root, using installed Flutter and pnpm dependencies:
 ```sh
 node scripts/build-interactive-preview.mjs
 node --test preview/demo-core.test.mjs
+node preview/verify-entry.mjs
 node preview/verify-browser.mjs
 ```
 
 The build writes only ignored `artifacts/interactive-preview/.vercel/output` plus
 the apps' normal ignored build directories. It does not deploy. Browser checks
 use the installed Playwright/Edge and bind the local server to `127.0.0.1:3210`.
+Entry/layout checks use `127.0.0.1:3211` and cover 360/1356/1920px, welcome links,
+selected app, reload and browser Back. Set `ANUGA_ENTRY_EVIDENCE` for their ignored
+results directory. App selection is part of the URL and survives refresh.
 For an authorized hosted check, set `ANUGA_DEMO_SITE` to the exact preview URL,
 `ANUGA_DEMO_EVIDENCE` to an ignored results directory, and optionally
 `ANUGA_DEMO_STORAGE_STATE` to an ignored Playwright storage-state file containing
