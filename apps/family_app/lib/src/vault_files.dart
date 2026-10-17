@@ -29,10 +29,12 @@ abstract class VaultFiles {
 /// [VaultFiles] over Supabase. [baseUrl] is the app's Supabase URL: the function
 /// returns URL paths so phones never see an internal address.
 class SupabaseVaultFiles implements VaultFiles {
-  SupabaseVaultFiles(this._client, this._baseUrl, {http.Client? httpClient}) : _http = httpClient ?? http.Client();
+  SupabaseVaultFiles(this._client, this._baseUrl, {http.Client? httpClient, this.onAccessDenied})
+    : _http = httpClient ?? http.Client();
 
   final SupabaseClient _client;
   final String _baseUrl;
+  final void Function()? onAccessDenied;
   final http.Client _http;
 
   Future<Map<String, dynamic>> _call(Map<String, Object?> body) async {
@@ -41,6 +43,7 @@ class SupabaseVaultFiles implements VaultFiles {
       return response.data as Map<String, dynamic>;
     } on FunctionException catch (e) {
       final details = e.details;
+      if (e.status == 403 && details is Map && details['message'] == 'account access required') onAccessDenied?.call();
       final message = details is Map ? '${details['message'] ?? details['error']}' : '$details';
       // Same classification as database errors, so screens handle both alike.
       throw RpcException(

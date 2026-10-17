@@ -1,100 +1,85 @@
-# SCR-AUTH-003 / SCR-AUTH-005 / SCR-AUTH-007 — login OTP
+# SCR-AUTH-003 / SCR-AUTH-005 / SCR-AUTH-007 — login OTP and access gate
 
-Status: Spec ready for review, not Approved. ANU-002, owner Unassigned. FEAT-001;
-CMP-004/005/006. This is Auth OTP. Pickup OTP is SCR-FAM-004 / SCR-COMP-003 and
-calls issue_pickup_otp/verify_pickup_otp; never use those RPCs for login.
+ANU-002 owner Codex coordinator. Locally complete implementation; overall acceptance Partial, local implementation based on
+69bbb36; main 64c4603. Pilot direction accepted by ADR 0006; local lifecycle implemented and reviewed; native/human acceptance and rollout remain gated. FEAT-001; CMP-002/004/005/006.
 
-## Entry, layout and fields
+## Entry and form
 
-Entry is successful send in the matching phone form, same route/widget. Board 1
-panel 03. Use ANUGA/language → code sent to normalized number → labelled single
-six-digit field → Sign in/Verify → Change number → inline error + test notice.
-Single field differs deliberately from six decorative boxes. No fake resend timer.
-Default code empty; numeric keyboard, maximum six characters and one-time-code
-autofill where supported. Existing isOtpCode validates trimmed six digits before
-calling Auth. No hardcoded test code in product input, image-derived countdown or
-auto-filled pickup code. Sent-to number is UI state, not a profile update.
+Successful send opens the existing single six-digit Auth OTP field at the same
+Family/Companion root or dedicated Ops login route. Retain ANUGA, selected role,
+normalized sent-to number, Sign in, Change number and synthetic notice. Field
+accepts paste/autofill and numeric keyboard; isOtpCode validates before Auth call.
+No six-box focus trap, fake timer, embedded test code or self-registration.
 
-## Current action/authorization flow (not the target setup-pending behavior)
+All apps use existing Auth SMS verify, and sendCode keeps shouldCreateUser=false.
+Busy verify disables submit, field edits and Change number. Flutter shows progress;
+Ops exposes role=status. Change number clears code/error; successful send also
+clears stale code. Wrong/expired/provider failure stays retryable at the code step.
+Changing number and sending again is the current resend path, subject to provider
+limits. Unexpected errors use en/te/hi generic copy; server Auth errors may remain
+server-language text. No notification, patient/grant/profile write follows login.
 
-| Variant | Verify action and role lookup | Success/exit | Rejection/retry |
-| --- | --- | --- | --- |
-| Family SCR-AUTH-003 | PhoneAuth.verifyCode → Supabase verifyOTP sms → currentRole from own profiles.role | family → HomeScreen SCR-FAM-001; no patient grant created | Wrong role → signOut, clear code/sent number, notFamily; Auth error remains code step |
-| Companion SCR-AUTH-005 | Same injected interface, own adapter | companion → TripsScreen SCR-COMP-001 | Wrong role → signOut and notCompanion; no signup |
-| Ops SCR-AUTH-007 | auth.verifyOtp sms → AuthProvider resolves own profile | ops_admin → router.replace('/trips') / hosted `/ops/trips/` | notOps → signOut, phone/code reset, notOps alert |
+## Verified account-state/role routing (current working tree)
 
-Change number returns to phone entry. Current Flutter keeps controller text while
-switching sent-to state; Ops explicitly clears code. Specify/reset stale code
-before any re-send acceptance is claimed; do not silently change it in prose.
-Current Ops Change number remains enabled during verify; in-flight change-number
-race handling needs inspection. No dedicated Resend exists; changing number and
-sending again is the current available path, subject to Auth limits.
+| Role app | Lookup before protected home | Outcome |
+| --- | --- | --- |
+| Family | my_account_access state=active and role=family after OTP/restore/resume/access events | family enters existing HomeScreen; home RPCs/RLS load current linked patients/levels |
+| Companion | Same self resolver, active + companion | companion enters existing TripsScreen; assigned projection controls data |
+| Ops | AuthProvider self resolver, active + ops_admin on restore/Auth events/focus/recheck | ops_admin enters /trips, hosted /ops/trips/ |
 
-Verify emits no visit notification. Auth token storage is handled by existing
-adapters/session infrastructure; never copy tokens into UI drafts/logs. Failure
-to resolve profiles.role must never display protected data by inventing a role.
-Current Flutter startup uses isSignedIn to choose home without an explicit role
-recheck in app.dart; document/testing of stale/wrong-role sessions is a follow-up,
-not a claim this behavior is fixed. SQL still denies unauthorized RPCs.
+A role link never selects a role. Patient is a patient_access level within Family,
+not a new Auth role or separately implemented Patient home. Owner/editor/patient/
+viewer remain subject to existing SQL/RLS; gate acceptance grants nothing.
 
-## States, permissions and presentation
+Flutter root checks before home mounts, and removes deeper routes on resume
+revalidation. Expired session on resume returns to login; request sequencing ignores
+older role responses. PhoneAuth now exposes Auth/access events; Flutter also rechecks on those events
+and lifecycle-denied protected RPCs. Family Edge lifecycle denial also invalidates
+the gate. Ordinary per-patient permission denial does not reset the account gate.
+Ops hides protected children during role resolution and ignores stale responses
+after sign-out/newer checks. Existing app-specific storage/channel isolation is
+unchanged; actual same-origin sign-ins/reloads/sign-out isolation passed locally.
 
-Code entry, invalid local code, verifying (submit disabled), wrong/expired/provider
-error, role resolution, rejected role, accepted/home and change number. Empty
-code is validation failure. No assigned visits is a normal provisioned Companion
-home state; no patient links needs an authorised readiness/access distinction. Role/profile fetch exceptions and session expiry recovery are Unknown in
-current runtime. Do not show a new-account setup success or successful SMS delivery
-just because send/verify was mocked.
+| Current result | Presentation/recovery |
+| --- | --- |
+| No session | Selected app phone login |
+| Account lookup running | Loading, no protected home requests |
+| Other known role | Wrong-role denial; Flutter signs out then offers another number; Ops retains its denial/sign-out flow |
+| Missing own profile | Access unconfirmed, Refresh and Sign out; no automatic sign-out or pending claim |
+| Query/transport failure | Access-check error, Refresh and Sign out; no inferred denial/pending |
+| Explicit pending | Setup-pending explanation, Recheck and Sign out; no home |
+| Explicit disabled | Disabled-access explanation, Recheck/Sign out; no home |
+| Active + expected role | Existing home; no patient/trip rows stays the existing empty state |
 
-Owner/editor/patient/viewer share Family Auth; assigned and unassigned companions
-share Companion Auth; Ops requires ops_admin. Anonymous/other role never sees
-protected destination data. Database checks stay authoritative; UI gate alone is
-insufficient. No clinical or vault data is part of Auth.
+## Authoritative lifecycle states (implemented locally)
 
-Same responsive/theme/localization rules as phone spec: 360/430/1440, keyboard,
-full text scale, en/te/hi, visible focus, semantic labels and progress/errors,
-48px targets. Code field must accept paste/autofill without six tiny focus traps.
-Use existing tokens, no clipped sent-to number. Back/change preserves role context.
+[ADR 0006](../../adr/0006-pilot-entry-and-provisioning.md) requires setup pending
+for explicitly incomplete provisioning. The [pilot access contract](../PILOT_ACCESS_CONTRACT.md)
+defines an owner-operated pending/active/disabled record, self-only resolver,
+disable enforcement, audit and backfill decisions. The new migration implements these locally; hosted schema remains unchanged.
+Entry now consumes my_account_access, never infers readiness from profiles.role.
 
-## Acceptance scenarios
+Implemented confirmed pending UI: "Your pilot account setup is pending. Ops needs to
+finish your access setup." Recheck and Sign out, no protected data or completion
+promise. Explicit disabled state denies access even with stale grants/JWT; missing
+evidence is unconfirmed, and query failure is an error. Pending/disabled screens and DB enforcement now have real local Auth/SQL/browser
+evidence. Native/human acceptance and rollout approval are still open; see
+[current receipt](../../evidence/anu002-lifecycle/README.md).
 
-1. Malformed/empty code makes no Auth call. Wrong/expired code leaves a retry path
-   and never routes to home. Busy verify prevents duplicate submissions.
-2. Valid code resolves authorised backend role, patient grants and pilot readiness
-   before home. Confirmed incomplete provisioning shows setup pending; a
-   provisioned wrong role is denied. Missing profile/lookup failure fails closed
-   and is distinguished by the backend contract, not assumed to be a wrong role.
-   Test every cross-role pair; link choice never assigns a role.
-3. Distinguish backend-confirmed incomplete Family provisioning from a legitimate
-   empty/revoked-access state. A provisioned unassigned companion sees no trips;
-   provisioned Ops with no rows sees an empty board. Unknown phone never registers.
-4. Refresh/restore, Auth/profile network failure, expiry and Change-number-during-
-   verify are explicitly tested/reported; investigate failures before claiming
-   complete entry-to-home recovery. Preserve three-app session isolation.
-5. All labels/errors are usable via keyboard/screen reader and all three locales,
-   dark mode and large text. Pickup codes cannot authenticate an account.
+## Permissions, usability and verification
 
-Historical sign-in/session evidence exists; these complete failure/restore cases
-were not run in this audit. Ownership of auth adapters/providers is excluded from
-documentation packages and future presentation-only tasks; functional fixes need
-a separately scoped task and appropriate tests.
+Auth OTP never calls issue_pickup_otp/verify_pickup_otp; trip pickup code is a
+different flow. Companions still cannot access vault/diagnosis/DOB. Account
+provisioning does not create patients or owner consent; ANU-003 owns Family
+first-use and remains separate. No patient wizard or access grant was added.
 
-## Accepted pilot access direction and implementation conflicts
+Keep 48px controls, existing tokens/light-dark, full text scaling and en/te/hi.
+Scrollable layouts and labelled fields preserve keyboard access. Error gate is a
+live region; full screen-reader/native-language review remains unverified.
 
-[ADR 0006](../../adr/0006-pilot-entry-and-provisioning.md) is authoritative: Ops
-provisions pilot users; self-service registration is deferred; roles/patient
-permissions are authorised backend records. Setup pending is a specified new
-state after successful authentication and confirmed incomplete provisioning, not
-a currently implemented view or blanket replacement for access denial.
-
-Suggested pending copy: "Your pilot account setup is pending. Ops needs to finish
-your access setup." Offer recheck and sign-out; no signup, role selector, invented
-contact, patient data or waiting-time promise. Recheck resolves readiness again;
-no notification or role/patient mutation. Final text needs en/te/hi and accessible
-progress/error feedback. Native/browser Back must not bypass the unresolved gate.
-
-Current Flutter rejects null/mismatched role and startup checks isSignedIn only;
-Ops conflates missing/profile error/wrong role as notOps. The automatic default
-family profile does not establish Ops provisioning. New readiness representation
-and safe access query/RPC must be specified before a functional task; do not
-enable signup, infer readiness from no trips, or modify Auth/SQL in this review.
+Regression tests: both auth_access_test.dart suites cover pending lookup without
+home RPCs, cross-role/missing/error results, retry, resume/expiry, stale lookup
+races, invalid phone/code, unknown number, expired code, stale-code clearing and
+busy send. Ops auth_access.test.tsx covers role matrix, errors/recheck and a late
+profile response after sign-out. Local visual and full-suite results/skips live
+in [ANU-002 receipt](../../delivery/tasks/ANU-002.md). This is not a release.

@@ -1,0 +1,8 @@
+{
+  "environment": "isolated local Storage expiry probe",
+  "uploadLifetimeSeconds": 5,
+  "requestAfterExpiryStatus": 400,
+  "primaryDefaultUploadLifetimeSeconds": 7200,
+  "primaryConfigurationChanged": false,
+  "limitation": "Primary 7200-second token expiry was measured from signed claims, not waited two hours; server expiry rejection verified with 5-second configuration on the same image."
+}

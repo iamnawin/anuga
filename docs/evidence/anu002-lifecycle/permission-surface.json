@@ -1,0 +1,207 @@
+{
+  "environment": "dedicated local synthetic Supabase",
+  "postgres": "17.11",
+  "restrictivePolicies": [
+    {
+      "table_name": "app_settings"
+    },
+    {
+      "table_name": "audit_log"
+    },
+    {
+      "table_name": "centres"
+    },
+    {
+      "table_name": "clusters"
+    },
+    {
+      "table_name": "companions"
+    },
+    {
+      "table_name": "consents"
+    },
+    {
+      "table_name": "invoice_lines"
+    },
+    {
+      "table_name": "invoices"
+    },
+    {
+      "table_name": "medicines"
+    },
+    {
+      "table_name": "notification_deliveries"
+    },
+    {
+      "table_name": "notifications"
+    },
+    {
+      "table_name": "packages"
+    },
+    {
+      "table_name": "patient_access"
+    },
+    {
+      "table_name": "patients"
+    },
+    {
+      "table_name": "payments"
+    },
+    {
+      "table_name": "profiles"
+    },
+    {
+      "table_name": "schedules"
+    },
+    {
+      "table_name": "trip_events"
+    },
+    {
+      "table_name": "trip_otps"
+    },
+    {
+      "table_name": "trip_transitions"
+    },
+    {
+      "table_name": "trips"
+    },
+    {
+      "table_name": "vault_documents"
+    },
+    {
+      "table_name": "vitals"
+    }
+  ],
+  "userCallableDefinerFunctions": [
+    {
+      "proname": "advance_trip",
+      "arguments": "p_trip_id uuid, p_to_status trip_status, p_note text, p_lat double precision, p_lng double precision"
+    },
+    {
+      "proname": "companion_my_trips",
+      "arguments": "p_from timestamp with time zone, p_to timestamp with time zone"
+    },
+    {
+      "proname": "create_patient",
+      "arguments": "p_full_name text, p_home_address text, p_home_lat double precision, p_home_lng double precision, p_centre_id uuid, p_date_of_birth date, p_mobility_notes text, p_emergency_contacts jsonb"
+    },
+    {
+      "proname": "family_consents",
+      "arguments": "p_patient_id uuid"
+    },
+    {
+      "proname": "family_invoice_lines",
+      "arguments": "p_invoice_id uuid"
+    },
+    {
+      "proname": "family_invoices",
+      "arguments": "p_patient_id uuid"
+    },
+    {
+      "proname": "family_my_patients",
+      "arguments": ""
+    },
+    {
+      "proname": "family_trip_board",
+      "arguments": "p_patient_id uuid, p_from timestamp with time zone, p_to timestamp with time zone"
+    },
+    {
+      "proname": "family_trip_timeline",
+      "arguments": "p_trip_id uuid"
+    },
+    {
+      "proname": "issue_pickup_otp",
+      "arguments": "p_trip_id uuid"
+    },
+    {
+      "proname": "my_account_access",
+      "arguments": ""
+    },
+    {
+      "proname": "my_notifications",
+      "arguments": "p_limit integer"
+    },
+    {
+      "proname": "ops_assign_schedule_companions",
+      "arguments": "p_schedule_id uuid, p_primary_id uuid, p_backup_id uuid"
+    },
+    {
+      "proname": "ops_assign_trip_companion",
+      "arguments": "p_trip_id uuid, p_companion_id uuid"
+    },
+    {
+      "proname": "ops_companion_options",
+      "arguments": "p_patient_id uuid"
+    },
+    {
+      "proname": "ops_exception_queue",
+      "arguments": ""
+    },
+    {
+      "proname": "ops_generate_invoice",
+      "arguments": "p_patient_id uuid, p_month date"
+    },
+    {
+      "proname": "ops_generate_trips",
+      "arguments": "p_schedule_id uuid, p_from date, p_days integer"
+    },
+    {
+      "proname": "ops_invoices",
+      "arguments": "p_month date"
+    },
+    {
+      "proname": "ops_issue_invoice",
+      "arguments": "p_invoice_id uuid"
+    },
+    {
+      "proname": "ops_record_trip_fare",
+      "arguments": "p_trip_id uuid, p_fare_paise integer"
+    },
+    {
+      "proname": "ops_schedule_board",
+      "arguments": ""
+    },
+    {
+      "proname": "ops_trip_board",
+      "arguments": "p_from timestamp with time zone, p_to timestamp with time zone, p_statuses trip_status[]"
+    },
+    {
+      "proname": "payment_start",
+      "arguments": "p_invoice_id uuid, p_provider text"
+    },
+    {
+      "proname": "set_consent",
+      "arguments": "p_patient_id uuid, p_purpose consent_purpose, p_active boolean"
+    },
+    {
+      "proname": "vault_create_document",
+      "arguments": "p_patient_id uuid, p_doc_type text, p_title text, p_content_type text, p_size_bytes integer"
+    },
+    {
+      "proname": "vault_document_download",
+      "arguments": "p_document_id uuid, p_purpose text"
+    },
+    {
+      "proname": "vault_list_documents",
+      "arguments": "p_patient_id uuid, p_purpose text"
+    },
+    {
+      "proname": "vault_list_medicines",
+      "arguments": "p_patient_id uuid, p_purpose text"
+    },
+    {
+      "proname": "vault_list_vitals",
+      "arguments": "p_patient_id uuid, p_purpose text"
+    },
+    {
+      "proname": "vault_upload_target",
+      "arguments": "p_document_id uuid"
+    },
+    {
+      "proname": "verify_pickup_otp",
+      "arguments": "p_trip_id uuid, p_code text, p_lat double precision, p_lng double precision"
+    }
+  ],
+  "resolverException": "my_account_access remains callable while inactive; other RPCs have active-account guards",
+  "management": "private owner-only; authenticated and service roles denied"
+}

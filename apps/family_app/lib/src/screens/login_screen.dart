@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _run(Future<void> Function() action) async {
+    if (_busy) return;
     setState(() {
       _busy = true;
       _message = null;
@@ -39,6 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
       await action();
     } on PhoneAuthException catch (e) {
       if (mounted) setState(() => _message = e.message);
+    } catch (_) {
+      if (mounted) setState(() => _message = AppLocalizations.of(context).accessError);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -50,7 +53,11 @@ class _LoginScreenState extends State<LoginScreen> {
     if (phone == null) return setState(() => _message = l10n.invalidPhone);
     await _run(() async {
       await widget.auth.sendCode(phone);
-      setState(() => _sentTo = phone);
+      if (!mounted) return;
+      setState(() {
+        _sentTo = phone;
+        _code.clear();
+      });
     });
   }
 
@@ -59,17 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!isOtpCode(_code.text)) return setState(() => _message = l10n.invalidCode);
     await _run(() async {
       await widget.auth.verifyCode(_sentTo!, _code.text.trim());
-      // The database enforces roles anyway; this only avoids an empty, confusing app.
-      if (await widget.auth.currentRole() != 'family') {
-        await widget.auth.signOut();
-        setState(() {
-          _sentTo = null;
-          _code.clear();
-          _message = l10n.notFamily;
-        });
-        return;
-      }
-      widget.onSignedIn();
+      if (mounted) widget.onSignedIn();
     });
   }
 
@@ -105,6 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (_sentTo == null) ...[
                 TextField(
                   key: const Key('phone'),
+                  enabled: !_busy,
                   controller: _phone,
                   keyboardType: TextInputType.phone,
                   autofillHints: const [AutofillHints.telephoneNumber],
@@ -121,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 16),
                 TextField(
                   key: const Key('code'),
+                  enabled: !_busy,
                   controller: _code,
                   keyboardType: TextInputType.number,
                   maxLength: 6,
@@ -131,10 +130,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 FilledButton(onPressed: _busy ? null : _verify, child: Text(l10n.signIn)),
                 const SizedBox(height: 8),
                 OutlinedButton(
-                  onPressed: _busy ? null : () => setState(() => _sentTo = null),
+                  onPressed: _busy
+                      ? null
+                      : () => setState(() {
+                          _sentTo = null;
+                          _code.clear();
+                          _message = null;
+                        }),
                   child: Text(l10n.changeNumber),
                 ),
               ],
+              if (_busy) ...[const SizedBox(height: 16), const LinearProgressIndicator()],
               if (_message != null) ...[
                 const SizedBox(height: 16),
                 Text(_message!, style: TextStyle(color: Theme.of(context).colorScheme.error, fontSize: 18)),

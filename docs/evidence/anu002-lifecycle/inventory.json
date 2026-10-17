@@ -1,0 +1,40 @@
+{
+  "synthetic_only": true,
+  "accounts": [
+    {
+      "id": "10000000-0000-0000-0000-000000000001",
+      "role": "ops_admin",
+      "has_profile": true
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000001",
+      "role": "family",
+      "has_profile": true
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000002",
+      "role": "family",
+      "has_profile": true
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000001",
+      "role": "companion",
+      "has_profile": true
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000002",
+      "role": "companion",
+      "has_profile": true
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000003",
+      "role": "companion",
+      "has_profile": true
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000004",
+      "role": "companion",
+      "has_profile": true
+    }
+  ]
+}

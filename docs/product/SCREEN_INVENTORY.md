@@ -1,5 +1,19 @@
 # Screen inventory
 
+## ANU-002 working-tree update (2026-10-17)
+
+Implementation locally complete and reviewed over base 69bbb36 on
+docs/product-inventory-bootstrap; sole writer Codex coordinator. Welcome, role restoration/denial and
+lookup-retry plus authoritative pending/active/disabled lifecycle implemented
+and tested locally under provisional F1-F4 defaults; no rollout approval.
+[Contract](PILOT_ACCESS_CONTRACT.md), [current evidence](../evidence/anu002-lifecycle/README.md).
+Overall ANU-002 remains Partial for device/human/rollout checks. No release/deployment.
+[Current review/commit receipt](../evidence/anu002-review/README.md).
+Current evidence: [ANU-002 receipt](../delivery/tasks/ANU-002.md) and
+[current lifecycle verification](../evidence/anu002-lifecycle/README.md);
+[earlier entry evidence](../evidence/anu002/README.md) is historical. All other rows retain
+their main/historical verification defaults below.
+
 Audit: 2026-10-16. [Baseline, SHAs and limitations](AUDIT_BASELINE.md). Stable IDs
 identify views, including dialogs/embedded state panels, not only URL routes.
 
@@ -16,7 +30,8 @@ view scope. Implemented does not mean every reference capability exists. Verific
 Release = Synthetic staging, historical E-RELEASE receipt at de8f72a and on main
 64c4603; individual state deployment is Unknown. Missing -> not released. No Production.
 
-Owner = Unassigned for every product view; task = ANU-002 for AUTH and Ops home,
+Default owner = Unassigned; ANU-002 entry views are reserved to Codex coordinator.
+Task = ANU-002 for AUTH and the Ops entry gate,
 ANU-003 for Family home/bookings, ANU-004 for Companion home, ANU-005 for other gaps.
 No implementation branch/PR is assigned. PR #10/#11 exceptions are explicit below.
 All Family rows are Flutter web/native; all Companion rows Flutter web/native; Ops
@@ -31,13 +46,13 @@ column. See next section for the intentionally absent dedicated destinations.
 
 | ID | View / role & patient access | Navigation | Source | Reference board:panel | API/action | Dependencies | States and gaps |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| SCR-AUTH-001 | Synthetic role chooser; Public | / | [build-staging.sh](../../scripts/build-staging.sh) | 1:01 (welcome differs) | None | FEAT-001; CMP-001 | Static test banner and role links; target two-link pilot welcome accepted in ADR 0006; current chooser unchanged; setup-pending gate missing |
+| SCR-AUTH-001 | ANUGA two-link welcome; Public | / | [build-staging.sh](../../scripts/build-staging.sh) | 1:01 (welcome differs) | None | FEAT-001; CMP-001 | Two sign-in links, locale/dark/focus/text-scale support locally verified; Ops dedicated URL; lifecycle pending/disabled locally verified, native/rollout gates open |
 | SCR-AUTH-002 | Family phone sign-in; Family | /family/ signed out | [login_screen.dart](../../apps/family_app/lib/src/screens/login_screen.dart) | 1:02 | Auth signInWithOtp; shouldCreateUser=false | FEAT-001; CMP-003; CMP-005 | Phone validation, busy/send failure, success -> code; new account unsupported; role selection outside form |
-| SCR-AUTH-003 | Family login OTP; Family | /family/ signed out -> code state | [login_screen.dart](../../apps/family_app/lib/src/screens/login_screen.dart) | 1:03 | Auth verifyOTP/verifyOtp; profiles.role; signOut | FEAT-001; CMP-004; CMP-005 | Six-digit validation, server failure, wrong role/sign-out, change number; no timed resend; session-restore role revalidation Unknown for Flutter |
+| SCR-AUTH-003 | Family login OTP; Family | /family/ signed out -> code state | [login_screen.dart](../../apps/family_app/lib/src/screens/login_screen.dart) | 1:03 | Auth verifyOTP/verifyOtp; my_account_access; signOut | FEAT-001; CMP-004; CMP-005 | Six-digit validation, server failure, wrong role/sign-out, change number; no timed resend; Flutter restore/post-OTP/resume role gate locally tested; missing profile/error retry; lifecycle locally verified; rollout gated |
 | SCR-AUTH-004 | Companion phone sign-in; Companion | /companion/ signed out | [login_screen.dart](../../apps/companion_app/lib/src/screens/login_screen.dart) | 1:02 | Auth signInWithOtp; shouldCreateUser=false | FEAT-001; CMP-003; CMP-005 | Phone validation, busy/send failure, success -> code; new account unsupported; role selection outside form |
-| SCR-AUTH-005 | Companion login OTP; Companion | /companion/ signed out -> code state | [login_screen.dart](../../apps/companion_app/lib/src/screens/login_screen.dart) | 1:03 | Auth verifyOTP/verifyOtp; profiles.role; signOut | FEAT-001; CMP-004; CMP-005 | Six-digit validation, server failure, wrong role/sign-out, change number; no timed resend; session-restore role revalidation Unknown for Flutter |
+| SCR-AUTH-005 | Companion login OTP; Companion | /companion/ signed out -> code state | [login_screen.dart](../../apps/companion_app/lib/src/screens/login_screen.dart) | 1:03 | Auth verifyOTP/verifyOtp; my_account_access; signOut | FEAT-001; CMP-004; CMP-005 | Six-digit validation, server failure, wrong role/sign-out, change number; no timed resend; Flutter restore/post-OTP/resume role gate locally tested; missing profile/error retry; lifecycle locally verified; rollout gated |
 | SCR-AUTH-006 | Ops phone sign-in; Ops | /ops/login/ | [page.tsx](../../apps/ops_console/src/app/login/page.tsx) | 1:02 | Auth signInWithOtp; shouldCreateUser=false | FEAT-001; CMP-003; CMP-005 | Phone validation, busy/send failure, success -> code; new account unsupported; role selection outside form |
-| SCR-AUTH-007 | Ops login OTP; Ops | /ops/login/ -> code state | [page.tsx](../../apps/ops_console/src/app/login/page.tsx) | 1:03 | Auth verifyOTP/verifyOtp; profiles.role; signOut | FEAT-001; CMP-004; CMP-005 | Six-digit validation, server failure, wrong role/sign-out, change number; no timed resend; session-restore role revalidation Unknown for Flutter |
+| SCR-AUTH-007 | Ops login OTP; Ops | /ops/login/ -> code state | [page.tsx](../../apps/ops_console/src/app/login/page.tsx) | 1:03 | Auth verifyOTP/verifyOtp; my_account_access; signOut | FEAT-001; CMP-004; CMP-005 | Six-digit validation, server failure, wrong role/sign-out, change number; no timed resend; Flutter restore/post-OTP/resume role gate locally tested; missing profile/error retry; lifecycle locally verified; rollout gated |
 | SCR-FAM-001 | Home and patient picker; Owner/editor/patient/viewer | Family signed in | [home_screen.dart](../../apps/family_app/lib/src/screens/home_screen.dart) | 4:13; 7:25 | family_my_patients | FEAT-002; CMP-002; CMP-013 | Loading/error/no linked patient; first selected; multi-patient picker; no retry button on initial patient failure; no create-patient CTA |
 | SCR-FAM-002 | Bookings list; All four Family levels | Home -> Bookings | [bookings_tab.dart](../../apps/family_app/lib/src/screens/bookings_tab.dart) | 4:14 | family_trip_board | FEAT-003; CMP-007; CMP-008 | Loading/error/empty; pull refresh; viewer note; no calendar/routine editor |
 | SCR-FAM-003 | Visit detail, timeline and completed state; All four Family levels | Booking tap/back to Bookings | [trip_screen.dart](../../apps/family_app/lib/src/screens/trip_screen.dart) | 4:15-16; 5:17; 7:26 | family_trip_timeline | FEAT-004; CMP-009 | Event loading/error; current/completed status; no live map/ETA/call/reschedule or per-visit receipt |
@@ -132,7 +147,7 @@ presentation; exceptions specify omitted actions. No concept grants permissions.
 
 | Board / file | Panel | Observed concept | Classification / stable view IDs | Difference / reason |
 | --- | --- | --- | --- | --- |
-| 1: [Companion onboarding_ Start with trust-1.png](../design/Companion%20onboarding_%20Start%20with%20trust-1.png) | 01 | Welcome | Decision-needed SCR-AUTH-001 | ANUGA two-link welcome accepted (ADR 0006); current test chooser remains |
+| 1: [Companion onboarding_ Start with trust-1.png](../design/Companion%20onboarding_%20Start%20with%20trust-1.png) | 01 | Welcome | Decision-needed SCR-AUTH-001 | ANUGA two-link welcome + lifecycle locally verified (ANU-002); rollout gated |
 | 1: [Companion onboarding_ Start with trust-1.png](../design/Companion%20onboarding_%20Start%20with%20trust-1.png) | 02 | Phone | Mapped SCR-AUTH-002/004/006 | Role-specific forms; no signup |
 | 1: [Companion onboarding_ Start with trust-1.png](../design/Companion%20onboarding_%20Start%20with%20trust-1.png) | 03 | Login OTP | Mapped SCR-AUTH-003/005/007 | Single OTP field; no resend countdown |
 | 1: [Companion onboarding_ Start with trust-1.png](../design/Companion%20onboarding_%20Start%20with%20trust-1.png) | 04 | Consent | Mapped SCR-FAM-010 | Consent is a post-login destination, not onboarding gate |

@@ -1,0 +1,141 @@
+{
+  "environment": "actual local builds + real Auth/DB resolver",
+  "fixtureLogin": "Admin-created synthetic email identity for state rendering only; phone-OTP UI separately checked by web-session-smoke",
+  "results": [
+    {
+      "app": "family",
+      "state": "pending",
+      "locale": "en",
+      "pageErrors": []
+    },
+    {
+      "app": "family",
+      "state": "pending",
+      "locale": "te",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "family",
+      "state": "pending",
+      "locale": "hi",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "companion",
+      "state": "pending",
+      "locale": "en",
+      "pageErrors": []
+    },
+    {
+      "app": "companion",
+      "state": "pending",
+      "locale": "te",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "companion",
+      "state": "pending",
+      "locale": "hi",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "ops",
+      "state": "pending",
+      "locale": "en",
+      "pageErrors": []
+    },
+    {
+      "app": "ops",
+      "state": "pending",
+      "locale": "te",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "ops",
+      "state": "pending",
+      "locale": "hi",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "family",
+      "state": "disabled",
+      "locale": "en",
+      "pageErrors": []
+    },
+    {
+      "app": "family",
+      "state": "disabled",
+      "locale": "te",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "family",
+      "state": "disabled",
+      "locale": "hi",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "companion",
+      "state": "disabled",
+      "locale": "en",
+      "pageErrors": []
+    },
+    {
+      "app": "companion",
+      "state": "disabled",
+      "locale": "te",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "companion",
+      "state": "disabled",
+      "locale": "hi",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "ops",
+      "state": "disabled",
+      "locale": "en",
+      "pageErrors": []
+    },
+    {
+      "app": "ops",
+      "state": "disabled",
+      "locale": "te",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "ops",
+      "state": "disabled",
+      "locale": "hi",
+      "pageErrors": [],
+      "nativeReview": "not performed"
+    },
+    {
+      "app": "family",
+      "scenario": "existing session protected request rechecks and displays disabled without reload",
+      "passed": true
+    },
+    {
+      "app": "companion",
+      "scenario": "existing session protected request rechecks and displays disabled without reload",
+      "passed": true
+    },
+    {
+      "app": "ops",
+      "scenario": "existing session protected request rechecks and displays disabled without reload",
+      "passed": true
+    }
+  ]
+}

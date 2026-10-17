@@ -1,0 +1,191 @@
+{
+  "implementationBase": "69bbb366212cbde94e74f0ba8c015d889254fd7e",
+  "branch": "docs/product-inventory-bootstrap",
+  "files": [
+    {
+      "path": "packages/shared_dart/lib/src/phone_auth.dart",
+      "sha256": "8861785514f3ccda1a46a0f988f571f98af64b87e20434e0a4879e295079eb1d"
+    },
+    {
+      "path": "packages/shared_dart/test/account_access_test.dart",
+      "sha256": "249bd9470d3ab99f6b0aec9b8e904d887a09108dc9d612ecf3db451a09206ad8"
+    },
+    {
+      "path": "scripts/build-staging.sh",
+      "sha256": "f373746dd17624b3c15f5d28d06a3b3c5c0bfc46f07a95ec5ad179dcf983816b"
+    },
+    {
+      "path": "scripts/welcome.html",
+      "sha256": "a35d65ea2694b9d2121be483be385a6a141c198482ecf80f3696f5fcc30dd53a"
+    },
+    {
+      "path": "scripts/serve-pilot-local.mjs",
+      "sha256": "75b639af3754c8d5628afd1b4797620be48fd112e6d05cd60725670e6ea1de0f"
+    },
+    {
+      "path": "scripts/verify-pilot-browser.mjs",
+      "sha256": "bc1ca1121e91412e3df5c9141624ef65cdbe9f4a72ba700ba79007ec99c15932"
+    },
+    {
+      "path": "scripts/verify-pilot-local.ts",
+      "sha256": "e60e0663b30bd3aa790dd7ff4335be80ffbe3816252701b95e10efd46e2ced79"
+    },
+    {
+      "path": "scripts/verify-pilot-locales.mjs",
+      "sha256": "0493f1bc8bcaa5a1a6f4a36deebbb535acccb847492a7e226a189a4fe4477766"
+    },
+    {
+      "path": "scripts/verify-upload-expiry-local.ts",
+      "sha256": "486391a22c125e4dadfd261a57a20a51d1e04ca1192e39c4a4eb21d54818820b"
+    },
+    {
+      "path": "supabase/config.toml",
+      "sha256": "033b8380cd22f3b818032a44bd21cfd58f3f33680d1e199f75985f1ed35b0783"
+    },
+    {
+      "path": "supabase/seed/seed.sql",
+      "sha256": "55455393c2616dfd7e0a25ce1086dcaf91f8217d3367a0632271bcea0b61f7bf"
+    },
+    {
+      "path": "supabase/tests/support/db.ts",
+      "sha256": "7023aeac59d64ad6080fe6004edb3aa26294ff58ec636c8b98566e811cadcf06"
+    },
+    {
+      "path": "supabase/migrations/20261016001000_pilot_account_access.sql",
+      "sha256": "81e3b829e98e2be3976d1e4802ddb74354103dd8f6a1329d7fba7f8868e0dacb"
+    },
+    {
+      "path": "supabase/scripts/pilot-backfill.ts",
+      "sha256": "85cbdaa6cd646ff547fb047d981c12014740a23eeb61c92bcfb0daca6a274f3d"
+    },
+    {
+      "path": "supabase/tests/pilot_account_access.test.ts",
+      "sha256": "94ce45202bb719ba2d53bdb27459e3fa549bcef5be3ac0c67ce086f0b0663e7e"
+    },
+    {
+      "path": "supabase/tests/pilot_backfill.test.ts",
+      "sha256": "aaba5b08d30676816fdb456f67e4140fa76dd643d78a0c6931f23144e338775e"
+    },
+    {
+      "path": "supabase/tests/pilot_concurrency.test.ts",
+      "sha256": "00865608e1c5b14a16d464dc81e2ac2b249be76b51d9b195e079dfb6c7d4e9b5"
+    },
+    {
+      "path": "supabase/tests/pilot_migration.test.ts",
+      "sha256": "1172b8fd0ccd65be5ec0a6b8621ea2445da459046888906be0633eebedf7a3db"
+    },
+    {
+      "path": "apps/family_app/lib/l10n/app_en.arb",
+      "sha256": "54bb738ea6e9832efb0e07d1e15be278fa119c872d7b696a64cdd3badecf1aa8"
+    },
+    {
+      "path": "apps/family_app/lib/l10n/app_te.arb",
+      "sha256": "5ad0ca51510c8f30338616959384b62d707763cd63a5940d8176fb1bf94caa0d"
+    },
+    {
+      "path": "apps/family_app/lib/l10n/app_hi.arb",
+      "sha256": "9e9cd2c2ef3754a45f4be6adbee54cfe41e451233c975ea92955f7c7c6f10c49"
+    },
+    {
+      "path": "apps/family_app/lib/main.dart",
+      "sha256": "76ef9a3c738ae882bd3c7bd592b95425b15d19ad3545613a0d016ad43977a55f"
+    },
+    {
+      "path": "apps/family_app/lib/src/app.dart",
+      "sha256": "daadb3acc4190ed4427c4fc618495c856730568574d064434d7ab6b7e609cf76"
+    },
+    {
+      "path": "apps/family_app/lib/src/auth.dart",
+      "sha256": "256610084e5cde6e28ded92a42efdc23967005754ab56eb7e240675fc5a91255"
+    },
+    {
+      "path": "apps/family_app/lib/src/screens/login_screen.dart",
+      "sha256": "b90aac700651668350cd03439e7f8ebbbbf5e6e3f1d45c41b708aad45429b905"
+    },
+    {
+      "path": "apps/family_app/lib/src/supabase_rpc.dart",
+      "sha256": "2d36f894bcb310847b35a5eab773abb60a421169f61d34e53b75aa326d14ce62"
+    },
+    {
+      "path": "apps/family_app/test/support/fake_backend.dart",
+      "sha256": "44bf3ec8196673dacc52cfcb70f88dddaab44bedfed601640ea4eaca1777ad5a"
+    },
+    {
+      "path": "apps/family_app/test/auth_access_test.dart",
+      "sha256": "e2594e7b643cc205573a7bc2409ccc608483a7393cd87a18c5b6c71998b7c3ab"
+    },
+    {
+      "path": "apps/companion_app/lib/l10n/app_en.arb",
+      "sha256": "ddca31fbec687266bc11fd28eb8a283a3d30832127c604ec67647093aba63d59"
+    },
+    {
+      "path": "apps/companion_app/lib/l10n/app_te.arb",
+      "sha256": "eb94c2e640ae7f8af25ed5bbf23ae3124efde41f343311d6ad7e4bfda85429c3"
+    },
+    {
+      "path": "apps/companion_app/lib/l10n/app_hi.arb",
+      "sha256": "b4d1a98b3979319ef83bd34af5a95bb59cc2d4cb5376bf208a04d5a8672967ff"
+    },
+    {
+      "path": "apps/companion_app/lib/main.dart",
+      "sha256": "2ee641f3f3951a33975f64dad7b96e6404f4adf0dbb766895736da6309a1639e"
+    },
+    {
+      "path": "apps/companion_app/lib/src/app.dart",
+      "sha256": "3a751b2c8511a621cc55ed87d5e8e6aa6daf4e26569a5a4a8ef291047d73e13c"
+    },
+    {
+      "path": "apps/companion_app/lib/src/auth.dart",
+      "sha256": "256610084e5cde6e28ded92a42efdc23967005754ab56eb7e240675fc5a91255"
+    },
+    {
+      "path": "apps/companion_app/lib/src/screens/login_screen.dart",
+      "sha256": "8e04d6893dc5a19b9cce8e325660f819e081348a758745b851c123027487ac4f"
+    },
+    {
+      "path": "apps/companion_app/lib/src/supabase_rpc.dart",
+      "sha256": "2d36f894bcb310847b35a5eab773abb60a421169f61d34e53b75aa326d14ce62"
+    },
+    {
+      "path": "apps/companion_app/test/support/fake_backend.dart",
+      "sha256": "67342d81eeba3e0bdaf3dadfc1cc097908a2aad9f715350ff479bedf8c95944e"
+    },
+    {
+      "path": "apps/companion_app/test/auth_access_test.dart",
+      "sha256": "49ee3a180c1d269898166aae550d7d723ada6010d38fdbaa887232b728ae9f64"
+    },
+    {
+      "path": "apps/family_app/lib/src/payments.dart",
+      "sha256": "b91fe5d1e99bb79cac411e444c06fc2cc859d38b667ee256bab9a329682c6bd4"
+    },
+    {
+      "path": "apps/family_app/lib/src/vault_files.dart",
+      "sha256": "6b806f0379328e06433b44c91066c271c2b5a64a38625df683197257263b2907"
+    },
+    {
+      "path": "apps/ops_console/src/app/login/page.tsx",
+      "sha256": "e96924ed51729c04b9f515f4f3523997bcc9521d0ba4420b53096122b98645dc"
+    },
+    {
+      "path": "apps/ops_console/src/components/AuthProvider.tsx",
+      "sha256": "5b2c78846f07b1762c1080df7e5788ff7ddedcfae737a081a22e6800bd018da3"
+    },
+    {
+      "path": "apps/ops_console/src/components/OpsShell.tsx",
+      "sha256": "417ec1d8f192bd2bafad9721a871509ec4eedcfd479e4533d5a5790c7857ddda"
+    },
+    {
+      "path": "apps/ops_console/src/lib/messages.ts",
+      "sha256": "211a5c881e46d9954d6ebcae608a6a31fdb19a7473aae47e91598496f2eddcc5"
+    },
+    {
+      "path": "apps/ops_console/src/lib/supabase.ts",
+      "sha256": "a25039e43d3c53fa063da7e35b2e7e4addb247b748ab399d905d976a58e1ef57"
+    },
+    {
+      "path": "apps/ops_console/test/auth_access.test.tsx",
+      "sha256": "91430f3537447718b16acc61b853cd4dce0161c7bbbae636e0b1f73f66956199"
+    }
+  ],
+  "notes": "Final reviewed source; test assertions strengthened. Production code unchanged during review."
+}

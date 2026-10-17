@@ -3,6 +3,24 @@
 Current product-completion work (2026-10-16): [WORK_BOARD](delivery/WORK_BOARD.md).
 M0-M10 below are milestone history, not a complete screen inventory.
 
+## ANU-002 lifecycle local implementation and review (2026-10-17)
+
+- [x] Pending/active/disabled, minimal self resolver, audited/versioned owner-only
+  management, restrictive RLS and authenticated RPC guards; old sessions enforced.
+- [x] Both Flutter apps/Ops consume authoritative states; provisional F1-F4 only.
+- [x] Implementation locally complete; security/evidence review passes. Audit/no-op
+  assertions strengthened; latest authority permits the ANU-002-only local commit.
+- [x] Synthetic backfill dry-run/atomicity, denied management, concurrency, grant/
+  consent non-restoration and Companion clinical isolation checks.
+- [x] Local Auth/Storage, combined browser session isolation and en/te/hi captures.
+- [ ] Native mobile/device, human language/accessibility acceptance and actual
+  rollout decisions/roster/operator. ANU-002 stays Partial; ANU-003 separate.
+
+Actual counts/commands/limits: [receipt](evidence/anu002-lifecycle/README.md).
+[Review receipt](evidence/anu002-review/README.md). No newly Released behavior;
+no push/merge/deploy or hosted/real-user changes.
+Earlier task entries below are historical, including documentation-only blockers.
+
 ## Excalidraw reconciliation (2026-10-16)
 
 - [x] Verify 12 embedded boards/48 concepts versus 15 standalone PNGs with corrections.
@@ -287,3 +305,28 @@ roles, trip data export for pilot metrics, deletion job for consent withdrawal.
 - [x] Hosting fix PR #9 opened; source CI 38150546061 running. Documentation-only live receipt checked with git diff --check.
 - [x] Publish fix PR #9 merged at 37bdae2c. Code CI 38150546061/de8f72a: six jobs pass, real Supabase 150/150 zero skips, ops browser 7 pass, full journey/test billing and APKs. Main product source matches deployed/tested code. Final doc-only receipt checked, no app rerun; receipt/main CI may be running.
 - [ ] Founder manual active-window visit. Additive synthetic fixture and walkthrough remain in LOCAL_TESTING.
+
+## ANU-002 follow-up — 2026-10-16 (uncommitted)
+
+- [x] Locally implement two-link welcome, existing-role restore/denial/retry, OTP
+  busy/stale-code handling; tests and English visual evidence recorded.
+- [ ] Complete authoritative lifecycle pending/disabled gate: blocked on operator/
+  audit, backfill, disable/reactivation policy and reserved backend contract owner.
+- [ ] Real Supabase/provider/device/three-role and native accessibility acceptance.
+- [ ] Release: not authorised; no commit, push, merge or deploy.
+
+[ANU-002 receipt](delivery/tasks/ANU-002.md), [contract](product/PILOT_ACCESS_CONTRACT.md).
+ANU-003 remains separate; no patient/consent permission expansion.
+
+## ANU-002 backend preparation - 2026-10-16 (documentation only)
+
+- [x] Define minimal profiles-based lifecycle/resolver, authority proposal, exact
+  audited backfill/cutover and DB enforcement; separate technical choices from F1-F4.
+- [x] Prepare [ANU-002-BE](delivery/tasks/ANU-002-BE.md) with migration, ownership,
+  permission/rollback/tests and [verification tasks](delivery/tasks/ANU-002-VERIFY.md).
+- [ ] Obtain actual founder F1-F4 answers and reviewed roster; defaults are proposals.
+- [ ] Reserve and implement backend, then wire clients; ANU-002 remains Partial.
+- [ ] Real Auth/Storage/old-JWT, device, te/hi/native accessibility and combined-local
+  session acceptance. None run in this documentation step.
+
+No code/SQL changes or commit/push/merge/deploy. ANU-003 remains separately owned.

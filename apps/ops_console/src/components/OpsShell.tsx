@@ -30,7 +30,7 @@ export function OpsShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (status === 'signedOut' || status === 'notOps') router.replace('/login');
+    if (status === 'signedOut' || status === 'notOps' || status === 'error' || status === 'unconfirmed' || status === 'pending' || status === 'disabled') router.replace('/login');
   }, [status, router]);
 
   if (status !== 'ops') return <main className="page"><p>{t('common.loading')}</p></main>;

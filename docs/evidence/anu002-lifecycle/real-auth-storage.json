@@ -1,0 +1,44 @@
+{
+  "provisionalAssumptions": true,
+  "rolloutApproved": false,
+  "environment": "dedicated local synthetic Supabase",
+  "results": [
+    {
+      "scenario": "unknown phone cannot self-register; explicit create_user=true also refused",
+      "status": 422,
+      "explicitSignupStatus": 422
+    },
+    {
+      "scenario": "real Auth pending/active/disabled/reactivated with SAME JWT; no new grants",
+      "role": "family",
+      "deniedStatus": 403,
+      "managementDenied": true
+    },
+    {
+      "scenario": "real Auth pending/active/disabled/reactivated with SAME JWT; no new grants",
+      "role": "companion",
+      "deniedStatus": 403,
+      "managementDenied": true
+    },
+    {
+      "scenario": "real Auth pending/active/disabled/reactivated with SAME JWT; no new grants",
+      "role": "ops_admin",
+      "deniedStatus": 403,
+      "managementDenied": true
+    },
+    {
+      "scenario": "reactivation with old JWT does not restore deleted patient grants or withdrawn consent",
+      "passed": true
+    },
+    {
+      "scenario": "issued Storage URLs after disable",
+      "downloadTokenLifetimeSeconds": 60,
+      "uploadTokenLifetimeSeconds": 7200,
+      "preissuedDownloadAfterDisable": 200,
+      "preissuedUploadAfterDisable": 200,
+      "newURLRequestsDenied": true,
+      "confirmationDenied": true,
+      "downloadAfterExpiry": 400
+    }
+  ]
+}

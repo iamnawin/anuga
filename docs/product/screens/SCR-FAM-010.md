@@ -45,3 +45,7 @@ unrelated/Companion/Ops/anonymous attempts fail in the DB. Confirm and dismiss
 withdrawal separately; preserve state on errors, never show deletion completed.
 Resolve D2 before routing new users from Auth OTP through mandatory consent.
 Historical records/widget and vault SQL tests exist; no runtime checks in this audit.
+
+ANU-002 boundary (2026-10-16): entry gate changes do not call create_patient,
+set_consent or grant patient access. Account lifecycle and patient ownership/consent
+remain separate; see [pilot access contract](../PILOT_ACCESS_CONTRACT.md).

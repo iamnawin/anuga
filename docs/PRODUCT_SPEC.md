@@ -14,7 +14,7 @@ milestone scope only; login cannot create accounts, patient intake/setup UI is
 absent, live location/refill/request/invite flows are not complete, and PR #10/#11
 remain open. Production M10 remains gated.
 
-## Accepted pilot entry direction (2026-10-16; target, not implemented)
+## Accepted pilot entry direction (2026-10-17; implementation locally complete)
 
 ANUGA welcome has Family/Patient and Companion sign-in links; Ops retains its
 dedicated URL. Ops provisions pilot users; self-service registration stays deferred.
@@ -23,7 +23,12 @@ confirmed incomplete setup receive setup pending, distinct from lookup failure,
 wrong role, revoked access or a normal empty home. [ADR 0006](adr/0006-pilot-entry-and-provisioning.md)
 records this founder decision, existing Auth conflicts and unresolved readiness/
 provisioning procedure plus patient/schedule/consent contracts. No code or access
-policy was changed to implement it in this documentation task.
+policy was changed by the bootstrap. ANU-002 now implements local welcome and
+existing-role restore/error gates; it adds no grants or consent. The authoritative
+[lifecycle contract](product/PILOT_ACCESS_CONTRACT.md) is implemented and locally
+reviewed under provisional F1-F4 defaults; [evidence](evidence/anu002-lifecycle/README.md)
+records real local checks and remaining native/rollout gates. No permission/consent
+is inferred from activation, and no real-user/hosted rollout is approved.
 
 ## 1. What we are building
 

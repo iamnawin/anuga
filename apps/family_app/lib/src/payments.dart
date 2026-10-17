@@ -12,15 +12,17 @@ abstract class Payments {
 }
 
 class SupabasePayments implements Payments {
-  SupabasePayments(this._client);
+  SupabasePayments(this._client, {this.onAccessDenied});
 
   final SupabaseClient _client;
+  final void Function()? onAccessDenied;
 
   Future<Map<String, dynamic>> _call(Map<String, Object?> body) async {
     try {
       return (await _client.functions.invoke('payments', body: body)).data as Map<String, dynamic>;
     } on FunctionException catch (e) {
       final details = e.details;
+      if (e.status == 403 && details is Map && details['message'] == 'account access required') onAccessDenied?.call();
       throw RpcException(
         e.status == 403
             ? '42501'

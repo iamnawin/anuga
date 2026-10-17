@@ -1,0 +1,44 @@
+✔ new Auth identity is pending; resolver is self-only and has no private fields (18472.0362ms)
+✔ active users including Ops and service cannot manage lifecycle or self-promote (34.2593ms)
+✔ state changes audit atomically, reject stale versions, and do not create patient grants/consent (22.9361ms)
+✔ existing caller claims cannot read or mutate after disable, including direct-ID RPC paths (40.8153ms)
+✔ reactivation never recreates revoked patient grants or withdrawn consent (25.1963ms)
+✔ catalog: every protected authenticated RPC rejects inactive callers before its argument validation (147.9347ms)
+✔ all granted RLS tables and own-profile edits are denied for inactive identities (100.3672ms)
+✔ privileged direct role/state writes require audit context; service cannot forge management context (9.7262ms)
+✔ disabled candidates are ineligible and inactive recipients are not newly claimed (30.2347ms)
+✔ audit insertion failure rolls back account state and version (7.3808ms)
+✖ patient links never turn Companion/Ops into a Family owner or expose companion clinical data (39.8142ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 29123.9789
+
+✖ failing tests:
+
+test at supabase\tests\pilot_account_access.test.ts:133:1
+✖ patient links never turn Companion/Ops into a Family owner or expose companion clinical data (39.8142ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    [
+      {
+  +     level: 'owner'
+  -     level: null
+      }
+    ]
+
+      at TestContext.<anonymous> (file:///D:/AI-Workspace/Repos/anuga-product-inventory/supabase/tests/pilot_account_access.test.ts:140:14)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Array],
+    expected: [Array],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

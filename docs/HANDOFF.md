@@ -1,5 +1,182 @@
 # Handoff
 
+## Current: ANU-002 reviewed local implementation commit (2026-10-17)
+
+Implementation locally complete; ANU-002 remains Partial for device, human
+language/accessibility and rollout acceptance. Sole implementation writer Codex
+coordinator; read-only backend review made no edits. Branch
+docs/product-inventory-bootstrap, implementation base 69bbb36, fetched main 64c4603.
+Latest founder authority permits this ANU-002-only local commit. No push, merge,
+deploy, hosted changes, real-user classification or real operator designation.
+Actual F1-F4 approval, rollout roster/operator and M10 remain gated.
+
+Review PASS: no concrete permission escalation, existing-session bypass, unsafe
+backfill or audit defect. Added exact operator-audit details and idempotent retry
+assertions, corrected task RPC-coverage wording and obsolete current status text.
+No production code changed during review. Saved implementation hashes/results
+were checked; curated ignored .log evidence explicitly included after secret scan.
+Full scope/findings/evidence and exact ANU-003 dependency report:
+[review receipt](evidence/anu002-review/README.md). The commit containing that
+receipt is the reviewed implementation commit; use git log on the receipt for SHA.
+
+Fresh review checks PASS: all fast checks (PGlite 157/9 skips; Ops 60; shared Dart 28;
+Companion 51/3 skips; Family 49/6 skips), strengthened lifecycle 11/11, root typecheck,
+and fresh real local PostgreSQL/Auth/Edge 166/166 zero skips. Previous real Auth/
+Storage/Flutter/browser/locale/session results were inspected, not relabelled as
+newly rerun. The same unchanged production code underlies both evidence sets.
+Synthetic local stack stopped; task-started Docker daemon stopped with no other
+containers running. No local credentials/build output are included in the commit.
+
+Signed URLs: preissued download remains usable until observed 60s expiry; upload
+claims 7200s lifetime and survives disable. Actual expiry rejection tested with a
+separate same-image 5s probe; full two hours not observed. New signing/confirmation
+is denied. Cached data/in-flight work cannot be recalled; hosted TTLs unknown.
+
+Remaining checks: no Android SDK/device, no iOS/macOS/Xcode, incomplete Windows
+native prerequisites; mobile lifecycle/keyboard/offline, human te/hi copy review,
+screen readers and full accessibility matrix. ANU-002-VERIFY lists all open checks.
+
+ANU-003 inspected only: unassigned documentation package owning its task file,
+SCR-FAM-001 and SCR-FAM-032 only. Lifecycle/readiness contract resolved locally;
+its old unresolved wording needs its owner's reconciliation. Patient/schedule
+creation authority/procedure, owner consent capture, help destination and Patient-
+home routing remain open. Current create_patient stays Family-only. Existing-state
+specification can proceed while recording these blockers; new controls/code cannot
+be inferred. No ANU-003 edit, assignment, branch creation or implementation here.
+Exact next task: assign remaining acceptance or separately authorise ANU-003's
+bounded spec review using the reviewed ANU-002 commit as a read-only contract.
+
+## Previous: ANU-002 lifecycle locally implemented (2026-10-17)
+
+Sole owner Codex coordinator, branch docs/product-inventory-bootstrap, worktree
+D:/AI-Workspace/Repos/anuga-product-inventory. HEAD 69bbb36 and fetched main
+64c4603 unchanged. Existing uncommitted work preserved. No commit, push, merge,
+deploy, hosted changes, real-user classification or real operator designation.
+F1-F4 defaults are provisional local-development assumptions, NOT rollout approval.
+ANU-002 remains Partial/unreleased; ANU-003 remains separately owned/unassigned.
+
+Implemented new pending/active/disabled state/version migration, safe self-only
+resolver, audited/CAS owner-only management, restrictive RLS and every user-definer
+RPC guard. Existing sessions are denied on subsequent protected requests after
+disable. No grants/consent restoration; Companion/Ops patient links cannot confer
+Family/clinical rights. Both Flutter gates/Ops consume authoritative state and
+invalidate on lifecycle-denied requests; ordinary patient denial stays distinct.
+Local Auth globally disables signup while preserving email/SMS provider sign-in.
+No historical migrations, package/lockfiles, ANU-003 home/spec paths or prior
+research/design/evidence were changed by this lifecycle step.
+
+Verification: fast check-all PASS (PGlite 157/9 skips; Ops 60; shared Dart 28;
+Companion 51/3 skips; Family 49/6 skips, plus formatting/analyze/lint/typecheck/build).
+Fresh real Supabase suite 166/166, zero skips. Fresh real Flutter Companion 1/1,
+Family 2/2. Contract export unchanged (51 transitions), root typecheck PASS.
+Real Auth all roles with SAME JWT, denied management, grant/consent non-restoration,
+local Storage and browser sign-in/reload/sign-out isolation PASS. Actual en/te/hi
+pending/disabled views, live existing-session disable and te/hi phone/OTP capture
+checks PASS; 42 curated screenshots. Exact commands/logs/source hashes and changed
+paths: [current receipt](evidence/anu002-lifecycle/README.md). Scope check preserves
+all 465 starting files (414 byte-identical, 51 reserved extensions); all 182
+protected paths unchanged. Local documentation links and whitespace checks pass;
+nothing staged.
+
+Storage residual: preissued download works until measured 60s expiry (then 400);
+preissued upload works with a measured 7200s lifetime even after disable. New signing
+and confirmation denied. Same-image isolated 5s upload probe expired with 400;
+we did not wait two hours. Cached data/in-flight work are not recalled.
+
+Not verified: Android SDK/device absent; no iOS/macOS/Xcode; Windows native build
+prerequisites incomplete. No native-language human te/hi review, screen-reader
+acceptance or complete device/accessibility matrix. No actual rollout F1-F4
+approval/reviewed real roster/operator. Hosted settings/TTLs/SMS remain unknown.
+[ANU-002-VERIFY](delivery/tasks/ANU-002-VERIFY.md) owns those explicit open checks.
+
+Exact next task: assign native/device and human-review acceptance; record actual
+rollout decisions separately. For further local engineering use the contract and
+BE receipt, not older historical blocker text below. ANU-003's Family first-use
+spec remains a separate reservation with patient/schedule actor, owner-consent and
+help dependencies; no home/wizard implementation is authorised by this receipt.
+Task-specific no-commit/push/merge/deploy boundary still applies. Test server and
+all eight task-local Supabase containers stopped; isolated expiry probe removed.
+No other containers were running; task-started Docker daemon stopped afterward.
+
+## Previous follow-up: ANU-002 backend preparation (2026-10-16)
+
+Latest request is documentation only. All preceding uncommitted entry code and
+evidence are preserved. HEAD 69bbb36 and fetched main 64c4603 unchanged; branch
+docs/product-inventory-bootstrap. No code/SQL edit, migration/provisioning action,
+commit, push, merge or deploy. ANU-002 remains Partial/unreleased.
+
+[Access contract](product/PILOT_ACCESS_CONTRACT.md) now fixes the technical design:
+profiles account_state/version, self-only resolver, owner-operated private command,
+existing audit_log, restrictive RLS plus complete user-RPC active guards, exact
+reviewed synthetic backfill in one atomic migration. No new table/role/service.
+Source inspection found direct-UID trip/notification paths, so role-helper changes
+alone would be insufficient. Old JWT requests must be denied after disable commit;
+in-flight work/issued URLs/cached data limits are explicit.
+
+Only business F1-F4 need founder answers: authority/operator, actual existing roster,
+disable/reactivation operational effects, and issued-capability expiry acceptance.
+Recommended defaults in the contract are not approval or consent.
+[ANU-002-BE](delivery/tasks/ANU-002-BE.md) is a narrow prepared implementation
+package, Unassigned/not executing; [ANU-002-VERIFY](delivery/tasks/ANU-002-VERIFY.md)
+explicitly queues real Auth/Storage/old-JWT, device, te/hi visual/accessibility and
+combined-local session/routing acceptance. Backend/UI verification has not occurred.
+ANU-003 remains separately owned/unassigned; no home/spec/consent changes.
+
+Exact next task: record real F1-F4 answers and a reviewed synthetic roster; coordinator
+reserves one backend owner/path set, then executes ANU-002-BE only with new task
+authority. After backend, separately reserve resolver-client integration and the
+verification tasks. Do not infer setup pending from no patients or treat matching
+legacy role as pilot approval.
+
+Validation passed: 118 local documentation links, whitespace/scope checks; only
+nine existing docs and two new task docs changed. All other 454 pre-existing
+files, including all 19 prior tested source files, are byte-identical to step entry.
+Runtime suites are not rerun for prose; results below remain prior local
+evidence. Historical release evidence remains historical.
+
+## Previous: ANU-002 partial implementation (2026-10-16)
+
+Sole owner Codex coordinator; branch docs/product-inventory-bootstrap, worktree
+D:/AI-Workspace/Repos/anuga-product-inventory. HEAD remains 69bbb36; fetched main
+64c4603. Clean at entry; all current changes intentionally **uncommitted**. No push,
+merge, PR or deploy; no additional agents. Original checkpoint/research preserved.
+
+Implemented locally: two-link ANUGA welcome with en/te/hi/dark/focus/large text;
+existing phone/OTP with busy locks and stale-code clearing; Flutter role checks
+before restored/post-OTP home and on resume, expiry/race handling; Ops lookup
+errors vs missing profiles vs wrong-role denial with recheck/sign-out. Existing
+SQL/RPC patient permissions, session isolation and no-self-signup remain unchanged.
+No patient/grant/consent creation or ANU-003 home/wizard work.
+
+[Task/reserved paths/acceptance](delivery/tasks/ANU-002.md),
+[backend contract and specific blocker](product/PILOT_ACCESS_CONTRACT.md),
+[evidence/source hashes/screenshots](evidence/anu002/README.md). Current status is
+Partial, local verification only, not released. Matching legacy roles still enter
+existing home; default Family profile does not prove Ops-approved provisioning.
+
+Checks: scripts/check-all.sh exit 0; DB 142 pass/8 skips; Ops 58; shared Dart 27;
+Companion 49 pass/3 skips; Family 45 pass/6 skips. Lint/typecheck/build, Dart
+format/analyze pass. Shell syntax/whitespace pass. Browser four welcome/five Ops
+scenarios pass; 16 English Flutter renders inspected from font-adjusted test
+harness. te/hi Flutter glyph fallback/native review unverified. Real Supabase,
+provider OTP/journey, three-role session smoke, combined build, device and screen
+reader not run (environment/scope). Historical release evidence stays historical.
+
+**Blocker/exact next task:** within ANU-002 reserve backend lifecycle paths; decide
+authorised operator/audit, legacy-user backfill, disable/reactivation treatment
+of grants/trips/owner obligations; implement service-managed state/self-only
+resolver and DB-wide disabled-session enforcement with allowed/denied real-stack
+tests. Only then wire setup-pending/disabled UI. Missing profile remains
+unconfirmed, not pending. No migration or implicit permission grant was added.
+ANU-003 stays separately unassigned and depends on that result plus distinct
+patient/schedule creator, owner-consent and help decisions.
+
+## Historical: completed ANU-001 bootstrap receipt
+
+The remainder records the preceding bootstrap task; its task-specific scope/next
+steps are superseded by the current ANU-002 receipt above. Bootstrap commit 69bbb36
+exists locally; this follow-up remains uncommitted.
+
 Updated 2026-10-16. Branch `docs/product-inventory-bootstrap`, isolated worktree
 `D:/AI-Workspace/Repos/anuga-product-inventory`, audited main base
 `64c4603e5812358f6030ab8c9038747a93ba9b40`. Founder authorised reviewing/correcting and committing bootstrap files only;

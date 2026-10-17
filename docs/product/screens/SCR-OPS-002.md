@@ -1,6 +1,6 @@
 # SCR-OPS-002 — Ops trips home
 
-Spec ready for review, not Approved. ANU-002, owner Unassigned. FEAT-001/003/009;
+Spec ready for review, not Approved. ANU-002, owner Codex coordinator. FEAT-001/003/009;
 CMP-001/005/008/014. Source apps/ops_console/src/app/trips/page.tsx and OpsShell.
 
 Ops login redirects to /trips (hosted /ops/trips/); /ops/ itself is SCR-OPS-001
@@ -23,7 +23,7 @@ semantics without a test. Zero rows shows trips.empty, not a fake schedule.
 | Fare on completed trip | FareEditor → ops_record_trip_fare(paise) | Validate rupees; save/error; immutable once billed |
 | Navigate/sign out | OpsShell links/Auth signOut | Existing destination / login; no role creation |
 
-Only ops_admin passes the shell/profile gate and SQL Ops checks. Owner/editor/
+Only active ops_admin passes the self-resolver shell gate and SQL Ops checks. Owner/editor/
 patient/viewer, assigned/unassigned companions and anonymous are denied. A view
 with zero trips is not permission denial. No vault reads on trips home; consented
 Ops vault access uses a different audited path, absent from this UI.
@@ -34,13 +34,21 @@ below 900px, readable en/te/hi, dark scheme and 200–300% text at 360/430/1440.
 No fabricated aggregates, sample prices or language-only icon without a label.
 
 Acceptance: valid Ops login/reload reaches trips; all denied role pairs go to login
-without app data. Empty DB board stays truthful and refreshable; API failure permits
+without protected app data. Empty DB board stays truthful and refreshable; API failure permits
 retry. Date/range/status inputs shape actual RPC arguments, with correct India-day
 boundaries. Scheduled assignment succeeds/rejects ineligible companions; active
 trip does not offer reassignment. Sign-out preserves other apps' sessions. Verify
 keyboard/table scroll/large-text/locale/dark behavior with synthetic data.
 
 Existing evidence: Ops e2e covers role, assignment/eligibility, schedules, exception,
-billing and locale; S3 and E-RELEASE receipts are historical. No new browser checks.
+billing and locale; S3 and E-RELEASE receipts are historical. ANU-002 adds local browser checks for phone/OTP and access-error/unconfirmed/denied
+entry states, not a new trips-board acceptance run.
 New-patient/schedule creation, readiness, metrics and PR #10 integration are separate
-scope. This first slice adds no RPC/auth/provider change or production authorization.
+scope. ANU-002 changes AuthProvider/OpsShell entry gates only: missing own profile is
+unconfirmed, lookup failure offers retry/sign-out, and stale resolver responses
+cannot restore access after sign-out. Recheck on focus/Auth events precedes
+protected children. The lifecycle child also guards existing RPC/RLS access and invalidates the gate
+on lifecycle-denied requests; trip handlers/layout remain unchanged. No production
+authorization.
+Lifecycle readiness/disabled enforcement is now implemented locally under the
+[pilot access contract](../PILOT_ACCESS_CONTRACT.md).

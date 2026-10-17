@@ -198,7 +198,10 @@ class FakePhoneAuth implements PhoneAuth {
   }
 
   @override
-  Future<String?> currentRole() async => roles[_signedInAs];
+  Future<AccountAccess> accountAccess() async => AccountAccess(AccountState.active, roles[_signedInAs]);
+
+  @override
+  Stream<void> get accessChanges => const Stream.empty();
 
   @override
   Future<void> signOut() async => _signedInAs = null;

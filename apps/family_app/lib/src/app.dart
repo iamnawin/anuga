@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_dart/shared_dart.dart';
@@ -33,13 +35,137 @@ class FamilyApp extends StatefulWidget {
   State<FamilyApp> createState() => _FamilyAppState();
 }
 
-class _FamilyAppState extends State<FamilyApp> {
+enum _AccessState { signedOut, checking, allowed, denied, pending, disabled, unconfirmed, error }
+
+class _FamilyAppState extends State<FamilyApp> with WidgetsBindingObserver {
   late Locale _locale = widget.initialLocale;
-  late bool _signedIn = widget.auth.isSignedIn;
+  _AccessState _access = _AccessState.signedOut;
+  final _navigator = GlobalKey<NavigatorState>();
+  int _request = 0;
+  StreamSubscription<void>? _accessSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _accessSubscription = widget.auth.accessChanges.listen((_) {
+      if (_access == _AccessState.denied && !widget.auth.isSignedIn) return;
+      _checkAccess();
+    });
+    _checkAccess();
+  }
+
+  @override
+  void dispose() {
+    _request++;
+    _accessSubscription?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _checkAccess();
+  }
+
+  Future<void> _checkAccess() async {
+    final request = ++_request;
+    _navigator.currentState?.popUntil((route) => route.isFirst);
+    if (!widget.auth.isSignedIn) {
+      setState(() => _access = _AccessState.signedOut);
+      return;
+    }
+    setState(() => _access = _AccessState.checking);
+    try {
+      final access = await widget.auth.accountAccess();
+      if (!mounted || request != _request) return;
+      if (!widget.auth.isSignedIn) {
+        setState(() => _access = _AccessState.signedOut);
+      } else if (access.state == AccountState.pending) {
+        setState(() => _access = _AccessState.pending);
+      } else if (access.state == AccountState.disabled) {
+        setState(() => _access = _AccessState.disabled);
+      } else if (access.state == AccountState.unconfirmed) {
+        // A missing profile cannot establish incomplete provisioning or revocation.
+        setState(() => _access = _AccessState.unconfirmed);
+      } else if (access.role != 'family') {
+        setState(() => _access = _AccessState.denied);
+        await widget.auth.signOut();
+        if (mounted && request == _request) setState(() => _access = _AccessState.denied);
+      } else {
+        setState(() => _access = _AccessState.allowed);
+      }
+    } catch (_) {
+      if (mounted && request == _request) setState(() => _access = _AccessState.error);
+    }
+  }
+
+  Future<void> _signOut() async {
+    final request = ++_request;
+    _navigator.currentState?.popUntil((route) => route.isFirst);
+    setState(() => _access = _AccessState.checking);
+    try {
+      await widget.auth.signOut();
+      if (mounted && request == _request) setState(() => _access = _AccessState.signedOut);
+    } catch (_) {
+      if (mounted && request == _request) setState(() => _access = _AccessState.error);
+    }
+  }
+
+  Widget _accessScreen(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final busy = _access == _AccessState.checking;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ANUGA'),
+        actions: [LanguageMenu(onChanged: _setLocale)],
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (busy) ...[
+                const Center(child: CircularProgressIndicator()),
+                const SizedBox(height: 24),
+                Text(l10n.accessChecking, semanticsLabel: l10n.accessChecking),
+              ] else ...[
+                Semantics(
+                  liveRegion: true,
+                  child: Text(
+                    _access == _AccessState.denied
+                        ? l10n.notFamily
+                        : _access == _AccessState.pending
+                        ? l10n.accessPending
+                        : _access == _AccessState.disabled
+                        ? l10n.accessDisabled
+                        : _access == _AccessState.unconfirmed
+                        ? l10n.accessUnconfirmed
+                        : l10n.accessError,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                FilledButton(
+                  key: const Key('access-retry'),
+                  onPressed: _checkAccess,
+                  child: Text(_access == _AccessState.denied ? l10n.changeNumber : l10n.refresh),
+                ),
+                const SizedBox(height: 16),
+                OutlinedButton(onPressed: _signOut, child: Text(l10n.signOut)),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: _navigator,
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       locale: _locale,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -52,23 +178,18 @@ class _FamilyAppState extends State<FamilyApp> {
       theme: familyTheme(Brightness.light),
       darkTheme: familyTheme(Brightness.dark),
       builder: largeText,
-      home: _signedIn
+      home: _access == _AccessState.allowed
           ? HomeScreen(
               api: widget.api,
               files: widget.files,
               photos: widget.photos,
               payments: widget.payments,
               onLocaleChanged: _setLocale,
-              onSignOut: () async {
-                await widget.auth.signOut();
-                setState(() => _signedIn = false);
-              },
+              onSignOut: _signOut,
             )
-          : LoginScreen(
-              auth: widget.auth,
-              onLocaleChanged: _setLocale,
-              onSignedIn: () => setState(() => _signedIn = true),
-            ),
+          : _access != _AccessState.signedOut
+          ? Builder(builder: _accessScreen)
+          : LoginScreen(auth: widget.auth, onLocaleChanged: _setLocale, onSignedIn: _checkAccess),
     );
   }
 

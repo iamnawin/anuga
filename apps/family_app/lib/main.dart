@@ -29,13 +29,14 @@ Future<void> main() async {
     ),
   );
   final client = Supabase.instance.client;
+  final auth = SupabasePhoneAuth(client);
   runApp(
     FamilyApp(
-      api: FamilyApi(supabaseRpc(client)),
-      auth: SupabasePhoneAuth(client),
-      files: SupabaseVaultFiles(client, _url),
+      api: FamilyApi(supabaseRpc(client, onAccessDenied: auth.invalidateAccess)),
+      auth: auth,
+      files: SupabaseVaultFiles(client, _url, onAccessDenied: auth.invalidateAccess),
       photos: DevicePhotoSource(),
-      payments: SupabasePayments(client),
+      payments: SupabasePayments(client, onAccessDenied: auth.invalidateAccess),
     ),
   );
 }

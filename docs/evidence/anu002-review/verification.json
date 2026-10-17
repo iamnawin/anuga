@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-17 Asia/Calcutta",
+  "implementationStatus": "locally complete and reviewed",
+  "taskStatus": "ANU-002 Partial",
+  "rolloutApproved": false,
+  "reviewFindings": {
+    "securityDefects": 0,
+    "productionCodeFixes": 0,
+    "corrections": [
+      "Exact audit-detail and no-op regression assertions",
+      "RPC coverage wording and stale current statuses",
+      "Explicit inclusion of selected ignored curated logs"
+    ]
+  },
+  "fresh": {
+    "fast": {
+      "passed": true,
+      "pglite": {
+        "passed": 157,
+        "skipped": 9
+      },
+      "ops": 60,
+      "sharedDart": 28,
+      "companion": {
+        "passed": 51,
+        "skipped": 3
+      },
+      "family": {
+        "passed": 49,
+        "skipped": 6
+      }
+    },
+    "lifecycle": {
+      "passed": 11,
+      "skipped": 0
+    },
+    "realSupabase": {
+      "passed": 166,
+      "skipped": 0,
+      "failed": 0
+    },
+    "typecheck": true
+  },
+  "savedEvidenceInspected": {
+    "sourceHashesMatchedAtReviewEntry": 63,
+    "realSupabase": {
+      "passed": 166,
+      "skipped": 0
+    },
+    "companionReal": 1,
+    "familyReal": 2,
+    "authStorageScenarios": 6,
+    "browserStateCases": 21,
+    "localeScenarios": 6,
+    "sessionApps": 3,
+    "lifecycleScreenshots": 42,
+    "earlierEntryScreenshots": 25
+  },
+  "notRerun": [
+    "real Flutter integration files",
+    "Auth/Storage lifetime harnesses",
+    "combined browser/session/locale captures"
+  ],
+  "remaining": [
+    "Android/iOS/Windows native device acceptance",
+    "Human Telugu/Hindi copy review",
+    "Screen-reader and complete accessibility matrix",
+    "Real SMS/hosted acceptance",
+    "Actual F1-F4 rollout approval, reviewed roster and real operator"
+  ],
+  "actions": {
+    "commit": "ANU-002 only; commit containing this receipt",
+    "push": false,
+    "merge": false,
+    "deploy": false,
+    "hostedModification": false,
+    "ANU003Implementation": false,
+    "localStackStopped": true,
+    "taskDockerStopped": true
+  }
+}

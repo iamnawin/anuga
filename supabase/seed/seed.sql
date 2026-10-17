@@ -25,8 +25,18 @@ from (values
   ('30000000-0000-0000-0000-000000000004', '919000000204', 'Pending Companion (synthetic)')
 ) u(id, phone, full_name);
 
-update public.profiles set role = 'ops_admin' where id = '10000000-0000-0000-0000-000000000001';
-update public.profiles set role = 'companion' where id::text like '30000000-%';
+-- Explicit local synthetic fixture activation; not a rollout roster or real operator.
+select private.configure_pilot_account(p.id,p.account_state_version,'active',v.role::public.user_role,
+  'local synthetic fixture','synthetic:seed-operator','synthetic:provisional-defaults')
+from public.profiles p join (values
+  ('10000000-0000-0000-0000-000000000001'::uuid,'ops_admin'),
+  ('20000000-0000-0000-0000-000000000001'::uuid,'family'),
+  ('20000000-0000-0000-0000-000000000002'::uuid,'family'),
+  ('30000000-0000-0000-0000-000000000001'::uuid,'companion'),
+  ('30000000-0000-0000-0000-000000000002'::uuid,'companion'),
+  ('30000000-0000-0000-0000-000000000003'::uuid,'companion'),
+  ('30000000-0000-0000-0000-000000000004'::uuid,'companion')
+) v(id,role) on p.id=v.id;
 
 insert into public.clusters (id, name, status, companion_radius_m) values
   ('40000000-0000-0000-0000-000000000001', 'Synthetic Cluster A', 'open', 3000);

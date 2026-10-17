@@ -1,0 +1,49 @@
+{
+  "ok": true,
+  "mode": "synthetic dry-run; provisional assumptions, not rollout approval",
+  "classifications": [
+    {
+      "id": "10000000-0000-0000-0000-000000000001",
+      "role": "ops_admin",
+      "state": "active",
+      "result": "matched"
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000001",
+      "role": "family",
+      "state": "active",
+      "result": "matched"
+    },
+    {
+      "id": "20000000-0000-0000-0000-000000000002",
+      "role": "family",
+      "state": "active",
+      "result": "matched"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000001",
+      "role": "companion",
+      "state": "active",
+      "result": "matched"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000002",
+      "role": "companion",
+      "state": "active",
+      "result": "matched"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000003",
+      "role": "companion",
+      "state": "active",
+      "result": "matched"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000004",
+      "role": "companion",
+      "state": "active",
+      "result": "matched"
+    }
+  ],
+  "errors": []
+}

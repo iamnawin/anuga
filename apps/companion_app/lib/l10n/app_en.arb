@@ -73,5 +73,10 @@
   "errorStepNotPossible": "This step is no longer possible. Refresh the trip.",
   "tripCompleted": "Visit completed. Thank you!",
   "issueReported": "Issue reported. Ops will contact you.",
-  "tripClosed": "This trip is closed."
+  "tripClosed": "This trip is closed.",
+  "accessChecking": "Checking your access…",
+  "accessUnconfirmed": "Your account access is not confirmed. Ask Ops to check your pilot account.",
+  "accessError": "Your access could not be checked. Try again.",
+  "accessPending": "Your pilot account setup is pending. Ops needs to finish your access setup.",
+  "accessDisabled": "Your account access is disabled."
 }

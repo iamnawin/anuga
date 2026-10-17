@@ -6,6 +6,10 @@ export const LANGUAGES = ['en', 'te', 'hi'] as const;
 export type Language = (typeof LANGUAGES)[number];
 
 const en = {
+  'login.pending': 'Your pilot account setup is pending. Ops needs to finish your access setup.',
+  'login.disabled': 'Your account access is disabled.',
+  'login.accessError': 'Your access could not be checked. Try again.',
+  'login.accessUnconfirmed': 'Your account access is not confirmed. Ask Ops to check your pilot account.',
   'app.title': 'Companion ops console',
   'app.synthetic': 'Local development · synthetic data only',
   'nav.trips': 'Trips',
@@ -135,6 +139,10 @@ export type MessageKey = keyof typeof en;
 type Messages = Record<MessageKey, string>;
 
 const te: Messages = {
+  'login.pending': 'మీ పైలట్ ఖాతా సెటప్ పెండింగ్‌లో ఉంది. ఆప్స్ మీ ప్రవేశ సెటప్‌ను పూర్తి చేయాలి.',
+  'login.disabled': 'మీ ఖాతా ప్రవేశం నిలిపివేయబడింది.',
+  'login.accessError': 'మీ ప్రవేశ అనుమతిని తనిఖీ చేయలేకపోయాము. మళ్లీ ప్రయత్నించండి.',
+  'login.accessUnconfirmed': 'మీ ఖాతా ప్రవేశం నిర్ధారించబడలేదు. మీ పైలట్ ఖాతాను తనిఖీ చేయమని ఆప్స్‌ను అడగండి.',
   'app.title': 'సహచర ఆపరేషన్స్ కన్సోల్',
   'app.synthetic': 'లోకల్ డెవలప్‌మెంట్ · కృత్రిమ డేటా మాత్రమే',
   'nav.trips': 'ప్రయాణాలు',
@@ -261,6 +269,10 @@ const te: Messages = {
 };
 
 const hi: Messages = {
+  'login.pending': 'आपके पायलट खाते का सेटअप बाकी है। ऑप्स को आपकी पहुँच का सेटअप पूरा करना है।',
+  'login.disabled': 'आपके खाते की पहुँच बंद है।',
+  'login.accessError': 'आपकी पहुँच की जाँच नहीं हो सकी। फिर कोशिश करें।',
+  'login.accessUnconfirmed': 'आपके खाते की पहुँच की पुष्टि नहीं हुई है। अपना पायलट खाता जाँचने के लिए ऑप्स से कहें।',
   'app.title': 'साथी ऑपरेशंस कंसोल',
   'app.synthetic': 'लोकल डेवलपमेंट · केवल कृत्रिम डेटा',
   'nav.trips': 'यात्राएँ',

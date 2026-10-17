@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:shared_dart/shared_dart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-/// [PhoneAuth] over Supabase Auth. Never creates accounts: companions are onboarded by ops.
+/// Existing Auth OTP plus the authoritative, self-only lifecycle resolver.
 class SupabasePhoneAuth implements PhoneAuth {
   SupabasePhoneAuth(this._client);
 
@@ -18,13 +20,23 @@ class SupabasePhoneAuth implements PhoneAuth {
   Future<void> verifyCode(String phone, String code) =>
       _guard(() => _client.auth.verifyOTP(type: OtpType.sms, phone: phone, token: code));
 
+  final _invalidations = StreamController<void>.broadcast();
+
+  void invalidateAccess() => _invalidations.add(null);
+
   @override
-  Future<String?> currentRole() async {
-    final user = _client.auth.currentUser;
-    if (user == null) return null;
-    final row = await _client.from('profiles').select('role').eq('id', user.id).maybeSingle();
-    return row?['role'] as String?;
-  }
+  Stream<void> get accessChanges => Stream<void>.multi((events) {
+    final auth = _client.auth.onAuthStateChange.listen((_) => events.add(null));
+    final denied = _invalidations.stream.listen((_) => events.add(null));
+    events.onCancel = () async {
+      await auth.cancel();
+      await denied.cancel();
+    };
+  });
+
+  @override
+  Future<AccountAccess> accountAccess() async =>
+      AccountAccess.fromJson(await _client.rpc<Object?>('my_account_access'));
 
   @override
   Future<void> signOut() => _client.auth.signOut();

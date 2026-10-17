@@ -1,0 +1,3 @@
+
+> companion@ typecheck D:\AI-Workspace\Repos\anuga-product-inventory
+> tsc -p tsconfig.json

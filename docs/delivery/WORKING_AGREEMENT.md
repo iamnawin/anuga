@@ -92,3 +92,28 @@ but active reservations in WORK_BOARD take precedence. No contributors are
 currently reserved for the two proposed packages. Git merges alone do not settle
 contract disagreements. If GitHub Projects later becomes authoritative, document
 the switch and replace repository statuses with links; do not run two trackers.
+
+## Current ANU-002 authority (2026-10-16)
+
+Founder expanded ANU-002 to entry/auth/routing implementation and coordinator
+inventory/handoff updates. The task package reserves precise paths; ANU-003 home
+paths and SQL/shared contracts remain separate. Earlier bootstrap/spec-only scope
+is historical for ANU-002. Leave this turn uncommitted; no push, merge or deploy.
+
+## ANU-002 lifecycle authority (2026-10-17)
+
+Latest founder request expands the sole coordinator reservation to ANU-002-BE,
+shared auth/client integration and local synthetic verification. Its child receipt
+lists exact paths. This supersedes the earlier SQL/shared-contract exclusion only
+for that sequential reservation. No other contributor is active; ANU-003 paths
+remain separately owned. F1-F4 are provisional development assumptions only.
+No commit, push, merge, deploy, hosted changes or real-user/operator actions.
+
+## ANU-002 review/commit authority (2026-10-17)
+
+Latest founder request supersedes ANU-002's earlier no-commit boundary: review/fix
+within its reservation, verify, then commit only its owned source and required
+docs/evidence. No push/merge/deploy/hosted changes. A skill-directed read-only
+backend reviewer made no edits; coordinator remains sole writer. ANU-003 inspection
+is read-only in this step. Local implementation complete does not close remaining
+device, human language/accessibility or F1-F4 rollout gates.

@@ -1,19 +1,33 @@
 # Component inventory
 
+## ANU-002 working-tree update (2026-10-17)
+
+Implementation locally complete and reviewed over base 69bbb36 on
+docs/product-inventory-bootstrap; sole writer Codex coordinator. Welcome, role restoration/denial and
+lookup-retry plus authoritative pending/active/disabled lifecycle implemented
+and tested locally under provisional F1-F4 defaults; no rollout approval.
+[Contract](PILOT_ACCESS_CONTRACT.md), [current evidence](../evidence/anu002-lifecycle/README.md).
+Overall ANU-002 remains Partial for device/human/rollout checks. No release/deployment.
+[Current review/commit receipt](../evidence/anu002-review/README.md).
+Current evidence: [ANU-002 receipt](../delivery/tasks/ANU-002.md) and
+[current lifecycle verification](../evidence/anu002-lifecycle/README.md);
+[earlier entry evidence](../evidence/anu002/README.md) is historical. All other rows retain
+their main/historical verification defaults below.
+
 Audit 2026-10-16, main 64c4603. [Baseline](AUDIT_BASELINE.md). Every row is an
 existing source component or repeated pattern; do not create a new abstraction
 just because it has an inventory ID. Flutter and React share the design contract,
-not imports. All owners Unassigned; implementation Implemented for listed scope;
-verification Partial historical / Not run today; release historical E-RELEASE,
+not imports. Default owners Unassigned except ANU-002 entry changes above; baseline implementation Implemented for listed scope;
+baseline verification Partial historical, with current entry checks above; release historical E-RELEASE,
 per-variant runtime status Unknown. These 14 records are reusable contracts, not
 an exhaustive count of private helper classes.
 
 | ID | Name / actual symbols | Source | Consumers | Variants/behavior | Tokens, interaction, accessibility/localization | Test evidence (located, not run) |
 | --- | --- | --- | --- | --- | --- | --- |
-| CMP-001 | Shell and navigation; OpsShell / static role chooser | [OpsShell.tsx](../../apps/ops_console/src/components/OpsShell.tsx) | SCR-AUTH-001; SCR-OPS-001/002/004/006/008 | Sidebar/wrapping header; root links; role gate in provider | globals.css mint/teal, focus and labelled table regions; chooser has no complete locale/dark system | ops e2e; root session receipt |
-| CMP-002 | Flutter app shell/themes and language menus; FamilyApp / CompanionApp / LanguageMenu | [app.dart](../../apps/family_app/lib/src/app.dart) | All Family views; parallel Companion app.dart | Light/dark; locale; auth/home switch; patient-sensitive navigation | 48 targets, 56 primary, minimum 1.15 text/no upper cap; en/te/hi ARB; startup role recheck Unknown | full_app_test; full_trip_test; l10n tests |
-| CMP-003 | Phone field pattern; TextField / labelled HTML input; not shared implementation | [login_screen.dart](../../apps/family_app/lib/src/screens/login_screen.dart) | SCR-AUTH-002/004/006 | tel keyboard/autofill; shared normalizeIndianMobile contract | Theme/CSS boundaries; inline validation/error; busy disables submit | shared phone tests; ops phone_format; full app sign-in tests |
-| CMP-004 | Six-digit OTP pattern; Single code TextField/input | [login_screen.dart](../../apps/companion_app/lib/src/screens/login_screen.dart) | SCR-AUTH-003/005/007; SCR-COMP-003 | Login and pickup have different APIs; maxLength 6, code validation | Input labels/autofill for login; no fake countdown; errors/disabled states differ | full_trip_test; trip_screen_test; ops e2e |
+| CMP-001 | Shell and navigation; OpsShell / static two-link welcome | [OpsShell.tsx](../../apps/ops_console/src/components/OpsShell.tsx) | SCR-AUTH-001; SCR-OPS-001/002/004/006/008 | Sidebar/wrapping header; root links; role gate in provider | globals.css mint/teal, focus and labelled table regions; welcome has en/te/hi, dark scheme and focus; local browser evidence | ops e2e; root session receipt |
+| CMP-002 | Flutter app shell/themes and language menus; FamilyApp / CompanionApp / LanguageMenu | [app.dart](../../apps/family_app/lib/src/app.dart) | All Family views; parallel Companion app.dart | Light/dark; locale; auth/home switch; patient-sensitive navigation | 48 targets, 56 primary, minimum 1.15 text/no upper cap; en/te/hi ARB; startup/resume and Auth/access-event resolver gate implemented/tested; lifecycle gate locally implemented; native/rollout gates open | full_app_test; full_trip_test; l10n tests |
+| CMP-003 | Phone field pattern; TextField / labelled HTML input; not shared implementation | [login_screen.dart](../../apps/family_app/lib/src/screens/login_screen.dart) | SCR-AUTH-002/004/006 | tel keyboard/autofill; shared normalizeIndianMobile contract | Theme/CSS boundaries; inline validation/error; busy locks fields/submit and exposes progress | shared phone tests; ops phone_format; full app sign-in tests |
+| CMP-004 | Six-digit OTP pattern; Single code TextField/input | [login_screen.dart](../../apps/companion_app/lib/src/screens/login_screen.dart) | SCR-AUTH-003/005/007; SCR-COMP-003 | Login and pickup have different APIs; maxLength 6, code validation | Input labels/autofill for login; no fake countdown; stale code clears; busy locks Change number | full_trip_test; trip_screen_test; ops e2e |
 | CMP-005 | Primary/secondary/destructive buttons; Material themes; .btn CSS variants | [globals.css](../../apps/ops_console/src/app/globals.css) | Auth and all action views | Primary, outline, danger; per-screen busy behavior | 48 target/56 Flutter primary; focus/dark; consumer localizes label; no universal busy indicator | components.test; app widget tests; historical S3-S5 visual receipts |
 | CMP-006 | Form field and validation pattern; InputDecoration / .field; local errors | [records_tab.dart](../../apps/family_app/lib/src/screens/records_tab.dart) | SCR-FAM-008; SCR-OPS-009; auth forms | Phone/code/title/fare validation; no global validation-summary widget | Large wrapped labels, native keyboard; HTML error alerts; Flutter error text; focus-on-error Unknown | records_test; money.test; phone_format; components.test |
 | CMP-007 | Visit/record/bill cards and list rows; Private _TripTile, Card/ListTile patterns | [trips_screen.dart](../../apps/companion_app/lib/src/screens/trips_screen.dart) | SCR-COMP-001; SCR-FAM-002/006/012/015 | Actual schedule/status; hidden detail fallback; no fake avatar/map | Mint surface; wrap; large-text/card interaction; localized status/date | trip/full-app/records/bills tests |

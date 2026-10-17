@@ -17,12 +17,20 @@ claim that M0–M9 cover every design or that the live site was retested today.
 
 Pilot direction: [ADR 0006](adr/0006-pilot-entry-and-provisioning.md) records the
 ANUGA welcome, two sign-in links, dedicated Ops URL and Ops-provisioned users.
-Backend readiness/Auth conflicts must be resolved before application changes.
+ANU-002 implementation is locally complete and reviewed: lifecycle/backend and
+authoritative entry gates under
+F1-F4 provisional development assumptions, NOT rollout approval.
+[Contract](product/PILOT_ACCESS_CONTRACT.md), [backend receipt](delivery/tasks/ANU-002-BE.md),
+[actual local evidence](evidence/anu002-lifecycle/README.md) and
+[remaining checks](delivery/tasks/ANU-002-VERIFY.md) distinguish local verification
+from native acceptance/release. [Review and commit receipt](evidence/anu002-review/README.md).
+Latest authority permits an ANU-002-only local commit; no real-user/hosted changes,
+push, merge or deployment.
 
-Recommended first task: [ANU-002: specify entry and role access](delivery/tasks/ANU-002.md).
+Current partial task: [ANU-002: implement entry and role access](delivery/tasks/ANU-002.md).
 Its companion package [ANU-003: specify Family first-use](delivery/tasks/ANU-003.md)
-has disjoint documentation paths. Both are proposals for contributors, not active
-agent assignments. Detailed slice specs: [entry](product/screens/SCR-AUTH-001.md),
+has disjoint documentation paths and remains unassigned. The coordinator owns
+ANU-002 local implementation/receipts; no parallel agents are running. Detailed slice specs: [entry](product/screens/SCR-AUTH-001.md),
 [phone sign-in](product/screens/SCR-AUTH-002.md), [login OTP](product/screens/SCR-AUTH-003.md),
 [consent 04](product/screens/SCR-FAM-010.md), [role homes 13/25/31/41](product/screens/ROLE_HOMES.md).
 

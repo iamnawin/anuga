@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>ANUGA</title>
+  <style>
+    :root { color-scheme: light dark; --bg: #F7FBFA; --surface: #EAF7F4; --ink: #10243A; --muted: #465D6B; --primary: #00666B; --on-primary: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 24px 16px; background: var(--bg); color: var(--ink); font: 1.125rem/1.5 system-ui, sans-serif; }
+    main { max-width: 480px; margin: 0 auto; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .brand { color: var(--primary); font-size: 1.375rem; letter-spacing: .08em; }
+    label { font-size: 1rem; }
+    select { display: block; min-height: 48px; max-width: 100%; padding: 8px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--muted); border-radius: 8px; }
+    h1 { font-size: 1.75rem; line-height: 1.25; margin-top: 48px; }
+    .notice { padding: 16px; background: var(--surface); border-radius: 12px; }
+    a { display: block; margin: 16px 0; padding: 20px; min-height: 56px; border-radius: 12px; background: var(--primary); color: var(--on-primary); font-size: 1.25rem; font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+    :focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+    footer { color: var(--muted); margin-top: 32px; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #102426; --surface: #183235; --ink: #EFF8F6; --muted: #BED3D1; --primary: #8DDDD1; --on-primary: #073B3E; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <strong class="brand">ANUGA</strong>
+    <label><span data-copy="language">Language</span>
+      <select id="language"><option value="en">English</option><option value="te">తెలుగు</option><option value="hi">हिन्दी</option></select>
+    </label>
+  </header>
+  <h1 data-copy="title">Scheduled visit support for your family</h1>
+  <p data-copy="intro">Sign in with the mobile number set up for your pilot account.</p>
+  <p class="notice" data-copy="notice">Test site. People, patients and bills are invented. Payments are simulated.</p>
+  <nav aria-label="Sign in" id="sign-in">
+    <a href="/family/" data-copy="family">Family/Patient sign in</a>
+    <a href="/companion/" data-copy="companion">Companion sign in</a>
+  </nav>
+  <footer data-copy="footer">Pilot accounts are set up by Ops.</footer>
+</main>
+<script>
+  const messages = {
+    en: { language: 'Language', title: 'Scheduled visit support for your family', intro: 'Sign in with the mobile number set up for your pilot account.', notice: 'Test site. People, patients and bills are invented. Payments are simulated.', family: 'Family/Patient sign in', companion: 'Companion sign in', footer: 'Pilot accounts are set up by Ops.', signIn: 'Sign in' },
+    te: { language: 'భాష', title: 'మీ కుటుంబం కోసం ముందుగా నిర్ణయించిన ఆసుపత్రి సందర్శన సహాయం', intro: 'మీ పైలట్ ఖాతా కోసం ఏర్పాటు చేసిన మొబైల్ నంబర్‌తో సైన్ ఇన్ చేయండి.', notice: 'పరీక్ష సైట్. వ్యక్తులు, రోగులు మరియు బిల్లులు కల్పితం. చెల్లింపులు అనుకరణ మాత్రమే.', family: 'కుటుంబం/రోగి సైన్ ఇన్', companion: 'సహాయకుడు సైన్ ఇన్', footer: 'పైలట్ ఖాతాలను ఆప్స్ ఏర్పాటు చేస్తుంది.', signIn: 'సైన్ ఇన్' },
+    hi: { language: 'भाषा', title: 'आपके परिवार के लिए तय अस्पताल यात्राओं में सहायता', intro: 'अपने पायलट खाते के लिए तय मोबाइल नंबर से साइन इन करें।', notice: 'परीक्षण साइट। लोग, मरीज़ और बिल काल्पनिक हैं। भुगतान नकली हैं।', family: 'परिवार/मरीज़ साइन इन', companion: 'साथी साइन इन', footer: 'पायलट खाते ऑप्स द्वारा बनाए जाते हैं।', signIn: 'साइन इन' },
+  };
+  document.getElementById('language').addEventListener('change', (event) => {
+    const lang = event.target.value;
+    document.documentElement.lang = lang;
+    for (const element of document.querySelectorAll('[data-copy]')) element.textContent = messages[lang][element.dataset.copy];
+    document.getElementById('sign-in').setAttribute('aria-label', messages[lang].signIn);
+  });
+</script>
+</body>
+</html>

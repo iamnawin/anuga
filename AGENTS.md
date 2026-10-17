@@ -52,7 +52,7 @@ SQL/shared-contract changes: new migrations only, one at a time; run
 Prose-only tasks validate links/IDs/coverage/whitespace and record runtime not run;
 do not run all app tests just for prose. No tools installation in bootstrap.
 
-## Status (2026-10-16)
+## Status (2026-10-17)
 
 Main `64c4603` includes M0-M9 and combined synthetic apps via #8/#9. Historical
 source `de8f72a`, CI/deployment/session receipts: docs/evidence/hosted-test.
@@ -67,6 +67,14 @@ documentation-only commit on docs/product-inventory-bootstrap. Initial checkpoin
 agents. ADR 0006 records ANU-002 pilot welcome/two sign-in links, dedicated Ops URL,
 Ops user provisioning and backend-authorised setup-pending direction; current Auth
 conflicts and remaining readiness/patient-consent contracts are documented.
-ANU-002/003 are disjoint proposed contributor packages, not running agents.
-Next: specify the backend provisioning/readiness contract before any app/Auth/SQL
-implementation; no application code is authorised by this documentation task.
+ANU-002 implementation is locally complete and reviewed: lifecycle/backend,
+authoritative entry gates and available local checks pass. Overall ANU-002 remains
+Partial/unreleased for device, human language/accessibility and rollout acceptance.
+F1-F4 remain provisional development assumptions; no real operator or roster
+approval is inferred. No activation creates patient grants/consent.
+Latest founder request authorises review fixes and an ANU-002-only local commit.
+No push, merge, deploy or hosted changes. Source/evidence and remaining checks:
+docs/evidence/anu002-review/README.md and docs/delivery/tasks/ANU-002-VERIFY.md.
+Sole implementation writer remains the coordinator; one read-only backend review
+completed without edits. ANU-003 was inspected only and remains separately owned,
+unassigned and documentation-only; see the review receipt for exact dependencies.

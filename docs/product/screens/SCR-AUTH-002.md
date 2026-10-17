@@ -1,6 +1,6 @@
 # SCR-AUTH-002 / SCR-AUTH-004 / SCR-AUTH-006 — phone sign-in
 
-Status: Spec ready for review; not Approved. ANU-002, owner Unassigned. FEAT-001;
+Status: Spec ready for review; not Approved. ANU-002, owner Codex coordinator. FEAT-001;
 CMP-002/003/005/006. One behavior contract, three existing implementations.
 
 | Screen | Entry / source | Success destination |
@@ -40,10 +40,12 @@ transient UI state. Invalid input gets a localized message without an API call.
 
 Idle → invalid phone OR sending (disable submit) → code sent OR server error.
 No patient/empty state belongs before authentication. Request failure/rate limit
-must not masquerade as successful send. Current Flutter catches PhoneAuthException;
-SDK role/network error localization is not fully established. Current Ops form
-disables submit while busy but does not lock all inputs. Do not claim a loading
-spinner, explicit retry banner or unknown-number setup flow already exists.
+must not masquerade as successful send. Flutter catches PhoneAuthException and
+unexpected errors; Ops catches returned/thrown SDK errors. Busy forms disable
+submit, phone/code edits and Change number, with visible progress. Successful
+resend and Change number clear stale code. Provider Auth errors remain server
+messages; unexpected failures use translated generic copy. Setup-pending now uses my_account_access pending state; disabled is separate,
+and neither is inferred from an unknown phone.
 
 ## Permission and accessibility contract
 
@@ -77,9 +79,10 @@ must be inspected/tested, not presumed.
    unchanged in any later presentation-only implementation.
 
 Existing evidence: Family full_app_test, Companion full_trip_test, Ops e2e; historical
-S3–S5 visuals and hosted session receipt. No runtime check this audit. Dependencies:
+S3–S5 visuals and hosted session receipt. Local widget/browser checks now cover validation, busy send, unknown-phone and
+wrong/expired-code recovery; see ANU-002 receipt. Live provider/device checks not
+run. Dependencies:
 provider/test-phone setup and the ADR 0006 access-resolution contract. Confirmed
 incomplete provisioning after authentication must show setup pending; unknown
-phones rejected before Auth do not get silently registered. Current code lacks
-that setup-pending gate (see ADR conflicts). Exact
+phones rejected before Auth do not get silently registered. The local gate is implemented and verified; hosted behavior is unchanged. Exact
 help/contact destination is Unknown; do not invent a working support button.

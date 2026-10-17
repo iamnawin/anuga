@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-16",
+  "branch": "docs/product-inventory-bootstrap",
+  "head": "69bbb366212cbde94e74f0ba8c015d889254fd7e",
+  "main": "64c4603e5812358f6030ab8c9038747a93ba9b40",
+  "state": "uncommitted, partial, not released",
+  "checkAll": {
+    "exit": 0,
+    "database": {
+      "passed": 142,
+      "skipped": 8
+    },
+    "ops": 58,
+    "sharedDart": 27,
+    "companion": {
+      "passed": 49,
+      "skipped": 3
+    },
+    "family": {
+      "passed": 45,
+      "skipped": 6
+    }
+  },
+  "visual": {
+    "welcome": 4,
+    "ops": 5,
+    "flutterEnglish": 16,
+    "flutterCaptureRuns": 20,
+    "flutterTeHi": "glyph fallback unavailable; no acceptance claim",
+    "limitations": "Flutter test-only copied app shell with identical layout/logic and readable font substitutions; browser SDK/network fixtures; no real Auth or native device acceptance"
+  },
+  "notRun": [
+    "real Supabase/Docker",
+    "real OTP/provider sign-ins",
+    "same-origin three-role session smoke",
+    "combined hosted build/deployment",
+    "device/emulator",
+    "native-language/screen-reader review",
+    "pending/disabled lifecycle: backend blocked"
+  ],
+  "sourceSha256": {
+    "apps/companion_app/lib/l10n/app_en.arb": "ab9bbf7a2719d09dbab43c23a76e6ccbfa1182bfbc83cbc7347d2d9e1588ca83",
+    "apps/companion_app/lib/l10n/app_hi.arb": "8ba2e2493f7b1d3b722101a959a5043f361641585faae3993d705f5c16dd714e",
+    "apps/companion_app/lib/l10n/app_te.arb": "dd67684b14f96d435a47a4be77c31f451126f23f4038a29d0ade6bc3acc66af0",
+    "apps/companion_app/lib/src/app.dart": "47f5c5e26bb2cc96f77460865c82e50d32aa509d7a1c76d498ea7121891f69c1",
+    "apps/companion_app/lib/src/screens/login_screen.dart": "8e04d6893dc5a19b9cce8e325660f819e081348a758745b851c123027487ac4f",
+    "apps/family_app/lib/l10n/app_en.arb": "dd13701b45ac6d14c4798f54077028c686be156f2b685810eaba57f6032f702b",
+    "apps/family_app/lib/l10n/app_hi.arb": "78b2f7b5885de0124d1fa07df1e4ed0869cf4eb6cf5fd9cc377076bd2a737c4f",
+    "apps/family_app/lib/l10n/app_te.arb": "5537d9f5aaca581f8e0149671006b79c8fc8c501606b196cb11213e21c938bdc",
+    "apps/family_app/lib/src/app.dart": "961a7c1b1f0580dd295b1aac33d275328516a3408e55fe2f4b6f0f58ecdb5c07",
+    "apps/family_app/lib/src/screens/login_screen.dart": "b90aac700651668350cd03439e7f8ebbbbf5e6e3f1d45c41b708aad45429b905",
+    "apps/ops_console/src/app/login/page.tsx": "9632a36fe2ab862749db9ede2fb32e3dba2fa1387c1eb68355f0e96a6646b2bb",
+    "apps/ops_console/src/components/AuthProvider.tsx": "63ae9583dc51db6ffd51054f3892bc50aba44959358a7746be97766a06404e8e",
+    "apps/ops_console/src/components/OpsShell.tsx": "a360cb11fd999b8ffbbfca760678fcb35420fef09092ed6b8e5b594e9f44aa0e",
+    "apps/ops_console/src/lib/messages.ts": "af095b1ca7b015b8fa7818a2bca542e8e9933e735e5fb1f72facf55d8af7e1e6",
+    "scripts/build-staging.sh": "f373746dd17624b3c15f5d28d06a3b3c5c0bfc46f07a95ec5ad179dcf983816b",
+    "scripts/welcome.html": "a35d65ea2694b9d2121be483be385a6a141c198482ecf80f3696f5fcc30dd53a",
+    "apps/family_app/test/auth_access_test.dart": "3f0ddc925c1220a71d5a49afd97188572067d751e6c3631c1f58d4d39730202a",
+    "apps/companion_app/test/auth_access_test.dart": "7af9f3a671fe2a755a719074d3981681b0bbf3a84ac53e6dbfd015b39b5b466a",
+    "apps/ops_console/test/auth_access.test.tsx": "4271996723ccd8129c4903cd3b27d9ef1e9040454ae2259bedcfeb97724b9a66"
+  },
+  "screenshots": [
+    "family-phone.png",
+    "family-otp.png",
+    "family-loading.png",
+    "family-unconfirmed.png",
+    "family-error.png",
+    "family-denied.png",
+    "family-en-dark.png",
+    "family-en-large.png",
+    "companion-phone.png",
+    "companion-otp.png",
+    "companion-loading.png",
+    "companion-unconfirmed.png",
+    "companion-error.png",
+    "companion-denied.png",
+    "companion-en-dark.png",
+    "companion-en-large.png",
+    "welcome-en-360-light-1.png",
+    "welcome-te-430-dark-1.png",
+    "welcome-hi-360-light-2.png",
+    "welcome-en-1440-dark-1.png",
+    "ops-phone.png",
+    "ops-otp.png",
+    "ops-unconfirmed.png",
+    "ops-error.png",
+    "ops-denied.png"
+  ]
+}

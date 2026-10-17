@@ -19,16 +19,26 @@ export function getSupabase(): SupabaseClient {
   return client;
 }
 
+export const ACCESS_RECHECK_EVENT = 'anuga:access-recheck';
+
+async function checked(promise: Result): Promise<PgResult<unknown>> {
+  const result = await promise;
+  if (result.error?.code === '42501' && result.error.hint === 'account_access_required' && typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(ACCESS_RECHECK_EVENT));
+  }
+  return result;
+}
+
 type Result = PromiseLike<PgResult<unknown>>;
 
 // Explicit adapter: matching the full client type structurally is too deep for tsc.
 export function getOpsApi(): OpsApi {
   const supabase = getSupabase();
   return createOpsApi({
-    rpc: (fn, args) => supabase.rpc(fn, args) as unknown as Result,
+    rpc: (fn, args) => checked(supabase.rpc(fn, args) as unknown as Result),
     from: (table) => ({
       select: (columns) => ({
-        eq: (column, value) => supabase.from(table).select(columns).eq(column, value) as unknown as Result,
+        eq: (column, value) => checked(supabase.from(table).select(columns).eq(column, value) as unknown as Result),
       }),
     }),
   });

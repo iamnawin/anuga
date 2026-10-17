@@ -1,0 +1,19 @@
+✔ new Auth identity is pending; resolver is self-only and has no private fields (9859.0135ms)
+✔ active users including Ops and service cannot manage lifecycle or self-promote (17.6441ms)
+✔ state changes audit atomically, reject stale versions, and do not create patient grants/consent (46.4965ms)
+✔ existing caller claims cannot read or mutate after disable, including direct-ID RPC paths (22.0094ms)
+✔ reactivation never recreates revoked patient grants or withdrawn consent (9.7827ms)
+✔ catalog: every protected authenticated RPC rejects inactive callers before its argument validation (82.8979ms)
+✔ all granted RLS tables and own-profile edits are denied for inactive identities (30.9992ms)
+✔ privileged direct role/state writes require audit context; service cannot forge management context (3.5713ms)
+✔ disabled candidates are ineligible and inactive recipients are not newly claimed (11.0824ms)
+✔ audit insertion failure rolls back account state and version (3.6413ms)
+✔ patient links never turn Companion/Ops into a Family owner or expose companion clinical data (28.2767ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20426.2525

@@ -8,8 +8,11 @@ abstract class PhoneAuth {
 
   Future<void> verifyCode(String phone, String code);
 
-  /// `profiles.role` of the signed-in user (`companion`, `family`, `ops_admin`).
-  Future<String?> currentRole();
+  /// Safe self-only lifecycle resolution; never infer approval from a role.
+  Future<AccountAccess> accountAccess();
+
+  /// Auth events and lifecycle-denied requests trigger a new gate check.
+  Stream<void> get accessChanges;
 
   Future<void> signOut();
 }
@@ -22,4 +25,23 @@ class PhoneAuthException implements Exception {
 
   @override
   String toString() => message;
+}
+
+enum AccountState { pending, active, disabled, unconfirmed }
+
+class AccountAccess {
+  const AccountAccess(this.state, [this.role]);
+  final AccountState state;
+  final String? role;
+
+  factory AccountAccess.fromJson(Object? data) {
+    if (data is! Map) throw const FormatException('Invalid account access response');
+    final state = AccountState.values.where((s) => s.name == data['state']).firstOrNull;
+    final role = data['role'];
+    if (state == null ||
+        (state == AccountState.active ? !['family', 'companion', 'ops_admin'].contains(role) : role != null)) {
+      throw const FormatException('Invalid account access response');
+    }
+    return AccountAccess(state, role as String?);
+  }
 }

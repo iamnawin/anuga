@@ -1,0 +1,63 @@
+[
+  {
+    "surface": "welcome",
+    "lang": "en",
+    "width": 360,
+    "dark": false,
+    "scale": 1,
+    "links": "PASS",
+    "overflow": "none"
+  },
+  {
+    "surface": "welcome",
+    "lang": "te",
+    "width": 430,
+    "dark": true,
+    "scale": 1,
+    "links": "PASS",
+    "overflow": "none"
+  },
+  {
+    "surface": "welcome",
+    "lang": "hi",
+    "width": 360,
+    "dark": false,
+    "scale": 2,
+    "links": "PASS",
+    "overflow": "none"
+  },
+  {
+    "surface": "welcome",
+    "lang": "en",
+    "width": 1440,
+    "dark": true,
+    "scale": 1,
+    "links": "PASS",
+    "overflow": "none"
+  },
+  {
+    "surface": "ops",
+    "mode": "phone",
+    "pageErrors": []
+  },
+  {
+    "surface": "ops",
+    "mode": "otp",
+    "pageErrors": []
+  },
+  {
+    "surface": "ops",
+    "mode": "unconfirmed",
+    "pageErrors": []
+  },
+  {
+    "surface": "ops",
+    "mode": "error",
+    "pageErrors": []
+  },
+  {
+    "surface": "ops",
+    "mode": "denied",
+    "pageErrors": []
+  }
+]

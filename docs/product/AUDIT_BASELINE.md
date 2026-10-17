@@ -104,8 +104,8 @@ covers it. Production: not released; M10 remains gated.
 
 | Key | Decision | Dependency |
 | --- | --- | --- |
-| D1 | Resolved: ANUGA welcome, Family/Patient and Companion sign-in links; Ops dedicated URL | ADR 0006; target unimplemented, current root still a three-link test chooser |
-| D2 | Pilot users provisioned by Ops; authenticated incomplete setup gets setup pending; self-registration deferred | ADR 0006 accepted direction. Readiness/provisioning procedure, patient/schedule creation and owner consent remain unresolved; no Auth change |
+| D1 | Resolved: ANUGA welcome, Family/Patient and Companion sign-in links; Ops dedicated URL | ADR 0006; ANU-002 local two-link welcome implemented/verified, unreleased |
+| D2 | Pilot users provisioned by Ops; authenticated incomplete setup gets setup pending; self-registration deferred | ADR 0006 accepted direction. ANU-002 role/restore/error fixes local; lifecycle/resolver/backfill/disabled enforcement locally complete and reviewed under provisional F1-F4; actual rollout operator/roster and patient/schedule/consent unresolved |
 | D3 | Which companion identity/background/training steps are manual, and who attests them? | Onboarding; no verified badge without evidence |
 | D4 | Cancellation cutoff, late/no-show billing, waiting grace and compensation | Policy-dependent N2/N5; do not invent prices |
 | D5 | Readiness actors, actual arrival/waiting measurement and active-return reassignment | Workflow beyond existing transitions |
@@ -115,3 +115,8 @@ covers it. Production: not released; M10 remains gated.
 
 See [FEATURE_MATRIX](FEATURE_MATRIX.md) for product gaps and [WORK_BOARD](../delivery/WORK_BOARD.md)
 for bounded follow-ups. No missing decision is silently implemented.
+
+ANU-002 working-tree evidence supersedes baseline entry implementation claims only;
+see [access contract](PILOT_ACCESS_CONTRACT.md) and [receipt](../delivery/tasks/ANU-002.md).
+Implementation base 69bbb36, main 64c4603; latest review permits the owned local
+commit only. No remote integration or release change.

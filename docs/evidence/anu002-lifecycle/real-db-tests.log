@@ -1,0 +1,261 @@
+
+> companion@ db:test:supabase D:\AI-Workspace\Repos\anuga-product-inventory
+> node --env-file-if-exists=.env --test --test-isolation=none --test-force-exit --test-timeout=60000 "supabase/tests/*.test.ts"
+
+node : .env not found. Continuing without it.
+At line:2 char:271
++ ... EXITCODE }; node artifacts/anu002-lifecycle/with-local-env.cjs 'C:/Pr ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (.env not found. Continuing without it.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+▶ patients
+  ✔ owner and viewer can read their patient (14.0469ms)
+  ✔ ops can read patients (4.5647ms)
+  ✔ a family account without patient_access sees nothing (12.9985ms)
+  ✔ companions cannot read the patients table, even for their own trips (4.1684ms)
+  ✔ anon has no table privileges (5.6042ms)
+  ✔ owner can update; viewer update affects nothing (33.9843ms)
+  ✔ direct insert is not granted; create_patient makes the caller owner (11.364ms)
+  ✔ companions cannot create patients (4.4682ms)
+✔ patients (144.6192ms)
+▶ profiles
+  ✔ users read only their own profile; ops read all (9.4787ms)
+  ✔ users cannot change their own role (5.2786ms)
+✔ profiles (15.0636ms)
+▶ trips and schedules
+  ✔ family sees trips of their patient; strangers see none (11.2615ms)
+  ✔ a companion sees only trips assigned to them (14.4938ms)
+  ✔ nobody can write trips directly (9.3396ms)
+  ✔ family cannot set companions on a schedule directly (2.7546ms)
+  ✔ trip_otps is unreadable for every app role (7.5488ms)
+  ✔ trip_events are append-only for app roles (4.2079ms)
+✔ trips and schedules (50.2365ms)
+▶ companion restricted projection
+  ✔ returns only trip-essential patient fields inside the window (9.7306ms)
+  ✔ hides patient details outside the time window (8.2981ms)
+  ✔ does not include trips assigned to another companion (6.7254ms)
+  ✔ family and ops accounts cannot call it (3.5298ms)
+✔ companion restricted projection (28.7209ms)
+▶ family trip board
+  ✔ shows companion names to family (6.1445ms)
+  ✔ denies strangers and companions (6.1332ms)
+✔ family trip board (12.4583ms)
+▶ assignment rules
+  ✔ only ops can assign companions (3.4265ms)
+  ✔ rejects a companion outside the cluster radius (19.3615ms)
+  ✔ rejects an unverified companion (4.3014ms)
+  ✔ rejects the same companion as primary and backup (2.7229ms)
+  ✔ swapping primary and backup moves future unstarted trips to the new primary (8.5989ms)
+✔ assignment rules (39.0734ms)
+▶ trip generation
+  ✔ generates Mon/Wed/Fri at 07:00 IST and is idempotent (6.2623ms)
+  ✔ family cannot generate trips (4.4467ms)
+✔ trip generation (10.9167ms)
+✔ trip_contract.json matches the database state machine (6.1538ms)
+▶ withCors
+  ✔ answers a preflight without calling the handler (27.2076ms)
+  ✔ keeps the handler status, body and headers, and adds the CORS headers (3.166ms)
+✔ withCors (30.5473ms)
+▶ dispatch permissions
+  ✔ app users and anon cannot drive the dispatcher or read deliveries (43.7121ms)
+  ✔ the service role can claim (9.8998ms)
+✔ dispatch permissions (53.8224ms)
+▶ claim, lease and retry
+  ✔ a claimed row is leased: a second claim does not return it (12.8519ms)
+  ✔ an expired lease is claimed again (a crashed worker does not lose the row) (19.2422ms)
+  ✔ transient failures back off exponentially, then fail after the attempt limit (82.7927ms)
+  ✔ a backed-off row is not claimed before its time (18.8866ms)
+  ✔ permanent failures fail at once; finished rows cannot be marked again (20.4039ms)
+✔ claim, lease and retry (154.6182ms)
+▶ dispatcher end to end (test adapter)
+  ✔ a trip status change reaches every family member, in their language (79.8927ms)
+✔ dispatcher end to end (test adapter) (80.0412ms)
+✔ the Edge Function refuses non-service callers (871.3137ms)
+✔ the Edge Function delivers a status change through the test adapter (200.1667ms)
+▶ render
+  ✔ every template and status has text in en, te and hi (60.3196ms)
+  ✔ uses the recipient language and falls back to English (0.2051ms)
+  ✔ never copies the companion note into an outbound message, only says there is one (0.1464ms)
+  ✔ bills show the month and the amount in rupees with Indian grouping (0.6418ms)
+  ✔ unknown templates are an error, not a blank message (0.1002ms)
+✔ render (61.7781ms)
+▶ selectAdapters
+  ✔ defaults to the test adapter for every channel (0.1551ms)
+  ✔ a live provider needs founder authorization (0.1585ms)
+  ✔ even when authorized, live adapters do not exist yet, so nothing is sent (0.096ms)
+  ✔ rejects unknown values (0.0721ms)
+✔ selectAdapters (0.6193ms)
+▶ dispatchOnce
+  ✔ sends through the test adapter and records the rendered message (0.2946ms)
+  ✔ transient errors retry; permanent errors and missing adapters fail (0.6199ms)
+  ✔ a retry the database turns into a final failure is counted as failed (0.2171ms)
+  ✔ drain keeps claiming full pages until a short one (0.2172ms)
+✔ dispatchOnce (1.5334ms)
+▶ restStore
+  ✔ calls the dispatch RPCs with the service-role key (1.3103ms)
+  ✔ surfaces HTTP errors (0.4639ms)
+✔ restStore (1.9014ms)
+▶ family_my_patients
+  ✔ returns each patient with the caller's own access level (11.1013ms)
+  ✔ a family account without access gets an empty list (11.8103ms)
+  ✔ companions, ops and anon are denied (14.1068ms)
+✔ family_my_patients (37.4472ms)
+▶ family_trip_timeline
+  ✔ family sees the status events oldest first, with notes but no locations (29.2446ms)
+  ✔ strangers and companions are denied; unknown trips look the same as forbidden ones (14.1591ms)
+✔ family_trip_timeline (43.6366ms)
+▶ my_notifications
+  ✔ family inbox has one push row per status change, newest first (13.6729ms)
+  ✔ each user sees only their own notifications (19.9627ms)
+  ✔ the page size is clamped (4.9365ms)
+  ✔ anon is denied (2.182ms)
+✔ my_notifications (41.0723ms)
+▶ first journey
+  ✔ ops assigns the trip to the backup companion because the primary is unavailable (12.7364ms)
+  ✔ family sees the booking with the assigned companion (5.6109ms)
+  ✔ companion sets off and sees the restricted pickup sheet (11.6046ms)
+  ✔ companion cannot mark pickup without the OTP (3.5377ms)
+  ✔ a viewer cannot issue the pickup OTP; the owner can (11.1561ms)
+  ✔ a wrong code is rejected and the failed attempt is counted (6.8771ms)
+  ✔ another companion cannot use the code (3.8377ms)
+  ✔ the assigned companion verifies the OTP at pickup (5.6114ms)
+  ✔ the same code cannot be reused (3.0872ms)
+  ✔ companion reaches the centre and hands over to staff (13.4523ms)
+  ✔ family cannot move the trip forward (8.8251ms)
+  ✔ return journey completes with a post-visit note (24.7834ms)
+  ✔ family received a status update for every step, in order (8.9944ms)
+  ✔ the timeline is visible to family and records who acted (5.1823ms)
+  ✔ a completed trip cannot move again (13.56ms)
+✔ first journey (140.0281ms)
+▶ exceptions
+  ✔ family can cancel a scheduled trip but not one already under way (68.0596ms)
+  ✔ companion reports an issue and ops resolves it back into the journey (45.9702ms)
+  ✔ an OTP locks after the configured number of wrong attempts (129.4062ms)
+✔ exceptions (243.7354ms)
+▶ ops schedule board
+  ✔ ops sees the weekly pattern with primary and backup names (7.8289ms)
+  ✔ family, companions and strangers are denied (26.3014ms)
+✔ ops schedule board (34.3281ms)
+▶ ops trip board
+  ✔ lists trips in range with companion, primary and backup (10.0702ms)
+  ✔ filters by status (14.8712ms)
+  ✔ flags a scheduled trip whose pickup time has passed as late (9.3264ms)
+  ✔ rejects an inverted or too-wide date range (9.0517ms)
+  ✔ family and companions are denied (10.7977ms)
+✔ ops trip board (54.6103ms)
+▶ ops exception queue
+  ✔ contains late, no_show and issue_reported trips with the latest note (39.4096ms)
+  ✔ the late threshold is a business setting, not code (21.1542ms)
+  ✔ resolving an issue removes it from the queue (30.2702ms)
+  ✔ family and companions are denied (11.6291ms)
+✔ ops exception queue (102.9237ms)
+▶ ops companion options
+  ✔ explains why each companion in the cluster is or is not eligible (7.5678ms)
+  ✔ agrees with the assignment RPC for every companion (24.7113ms)
+  ✔ family and companions are denied (11.5557ms)
+✔ ops companion options (44.15ms)
+✔ anon cannot call any ops console function (12.0809ms)
+▶ trip fares
+  ✔ ops records the actual fare; family and companions cannot (29.7138ms)
+✔ trip fares (29.8946ms)
+▶ invoices
+  ✔ one line per completed visit at the package price, plus fares; India-time month boundaries (50.2755ms)
+  ✔ only ops can generate, issue or list invoices (26.8356ms)
+  ✔ an empty invoice cannot be issued; an issued one cannot be rebuilt and freezes its fares (41.1963ms)
+  ✔ the monthly fee comes from the package (51.4949ms)
+✔ invoices (170.1648ms)
+▶ family bills and payments
+  ✔ owner sees issued bills with lines; drafts are hidden; viewers and companions are refused (54.2966ms)
+  ✔ only the owner can start a payment; a repeated start reuses the open attempt (24.5973ms)
+  ✔ provider callbacks are service-role only; a wrong amount fails the payment, the right one pays the bill once (67.8244ms)
+  ✔ ops sees invoices across patients with visit and fare totals (3.9754ms)
+✔ family bills and payments (151.1554ms)
+✔ payments: owner starts, a signed webhook pays the bill once, everyone else is refused (985.371ms)
+✔ payments: test-mode completion goes through the same owner check (244.6447ms)
+▶ selectPaymentAdapter
+  ✔ test adapter by default, with a webhook secret (0.3869ms)
+  ✔ razorpay needs keys, and only test keys without founder authorization (0.2517ms)
+✔ selectPaymentAdapter (0.7677ms)
+▶ razorpay adapter
+  ✔ creates an order in paise with basic auth and exposes only the key id (0.4989ms)
+✔ razorpay adapter (0.5761ms)
+▶ payments handler
+  ✔ start: the database authorizes first, then an order is created and stored (0.7887ms)
+  ✔ an existing order is reused; a refusal creates nothing (0.9379ms)
+  ✔ complete-test works only with the test adapter (0.4295ms)
+  ✔ needs a bearer token, POST and a known action (0.3536ms)
+✔ payments handler (2.6869ms)
+▶ webhooks
+  ✔ a correctly signed capture is recorded (2.0634ms)
+  ✔ missing, wrong or stale signatures are rejected and change nothing (2.4796ms)
+  ✔ other events are acknowledged and ignored (0.5896ms)
+✔ webhooks (5.3494ms)
+✔ new Auth identity is pending; resolver is self-only and has no private fields (8.5984ms)
+✔ active users including Ops and service cannot manage lifecycle or self-promote (26.0394ms)
+✔ state changes audit atomically, reject stale versions, and do not create patient grants/consent (12.1877ms)
+✔ existing caller claims cannot read or mutate after disable, including direct-ID RPC paths (30.1915ms)
+✔ reactivation never recreates revoked patient grants or withdrawn consent (9.608ms)
+✔ catalog: every protected authenticated RPC rejects inactive callers before its argument validation (88.3061ms)
+✔ all granted RLS tables and own-profile edits are denied for inactive identities (48.1823ms)
+✔ privileged direct role/state writes require audit context; service cannot forge management context (5.1638ms)
+✔ disabled candidates are ineligible and inactive recipients are not newly claimed (22.1069ms)
+✔ audit insertion failure rolls back account state and version (13.0135ms)
+✔ patient links never turn Companion/Ops into a Family owner or expose companion clinical data (71.1948ms)
+✔ dry run classifies exactly reviewed synthetic identities without changing its inputs (0.9094ms)
+✔ unknown, missing, duplicate, role mismatch and missing profile all abort classification (0.2878ms)
+✔ real/unlabelled inventories, invalid states and absent synthetic authority do not pass (0.2892ms)
+✔ real owner transactions serialize state/version and bound a blocked cutover without partial changes (5235.3837ms)
+✔ populated cutover aborts atomically on unknowns/mismatches/audit failure; explicit synthetic roster preserves access (8784.2718ms)
+✔ no storage bucket is public (3.819ms)
+✔ API roles cannot list storage objects without a policy (4.3722ms)
+✔ real auth.uid() resolves the request JWT (3.4572ms)
+✔ anon cannot call any app function (9.054ms)
+▶ vault tables
+  ✔ no app role can SELECT vault tables directly (so no read escapes the audit) (31.5197ms)
+  ✔ owner can add a vitals entry and the write is audited (13.2045ms)
+  ✔ viewers and companions cannot write to the vault (6.1863ms)
+✔ vault tables (51.1842ms)
+▶ audited vault reads
+  ✔ family members read through the functions and each read is logged (45.2699ms)
+  ✔ companions are denied and the denial leaves no data behind (12.6503ms)
+  ✔ ops are denied without consent, allowed with it, and denied again after withdrawal (39.9715ms)
+  ✔ a consent given by a non-owner does not unlock ops access (11.2608ms)
+  ✔ the owner can review who read the vault; the viewer cannot (22.3884ms)
+✔ audited vault reads (131.995ms)
+✔ vault files: owner uploads, family downloads with a short-lived URL, others are refused (1287.1864ms)
+▶ vault-files handler
+  ✔ upload: database first, then a signed URL for the path the database chose (1.9378ms)
+  ✔ confirm: only marks uploaded when the object exists (0.6617ms)
+  ✔ download: the audited authorization runs before signing, with the lifetime from the database (0.3671ms)
+  ✔ a database refusal signs nothing and maps to 403 / 400 (0.7042ms)
+  ✔ requires a signed-in user, POST, JSON and a known action (1.1096ms)
+  ✔ the REST deps call PostgREST as the user and Storage as the service role (1.2494ms)
+✔ vault-files handler (6.3831ms)
+▶ creating vault documents
+  ✔ the owner gets a server-generated path under the patient, and the row waits for its file (9.247ms)
+  ✔ viewers, companions and ops cannot create documents (11.6151ms)
+  ✔ clients can no longer insert document rows (or choose a storage path) directly (2.9338ms)
+  ✔ file type, size and title are checked (17.5709ms)
+  ✔ without the owner's vault consent nothing new goes into the vault (23.711ms)
+✔ creating vault documents (65.5038ms)
+▶ upload confirmation
+  ✔ editors get the pending path; only the service role marks it uploaded, once (33.0595ms)
+✔ upload confirmation (33.1676ms)
+▶ downloading vault documents
+  ✔ family members get the path, and each request is an audited vault read (31.0451ms)
+  ✔ companions are denied; ops need the owner's ops consent; unknown ids look forbidden (47.1913ms)
+  ✔ a document still waiting for its file cannot be downloaded (12.0489ms)
+✔ downloading vault documents (90.6186ms)
+▶ consents
+  ✔ the owner sees every purpose and can change them; changes are audited (24.3076ms)
+  ✔ a viewer sees the status but cannot change it; strangers and companions see nothing (19.0369ms)
+✔ consents (43.5873ms)
+ℹ tests 166
+ℹ suites 38
+ℹ pass 166
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20688.3097

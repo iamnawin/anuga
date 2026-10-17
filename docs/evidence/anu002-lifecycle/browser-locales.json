@@ -1,0 +1,80 @@
+[
+  {
+    "app": "family",
+    "lang": "te",
+    "width": 360,
+    "theme": "dark",
+    "states": [
+      "phone validation",
+      "real OTP sent",
+      "code validation"
+    ],
+    "pageErrors": [],
+    "nativeReview": "not performed"
+  },
+  {
+    "app": "family",
+    "lang": "hi",
+    "width": 1440,
+    "theme": "light",
+    "states": [
+      "phone validation",
+      "real OTP sent",
+      "code validation"
+    ],
+    "pageErrors": [],
+    "nativeReview": "not performed"
+  },
+  {
+    "app": "companion",
+    "lang": "te",
+    "width": 360,
+    "theme": "dark",
+    "states": [
+      "phone validation",
+      "real OTP sent",
+      "code validation"
+    ],
+    "pageErrors": [],
+    "nativeReview": "not performed"
+  },
+  {
+    "app": "companion",
+    "lang": "hi",
+    "width": 1440,
+    "theme": "light",
+    "states": [
+      "phone validation",
+      "real OTP sent",
+      "code validation"
+    ],
+    "pageErrors": [],
+    "nativeReview": "not performed"
+  },
+  {
+    "app": "ops",
+    "lang": "te",
+    "width": 360,
+    "theme": "dark",
+    "states": [
+      "phone validation",
+      "real OTP sent",
+      "code validation"
+    ],
+    "pageErrors": [],
+    "nativeReview": "not performed"
+  },
+  {
+    "app": "ops",
+    "lang": "hi",
+    "width": 1440,
+    "theme": "light",
+    "states": [
+      "phone validation",
+      "real OTP sent",
+      "code validation"
+    ],
+    "pageErrors": [],
+    "nativeReview": "not performed"
+  }
+]

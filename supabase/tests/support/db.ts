@@ -114,7 +114,10 @@ export async function createUser(id: string, role: 'family' | 'companion' | 'ops
   await asAdmin(async (db) => {
     await db.query(`insert into auth.users (id, phone) values ($1, $2) on conflict do nothing`,
       [id, `91999${id.replaceAll('-', '').slice(-7)}`]);
-    await db.query(`update public.profiles set role = $2 where id = $1`, [id, role]);
+    // This helper creates ACTIVE synthetic fixtures; actual Auth creation stays pending.
+    await db.query(`select private.configure_pilot_account(id,account_state_version,'active',$2,
+      'active test fixture','synthetic:test-helper','synthetic:provisional-defaults')
+      from public.profiles where id=$1`, [id, role]);
   });
   return id;
 }

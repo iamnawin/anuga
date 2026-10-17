@@ -1,14 +1,28 @@
 # Feature matrix
 
+## ANU-002 working-tree update (2026-10-17)
+
+Implementation locally complete and reviewed over base 69bbb36 on
+docs/product-inventory-bootstrap; sole writer Codex coordinator. Welcome, role restoration/denial and
+lookup-retry plus authoritative pending/active/disabled lifecycle implemented
+and tested locally under provisional F1-F4 defaults; no rollout approval.
+[Contract](PILOT_ACCESS_CONTRACT.md), [current evidence](../evidence/anu002-lifecycle/README.md).
+Overall ANU-002 remains Partial for device/human/rollout checks. No release/deployment.
+[Current review/commit receipt](../evidence/anu002-review/README.md).
+Current evidence: [ANU-002 receipt](../delivery/tasks/ANU-002.md) and
+[current lifecycle verification](../evidence/anu002-lifecycle/README.md);
+[earlier entry evidence](../evidence/anu002/README.md) is historical. All other rows retain
+their main/historical verification defaults below.
+
 Audit 2026-10-16. [Baseline](AUDIT_BASELINE.md) owns SHAs/release caveats. Screen
-IDs below omit the SCR- prefix in the roles column for compactness. Every row owner
-Unassigned. Verification is Partial for located/read source and historical evidence,
-Not run for this session; missing workflows have no acceptance evidence. Main
+IDs below omit the SCR- prefix in the roles column for compactness. Default row owner
+Unassigned except FEAT-001 (ANU-002 coordinator). Baseline verification is Partial
+for located/read source and historical evidence; other workflows were not rerun; missing workflows have no acceptance evidence. Main
 implementation is not equivalent to production/provider readiness.
 
 | ID | User outcome | Roles/screens | UI | API/data | Permissions | Tests/evidence | Provider/configuration | Blocker/task/release |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| FEAT-001 | Existing users enter the correct role app | All roles; AUTH-001-007, OPS-001 | Implemented phone/OTP and role forms; two-link welcome/setup-pending target Missing | Auth SDK; profiles.role; no account creation from any login | DB/RPC checks remain authority; role UX gate is additional | App full-app/full-trip and Ops e2e; E-RELEASE role session receipt | Synthetic test phones; live SMS not ready | ADR 0006 accepted pilot direction; readiness contract pending; ANU-002; current login on main + historical synthetic |
+| FEAT-001 | Existing users enter the correct role app | All roles; AUTH-001-007, OPS-001 | Phone/OTP/welcome and authoritative lifecycle gates locally implemented; native/rollout acceptance open | Auth SDK; profiles account_state/version + role; my_account_access; no public signup or app management | DB active-state AND role/patient checks; private owner-only audited management; no activation grants/consent | Current lifecycle evidence: real SQL/Auth/Storage, live UI denial, same-origin sessions and te/hi web renders; E-RELEASE stays historical | Synthetic test phones; live SMS not ready | ANU-002 Partial/unreleased; BE locally implemented, F1-F4 only provisional; native/human/rollout gates remain; main release unchanged |
 | FEAT-002 | Link/provision patient and reach Family home | Family four levels; FAM-001,020-023 | Home implemented; setup Missing | create_patient in 0300 creates patient/owner/trips consent; no app caller in shared FamilyApi | create_patient requires family role; do not assume Ops creator; family_my_patients restricts to linked profiles | family_app.test; access.test; full_app_test no-patient assertion | Ops provisions pilot users (accepted target); no authorised user-readiness or patient-setup workflow configured/verified | D2/D6; ANU-003; home main, setup not released |
 | FEAT-003 | See and manage recurring visits | Family/Companion/Ops; FAM-002, COMP-001, OPS-002/004 | Lists/assignment implemented; setup/generation UI Missing; weekday edits Open PR #10 | schedules, ops_generate_trips and read boards on main; weekly pattern mutation only PR #10 | Ops assignments/generation; Family linked reads; Companion assigned projection | platform.test; ops_console.test; family_app.test; PR #10 tests separate | No automatic generator/job established by UI | ANU-005; main lists; PR #10 unreleased |
 | FEAT-004 | Complete authorized visit and pickup | Family four levels/assigned Companion/Ops; FAM-003-005, COMP-002-005 | Implemented state/OTP/note/cancel; no map/ready actor | 0300 trip_transitions, advance_trip, issue_pickup_otp, verify_pickup_otp; shared Dart | Owner/editor cancel scheduled; owner/editor/patient issue pickup; viewer no writes; assigned companion and Ops forward/return per SQL | platform/access/contract/journey tests; app trip tests; E-RELEASE journey | No clinical actions or dispatch; test notifications only | D5; ANU-005; main + historical synthetic |

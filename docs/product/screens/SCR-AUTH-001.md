@@ -1,7 +1,8 @@
 # SCR-AUTH-001 - ANUGA pilot welcome
 
 Status: pilot direction accepted 2026-10-16; detailed spec ready for review, not
-implemented or runtime verified. ANU-002; owner Unassigned. Main baseline 64c4603.
+fully accepted/released. ANU-002 owner Codex coordinator. Welcome implemented locally;
+access lifecycle is locally implemented; native/rollout acceptance remains gated. Main baseline 64c4603; local implementation based on 69bbb36.
 FEAT-001; CMP-001/005. [ADR 0006](../../adr/0006-pilot-entry-and-provisioning.md)
 owns the founder decision, access-resolution contract and current Auth conflicts.
 
@@ -25,9 +26,9 @@ link selects an experience and cannot assign profiles.role or patient grants.
 Self-service registration is deferred: no Get started/signup/account-creation CTA.
 Browser Back returns from the role app to welcome where existing navigation allows.
 
-Current code differs: scripts/build-staging.sh generates a synthetic three-link
-chooser (Family, Companion, Ops). Welcome changes are specified only; script,
-hosting config, auth and routes remain unchanged in this task. Keep the synthetic
+Current code: scripts/build-staging.sh copies scripts/welcome.html into the combined
+static root. It contains exactly the Family/Patient and Companion links; routing
+configuration and dedicated Ops destinations remain unchanged. Keep the synthetic
 notice on pilot test hosting; no service-availability/verification/clinical promises.
 
 ## Components and presentation
@@ -36,7 +37,9 @@ Reuse existing mint/teal/navy tokens and system font, 16-24px gutters, 480px rea
 column and stacked sign-in links. At least 48px targets, visible focus and logical
 reading/tab order. 360/430/1440 widths, dark mode, 200-300% text and en/te/hi must
 keep notice and actions usable. Full welcome localization/dark/focus behavior
-remains implementation work, not evidence supplied by this concept.
+is implemented in the static welcome. Local browser checks cover en 360 light,
+te 430 dark, hi 360 at 200% text and en 1440 dark; no overflow. Full
+screen-reader/native-language review remains unverified.
 
 ## Data, actions and states
 
@@ -54,7 +57,7 @@ Anonymous and every role may see welcome; protected patient/vault data never app
 here. Family owner/editor/patient/viewer and assigned/unassigned companions retain
 their current database restrictions.
 
-## Acceptance for future implementation
+## Acceptance (locally verified; native/human/rollout gates open)
 
 1. Welcome shows ANUGA and exactly the two primary sign-in links; Ops URL works
    independently without a primary welcome link. No self-registration action.
@@ -68,5 +71,5 @@ their current database restrictions.
 6. Verify keyboard/screen-reader, all locales, dark/large text and narrow/wide UI
    with synthetic data. Historical chooser evidence is not welcome acceptance.
 
-Before code: scope hosting-script ownership and access/readiness contract work
-separately. This documentation task changes neither Auth behavior nor deployment.
+Ownership and verification: [ANU-002](../../delivery/tasks/ANU-002.md).
+[Lifecycle contract/blocker](../PILOT_ACCESS_CONTRACT.md). No deployed change.

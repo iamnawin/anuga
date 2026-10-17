@@ -1,8 +1,10 @@
 # ADR 0006: Pilot welcome, backend access and Ops provisioning
 
 - Status: pilot product direction accepted by founder, 2026-10-16.
-- Authority: founder's request to review/commit documentation and record ANU-002
-  direction. Application/Auth/SQL implementation is not authorized in this task.
+- Authority: founder accepted the pilot direction and subsequently authorised ANU-002
+  implementation on 2026-10-16, with no commit, push, merge or deploy. The original
+  documentation-only restriction is historical; unresolved permission/provisioning
+  decisions still gate rollout; provisional local implementation is authorised.
 - Supersedes D1 and the user-provisioning portion of D2 in the bootstrap audit.
 
 ## Direction
@@ -29,7 +31,9 @@
 Resolve session, authorised profile/role and relevant pilot readiness before
 displaying protected home data, including restored sessions. No role/grant is
 created by clicking a link or completing OTP. Backend readiness representation
-and the safe query/RPC contract remain to be specified before implementation.
+and the safe query/RPC contract are now designed in
+[PILOT_ACCESS_CONTRACT](../product/PILOT_ACCESS_CONTRACT.md); they are now implemented and reviewed locally. F1-F4 defaults in that document
+are provisional development assumptions, not founder rollout approval.
 
 | Result | Intended presentation |
 | --- | --- |
@@ -47,7 +51,7 @@ setup pending. A backend contract must distinguish incomplete provisioning from
 revoked access without exposing other users or patient data. Do not use absence
 of trips or an app-selected role as a readiness signal.
 
-## Conflicts with existing code (reported before any implementation)
+## Baseline conflicts (reported before implementation; see current resolution below)
 
 | Current source behavior | Conflict / later work needed |
 | --- | --- |
@@ -76,3 +80,41 @@ remain separate unimplemented concepts.
 Evidence: [audit baseline](../product/AUDIT_BASELINE.md),
 [entry](../product/screens/SCR-AUTH-001.md), [OTP/access](../product/screens/SCR-AUTH-003.md),
 [ANU-003 dependencies](../delivery/tasks/ANU-003.md).
+
+## Historical ANU-002 preparation follow-up (2026-10-16)
+
+Welcome and existing-role/error/restore behavior have local implementation and
+test evidence; [current receipt](../delivery/tasks/ANU-002.md) records limits.
+The [pilot access contract](../product/PILOT_ACCESS_CONTRACT.md) defines pending,
+active, disabled, unconfirmed and lookup-error outcomes from authoritative records.
+The documentation follow-up fixes profiles-based state/version storage, self-only
+resolver, existing audit reuse, atomic reviewed backfill and complete DB enforcement
+as engineering choices. Only the contract's F1-F4 business decisions remain for
+founder input; backend implementation and verification are still outstanding. No migration,
+backfill, role/grant/consent change or provisioner was implemented. This is not
+full pilot-entry acceptance or a release. ANU-003 remains separately owned.
+
+Backend preparation receipt (2026-10-16): [ANU-002-BE](../delivery/tasks/ANU-002-BE.md)
+is a proposed, unassigned implementation package;
+[ANU-002-VERIFY](../delivery/tasks/ANU-002-VERIFY.md) records explicit real-Auth,
+device, te/hi visual and combined-local acceptance tasks. This turn authorises
+documentation only. No code/SQL change, backfill, approval, consent or release.
+
+## Local implementation authority (2026-10-16 follow-up)
+
+Founder explicitly authorised local ANU-002-BE and entry integration using the four
+recommended defaults provisionally. This supersedes the preceding documentation-only
+execution boundary, but does not approve F1-F4 for rollout or designate a real operator.
+Local migration, authoritative client gates, management denial/auditing and old-JWT
+enforcement are implemented and exercised with synthetic data. The migration now
+accepts an exact owner-supplied manifest instead of an embedded roster; unknowns
+abort. Ordinary app/service roles cannot manage lifecycle. No real-user or hosted
+changes, commit, push, merge or deploy. [Receipt](../evidence/anu002-lifecycle/README.md).
+
+## Local review/commit authority (2026-10-17)
+
+Implementation is locally complete and reviewed; overall ANU-002 remains Partial
+for native/device, human language/accessibility and actual rollout approval.
+Latest founder request permits the ANU-002-only local commit after review; no push,
+merge, deploy, hosted action or ANU-003 implementation.
+[Review receipt](../evidence/anu002-review/README.md).

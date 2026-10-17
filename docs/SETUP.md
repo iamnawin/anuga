@@ -209,3 +209,56 @@ STAGING_TEST_OTP environment, node scripts/web-session-smoke.mjs. Set
 BROWSER_CHANNEL=msedge on this Windows machine; CI installs Chromium. Proof/logs
 go to ignored artifacts/web-sessions. Both Flutter web apps use app-specific storage
 and auth broadcast channels; native auth defaults remain unchanged.
+
+## ANU-002 local lifecycle verification (2026-10-17)
+
+Local development only; F1-F4 remain unapproved for rollout. Never use these
+state-changing harnesses against hosted/real accounts. Use a dedicated disposable
+synthetic Supabase project and reset between the database and each Flutter
+integration file; these suites intentionally mutate fixtures.
+
+Source Auth configuration disables global public signup. Keep email/SMS provider
+switches enabled: turning off the SMS provider also prevents provisioned users
+from requesting OTP. Admin-created identities still start pending; no client
+metadata can select their role/state. Both unknown create_user=false and explicit
+create_user=true are tested as refused; known synthetic phone OTP remains allowed.
+Hosted Auth settings were not read or changed.
+
+With locally exported API_URL/ANON_KEY/SERVICE_ROLE_KEY in an ignored env file,
+use Node --env-file for scripts/verify-pilot-local.ts, verify-pilot-browser.mjs and
+verify-pilot-locales.mjs. Scripts enforce loopback endpoints. The browser scripts
+require the locally built combined site on 127.0.0.1:3110; scripts/serve-pilot-local.mjs
+serves the existing combined static output. Service credentials stay in the Node
+process, never app bundles/screenshots/logs. The site build uses only public local
+Supabase URL/anon settings with scripts/build-staging.sh; no publish command.
+
+Run pnpm db:test:supabase with DATABASE_URL plus SUPABASE_URL,
+SUPABASE_ANON_KEY, SUPABASE_PUBLISHABLE_KEY and SUPABASE_SERVICE_ROLE_KEY from
+that disposable stack. Both Flutter test/supabase_local_test.dart files require
+SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY; run each after a fresh synthetic reset.
+Run scripts/check-all.sh without real-stack environment for all fast checks,
+pnpm contract:export and pnpm typecheck. Do not run independent fixture-mutating
+suites concurrently. Run offline backfill with:
+
+```sh
+node supabase/scripts/pilot-backfill.ts <synthetic-inventory.json> <synthetic-roster.json>
+```
+
+The checker writes no DB data; synthetic_only must be true in both inputs.
+Nonempty cutover additionally requires the complete reviewed id/role/state/
+authority_ref manifest in the owner connection session setting
+anuga.pilot_backfill_manifest. Never embed a real roster in a migration or tracked
+file. Empty DB is supported; unknown/mismatch/missing profile aborts the single
+transaction before enforcement changes. Owner-only private.configure_pilot_account
+uses expected-version CAS plus reason/operator/authority references. App and
+service roles cannot execute it. Real operator designation and real approval are
+rollout prerequisites; synthetic refs in seeds/tests are not that authority.
+
+Failed cutover rolls back atomically. After cutover, use an audited per-account
+fix-forward with actual authority; retain guards/audit and do not bulk reactivate
+or restore withdrawn consent/deleted grants. Lifecycle does not revoke already
+issued URLs/cached data/in-flight work. Main local Storage measured download 60s,
+upload 7200s; an isolated same-image 5s upload probe verified expiry rejection,
+without waiting two hours or changing the primary Storage configuration.
+[Evidence and commands](evidence/anu002-lifecycle/README.md),
+[remaining device/language checks](delivery/tasks/ANU-002-VERIFY.md).

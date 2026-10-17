@@ -26,5 +26,11 @@ Future<void> main() async {
     ),
   );
   final client = Supabase.instance.client;
-  runApp(CompanionApp(api: CompanionApi(supabaseRpc(client)), auth: SupabasePhoneAuth(client)));
+  final auth = SupabasePhoneAuth(client);
+  runApp(
+    CompanionApp(
+      api: CompanionApi(supabaseRpc(client, onAccessDenied: auth.invalidateAccess)),
+      auth: auth,
+    ),
+  );
 }

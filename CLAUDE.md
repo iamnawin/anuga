@@ -42,6 +42,19 @@ suite is sequential; filter it by suite name, not by step. Tool versions and Flu
 setup: `docs/SETUP.md`. Flutter 3.47.6 / Dart 3.13.5 is at `D:\AI-Workspace\tools\flutter\bin`
 (on the user PATH; open a new terminal) with `PUB_CACHE=D:\AI-Workspace\tools\pub-cache`.
 
+## ANU-002 entry follow-up (2026-10-17)
+
+Local entry and lifecycle implementation is complete and reviewed. Both Flutter roots and Ops
+consume self-only my_account_access after OTP/restore, resume/focus, Auth/access
+events and lifecycle-denied requests. Pending, disabled, unconfirmed, wrong role
+and retry are distinct. Database RLS and RPC guards enforce current account state
+even for old JWTs. Account activation never creates patients/grants/owner consent.
+F1-F4 are provisional local assumptions, unapproved for rollout. Local Auth global
+signup is disabled while email/SMS providers remain enabled for existing users.
+See docs/evidence/anu002-lifecycle/README.md and ANU-002-VERIFY for actual checks,
+remaining native/human acceptance. Latest review authorises the ANU-002-only
+local commit; no push, merge, deploy or hosted changes.
+
 ## Architecture
 
 Monorepo (pnpm workspace: `apps/*`). Built so far: `supabase/`, `packages/shared_dart`,
@@ -114,3 +127,11 @@ PR #8 main merge and combined anuga.vercel.app publication authorized in chat. B
 
 Current task/status is in HANDOFF and WORK_BOARD; historical publication commands
 do not authorize a new deployment. Runtime/release receipts remain separately dated.
+
+ANU-002 current local implementation: profiles lifecycle/version + owner-only
+management + audit + restrictive RLS/definer guards; self resolver drives both
+Flutter and Ops entry. Family-only access-level interpretation prevents clinical/
+owner privilege from mismatched-role links. API lifecycle denial rechecks gates.
+Global signup disabled in local config, existing email/SMS providers and Admin provisioning retained.
+F1-F4 provisional, not rollout approval; docs/evidence/anu002-lifecycle holds actual
+local results and ANU-002-VERIFY holds remaining native/human acceptance.
