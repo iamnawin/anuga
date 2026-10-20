@@ -10,6 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. `docs/PRODUCT_SPEC.md`: product requirements, roles, scope limits, data model and access rules.
 3. `docs/TASKS.md`: milestones with acceptance criteria. Work one milestone at a time.
 4. `Pilot BRD.md`: business case for the manual pilot. `docs/adr/`: decisions that changed the spec.
+5. `docs/ARCHITECTURE.md`: what is built, how the parts connect, flows, integration status, how to test.
 
 Founder decision (ADR 0001): build the MVP now, in parallel with the manual pilot. Production
 launch is a separate, gated milestone (M10).

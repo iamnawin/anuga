@@ -1,5 +1,23 @@
 # Handoff
 
+## Architecture walkthrough (2026-10-20)
+
+Added `docs/ARCHITECTURE.md`, written from the code on main (64c4603). It covers the
+components, the database layers, who calls what, the flows (sign-in, schedules, a visit,
+notifications, vault, billing), integration status, how to test each part, and the gaps for
+real customers.
+
+Key findings:
+- WhatsApp, push and SMS have only the outbox and a `test` adapter.
+- `notify-dispatch` isn't scheduled or deployed to the hosted project.
+- Google Maps and Sentry aren't built.
+- Razorpay works with test keys only, and the family app has no checkout.
+- There are no onboarding screens: patients, families, companions and schedules come from SQL
+  or the seed.
+- Nothing generates trips on a schedule.
+
+Docs only; checks: `git diff --check`.
+
 ## Salesforce decision (2026-10-20)
 
 Branch `claude/trusting-bell-4fgv07` (PR #2). Main was merged in first, taking main's version of

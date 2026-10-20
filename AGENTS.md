@@ -9,6 +9,7 @@ Claude Code also reads `CLAUDE.md`, which has the same rules plus architecture n
 2. `docs/PRODUCT_SPEC.md`: shared product requirements, scope limits, data model and access rules.
 3. `docs/TASKS.md`: milestones and acceptance criteria.
 4. `docs/SETUP.md`: verified tool versions and setup commands.
+5. `docs/ARCHITECTURE.md`: what is built, how the parts connect, flows, integration status, how to test.
 
 ## Commands
 
