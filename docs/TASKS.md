@@ -223,10 +223,31 @@ ops console Vitest 52, Playwright 7 + journey; family app 35 tests; journey pass
 `pnpm db:test` 140 pass / 8 skipped; `pnpm db:test:supabase` 148/148.
 Assumption to confirm: only `completed` visits are billed (`app_settings.billable_trip_statuses`).
 
+## M9a. Salesforce ops copy (ADR 0005) `[ ]`
+
+Stream S6 (backend). Supabase stays the system of record; Salesforce gets a one-way copy.
+
+- [x] Decision and field allow-list: `docs/adr/0005-salesforce-ops-copy.md` (2026-10-20).
+- [ ] Migration: `crm_outbox` (no app-role grants), triggers on patients, schedules, profiles,
+      patient_access, companions, centres, clusters, trips and invoices that enqueue allow-listed fields only.
+- [ ] Service-role claim/mark RPCs (same pattern as `notification_deliveries`).
+- [ ] Edge function `crm-sync`: `test` adapter by default; `salesforce` adapter upserts on
+      `Anuga_Id__c` with OAuth client credentials. Credentials in Supabase secrets only.
+- [ ] Tests. Allowed: the service role claims rows; a trip update enqueues the allow-listed fields.
+      Denied: app roles can't read or write the outbox; changes to date of birth, vault or medicines
+      enqueue nothing; the payload never contains a never-sent field.
+- [ ] Salesforce Developer Edition org with the synthetic seed: objects, External ID fields,
+      Private org-wide default, renewal and on-time reports.
+- [!] Real data, a paid org on Hyperforce India, a DPA and the privacy-notice update: gated with M10.
+
+Acceptance: a fresh `pnpm db:test` passes with the new allowed and denied tests; one synthetic
+journey shows up in the dev org with no never-sent field anywhere.
+
 ## M10. Production launch `[!]` gated
 
 Blocked by: pilot go/no-go metrics, health-tech legal review, brand name, Supabase Mumbai project,
-paid services authorization, breach runbook with a named owner, real-Supabase test run.
+paid services authorization, breach runbook with a named owner, real-Supabase test run;
+for Salesforce (ADR 0005): a paid Hyperforce India org, a DPA and the privacy-notice update.
 Not started without explicit founder approval.
 
 ## Backlog (from spec, unscheduled)
