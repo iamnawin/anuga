@@ -4,7 +4,7 @@ import { Providers } from './providers';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Companion ops console',
+  title: 'ANUGA ops console',
   robots: { index: false, follow: false },
 };
 

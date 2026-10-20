@@ -69,7 +69,7 @@ function TripsBoard() {
       {trips === null ? <p>{t('common.loading')}</p> : trips.length === 0 ? <p>{t('trips.empty')}</p> : (
         <>
           <p className="muted">{t('trips.count', { count: trips.length })}</p>
-          <div className="table-wrap">
+          <div className="table-wrap" role="region" aria-labelledby="trips-title" tabIndex={0}>
             <table>
               <thead>
                 <tr>

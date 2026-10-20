@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 
@@ -79,56 +80,65 @@ class _ConsentScreenState extends State<ConsentScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.consentTitle)),
       body: SafeArea(
-        child: ListView(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
-          children: [
-            Text(l10n.consentIntro, style: const TextStyle(fontSize: 18)),
-            if (consents != null && !canChange)
-              Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Text(l10n.consentOwnerOnly, key: const Key('consent-owner-only')),
-              ),
-            if (_error != null)
-              Text(describeError(l10n, _error!), style: TextStyle(color: Theme.of(context).colorScheme.error)),
-            if (consents == null && _error == null) Text(l10n.loading),
-            for (final c in consents ?? const <ConsentStatus>[])
-              Card(
-                key: Key('consent-${c.purpose.dbValue}'),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(_text(l10n, c.purpose).title, style: Theme.of(context).textTheme.titleMedium),
-                          ),
-                          if (c.canChange)
-                            Switch(
-                              key: Key('switch-${c.purpose.dbValue}'),
-                              value: c.active,
-                              onChanged: _busy ? null : (v) => _set(c.purpose, v),
-                            )
-                          else
-                            Text(c.active ? l10n.consentOn : l10n.consentOff, key: Key('status-${c.purpose.dbValue}')),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Text(_text(l10n, c.purpose).body),
-                      if (c.active && c.grantedAt != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(
-                            formatIstDateTime(c.grantedAt!, locale),
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CareHeading(l10n.consentTitle),
+              CarePanel(child: Text(l10n.consentIntro, style: const TextStyle(fontSize: 18))),
+              const SizedBox(height: 24),
+              if (consents != null && !canChange)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(l10n.consentOwnerOnly, key: const Key('consent-owner-only')),
+                ),
+              if (_error != null)
+                Text(describeError(l10n, _error!), style: TextStyle(color: Theme.of(context).colorScheme.error)),
+              if (consents == null && _error == null) Text(l10n.loading),
+              for (final c in consents ?? const <ConsentStatus>[])
+                Card(
+                  key: Key('consent-${c.purpose.dbValue}'),
+                  color: c.active ? Theme.of(context).colorScheme.surfaceContainerLow : null,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(_text(l10n, c.purpose).title, style: Theme.of(context).textTheme.titleMedium),
+                            ),
+                            if (c.canChange)
+                              Switch(
+                                key: Key('switch-${c.purpose.dbValue}'),
+                                value: c.active,
+                                onChanged: _busy ? null : (v) => _set(c.purpose, v),
+                              )
+                            else
+                              Text(
+                                c.active ? l10n.consentOn : l10n.consentOff,
+                                key: Key('status-${c.purpose.dbValue}'),
+                              ),
+                          ],
                         ),
-                    ],
+                        const SizedBox(height: 4),
+                        Text(_text(l10n, c.purpose).body),
+                        if (c.active && c.grantedAt != null)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Text(
+                              formatIstDateTime(c.grantedAt!, locale),
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

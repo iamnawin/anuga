@@ -69,7 +69,7 @@ class _TripsScreenState extends State<TripsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.tripsTitle),
+        title: const Text('ANUGA', style: TextStyle(fontWeight: FontWeight.w700)),
         actions: [
           IconButton(tooltip: l10n.refresh, icon: const Icon(Icons.refresh, size: 28), onPressed: _load),
           LanguageMenu(onChanged: widget.onLocaleChanged),
@@ -81,6 +81,8 @@ class _TripsScreenState extends State<TripsScreen> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            Text(l10n.tripsTitle, style: Theme.of(context).textTheme.headlineSmall),
+            const SizedBox(height: 8),
             if (_error != null) Text(l10n.errorGeneric, style: TextStyle(color: Theme.of(context).colorScheme.error)),
             if (trips == null && _error == null) Text(l10n.loading),
             if (trips != null && trips.isEmpty) Text(l10n.noTrips),
@@ -125,15 +127,45 @@ class _TripTile extends StatelessWidget {
     final locale = Localizations.localeOf(context).languageCode;
     return Card(
       key: Key('trip-${trip.tripId}'),
-      child: ListTile(
-        minVerticalPadding: 16,
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
         onTap: onTap,
-        title: Text(formatIstDateTime(trip.scheduledPickupAt, locale)),
-        subtitle: Text(
-          [statusLabel(l10n, trip.status), trip.patientName ?? l10n.detailsHidden, trip.centreName].join('\n'),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      formatIstDateTime(trip.scheduledPickupAt, locale),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  const Icon(Icons.chevron_right, size: 32),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Chip(label: Text(statusLabel(l10n, trip.status))),
+              ),
+              const SizedBox(height: 12),
+              Text(trip.patientName ?? l10n.detailsHidden, style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 12),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.local_hospital_outlined, color: Theme.of(context).colorScheme.primary),
+                  const SizedBox(width: 12),
+                  Expanded(child: Text(trip.centreName, style: Theme.of(context).textTheme.bodyLarge)),
+                ],
+              ),
+            ],
+          ),
         ),
-        isThreeLine: true,
-        trailing: const Icon(Icons.chevron_right, size: 32),
       ),
     );
   }

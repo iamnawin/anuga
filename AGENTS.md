@@ -32,43 +32,35 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - Every access rule has allowed and denied tests. Update `docs/TASKS.md` and `docs/HANDOFF.md` after each milestone.
 - Package managers: pnpm for Node, uv for Python.
 
-## Status (2026-10-11)
+## Status (2026-10-11, founder-authorized synthetic publication)
 
-- Done on `main` (PR #1): M0-M9. Database + RLS, `shared_dart`, ops console (Next.js), companion and
-  family apps (Flutter, en/te/hi), notification dispatch, end-to-end journey, vault storage,
-  test-mode payments. M10 (production) is gated on founder approval.
-- PR #2 (green, not merged): hosted staging. Supabase project `anuga` (synthetic) + one Vercel
-  preview with `/ops/`, `/family/`, `/companion/`. Founder dashboard steps in `docs/SETUP.md`.
-- PR #3 / branch `m3-ops-console`: obsolete duplicate of M3. Do not build on it.
-- Next: UI to match the founder's sketches in `docs/design/`. Details: `docs/HANDOFF.md`, "Exact next task".
-- Before starting: `git fetch` and read `origin/main:docs/HANDOFF.md`; a stale local `main` caused PR #3.
+- M0-M9 and the combined redesigned apps are on main through PR #8 (3c6f2ac), founder-authorized merge. Final source and main CI passed six jobs, real Supabase/full journey and APKs. M10 remains gated.
+- Founder explicitly approved publishing the combined synthetic version at anuga.vercel.app. This replaces the earlier no-main-merge/no-deploy instruction for this task; no real data or paid providers authorized.
+- PR #2 and #4-#7 remain intact, their changes integrated by #8. PR #3 remains obsolete. ANUGA branding approved; identifiers unchanged.
+- Hosted Phone is now enabled and synthetic role allowed/denied smoke passes. Same-origin Flutter auth storage and BroadcastChannel isolation verified by real browser sign-ins/reloads/sign-out. Native auth settings, RPCs, DB access rules and tests preserved.
+- LIVE https://anuga.vercel.app serves root chooser and /ops/, /family/, /companion/. All four routes HTTP 200 and real three-role sign-in/reload/isolated sign-out pass. Source de8f72a, deployment dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. PR #9 merged at 37bdae2c; code CI 38150546061 passed all six jobs, real Supabase 150/150, full journey/test billing and both APKs. Main app code exactly matches verified published source. Final receipt is docs-only; its new CI may be running. Next: founder manual active-window visit from LOCAL_TESTING. M10 remains gated.
 
-## Parallel work
+## Parallel work and shared documents
 
-Agents may run in parallel only on these streams, each on its own branch from `main` and its own PR.
-One writer per path; if a stream needs a file another stream owns, stop and note it in the PR.
+One writer per path, isolated worktree/branch and separate PR per stream. S2 precedes S3-S5.
 
-| Stream | Owns (writes only here) | Depends on |
+| Stream | Owns | Depends on |
 | --- | --- | --- |
-| S1 Staging deploy | `.github/workflows/deploy-staging.yml`, `scripts/build-staging.sh`, `scripts/staging-smoke.ts` | founder secrets |
-| S2 Design tokens | `docs/design/tokens.md` (colours, type scale, spacing, tap sizes from the sketches) | sketches |
-| S3 Ops console UI | `apps/ops_console/src/app/**`, `apps/ops_console/src/components/**` (not `src/lib/`) | S2 |
-| S4 Companion app UI | `apps/companion_app/lib/` widgets/screens and l10n (not `supabase_rpc.dart`, `auth.dart`) | S2 |
-| S5 Family app UI | `apps/family_app/lib/` widgets/screens and l10n (not `supabase_rpc.dart`, `auth.dart`) | S2 |
-| S6 Backend backlog | `supabase/migrations/` (new files only), `supabase/tests/`, `packages/shared_dart/` | none |
+| S1 Staging | `.github/workflows/deploy-staging.yml`, `scripts/build-staging.sh`, `scripts/staging-smoke.ts` | founder secrets |
+| S2 Tokens | `docs/design/tokens.md`, founder-supplied reference boards | sketches |
+| S3 Ops UI | `apps/ops_console/src/app/**`, presentation `src/components/**`; no `src/lib/**` or auth/API logic | S2 |
+| S4 Companion UI | `apps/companion_app/lib/` widgets/screens and l10n; no RPC/auth/action logic | S2 |
+| S5 Family UI | `apps/family_app/lib/` widgets/screens and l10n; no RPC/auth/payment/upload adapters | S2 |
+| S6 Backend | new `supabase/migrations/` files, `supabase/tests/`, `packages/shared_dart/` | none |
 
-- UI streams (S3-S5) are UI-only: no RPC, auth, access-rule or data-flow changes. Keep tap targets
-  large, high contrast, and add te/hi strings for every new en string.
-- Only S6 adds migrations, one at a time; after a SQL change run `pnpm contract:export` and both suites.
-- Each stream runs `scripts/check-all.sh` (plus its app's tests) before opening a PR and updates
-  `docs/HANDOFF.md` with what it ran and what it could not run.
+Root coordinator alone updates HANDOFF, TASKS, AGENTS status and curated UI evidence in each worktree before its task commit. Workers return receipts and do not edit shared documents. Every task commit includes its documentation updates. Every completed task is pushed and has a PR; do not merge main. Run `scripts/check-all.sh` plus the app checks before each PR and report unavailable checks exactly. UI streams preserve all handlers, state transitions, access rules and data flow. Tap targets at least 48 pixels, high contrast, larger text supported, te/hi for each new en string.
 
-## Keep the docs current (every agent, every time)
+## Integration authorization (2026-10-11)
 
-After every task, commit or PR (not only at milestone end), update in the same commit:
-- `docs/HANDOFF.md`: date, branch, what changed, checks run and their results, checks NOT run and
-  why, blockers, and the exact next task. Another agent must be able to continue from it alone.
-- `docs/TASKS.md`: tick or annotate the items you touched.
-- `AGENTS.md` "Status": when the overall state changes (merged PRs, new streams, obsolete branches).
-- `CLAUDE.md` / `docs/SETUP.md`: when commands, tools or architecture change.
-Never leave work only in a local branch or chat; push it and record it in `docs/HANDOFF.md`.
+Founder explicitly requested one combined main-based integration branch/PR incorporating PR #2 and #4-#7, local servers and connected synthetic testing. The coordinator may reconcile the previously isolated stream paths and shared documents for this branch only. Source PRs remain intact. No deployment or main merge.
+
+Integration PR #8 is OPEN: https://github.com/iamnawin/anuga/pull/8. Local release apps and checks pass. Integration CI at 719361c passed all six jobs (run 38145315706), real Supabase 150/150, full journey/test billing and both APKs. Final receipt changes docs and restores the staging script's executable bit only. Founder Phone test-provider setup blocks authenticated manual browser testing. No main merge or agent deploy command; existing Vercel Git automation created previews, recorded in HANDOFF.
+
+## Publication authorization
+
+Founder explicitly approved merge of PR #8 and publishing all three synthetic apps at anuga.vercel.app. Necessary same-origin session isolation, combined build/config/workflow changes and follow-up PR merge are within this deployment task. Previous stream write limits apply to UI work; the coordinator owns these deployment integration fixes and shared receipts. No real-data or paid-provider launch.

@@ -1,5 +1,13 @@
 # Tasks and milestones
 
+## Founder sketch UI streams (2026-10-11)
+
+- [x] S2: inspect all 15 concept boards and seven previous ops screenshots; preserve source boards; define tokens and existing-screen mappings in `docs/design/tokens.md`.
+- [x] S3: ops UI delivered as separate OPEN PR #5; full local checks pass; 23 browser captures. See that branch's docs/evidence/s3-ui/README.md.
+- [x] S4: companion UI delivered as separate OPEN PR #6; full local checks pass; 38 curated widget captures. See that branch's docs/evidence/s4-ui/README.md.
+- [x] S5: family/patient UI delivered as separate OPEN PR #7; full local checks pass; 25 curated widget captures. See that branch's docs/evidence/s5-ui/README.md.
+- Runtime evidence, exact checks, differences and testing instructions must accompany each UI PR. No features are inferred from concept-only panels. Staging PR #2 is a separate dependency; PR #3 is obsolete.
+
 Build one milestone at a time. A milestone is done only when its acceptance checks have run and
 passed; record results (and checks that could not run) in `docs/HANDOFF.md`.
 
@@ -226,3 +234,26 @@ Not started without explicit founder approval.
 Requests ("I need..."), medicine refill reminders, live companion location during active trips,
 H3 density views and cluster density gate in ops console, monthly bill view, family invites with
 roles, trip data export for pilot metrics, deletion job for consent withdrawal.
+
+## Combined local testing (2026-10-11)
+
+- [x] Combine tokens, all three UI streams and PR #2 browser support on integration/local-anuga from current main. Source PRs #2/#4-#7 preserved.
+- [x] Full fast checks and separate app lint/analyze/tests; three release web builds; loopback HTTP and server boundary smoke passed.
+- [x] Inspect latest source CI: all jobs passed on PR #2 and #4-#7, including real-Supabase journeys.
+- [x] Local launcher and independent browser origins, synthetic accounts, active-window visit fixture and walkthrough in docs/LOCAL_TESTING.md.
+- [!] Authenticated manual visit: synthetic hosted project Phone provider is disabled. Founder dashboard steps in LOCAL_TESTING; local Docker unavailable. No secrets in chat.
+- [x] Integration PR #8 opened: https://github.com/iamnawin/anuga/pull/8. No main merge/deploy command; existing PRs intact. Existing Vercel Git automation created previews, recorded in HANDOFF.
+- [x] Integration CI 38145315706 at 719361c: all six jobs pass, real Supabase 150/150 with zero skips, ops browser 7 pass, full cross-app journey and test billing pass, both debug APKs pass. Final receipt only docs and restored staging-script executable bit; no product changes after tested SHA.
+- [ ] Founder manual browser journey after Phone-provider/test-number dashboard setup.
+
+## Founder-authorized combined publication (2026-10-11)
+
+- [x] Founder authorized PR #8 main merge and existing anuga.vercel.app synthetic publication; PR #8 merged, main CI passed all six jobs.
+- [x] Hosted Phone enabled; real synthetic allowed/denied/CORS smoke passes.
+- [x] Same-origin storage and BroadcastChannel regression reproduced/fixed; real browser sign-ins, independent reloads and isolated sign-out pass.
+- [x] Final fast checks, separate app checks and all three web release builds pass; guarded Windows build output cleanup/sub-path support.
+- [x] Authenticated Vercel CLI; existing project configured for prebuilt combined site, no new project or paid service.
+- [x] Publish combined prebuilt to anuga.vercel.app: dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3 at de8f72a. Four routes HTTP 200; three real role sign-ins/reloads and isolated companion sign-out pass.
+- [x] Hosting fix PR #9 opened; source CI 38150546061 running. Documentation-only live receipt checked with git diff --check.
+- [x] Publish fix PR #9 merged at 37bdae2c. Code CI 38150546061/de8f72a: six jobs pass, real Supabase 150/150 zero skips, ops browser 7 pass, full journey/test billing and APKs. Main product source matches deployed/tested code. Final doc-only receipt checked, no app rerun; receipt/main CI may be running.
+- [ ] Founder manual active-window visit. Additive synthetic fixture and walkthrough remain in LOCAL_TESTING.
