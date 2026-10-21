@@ -1,5 +1,50 @@
 # Handoff
 
+## Architecture walkthrough (2026-10-20)
+
+Added `docs/ARCHITECTURE.md`, written from the code on main (64c4603). It covers the
+components, the database layers, who calls what, the flows (sign-in, schedules, a visit,
+notifications, vault, billing), integration status, how to test each part, and the gaps for
+real customers.
+
+Key findings:
+- WhatsApp, push and SMS have only the outbox and a `test` adapter.
+- `notify-dispatch` isn't scheduled or deployed to the hosted project.
+- Google Maps and Sentry aren't built.
+- Razorpay works with test keys only, and the family app has no checkout.
+- There are no onboarding screens: patients, families, companions and schedules come from SQL
+  or the seed.
+- Nothing generates trips on a schedule.
+
+Docs only; checks: `git diff --check`.
+
+## Salesforce decision (2026-10-20)
+
+Branch `claude/trusting-bell-4fgv07` (PR #2). Main was merged in first, taking main's version of
+every file: PR #8 and #9 already carry all of PR #2's staging work, so PR #2 now only adds this
+decision. Docs only; no code, migration or secret changed.
+
+- Founder chose to keep the built apps and Supabase as the system of record. Salesforce gets a
+  one-way, minimum-field copy for ops, CRM and pilot reporting. Recorded in
+  `docs/adr/0005-salesforce-ops-copy.md`; spec 5a and 7 updated; new milestone M9a in `docs/TASKS.md`.
+- Options turned down: Salesforce as the main database (a rewrite of M2–M9, with access checks
+  moving out of Postgres); Salesforce alone (throws away the apps).
+- Gated with M10: real data in Salesforce, a paid Hyperforce India org, a DPA and the
+  privacy-notice update. A Developer Edition org with the synthetic seed is fine for building.
+- Checks: `git diff --check` only. App and DB suites not run: no code changed.
+- Risk to confirm: the 2026-10-11 hosted notes give the synthetic sign-in code as `123456`,
+  which ADR 0004 says not to use for staging. Founder to confirm or change it in the dashboard.
+
+Exact next task (stream S6): build M9a.
+1. Migration `crm_outbox` and the allow-list triggers.
+2. Claim and mark RPCs.
+3. Allowed and denied tests.
+4. Edge function `crm-sync` with the `test` adapter.
+5. Run `pnpm db:test` and `scripts/check-all.sh`.
+
+Salesforce-side setup (objects, `Anuga_Id__c`, Private org-wide default, integration user) waits
+for the founder's Developer Edition org.
+
 ## Founder-authorized combined publication (2026-10-11)
 
 FINAL: PR #8 merged at 3c6f2ac; necessary hosting/session fix PR #9 merged at 37bdae2cb77240ae06bfd000e6520613fd51903f. Published code de8f72a passed all six jobs in https://github.com/iamnawin/anuga/actions/runs/38150546061: real Supabase 150/150 with zero skips, ops browser 7 pass, both app real-Supabase tests, full JOURNEY PASSED through notifications/test billing, both APK builds. Main app/build/security/workflow contents exactly match the tested/published code; later commits are shared receipts only. Final documentation-only receipt checked with git diff --check, app tests not repeated; main push/receipt CI may be running, distinct from the completed code-bearing run above. CI receipt: docs/evidence/hosted-test/ci-summary.json.

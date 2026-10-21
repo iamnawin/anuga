@@ -9,6 +9,7 @@ Claude Code also reads `CLAUDE.md`, which has the same rules plus architecture n
 2. `docs/PRODUCT_SPEC.md`: shared product requirements, scope limits, data model and access rules.
 3. `docs/TASKS.md`: milestones and acceptance criteria.
 4. `docs/SETUP.md`: verified tool versions and setup commands.
+5. `docs/ARCHITECTURE.md`: what is built, how the parts connect, flows, integration status, how to test.
 
 ## Commands
 
@@ -39,6 +40,7 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - PR #2 and #4-#7 remain intact, their changes integrated by #8. PR #3 remains obsolete. ANUGA branding approved; identifiers unchanged.
 - Hosted Phone is now enabled and synthetic role allowed/denied smoke passes. Same-origin Flutter auth storage and BroadcastChannel isolation verified by real browser sign-ins/reloads/sign-out. Native auth settings, RPCs, DB access rules and tests preserved.
 - LIVE https://anuga.vercel.app serves root chooser and /ops/, /family/, /companion/. All four routes HTTP 200 and real three-role sign-in/reload/isolated sign-out pass. Source de8f72a, deployment dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. PR #9 merged at 37bdae2c; code CI 38150546061 passed all six jobs, real Supabase 150/150, full journey/test billing and both APKs. Main app code exactly matches verified published source. Final receipt is docs-only; its new CI may be running. Next: founder manual active-window visit from LOCAL_TESTING. M10 remains gated.
+- 2026-10-20: founder chose Salesforce as a one-way ops copy; Supabase stays the system of record (ADR 0005, milestone M9a, stream S6). PR #2 now carries only that decision; main already has its staging work.
 
 ## Parallel work and shared documents
 

@@ -144,7 +144,9 @@ Companion pay hypothesis: ~₹250/visit. Fares passed through at cost. Amounts a
 | Errors/monitoring | Sentry |
 | CI/CD | GitHub + GitHub Actions; Codemagic for Flutter builds; staged Play Store rollout (10% → 50% → 100%) |
 
-Salesforce Health Cloud was considered and rejected for now (licence cost pre-revenue).
+Salesforce Health Cloud was considered and rejected as the main platform (licence cost pre-revenue).
+Ops CRM and reporting: a one-way, minimum-field copy to Salesforce; Supabase stays the system of
+record (`docs/adr/0005-salesforce-ops-copy.md`). Real data in Salesforce is gated with M10.
 
 Repo layout: `apps/family_app`, `apps/companion_app` (Flutter), `apps/ops_console` (Next.js),
 `packages/shared_dart` (models, API client, trip state machine), `supabase/migrations`,
@@ -193,6 +195,9 @@ As built (first milestone) in `supabase/migrations/`. Tables marked *later* are 
   with a deletion job and audit trail.
 - Breach: notify the Data Protection Board without delay, detailed report within 72 hours, inform users.
   Keep `docs/runbooks/breach.md`, monitoring and a named owner.
+- Salesforce (ADR 0005) is a processor holding a minimum-field ops copy: Hyperforce India, a DPA,
+  named in the privacy notice, and included in deletion and the breach runbook. No vault, vitals,
+  medicines, date of birth, diagnoses, addresses or notes are sent.
 - Encrypt at rest and in transit; India-region hosting (Supabase Mumbai, ap-south-1); least-privilege
   access; audit every vault read.
 - **Never use real patient data in dev/test.** Synthetic seed data only.
