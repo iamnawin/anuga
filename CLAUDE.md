@@ -61,7 +61,9 @@ The database is the security boundary; apps are thin clients over RPCs:
   companion options), `0600` family read RPCs (patients with access level, timeline, inbox),
   `0700` notification dispatch (service-role claim/mark RPCs, `notification_deliveries`),
   `0800` vault storage (private bucket, server-generated paths, signed-URL RPCs) and consents,
-  `0900` payments (invoices, fares, payment state; amounts in paise).
+  `0900` payments (invoices, fares, payment state; amounts in paise),
+  `20261022000100` trip controls (training/suspension, companion start window, required notes,
+  companion trip reads limited to the detail window).
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,

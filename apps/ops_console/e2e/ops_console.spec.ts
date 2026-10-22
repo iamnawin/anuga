@@ -32,22 +32,33 @@ async function asOps(browser: Browser, path = '/trips'): Promise<Page> {
   return page;
 }
 
-// A companion acting from their own (future) app: signs in by phone OTP and uses the RPCs.
-async function companionReportsIssue(note: string): Promise<string> {
+async function rpcClientFor(phone: string) {
   const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     { auth: { persistSession: false } });
-  await supabase.auth.signInWithOtp({ phone: RAVI_PHONE, options: { shouldCreateUser: false } });
-  const { error: authError } = await supabase.auth.verifyOtp({ phone: RAVI_PHONE, token: OTP, type: 'sms' });
-  if (authError) throw authError;
-  const { data: trips, error } = await supabase.rpc('companion_my_trips');
+  await supabase.auth.signInWithOtp({ phone, options: { shouldCreateUser: false } });
+  const { error } = await supabase.auth.verifyOtp({ phone, token: OTP, type: 'sms' });
+  if (error) throw error;
+  return supabase;
+}
+
+// A companion acting from their own (future) app: signs in by phone OTP and uses the RPCs.
+// Ravi's seed trips can be days ahead, past the companion start window, so ops sets the
+// trip on its way (allowed for ops) and Ravi then reports the issue.
+async function companionReportsIssue(note: string): Promise<string> {
+  const ravi = await rpcClientFor(RAVI_PHONE);
+  const { data: trips, error } = await ravi.rpc('companion_my_trips');
   if (error) throw error;
   const trip = (trips as { trip_id: string; status: string }[]).filter((t) => t.status === 'scheduled').at(-1);
   if (!trip) throw new Error('Ravi has no scheduled trip');
-  for (const [to, n] of [['companion_en_route', null], ['issue_reported', note]] as const) {
-    const { error: e } = await supabase.rpc('advance_trip', { p_trip_id: trip.trip_id, p_to_status: to, p_note: n });
-    if (e) throw e;
-  }
-  await supabase.auth.signOut();
+
+  const ops = await rpcClientFor(`+91${OPS_PHONE}`);
+  const { error: startError } = await ops.rpc('advance_trip', { p_trip_id: trip.trip_id, p_to_status: 'companion_en_route' });
+  if (startError) throw startError;
+  await ops.auth.signOut({ scope: 'local' }); // keep the saved browser ops session valid
+
+  const { error: issueError } = await ravi.rpc('advance_trip', { p_trip_id: trip.trip_id, p_to_status: 'issue_reported', p_note: note });
+  if (issueError) throw issueError;
+  await ravi.auth.signOut();
   return trip.trip_id;
 }
 

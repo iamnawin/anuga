@@ -263,6 +263,23 @@ repeated for the checkpoint; product inventory is the next authorized task.
 - [ ] Founder policy review and reconcile gaps against current main/PR #10 before implementation planning.
 - No app/dependency/migration/config changes; no commit, push, deploy or publish authorized.
 
+## AnugaCare hardening (2026-10-22) `[~]`
+
+Branch `feat/anugacare-hardening`. Source: external review `docs/research/anugacare-db-findings-2026-10-22.md`.
+
+- [x] Brand AnugaCare in user-facing names (ADR 0006); ids and package names unchanged.
+- [x] Mobile readiness and framework analysis: `docs/research/anugacare-mobile-analysis.md`
+      (keep Flutter, merge into one app, ops stays web).
+- [x] Migration `20261022000100_trip_controls.sql`: F02 training required for assignment and
+      companions must be active, verified and trained to act; F04 companion reads of `trips` and
+      `trip_events` limited to the detail window; F05 companion start window
+      (`app_settings.companion_start_minutes_before`, 180 placeholder); F06 notes required for
+      companion `completed` and `issue_reported`. 9 allowed/denied tests in `trip_controls.test.ts`.
+- [ ] Founder decisions, then fixes: F01 consent withdrawal, F03 companion occupancy, F07 price per visit.
+- [ ] Founder to confirm the 180-minute start window.
+- [ ] Companion app: hide or explain "Start" outside the window (now refused by the database).
+- [ ] X1 one mobile app, release signing, push, offline queue, live family refresh (analysis section 6).
+
 ## Backlog (from spec, unscheduled)
 
 Requests ("I need..."), medicine refill reminders, live companion location during active trips,

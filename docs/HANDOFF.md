@@ -1,5 +1,29 @@
 # Handoff
 
+## AnugaCare hardening (2026-10-22)
+
+Branch `feat/anugacare-hardening` from the old checkpoint branch with main `de28006` merged in
+(TASKS/HANDOFF conflicts resolved by keeping both sides). Not pushed.
+
+- Brand: AnugaCare (ADR 0006). Only user-facing strings changed. Telugu/Hindi spellings
+  `అనుగాకేర్` / `अनुगाकेयर` need a native check. Trademark search open (M10).
+- Analysis: `docs/research/anugacare-mobile-analysis.md`. No APK exists (CI builds but does not
+  upload; no Android SDK here). Hosted web bundles scanned: anon key only, no service key, no
+  third-party SDKs, no source maps. REA ran on the family bundle but ran out of memory on dart2js
+  output (partial). Recommendation: keep Flutter, merge the two apps, ops console stays web.
+- DB fixes F02, F04, F05, F06 in `supabase/migrations/20261022000100_trip_controls.sql`.
+  Ops console shows the new `not_trained` reason. The ops Playwright spec now has ops start
+  Ravi's trip (seed trips can be days ahead, past the companion start window).
+- Checks run: `pnpm db:test` 151 pass / 8 skipped / 0 fail (was 142/8); new tests fail 8/9 with
+  the migration removed (the 9th checks family/ops access is kept); `pnpm typecheck`;
+  `pnpm contract:export` no drift; `scripts/check-all.sh` ALL CHECKS PASSED; ops lint, typecheck,
+  52 Vitest; both Flutter apps analyze clean, family 35 pass / 6 skipped, companion 39 / 3.
+- Not run: `pnpm db:test:supabase`, Playwright e2e, `scripts/e2e-journey.sh` (no Docker). CI
+  covers them on push. Hosted staging DB not migrated (no deploy authorized).
+
+Exact next task: founder answers on F01 consent, F03 occupancy, F07 pricing and the start window;
+then push this branch and open a PR.
+
 ## Architecture walkthrough (2026-10-20)
 
 Added `docs/ARCHITECTURE.md`, written from the code on main (64c4603). It covers the
