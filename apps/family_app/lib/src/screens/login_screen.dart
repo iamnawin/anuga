@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'ANUGA',
+          'AnugaCare',
           style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.w700, letterSpacing: 1),
         ),
         actions: [LanguageMenu(onChanged: widget.onLocaleChanged)],

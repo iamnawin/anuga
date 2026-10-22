@@ -46,7 +46,7 @@ export function OpsShell({ children }: { children: ReactNode }) {
     <div className="ops-layout">
       <aside className="sidebar">
         <div className="brand-block">
-          <strong className="brand">ANUGA</strong>
+          <strong className="brand">AnugaCare</strong>
         </div>
         <nav aria-label="Main">
           {links.map((l) => (

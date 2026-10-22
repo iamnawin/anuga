@@ -132,7 +132,7 @@ class _TripScreenState extends State<TripScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ANUGA', style: TextStyle(fontWeight: FontWeight.w700)),
+        title: const Text('AnugaCare', style: TextStyle(fontWeight: FontWeight.w700)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

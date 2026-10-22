@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Project:** Dialysis Companion App (ZeroOrigins), codename `companion` (brand name not final).
+**Project:** AnugaCare, dialysis companion service (ZeroOrigins), codename `companion` (ADR 0006).
 
 ## Read first
 

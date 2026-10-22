@@ -3,8 +3,9 @@
 Shared product requirements for every contributor and agent. `CLAUDE.md` and `AGENTS.md`
 point here. Business case and pilot plan: `Pilot BRD.md`. Delivery plan: `docs/TASKS.md`.
 
-Brand name is **not final** (Anuga was dropped: it clashes with the Anuga food trade fair).
-Use the codename `companion` in code, packages and folders until a name is chosen.
+Brand: **AnugaCare** (ADR 0006; domains `anugacare.com`, `anugacare.in`; trademark search pending).
+Families and companions use mobile apps; the ops console is an internal web tool.
+The codename `companion` stays in code, packages and folders.
 
 ## 1. What we are building
 
@@ -225,7 +226,7 @@ and still uses the pilot go/no-go results.
 
 ## 10. Open decisions (ask the founder, don't assume)
 
-- Final brand name, domain, trademark.
+- Trademark clearance for AnugaCare; final Android application id (with X1 consolidation).
 - Exact Hyderabad cluster and partner centres.
 - WhatsApp Business API provider.
 - Monthly plan vs per-visit as the default pricing.
