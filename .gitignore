@@ -51,6 +51,7 @@ supabase/.temp/
 supabase/.branches/
 
 # Generated session / agent state
+.omx/
 .remember/
 .claude-flow/
 .claude/settings.local.json

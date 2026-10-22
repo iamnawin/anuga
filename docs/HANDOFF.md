@@ -1,5 +1,23 @@
 # Handoff
 
+## Research/design push checkpoint (2026-10-22)
+
+Founder requested committing and pushing the pending changes. Branch:
+`checkpoint/research-design-2026-10-22`, based on local `5ec8f77`. This new branch
+preserves the unpushed research/design checkpoint without overwriting the divergent
+remote `claude/trusting-bell-4fgv07` branch. Added the founder's UI mockup PDF and
+ignored `.omx/` generated logs/state, consistent with the existing checkpoint rule.
+No application, database, dependency or deployment changes.
+
+Checks: `git diff --check` and staged whitespace check; PDF header/trailer checked.
+`scripts/check-all.sh` attempted through Bash but stopped at dependency installation:
+WSL pnpm could not find Node (`exec: node: not found`). No application or database
+suite completed; this checkpoint is documentation/assets only.
+
+Exact next task: review this checkpoint against current main and carry forward the
+research/design inputs as needed. Do not use this historical checkout as the current
+implementation baseline. Push this branch to origin; no merge or deploy authorized.
+
 ## Documentation checkpoint (2026-10-16)
 
 Founder authorized committing the existing local research/design work before the

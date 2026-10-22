@@ -239,3 +239,10 @@ repeated for the checkpoint; product inventory is the next authorized task.
 Requests ("I need..."), medicine refill reminders, live companion location during active trips,
 H3 density views and cluster density gate in ops console, monthly bill view, family invites with
 roles, trip data export for pilot metrics, deletion job for consent withdrawal.
+
+## Research/design push checkpoint (2026-10-22)
+
+- [x] Preserve the unpushed research/design checkpoint on a separate branch.
+- [x] Add the founder UI mockup PDF; ignore generated `.omx/` session state.
+- Validation: whitespace checks and PDF structure checks; full check script blocked
+  at installation because Node is unavailable to WSL pnpm. See HANDOFF.
