@@ -1,0 +1,54 @@
+name: publish Anuga synthetic test site
+
+# Explicit founder-authorized publication to the existing anuga.vercel.app URL.
+# Manual only. Never deploy real data or enable paid providers here.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: publish-anuga-test
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      STAGING_SUPABASE_URL: https://vsvkllfgrnlbhdydysny.supabase.co
+      STAGING_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzdmtsbGZncm5sYmhkeWR5c255Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NTUzMzcsImV4cCI6MjEwNzEzMTMzN30.40dbINejc5MsvwrOIjFDB4vEQWdimt-VkZxdafbGQ7Q
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: corepack enable && pnpm install --frozen-lockfile
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+      - run: scripts/build-staging.sh
+      - name: Publish all three apps to the existing test project
+        working-directory: artifacts/staging
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          test -n "$VERCEL_TOKEN" || { echo "Configure VERCEL_TOKEN in repository Actions secrets"; exit 1; }
+          pnpm dlx vercel@59.26.0 link --yes --project anuga --scope iamnawins-projects --token "$VERCEL_TOKEN"
+          pnpm dlx vercel@59.26.0 deploy --prebuilt --prod --yes --scope iamnawins-projects --token "$VERCEL_TOKEN" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Synthetic backend allowed and denied smoke
+        env:
+          STAGING_TEST_OTP: ${{ secrets.STAGING_TEST_OTP }}
+        run: node scripts/staging-smoke.ts | tee -a "$GITHUB_STEP_SUMMARY"
+      - run: pnpm --filter @companion/ops_console exec playwright install --with-deps chromium
+      - name: Three independent real browser sessions
+        env:
+          ANUGA_TEST_SITE: https://anuga.vercel.app
+          STAGING_TEST_OTP: ${{ secrets.STAGING_TEST_OTP }}
+        run: node scripts/web-session-smoke.mjs
+      - if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: published-web-sessions
+          path: artifacts/web-sessions/
+          if-no-files-found: ignore

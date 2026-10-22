@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import 'care_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 import '../photo_source.dart';
@@ -126,6 +127,18 @@ class _RecordsTabState extends State<RecordsTab> {
       child: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          CareHeading(l10n.tabRecords),
+          CarePanel(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.lock_outline, color: Theme.of(context).colorScheme.primary),
+                const SizedBox(width: 12),
+                Expanded(child: Text(l10n.consentVaultBody)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
           if (_consent == false) ...[
             Text(isOwner ? l10n.recordsOffOwner : l10n.recordsOffOther, key: const Key('records-off')),
             if (isOwner)
@@ -216,6 +229,8 @@ class _DetailsDialogState extends State<_DetailsDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     return AlertDialog(
+      scrollable: true,
+      title: Text(l10n.addReportPhoto),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

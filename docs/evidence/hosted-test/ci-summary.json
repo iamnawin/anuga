@@ -1,0 +1,42 @@
+{
+    "run":  38150546061,
+    "sha":  "de8f72abcaf7d00480ee6b8c9978f5cb8c09f812",
+    "status":  "completed",
+    "conclusion":  "success",
+    "url":  "https://github.com/iamnawin/anuga/actions/runs/38150546061",
+    "jobs":  [
+                 {
+                     "name":  "family-app",
+                     "status":  "completed",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "companion-app",
+                     "status":  "completed",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "supabase-local",
+                     "status":  "completed",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "db-tests",
+                     "status":  "completed",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "shared-dart",
+                     "status":  "completed",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "ops-console",
+                     "status":  "completed",
+                     "conclusion":  "success"
+                 }
+             ],
+    "realSupabasePassed":  150,
+    "opsBrowserPassed":  7,
+    "journey":  "JOURNEY PASSED"
+}

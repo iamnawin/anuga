@@ -81,7 +81,7 @@ function BillingBoard() {
       {notice && <div role="status" className="alert alert-ok">{notice}</div>}
       <ErrorMessage error={error} />
       {patients === null ? <p>{t('common.loading')}</p> : (
-        <div className="table-wrap">
+        <div className="table-wrap" role="region" aria-labelledby="billing-title" tabIndex={0}>
           <table>
             <thead>
               <tr>
@@ -100,7 +100,7 @@ function BillingBoard() {
                   <td>{invoice?.visits ?? '—'}</td>
                   <td>{invoice ? formatRupees(invoice.fares_paise, lang) : '—'}</td>
                   <td data-col="total">{invoice ? formatRupees(invoice.total_paise, lang) : '—'}</td>
-                  <td>{invoice ? t(`billing.status.${invoice.status}`) : t('billing.none')}</td>
+                  <td><span className={`badge ${invoice?.status === 'paid' ? 'badge-good' : invoice?.status === 'issued' ? 'badge-active' : 'badge-warn'}`}>{invoice ? t(`billing.status.${invoice.status}`) : t('billing.none')}</span></td>
                   <td>
                     <div className="actions">
                       {(!invoice || invoice.status === 'draft') && (

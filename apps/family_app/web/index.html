@@ -41,6 +41,17 @@
     For more details:
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
+  <script>
+    // Keep the SDK's cross-tab auth broadcasts inside this app.
+    if (window.BroadcastChannel) {
+      const NativeBroadcastChannel = window.BroadcastChannel;
+      window.BroadcastChannel = class extends NativeBroadcastChannel {
+        constructor(name) {
+          super(name.startsWith('sb-') && name.endsWith('-auth-token') ? `${name}:anuga-family` : name);
+        }
+      };
+    }
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
