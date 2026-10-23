@@ -83,7 +83,7 @@ void main() {
     final timeline = await viewer.timeline(visit.tripId);
     expect(timeline.map((e) => e.toStatus), [TripStatus.companionEnRoute, TripStatus.pickedUp]);
     expect(timeline.last.note, 'pickup OTP verified');
-    expect(timeline.map((e) => e.actorKind).toSet(), {TransitionActor.companion});
+    expect(timeline.map((e) => e.actorKind), [TransitionActor.ops, TransitionActor.companion]);
 
     // Owner cancels another visit with a reason; it shows on the board and in the timeline.
     final cancelled = await owner.cancelTrip(toCancel.tripId, reason: 'Hospital rescheduled (synthetic)');
