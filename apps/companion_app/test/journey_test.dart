@@ -23,10 +23,22 @@ Future<CompanionApi> ravi() async {
     _env['SUPABASE_PUBLISHABLE_KEY']!,
     authOptions: const AuthClientOptions(autoRefreshToken: false),
   );
-  await client.auth.signInWithOtp(phone: '+919000000202', shouldCreateUser: false);
+  await requestOtp(client, '+919000000202');
   await client.auth.verifyOTP(type: OtpType.sms, phone: '+919000000202', token: '123456');
   addTearDown(client.dispose);
   return CompanionApi(supabaseRpc(client));
+}
+
+/// Journey steps are separate processes, so the same number can ask for a code twice
+/// within supabase/config.toml `[auth.sms] max_frequency`; wait it out once.
+Future<void> requestOtp(SupabaseClient client, String phone) async {
+  try {
+    await client.auth.signInWithOtp(phone: phone, shouldCreateUser: false);
+  } on AuthApiException catch (e) {
+    if (e.code != 'over_sms_send_rate_limit') rethrow;
+    await Future<void>.delayed(const Duration(seconds: 6));
+    await client.auth.signInWithOtp(phone: phone, shouldCreateUser: false);
+  }
 }
 
 void log(String line) => stdout.writeln('    $line');
