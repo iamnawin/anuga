@@ -276,9 +276,33 @@ Branch `feat/anugacare-hardening`. Source: external review `docs/research/anugac
       (`app_settings.companion_start_minutes_before`, 180 placeholder); F06 notes required for
       companion `completed` and `issue_reported`. 9 allowed/denied tests in `trip_controls.test.ts`.
 - [ ] Founder decisions, then fixes: F01 consent withdrawal, F03 companion occupancy, F07 price per visit.
-- [ ] Founder to confirm the 180-minute start window.
+- [ ] **Pending founder decision:** F05 start window. 180 minutes is a proposed placeholder, not
+      approved (the review says the window is undecided). It is one `app_settings` row.
+- [x] Real-DB Flutter tests (`supabase_local_test.dart` in both apps) have ops start the seed
+      trip, which can be days ahead; the 40-minute journey (`scripts/e2e-journey.sh`) still covers
+      a companion starting inside the window.
 - [ ] Companion app: hide or explain "Start" outside the window (now refused by the database).
 - [ ] X1 one mobile app, release signing, push, offline queue, live family refresh (analysis section 6).
+
+Coordination (PR: see `docs/HANDOFF.md`; draft, not merged):
+
+| Item | Owner | Status |
+|---|---|---|
+| This PR (`feat/anugacare-hardening`) | iamnawin (with Claude Code) | Implemented; not merged; migration not applied; not deployed |
+| F01 / F03 / F07 / F05 window decisions | Founder | Blocked on decision |
+| PR #10 weekly visit pattern, PR #11 cancellation notification | Unassigned | Open; independent of this PR except `docs/HANDOFF.md` |
+| PRs #3 to #7 | Unassigned | Content already on main via #8; candidates to close |
+
+- Affected modules: `supabase/migrations` (new `20261022000100`, redefines `advance_trip`,
+  `verify_pickup_otp`, `ops_companion_options`, `private.assert_companion_eligible`,
+  `private.can_view_trip`, `trips` policy `participants`), `supabase/tests`, ops console
+  (`api.ts`, `messages.ts`, e2e spec), both Flutter apps (brand strings, real-DB tests), docs, CI.
+- Dependencies: PR #11 redefines `private.apply_transition` and PR #10 `ops_generate_trips`;
+  neither is touched here. Whoever merges second rebases `docs/HANDOFF.md` and re-runs `pnpm db:test`.
+  Their migrations are dated `20261012...`, before this one: if this PR lands first, rename them
+  to a later timestamp so hosted `supabase db push` does not see out-of-order migrations.
+- Rule for parallel work: a later migration that redefines one of the functions above must start
+  from this PR's version, or the F02/F04/F05/F06 checks are silently dropped.
 
 ## Backlog (from spec, unscheduled)
 

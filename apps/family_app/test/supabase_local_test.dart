@@ -64,8 +64,15 @@ void main() {
     await expectLater(viewer.issuePickupOtp(visit.tripId), rpcError('42501'));
     await expectLater(viewer.cancelTrip(toCancel.tripId), rpcError('42501'));
 
-    // Companion sets off; owner issues the code; companion picks up with it.
-    await asha.advance(visit.tripId, TripStatus.companionEnRoute);
+    // The trip is on its way; owner issues the code; companion picks up with it.
+    // The seed trip can be days ahead, past the companion start window, so ops
+    // (allowed at any time) sets it on its way. scripts/e2e-journey.sh covers a
+    // companion starting inside the window.
+    final opsClient = await signedIn('+919000000001');
+    await opsClient.rpc<dynamic>(
+      'advance_trip',
+      params: {'p_trip_id': visit.tripId, 'p_to_status': 'companion_en_route'},
+    );
     final code = await owner.issuePickupOtp(visit.tripId);
     expect(isOtpCode(code), isTrue);
     expect((await asha.verifyPickupOtp(visit.tripId, code)).ok, isTrue);

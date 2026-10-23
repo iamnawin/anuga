@@ -2,6 +2,8 @@
 -- F02 training and suspension, F04 companion reads limited to the detail window,
 -- F05 companion start window, F06 required notes.
 
+-- 180 is a proposed placeholder, not an approved value: the review left the window
+-- undecided and the founder has not confirmed it. Change the row, not this code.
 insert into public.app_settings (key, value, description) values
   ('companion_start_minutes_before', '180',
    'Companion can start a trip (on the way) from this many minutes before pickup');

@@ -3,7 +3,10 @@
 ## AnugaCare hardening (2026-10-22)
 
 Branch `feat/anugacare-hardening` from the old checkpoint branch with main `de28006` merged in
-(TASKS/HANDOFF conflicts resolved by keeping both sides). Not pushed.
+(TASKS/HANDOFF conflicts resolved by keeping both sides). Published as a draft PR for review.
+
+Status, kept separate: implemented = yes; merged = no; hosted migration applied = no;
+deployed = no. F05 window (180 min) is a placeholder pending founder decision.
 
 - Brand: AnugaCare (ADR 0006). Only user-facing strings changed. Telugu/Hindi spellings
   `అనుగాకేర్` / `अनुगाकेयर` need a native check. Trademark search open (M10).
@@ -21,8 +24,11 @@ Branch `feat/anugacare-hardening` from the old checkpoint branch with main `de28
 - Not run: `pnpm db:test:supabase`, Playwright e2e, `scripts/e2e-journey.sh` (no Docker). CI
   covers them on push. Hosted staging DB not migrated (no deploy authorized).
 
-Exact next task: founder answers on F01 consent, F03 occupancy, F07 pricing and the start window;
-then push this branch and open a PR.
+- 2026-10-23: real-DB Flutter tests (both `supabase_local_test.dart`) now have ops start the seed
+  trip, since it can be past the start window. Rollout order and verification are in the PR body.
+
+Exact next task: founder answers on F01 consent, F03 occupancy, F07 pricing and the F05 window;
+review the draft PR; then merge, migrate and deploy in the order given in the PR.
 
 ## Architecture walkthrough (2026-10-20)
 

@@ -60,7 +60,11 @@ void main() {
     expect(row.keys, isNot(contains('date_of_birth')));
     expect(row.keys, isNot(contains('patient_id')));
 
-    expect((await api.advance(trip.tripId, TripStatus.companionEnRoute)).status, TripStatus.companionEnRoute);
+    // The seed trip can be days ahead, past the companion start window, so ops
+    // (allowed at any time) sets it on its way. scripts/e2e-journey.sh covers a
+    // companion starting inside the window.
+    await ops.rpc<dynamic>('advance_trip', params: {'p_trip_id': trip.tripId, 'p_to_status': 'companion_en_route'});
+    expect((await api.myTrips()).firstWhere((t) => t.tripId == trip.tripId).status, TripStatus.companionEnRoute);
 
     // Pickup is impossible through advance_trip, even for the assigned companion.
     await expectLater(
