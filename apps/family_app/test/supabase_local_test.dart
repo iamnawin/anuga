@@ -64,8 +64,15 @@ void main() {
     await expectLater(viewer.issuePickupOtp(visit.tripId), rpcError('42501'));
     await expectLater(viewer.cancelTrip(toCancel.tripId), rpcError('42501'));
 
-    // Companion sets off; owner issues the code; companion picks up with it.
-    await asha.advance(visit.tripId, TripStatus.companionEnRoute);
+    // The trip is on its way; owner issues the code; companion picks up with it.
+    // The seed trip can be days ahead, past the companion start window, so ops
+    // (allowed at any time) sets it on its way. scripts/e2e-journey.sh covers a
+    // companion starting inside the window.
+    final opsClient = await signedIn('+919000000001');
+    await opsClient.rpc<dynamic>(
+      'advance_trip',
+      params: {'p_trip_id': visit.tripId, 'p_to_status': 'companion_en_route'},
+    );
     final code = await owner.issuePickupOtp(visit.tripId);
     expect(isOtpCode(code), isTrue);
     expect((await asha.verifyPickupOtp(visit.tripId, code)).ok, isTrue);
@@ -76,7 +83,7 @@ void main() {
     final timeline = await viewer.timeline(visit.tripId);
     expect(timeline.map((e) => e.toStatus), [TripStatus.companionEnRoute, TripStatus.pickedUp]);
     expect(timeline.last.note, 'pickup OTP verified');
-    expect(timeline.map((e) => e.actorKind).toSet(), {TransitionActor.companion});
+    expect(timeline.map((e) => e.actorKind), [TransitionActor.ops, TransitionActor.companion]);
 
     // Owner cancels another visit with a reason; it shows on the board and in the timeline.
     final cancelled = await owner.cancelTrip(toCancel.tripId, reason: 'Hospital rescheduled (synthetic)');
