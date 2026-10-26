@@ -1,5 +1,34 @@
 # Handoff
 
+## Unified AnugaCare entry, X1 first slice (2026-10-26)
+
+Branch `feat/anugacare-unified-entry`, stacked on `feat/anugacare-hardening` (PR #12, open, head
+f9285b8). Draft PR, not merged, not deployed. Owner: iamnawin with Claude Code.
+
+- New `apps/anugacare_app` (ADR 0007, proposed): one phone/OTP sign-in, no role picker, home from
+  `profiles.role`; ops accounts sent to the console, other roles refused; checking, retry and
+  expired-session states. Family and companion screens mounted unchanged through new
+  `lib/family_app.dart` / `lib/companion_app.dart`; both apps still build alone. No SQL, RPC, auth
+  provider or ops console change. `PRODUCT_SPEC` §5a updated.
+- `scripts/check-all.sh` and CI job `anugacare-app` added; both run `flutter pub get` in the family
+  and companion apps first (their generated l10n is gitignored).
+- Evidence and reference-research ledger: `docs/evidence/unified-entry/README.md`.
+- Checks run (each check-all step, sequentially; Flutter tests with `--concurrency=1` for memory):
+  install, `pnpm typecheck` pass; `pnpm db:test` 150 pass / 1 fail / 8 skipped; ops lint,
+  typecheck, 52 Vitest pass, `next build` blocked; shared_dart 27; companion 39 / 3 skipped;
+  family 35 / 6 skipped; anugacare 21; all analyze clean; `git diff --check` clean.
+- Failures, both outside this branch's files:
+  - `access.test.ts` "a companion sees only trips assigned to them" depends on the clock: PR #12's
+    F04 window hides seed trips (Mon/Wed/Fri 07:00 from `current_date`) at some times of day.
+    Failed at 19:20 IST on a Monday. Fix belongs in PR #12 (create an in-window trip in the test).
+  - `next build` stops with Next.js `SecurityFatalError` (16.4.0 flagged as vulnerable). Needs a
+    Next.js upgrade, a dependency change not made here.
+- Not run: real-Supabase tests, Playwright e2e, journey (no Docker); `flutter build apk` (no Android
+  SDK); device or emulator run. CI covers the first three and the APK build.
+
+Exact next task: review the draft PR and accept or change ADR 0007; fix the two failures above in
+their own branches; then a device run against Supabase local.
+
 ## AnugaCare hardening (2026-10-22)
 
 Branch `feat/anugacare-hardening` from the old checkpoint branch with main `de28006` merged in

@@ -282,7 +282,8 @@ Branch `feat/anugacare-hardening`. Source: external review `docs/research/anugac
       trip, which can be days ahead; the 40-minute journey (`scripts/e2e-journey.sh`) still covers
       a companion starting inside the window.
 - [ ] Companion app: hide or explain "Start" outside the window (now refused by the database).
-- [ ] X1 one mobile app, release signing, push, offline queue, live family refresh (analysis section 6).
+- [ ] X1 one mobile app (first slice: see "Unified AnugaCare entry" below), release signing, push,
+      offline queue, live family refresh (analysis section 6).
 
 Coordination (PR: see `docs/HANDOFF.md`; draft, not merged):
 
@@ -303,6 +304,23 @@ Coordination (PR: see `docs/HANDOFF.md`; draft, not merged):
   to a later timestamp so hosted `supabase db push` does not see out-of-order migrations.
 - Rule for parallel work: a later migration that redefines one of the functions above must start
   from this PR's version, or the F02/F04/F05/F06 checks are silently dropped.
+
+## Unified AnugaCare entry, X1 first slice (2026-10-26) `[~]`
+
+Branch `feat/anugacare-unified-entry`, stacked on `feat/anugacare-hardening` (PR #12). ADR 0007
+(proposed). Owner: iamnawin with Claude Code.
+
+- [x] `apps/anugacare_app`: one phone/OTP sign-in, no role picker; home from `profiles.role`
+      (family home, companion trips); ops accounts sent to the console; other roles refused.
+- [x] Checking, failed lookup with retry, expired session (on launch and while a home is open).
+- [x] en/te/hi for the new screens (te/hi need native review); family and companion screens mounted
+      unchanged through `lib/family_app.dart` and `lib/companion_app.dart`.
+- [x] `scripts/check-all.sh` and CI job `anugacare-app` (format, analyze, test, debug APK).
+- [x] 21 widget tests; screenshots in `docs/evidence/unified-entry/`.
+- [ ] Final application id (ADR 0006 point 4), release signing, store listing.
+- [ ] Run against Supabase local on a device or emulator (not done: no Docker, no device here).
+- [ ] Family home clips at 200% text (patient card, bottom navigation): pre-existing, family app.
+- [ ] Retire the standalone family and companion entry points once the unified app ships.
 
 ## Backlog (from spec, unscheduled)
 

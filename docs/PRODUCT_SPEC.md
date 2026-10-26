@@ -135,7 +135,7 @@ Companion pay hypothesis: ~₹250/visit. Fares passed through at cost. Amounts a
 
 | Layer | Choice |
 | --- | --- |
-| Mobile apps (family/patient + companion) | **Flutter**, Android first (iOS later from same codebase), two apps in the monorepo |
+| Mobile apps (family/patient + companion) | **Flutter**, Android first (iOS later from same codebase), one AnugaCare app whose family or companion views are chosen by `profiles.role` (`docs/adr/0007-one-mobile-app-role-routing.md`) |
 | Backend | **Supabase**: Postgres + **PostGIS**, Auth (phone OTP), Storage (private buckets), Edge Functions |
 | Region | **Supabase Mumbai (ap-south-1)**: health data stays in India |
 | Ops console | **Next.js** (TypeScript) on Vercel, using Supabase |
@@ -149,7 +149,8 @@ Salesforce Health Cloud was considered and rejected as the main platform (licenc
 Ops CRM and reporting: a one-way, minimum-field copy to Salesforce; Supabase stays the system of
 record (`docs/adr/0005-salesforce-ops-copy.md`). Real data in Salesforce is gated with M10.
 
-Repo layout: `apps/family_app`, `apps/companion_app` (Flutter), `apps/ops_console` (Next.js),
+Repo layout: `apps/anugacare_app` (Flutter entry app, ADR 0007) mounting the screens of
+`apps/family_app` and `apps/companion_app`, `apps/ops_console` (Next.js),
 `packages/shared_dart` (models, API client, trip state machine), `supabase/migrations`,
 `supabase/functions`, `supabase/seed` (synthetic only), `supabase/tests`, `docs/` (ADRs, runbooks).
 
