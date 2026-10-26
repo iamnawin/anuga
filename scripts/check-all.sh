@@ -17,7 +17,8 @@ step "ops console: lint, typecheck, unit tests, build"
 step "shared_dart: format, analyze, test"
 (cd packages/shared_dart && dart pub get && dart format --output=none --set-exit-if-changed lib test && dart analyze --fatal-infos && dart test)
 
-for app in companion_app family_app; do
+# anugacare_app last: it depends on the other two, whose `pub get` generates their localizations.
+for app in companion_app family_app anugacare_app; do
   step "$app: format, analyze, test"
   (cd "apps/$app" && flutter pub get && dart format --output=none --set-exit-if-changed lib/main.dart lib/src test \
     && flutter analyze --fatal-infos && flutter test)

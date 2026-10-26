@@ -106,6 +106,32 @@ jobs:
           java-version: 21
       - run: flutter build apk --debug
 
+  # One entry app that mounts the family and companion screens (ADR 0007).
+  anugacare-app:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/anugacare_app
+    steps:
+      - uses: actions/checkout@v5
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+      # Path dependencies do not generate their own (gitignored) localizations.
+      - run: (cd ../family_app && flutter pub get) && (cd ../companion_app && flutter pub get)
+      - run: flutter pub get
+      - run: dart format --output=none --set-exit-if-changed lib/main.dart lib/src test
+      - run: flutter analyze --fatal-infos
+      - run: flutter test
+      # Android-first: prove the app compiles to an APK (debug; no signing, no store upload).
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: flutter build apk --debug
+
   # Authoritative run on real Supabase (Postgres 17, real auth schema and roles,
   # storage schema) using Docker on the GitHub runner. No hosted project, no secrets.
   supabase-local:
