@@ -1,0 +1,37 @@
+{
+  "@@locale": "en",
+  "appTitle": "AnugaCare",
+  "syntheticBanner": "Development build · synthetic data only",
+  "language": "Language",
+  "loginTitle": "Sign in",
+  "loginIntro": "Families, patients and companions sign in here. We open the screens that belong to your account.",
+  "phoneLabel": "Mobile number",
+  "phoneHint": "10-digit mobile number",
+  "sendCode": "Send code",
+  "codeLabel": "6-digit code",
+  "codeSentTo": "Code sent to {phone}",
+  "@codeSentTo": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "signIn": "Sign in",
+  "changeNumber": "Use another number",
+  "invalidPhone": "Enter a valid 10-digit mobile number.",
+  "invalidCode": "Enter the 6-digit code.",
+  "checkingAccount": "Checking your account…",
+  "sessionExpiredTitle": "Please sign in again",
+  "sessionExpiredBody": "You were signed out to keep your information safe. Sign in again to continue.",
+  "signInAgain": "Sign in again",
+  "opsAccountTitle": "Use the ops console",
+  "opsAccountBody": "This number belongs to an AnugaCare operations account. Open the ops console on a computer.",
+  "noRoleTitle": "This number can't use the app yet",
+  "noRoleBody": "It is not linked to a family or companion account. Please contact AnugaCare.",
+  "backToSignIn": "Back to sign in",
+  "accountErrorTitle": "We couldn't check your account",
+  "accountErrorBody": "Check your internet connection and try again.",
+  "retry": "Try again",
+  "signOut": "Sign out"
+}
