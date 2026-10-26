@@ -21,10 +21,13 @@ f9285b8). Draft PR, not merged, not deployed. Owner: iamnawin with Claude Code.
   - `access.test.ts` "a companion sees only trips assigned to them" depends on the clock: PR #12's
     F04 window hides seed trips (Mon/Wed/Fri 07:00 from `current_date`) at some times of day.
     Failed at 19:20 IST on a Monday. Fix belongs in PR #12 (create an in-window trip in the test).
-  - `next build` stops with Next.js `SecurityFatalError` (16.4.0 flagged as vulnerable). Needs a
-    Next.js upgrade, a dependency change not made here.
-- Not run: real-Supabase tests, Playwright e2e, journey (no Docker); `flutter build apk` (no Android
-  SDK); device or emulator run. CI covers the first three and the APK build.
+  - Local `next build` stops with Next.js `SecurityFatalError` (16.4.0 flagged as vulnerable);
+    the same build passed in CI. A Next.js upgrade is a dependency change not made here.
+- CI on the draft PR (run 40337051931): `anugacare-app` (including debug APK), family, companion,
+  shared-dart, ops-console pass. `db-tests` and `supabase-local` fail on the same clock test (real
+  Supabase: 158 pass / 1 fail), so CI did not reach the ops e2e, real-DB Flutter tests or journey.
+- Not run locally: real-Supabase tests, Playwright e2e, journey (no Docker); `flutter build apk`
+  (no Android SDK); device or emulator run.
 
 Exact next task: review the draft PR and accept or change ADR 0007; fix the two failures above in
 their own branches; then a device run against Supabase local.
