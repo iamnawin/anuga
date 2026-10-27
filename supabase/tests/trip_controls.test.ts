@@ -94,6 +94,22 @@ describe('F05 companion start window', () => {
       await asAdmin((db) => db.query(`update public.app_settings set value = '180' where key = 'companion_start_minutes_before'`));
     }
   });
+
+  test('companion_my_trips says when Start opens, matching advance_trip', async () => {
+    const early = await createTrip(240, ids.asha);
+    const open = await createTrip(60, ids.asha);
+    const rows = await probeAsUser(ids.asha, (db) => db.query<{ trip_id: string; start_allowed_at: Date; scheduled_pickup_at: Date }>(
+      'select trip_id, start_allowed_at, scheduled_pickup_at from public.companion_my_trips() where trip_id = any($1)', [[early, open]]));
+    assert.equal(rows.length, 2);
+    for (const r of rows) {
+      assert.equal(r.scheduled_pickup_at.getTime() - r.start_allowed_at.getTime(), 180 * 60_000);
+    }
+    const byId = new Map(rows.map((r) => [r.trip_id, r.start_allowed_at.getTime()]));
+    assert.ok(byId.get(early)! > Date.now());
+    await expectPgError(advance(ids.asha, early, 'companion_en_route'), '22023');
+    assert.ok(byId.get(open)! <= Date.now());
+    await advance(ids.asha, open, 'companion_en_route');
+  });
 });
 
 describe('F06 required notes', () => {

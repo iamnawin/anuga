@@ -32,6 +32,22 @@ f9285b8). Draft PR, not merged, not deployed. Owner: iamnawin with Claude Code.
 Exact next task: review the draft PR and accept or change ADR 0007; fix the two failures above in
 their own branches; then a device run against Supabase local.
 
+## Companion start window in the app (2026-10-27)
+
+Branch `feat/companion-start-window`, stacked on `feat/anugacare-unified-entry` (PR #13). Not pushed,
+not merged, migration not applied to hosted, not deployed.
+
+- Migration `20261027000100_companion_start_time.sql` recreates `companion_my_trips()` with
+  `start_allowed_at` (pickup minus `companion_start_minutes_before`); execute re-granted to
+  `authenticated` only.
+- `CompanionTrip.startAllowedAt` (nullable; older servers leave Start enabled). Trip screen disables
+  Start and shows "You can start from {time}" until then, and enables it on a timer.
+  Telugu/Hindi strings for `startOpensAt` need a native check.
+- Checks: new DB test passes with the migration, fails without it; `scripts/check-all.sh` ALL CHECKS
+  PASSED (PGlite 152 pass / 8 skipped; shared Dart 27; companion 43 / 3 skipped; family 35 / 6;
+  unified app 21). The ops build first stopped on a Next.js security advisory notice and passed on
+  retry; no upgrade run. Not run: real Supabase, Playwright, journey (CI covers them).
+
 ## AnugaCare hardening (2026-10-22)
 
 Branch `feat/anugacare-hardening` from the old checkpoint branch with main `de28006` merged in

@@ -89,6 +89,9 @@ restricted functions), not only in app code.
 
 - Today's / upcoming trips, patient essentials (restricted fields only), check-in buttons, OTP entry,
   issue report, earnings summary.
+- "On my way" (start) is possible only from a configurable time before pickup
+  (`companion_start_minutes_before`; 180 minutes is a placeholder pending founder decision F05).
+  Before then the button is disabled and shows when it opens; the database refuses an early start.
 
 ### 3.8 Ops console (web)
 
@@ -171,7 +174,7 @@ As built (first milestone) in `supabase/migrations/`. Tables marked *later* are 
 - `notifications` (outbox: one row per recipient per channel)
 - `vault_documents`, `vitals`, `medicines`
 - `audit_log` (append-only)
-- `app_settings` (business values: visibility window, OTP limits, generation window)
+- `app_settings` (business values: visibility window, start window, OTP limits, generation window)
 - *Later:* `requests`, `subscriptions`, `payments`, live location, H3 density.
 
 **Access rules (each has allowed and denied tests in `supabase/tests/`):**
@@ -179,7 +182,8 @@ As built (first milestone) in `supabase/migrations/`. Tables marked *later* are 
 - Family users reach a patient only through `patient_access`.
 - Companions cannot read `patients` at all. They get a restricted projection
   (`companion_my_trips()`) with trip-essential fields only, populated only inside a configurable
-  window around each assigned trip. Never vault data, diagnoses or date of birth.
+  window around each assigned trip. Never vault data, diagnoses or date of birth. It also returns
+  `start_allowed_at`, the earliest time `advance_trip()` lets the companion start the trip.
 - Vault tables have **no SELECT grant** for any app role. Reads go only through `vault_list_*()`
   functions that authorize and write an `audit_log` row in the same transaction (Postgres does not
   fire triggers on SELECT, so trigger-based read auditing is impossible). Writes are audited by triggers.

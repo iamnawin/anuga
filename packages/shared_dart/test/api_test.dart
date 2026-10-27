@@ -45,6 +45,7 @@ void main() {
           'emergency_contacts': [
             {'name': 'Kiran Rao (synthetic)', 'phone': '+919000000101', 'relation': 'son'},
           ],
+          'start_allowed_at': '2026-10-08T22:30:00+00:00',
         },
         {
           'trip_id': 't2',
@@ -71,6 +72,8 @@ void main() {
     expect(trips.first.patientName, 'Lakshmi Rao (synthetic)');
     expect(trips.first.emergencyContacts.single.relation, 'son');
     expect(trips.first.homeLat, 17.495);
+    expect(trips.first.startAllowedAt, DateTime.utc(2026, 10, 8, 22, 30));
+    expect(trips.last.startAllowedAt, isNull);
     expect(trips.last.detailsVisible, isFalse);
     expect(trips.last.homeAddress, isNull);
     expect(trips.last.emergencyContacts, isEmpty);
