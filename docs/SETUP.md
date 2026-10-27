@@ -126,7 +126,7 @@ Tests commit data; run `db reset` before each run against the same local stack.
 | Piece | Where |
 | --- | --- |
 | Backend | Supabase project `anuga`, ref `vsvkllfgrnlbhdydysny` (Mumbai, free tier) |
-| Web apps | Vercel project `anuga-staging` (made by the first deploy): `/ops/`, `/family/`, `/companion/` |
+| Web apps | Vercel project `anuga-staging` (made by the first deploy): `/ops/`, `/family/`, `/companion/`, `/app/` (unified) |
 | Deploy | GitHub Actions → **deploy staging** → Run workflow (manual); the run summary shows the URL |
 
 Each deploy is a Vercel preview, so only signed-in members of the Vercel team can open it. The
@@ -148,6 +148,18 @@ Build locally: `STAGING_SUPABASE_URL=... STAGING_SUPABASE_ANON_KEY=... scripts/b
 Schema changes: apply each new migration to staging too. Statements that drop or delete must
 be run in the dashboard SQL editor (the Supabase connector cannot confirm them). After a
 change, reload the seed only on a fresh project; never load real data.
+
+Demo data that stays current: paste `supabase/seed/demo_refresh.sql` into the dashboard SQL
+editor and run it whenever the screens look empty (seed trips age into the past). It creates the
+next 14 days of schedule trips, closes past ones as completed visits, recreates four trips for
+today (Start open, en route, at the centre, a late pickup) and issues last month's bill. Safe to
+run again. It refuses to run if any patient is not marked "(synthetic)" or any account is outside
+the synthetic numbers `919000000xxx`, so it cannot touch a real project. Ongoing trips can also
+be made from the ops console: Schedules → **Create trips** (lists each date as created or
+already scheduled; pressing it again creates no duplicates).
+
+Test accounts (test OTP from the Supabase phone settings): ops `9000000001`, family owner
+`9000000101`, family viewer `9000000102`, companions `9000000201` (Asha), `9000000202` (Ravi).
 
 ## Secrets and data
 
