@@ -1,5 +1,23 @@
 # Handoff
 
+## Logo and Next.js patch (2026-10-27)
+
+Branch `feat/anugacare-brand`, stacked on `feat/companion-start-window`. Not merged, not deployed.
+
+- Founder logo in `docs/logo/` (see its README). Generated with `scripts/make-brand-icons.py`:
+  web icons, favicons and Android launcher icons for the three Flutter apps, the ops console
+  favicon, the symbol on every sign-in screen and the lockup on the site root page. Web manifests
+  now use `#00666B` / `#F7FBFA` instead of the Flutter default blue.
+- `next` and `eslint-config-next` 16.4.0 -> 16.4.3: 2 critical (unauthenticated RCE) and 1 high
+  advisory, fixed from 16.4.1. `pnpm audit --prod` reports none.
+- Checks: `scripts/check-all.sh` ALL CHECKS PASSED (PGlite 152 / 8 skipped, ops 52, shared Dart 27,
+  companion 43 / 3, family 35 / 6, unified 21); sign-in tests assert the symbol is shown.
+  `scripts/build-staging.sh` built the site; headless Edge screenshots of root, family and ops
+  sign-in show the logo.
+
+Exact next task: apply migrations `20261022000100` and `20261027000100` to the hosted synthetic
+project, publish this build to anuga.vercel.app, smoke test, then add test.anugacare.com.
+
 ## Unified AnugaCare entry, X1 first slice (2026-10-26)
 
 Branch `feat/anugacare-unified-entry`, stacked on `feat/anugacare-hardening` (PR #12, open, head

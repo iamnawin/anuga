@@ -286,6 +286,9 @@ Branch `feat/anugacare-hardening`. Source: external review `docs/research/anugac
       app never hard-codes the window; the button enables itself when the window opens.
 - [ ] X1 one mobile app (first slice: see "Unified AnugaCare entry" below), release signing, push,
       offline queue, live family refresh (analysis section 6).
+- [x] Logo (2026-10-27): founder artwork in `docs/logo/`; app icons, favicons, Android launcher
+      icons, sign-in screens and the site root page. Open: SVG master, Android adaptive icons.
+- [x] Next.js 16.4.0 -> 16.4.3 (2 critical, 1 high advisory fixed in 16.4.1; `pnpm audit` clean).
 
 Coordination (PR: see `docs/HANDOFF.md`; draft, not merged):
 
