@@ -22,6 +22,7 @@ Future<void> pumpApp(WidgetTester tester, FakeFamilyBackend backend, FakePhoneAu
 }
 
 Future<void> signIn(WidgetTester tester, String phone) async {
+  expect(byKey('brand-symbol'), findsOneWidget);
   await tester.enterText(byKey('phone'), phone);
   await tapVisible(tester, find.text('Send code'));
   await tester.enterText(byKey('code'), '123456');

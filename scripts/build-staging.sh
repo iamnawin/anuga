@@ -37,6 +37,8 @@ for app in family companion; do
 done
 
 step "landing page and routing"
+cp docs/logo/anugacare-lockup.png "$OUT/static/anugacare-lockup.png"
+cp apps/family_app/web/favicon.png "$OUT/static/favicon.png"
 cat > "$OUT/static/index.html" <<'HTML'
 <!doctype html>
 <html lang="en">
@@ -45,9 +47,12 @@ cat > "$OUT/static/index.html" <<'HTML'
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>AnugaCare</title>
+<link rel="icon" type="image/png" href="/favicon.png">
 <style>
   body { font-family: system-ui, sans-serif; margin: 0; padding: 24px 16px; background: #F7FBFA; color: #10243A; }
   main { max-width: 480px; margin: 0 auto; }
+  h1 { margin: 0 0 16px; text-align: center; }
+  h1 img { width: 240px; max-width: 70%; height: auto; }
   .banner { background: #fff3cd; border: 2px solid #8a6d00; padding: 12px 16px; border-radius: 8px; font-size: 18px; }
   a.app { display: block; margin: 16px 0; padding: 20px; min-height: 56px; border-radius: 12px; background: #00666B;
           color: #fff; font-size: 22px; text-decoration: none; }
@@ -56,7 +61,7 @@ cat > "$OUT/static/index.html" <<'HTML'
 </head>
 <body>
 <main>
-  <h1>AnugaCare</h1>
+  <h1><img src="/anugacare-lockup.png" alt="AnugaCare: someone beside you, every visit." width="240" height="235"></h1>
   <p class="banner"><strong>Test site.</strong> All people, patients and bills here are invented. Payments are simulated.</p>
   <a class="app" href="/ops/">Ops console<span>Trips, schedules, exceptions, billing</span></a>
   <a class="app" href="/family/">Family app / కుటుంబం / परिवार<span>Bookings, pickup code, records, bills</span></a>

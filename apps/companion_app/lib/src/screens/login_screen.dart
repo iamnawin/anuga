@@ -87,7 +87,14 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 24),
-              Icon(Icons.people_outline, size: 48, color: Theme.of(context).colorScheme.primary),
+              Center(
+                child: Image.asset(
+                  'assets/brand/anugacare-symbol.png',
+                  key: const Key('brand-symbol'),
+                  height: 88,
+                  semanticLabel: 'AnugaCare',
+                ),
+              ),
               const SizedBox(height: 24),
               Text(l10n.loginTitle, style: Theme.of(context).textTheme.headlineSmall),
               const SizedBox(height: 32),
