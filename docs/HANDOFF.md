@@ -1,5 +1,23 @@
 # Handoff
 
+## Demo data, Create trips, unified app on the test site (2026-10-27)
+
+Branch `feat/anugacare-brand` (PR #16). Not merged.
+
+- `supabase/seed/demo_refresh.sql` (SETUP → Hosted staging): makes every screen show current
+  synthetic data; refuses to run on a database with non-synthetic patients or accounts.
+- Migration `20261027000200_ops_create_trips.sql` + ops console Schedules → **Create trips**:
+  shows each pickup date as created or already scheduled; repeat presses create nothing new.
+- `scripts/build-staging.sh` builds the unified app to `/app/` and links it from the root page.
+- Billing and no-show rules untouched; F01, F03, F07 and no-show billing remain founder decisions.
+- Checks: `pnpm db:test` 154 pass / 8 skipped (2 new: created/skipped with no duplicates; family,
+  companion and out-of-range refused); ops lint, typecheck, 54 Vitest pass; demo_refresh run twice
+  on PGlite and refused with a non-synthetic patient or phone (throwaway test, not committed).
+- Not run: Playwright e2e and real-Supabase tests (no Docker).
+
+Exact next task: apply `20261027000200` to the hosted synthetic project, run `demo_refresh.sql`,
+then test both roles on the unified app at anuga.vercel.app/app/.
+
 ## Logo and Next.js patch (2026-10-27)
 
 Branch `feat/anugacare-brand`, stacked on `feat/companion-start-window`. Not merged, not deployed.

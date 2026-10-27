@@ -327,6 +327,22 @@ Branch `feat/anugacare-unified-entry`, stacked on `feat/anugacare-hardening` (PR
 - [ ] Family home clips at 200% text (patient card, bottom navigation): pre-existing, family app.
 - [ ] Retire the standalone family and companion entry points once the unified app ships.
 
+## Demo data, Create trips, unified app on the test site (2026-10-27) `[~]`
+
+Branch `feat/anugacare-brand` (PR #16).
+
+- [x] `supabase/seed/demo_refresh.sql`: current demo state on the hosted synthetic project; safe to
+      rerun; refuses non-synthetic patients or accounts.
+- [x] Migration `20261027000200_ops_create_trips.sql`: `ops_create_schedule_trips()` returns each
+      pickup date as created or skipped; no duplicates (unique schedule + pickup time); 1-60 days;
+      ops or trusted backend only. `ops_generate_trips` now counts its created rows.
+- [x] Ops console Schedules: **Create trips** button with the per-date result (en/te/hi; te/hi
+      need native review).
+- [x] Test site: unified app at `/app/`.
+- [ ] Apply `20261027000200` to the hosted synthetic project (dashboard SQL editor).
+- [ ] Nightly automatic trip generation (not built; ops presses Create trips for now).
+- [ ] Pending founder decisions, unchanged: F01, F03, F07 and whether no-shows are billed.
+
 ## Backlog (from spec, unscheduled)
 
 Requests ("I need..."), medicine refill reminders, live companion location during active trips,
