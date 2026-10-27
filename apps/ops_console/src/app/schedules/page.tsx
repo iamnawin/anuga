@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useOpsApi } from '@/components/ApiProvider';
+import { CreateTrips } from '@/components/CreateTrips';
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { useI18n } from '@/components/I18nProvider';
 import { OpsShell } from '@/components/OpsShell';
@@ -67,6 +68,7 @@ function SchedulesBoard() {
                   {t('schedules.change')}
                 </button>
               )}
+              {s.active && <CreateTrips scheduleId={s.schedule_id} onCreated={() => void load()} />}
             </li>
           ))}
         </ul>

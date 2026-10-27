@@ -30,6 +30,13 @@ export interface ScheduleRow {
   upcoming_trips: number;
 }
 
+// One pickup date from "Create trips": created now, or skipped because it already had a trip.
+export interface CreatedTripDate {
+  pickup_date: string;
+  pickup_at: string;
+  created: boolean;
+}
+
 export interface TripRow {
   trip_id: string;
   scheduled_pickup_at: string;
@@ -149,6 +156,7 @@ export interface OpsApi {
   companionOptions(patientId: string): Promise<CompanionOption[]>;
   opsTransitions(): Promise<Transition[]>;
   assignScheduleCompanions(scheduleId: string, primaryId: string, backupId: string): Promise<void>;
+  createScheduleTrips(scheduleId: string): Promise<CreatedTripDate[]>;
   assignTripCompanion(tripId: string, companionId: string): Promise<void>;
   advanceTrip(tripId: string, to: TripStatus, note: string | null): Promise<void>;
   recordTripFare(tripId: string, farePaise: number): Promise<void>;
@@ -173,6 +181,7 @@ export function createOpsApi(client: RpcClient): OpsApi {
         p_schedule_id: scheduleId, p_primary_id: primaryId, p_backup_id: backupId,
       }));
     },
+    createScheduleTrips: (scheduleId) => call(client.rpc('ops_create_schedule_trips', { p_schedule_id: scheduleId })),
     assignTripCompanion: async (tripId, companionId) => {
       await call(client.rpc('ops_assign_trip_companion', { p_trip_id: tripId, p_companion_id: companionId }));
     },
