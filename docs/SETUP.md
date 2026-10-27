@@ -198,7 +198,7 @@ Hosted phone sign-in is currently disabled. No deployment or Vercel secrets are 
 ## Publish the combined synthetic site (founder-approved 2026-10-11)
 
 PR #8 is merged. Existing Vercel project anuga serves the combined prebuilt site:
-root chooser, /ops/, /family/, /companion/. Project root is repository root and
+root chooser, /ops/, /family/, /companion/, /app/. Project root is repository root and
 Framework is Other. Root vercel.json disables Git-triggered single-app deployment.
 This is the Vercel production target for a synthetic test site, not M10 launch.
 

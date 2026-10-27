@@ -33,7 +33,7 @@ Phone sign-in and the synthetic test numbers are now enabled and verified on
 2026-10-11. The real hosted allowed/denied smoke and all three browser sign-ins
 pass. The setup below is retained for reference. The current synthetic sign-in
 code is `123456`, as configured by the founder; the visit pickup code is separate.
-Combined hosted URLs are `/ops/login/`, `/family/`, `/companion/` on
+Combined hosted URLs are `/ops/login/`, `/family/`, `/companion/` and `/app/` (unified app) on
 `https://anuga.vercel.app`; exact publication status is in the latest HANDOFF.
 
 In Supabase project **anuga**, ref **vsvkllfgrnlbhdydysny**:

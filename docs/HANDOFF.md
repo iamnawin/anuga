@@ -2,7 +2,10 @@
 
 ## Demo data, Create trips, unified app on the test site (2026-10-27)
 
-Branch `feat/anugacare-brand` (PR #16). Not merged.
+Branch `feat/anugacare-brand` (PR #16), pushed (3e91a3b), not merged. Published to anuga.vercel.app
+(deployment `dpl_AXCU2dk617jCXhNzinmEfUgq5ADb`): `/`, `/app/`, `/ops/schedules/`, `/family/`, `/companion/`
+return 200 and the console bundle calls `ops_create_schedule_trips`. Migration `20261027000200` is
+not applied to hosted by Claude (founder runs it in the SQL editor); until then Create trips errors.
 
 - `supabase/seed/demo_refresh.sql` (SETUP → Hosted staging): makes every screen show current
   synthetic data; refuses to run on a database with non-synthetic patients or accounts.
