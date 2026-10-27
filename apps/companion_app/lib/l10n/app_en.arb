@@ -45,6 +45,8 @@
   "statusNoShow": "Patient not available",
   "statusIssueReported": "Issue reported",
   "actionStart": "I'm on my way",
+  "startOpensAt": "You can start from {time}.",
+  "@startOpensAt": {"placeholders": {"time": {"type": "String"}}},
   "actionNoShow": "Patient not available",
   "confirmNoShow": "Mark the patient as not available? The family and ops are told.",
   "otpLabel": "Pickup code from the family",

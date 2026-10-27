@@ -67,10 +67,12 @@ class FakeTrip {
     this.companionId = 'asha',
     this.detailsVisible = true,
     this.otp,
+    this.startAllowedAt,
   });
 
   final String id;
   final DateTime pickupAt;
+  final DateTime? startAllowedAt;
   TripStatus status;
   String companionId;
   bool detailsVisible;
@@ -103,6 +105,7 @@ class FakeTrip {
             {'name': 'Kiran Rao (synthetic)', 'phone': '+919000000101', 'relation': 'son'},
           ]
         : null,
+    'start_allowed_at': startAllowedAt?.toUtc().toIso8601String(),
   };
 
   Map<String, Object?> toTripRow() => {

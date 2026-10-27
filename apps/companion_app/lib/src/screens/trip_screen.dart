@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
@@ -9,10 +11,13 @@ import '../trip_actions.dart';
 /// One trip: the essentials the companion needs and one button per allowed step.
 /// The database re-checks every step (`advance_trip`, `verify_pickup_otp`).
 class TripScreen extends StatefulWidget {
-  const TripScreen({super.key, required this.api, required this.trip});
+  const TripScreen({super.key, required this.api, required this.trip, this.now = DateTime.now});
 
   final CompanionApi api;
   final CompanionTrip trip;
+
+  /// Clock for the start window; tests pass a fixed time.
+  final DateTime Function() now;
 
   @override
   State<TripScreen> createState() => _TripScreenState();
@@ -24,12 +29,30 @@ class _TripScreenState extends State<TripScreen> {
   bool _busy = false;
   String? _error;
   String? _info;
+  Timer? _startTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    // Enable "Start" when the window opens (F05), without reopening the screen.
+    final opensAt = widget.trip.startAllowedAt;
+    if (opensAt != null && opensAt.isAfter(widget.now())) {
+      _startTimer = Timer(opensAt.difference(widget.now()), () {
+        if (mounted) setState(() {});
+      });
+    }
+  }
 
   @override
   void dispose() {
+    _startTimer?.cancel();
     _otp.dispose();
     super.dispose();
   }
+
+  /// The database refuses a start before this time (advance_trip, F05).
+  bool get _tooEarlyToStart =>
+      _status == TripStatus.scheduled && (widget.trip.startAllowedAt?.isAfter(widget.now()) ?? false);
 
   String _describe(Object error, AppLocalizations l10n) {
     if (error is RpcException && error.isNotAllowed) return l10n.errorNotAllowed;
@@ -231,6 +254,14 @@ class _TripScreenState extends State<TripScreen> {
                 const SizedBox(height: 16),
               ],
               for (final action in actions) ...[
+                if (action.to == TripStatus.companionEnRoute && _tooEarlyToStart) ...[
+                  Text(
+                    l10n.startOpensAt(formatIstTime(trip.startAllowedAt!, locale)),
+                    key: const Key('start-opens'),
+                    style: theme.textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                ],
                 if (action.kind == TripActionKind.verifyPickupOtp)
                   TextField(
                     key: const Key('otp'),
@@ -249,7 +280,9 @@ class _TripScreenState extends State<TripScreen> {
                         )
                       : FilledButton(
                           key: Key('action-${action.to.dbValue}'),
-                          onPressed: _busy ? null : () => _perform(action),
+                          onPressed: _busy || (action.to == TripStatus.companionEnRoute && _tooEarlyToStart)
+                              ? null
+                              : () => _perform(action),
                           child: Text(actionLabel(l10n, action)),
                         ),
                 ),

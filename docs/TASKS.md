@@ -281,7 +281,9 @@ Branch `feat/anugacare-hardening`. Source: external review `docs/research/anugac
 - [x] Real-DB Flutter tests (`supabase_local_test.dart` in both apps) have ops start the seed
       trip, which can be days ahead; the 40-minute journey (`scripts/e2e-journey.sh`) still covers
       a companion starting inside the window.
-- [ ] Companion app: hide or explain "Start" outside the window (now refused by the database).
+- [x] Companion app: "Start" is disabled before the window and says when it opens. Migration
+      `20261027000100` adds `start_allowed_at` to `companion_my_trips()` from the same setting, so the
+      app never hard-codes the window; the button enables itself when the window opens.
 - [ ] X1 one mobile app (first slice: see "Unified AnugaCare entry" below), release signing, push,
       offline queue, live family refresh (analysis section 6).
 
