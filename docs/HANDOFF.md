@@ -4,8 +4,9 @@
 
 Branch `feat/anugacare-brand` (PR #16), pushed (3e91a3b), not merged. Published to anuga.vercel.app
 (deployment `dpl_AXCU2dk617jCXhNzinmEfUgq5ADb`): `/`, `/app/`, `/ops/schedules/`, `/family/`, `/companion/`
-return 200 and the console bundle calls `ops_create_schedule_trips`. Migration `20261027000200` is
-not applied to hosted by Claude (founder runs it in the SQL editor); until then Create trips errors.
+return 200 and the console bundle calls `ops_create_schedule_trips`. 2026-10-28: founder applied
+migration `20261027000200` to the hosted synthetic project in the SQL editor (function present,
+`authenticated` can execute) and ran `demo_refresh.sql`: 7 upcoming trips, 4 today, 1 issued bill.
 
 - `supabase/seed/demo_refresh.sql` (SETUP → Hosted staging): makes every screen show current
   synthetic data; refuses to run on a database with non-synthetic patients or accounts.
@@ -18,8 +19,8 @@ not applied to hosted by Claude (founder runs it in the SQL editor); until then 
   on PGlite and refused with a non-synthetic patient or phone (throwaway test, not committed).
 - Not run: Playwright e2e and real-Supabase tests (no Docker).
 
-Exact next task: apply `20261027000200` to the hosted synthetic project, run `demo_refresh.sql`,
-then test both roles on the unified app at anuga.vercel.app/app/.
+Exact next task: test Create trips (press twice) in `/ops/` and both roles on the unified app at
+anuga.vercel.app/app/.
 
 ## Logo and Next.js patch (2026-10-27)
 

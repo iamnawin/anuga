@@ -339,7 +339,7 @@ Branch `feat/anugacare-brand` (PR #16).
 - [x] Ops console Schedules: **Create trips** button with the per-date result (en/te/hi; te/hi
       need native review).
 - [x] Test site: unified app at `/app/`.
-- [ ] Apply `20261027000200` to the hosted synthetic project (dashboard SQL editor).
+- [x] Apply `20261027000200` to the hosted synthetic project (dashboard SQL editor; founder, 2026-10-28) and run `demo_refresh.sql`.
 - [ ] Nightly automatic trip generation (not built; ops presses Create trips for now).
 - [ ] Pending founder decisions, unchanged: F01, F03, F07 and whether no-shows are billed.
 
