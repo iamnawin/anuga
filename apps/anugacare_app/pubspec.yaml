@@ -1,0 +1,32 @@
+name: anugacare_app
+description: "AnugaCare: one app for families, patients and companions (synthetic data in dev)."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.5
+
+# The family and companion apps are reused as packages during the transition (ADR 0007):
+# their screens, adapters and l10n are mounted here unchanged and both apps still build alone.
+dependencies:
+  companion_app:
+    path: ../companion_app
+  family_app:
+    path: ../family_app
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.3
+  shared_dart:
+    path: ../../packages/shared_dart
+  supabase_flutter: ^2.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
