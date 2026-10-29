@@ -63,7 +63,11 @@ The database is the security boundary; apps are thin clients over RPCs:
   `0800` vault storage (private bucket, server-generated paths, signed-URL RPCs) and consents,
   `0900` payments (invoices, fares, payment state; amounts in paise),
   `20261022000100` trip controls (training/suspension, companion start window, required notes,
-  companion trip reads limited to the detail window).
+  companion trip reads limited to the detail window), `20261027000100` `start_allowed_at` in
+  `companion_my_trips()`, `20261027000200` `ops_create_schedule_trips()` (per-date created/skipped
+  result behind the ops "Create trips" button; `ops_generate_trips` counts its created rows).
+- **Demo data** for the hosted synthetic project: `supabase/seed/demo_refresh.sql` (run in the
+  dashboard SQL editor; refuses non-synthetic patients or accounts). See SETUP → Hosted staging.
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,

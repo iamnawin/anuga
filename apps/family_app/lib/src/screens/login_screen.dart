@@ -91,6 +91,15 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 24),
+              Center(
+                child: Image.asset(
+                  'assets/brand/anugacare-symbol.png',
+                  key: const Key('brand-symbol'),
+                  height: 88,
+                  semanticLabel: 'AnugaCare',
+                ),
+              ),
+              const SizedBox(height: 24),
               CareHeading(_sentTo == null ? l10n.loginTitle : l10n.codeLabel),
               CarePanel(
                 child: Row(

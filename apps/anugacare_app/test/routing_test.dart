@@ -40,6 +40,7 @@ void main() {
       }
       expect(find.byType(Radio<Object>), findsNothing);
       expect(find.byType(SegmentedButton<Object>), findsNothing);
+      expect(find.byKey(const Key('brand-symbol')), findsOneWidget);
     });
 
     testWidgets('a stored session is checked against the database before any home opens', (tester) async {

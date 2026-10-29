@@ -11,6 +11,7 @@ flowchart LR
     OPS["Ops console<br/>Next.js, /ops/"]
     FAM["Family app<br/>Flutter, /family/ + Android"]
     COM["Companion app<br/>Flutter, /companion/ + Android"]
+    UNI["AnugaCare app (unified, ADR 0007 proposed)<br/>Flutter, /app/: family or companion<br/>screens chosen by profiles.role"]
   end
   subgraph SB["Supabase (system of record, Mumbai)"]
     AUTH["Auth<br/>phone OTP"]
@@ -25,8 +26,8 @@ flowchart LR
     SMS["SMS for OTP<br/>placeholder"]
     SF["Salesforce<br/>planned, ADR 0005"]
   end
-  OPS & FAM & COM -->|sign in| AUTH
-  OPS & FAM & COM -->|RPC calls with user JWT| DB
+  OPS & FAM & COM & UNI -->|sign in| AUTH
+  OPS & FAM & COM & UNI -->|RPC calls with user JWT| DB
   FAM -->|upload/download, pay| EF
   EF -->|ask DB as the caller| DB
   EF -->|signed URLs| ST
@@ -80,6 +81,9 @@ Each migration builds on the ones before it.
 | `0700` dispatch | Sending messages | `dispatch_claim_notifications`, `dispatch_mark_sent`, `dispatch_mark_failed` (service role only); `notification_deliveries` (what the test adapter "sent") |
 | `0800` vault storage | Files and consents | Private bucket; `vault_create_document`, `vault_upload_target`, `vault_mark_uploaded`, `vault_document_download`; `family_consents`, `set_consent` |
 | `0900` payments | Billing | `invoices`, `invoice_lines`, `payments`; `ops_record_trip_fare`, `ops_generate_invoice`, `ops_issue_invoice`, `ops_invoices`, `family_invoices`, `family_invoice_lines`, `payment_start`, `payment_set_order`, `payment_captured` |
+| `20261022000100` trip controls | Pilot safety rules | Companion training and suspension checks; Start refused before `companion_start_minutes_before`; notes required to complete or report an issue; companion reads of `trips`/`trip_events` limited to the detail window |
+| `20261027000100` start time | Companion Start button | `companion_my_trips()` returns `start_allowed_at` |
+| `20261027000200` create trips | Ops "Create trips" | `ops_create_schedule_trips` returns each pickup date as created or skipped; `ops_generate_trips` counts its created rows |
 
 **Roles** come from data, not from the login:
 
@@ -121,7 +125,9 @@ service-role key; only edge functions do.
 ### 6.2 From schedule to trips
 
 1. A patient has a weekly `schedules` row: days, pickup time, session length, package.
-2. `ops_generate_trips(schedule, from, days)` creates one `trips` row per visit.
+2. Ops presses **Create trips** on the Schedules page: `ops_create_schedule_trips(schedule)` creates one
+   `trips` row per visit for `trip_generation_days` and lists each date as created or skipped. The
+   unique schedule + pickup time key makes repeats safe. The seed uses `ops_generate_trips` (count only).
 3. Ops assigns a primary and a backup companion with `ops_assign_schedule_companions`. That
    notifies the family (`companion_assigned`) and both companions (`schedule_assigned`).
 4. Ops can swap the companion on one trip with `ops_assign_trip_companion`, which notifies the
@@ -298,8 +304,8 @@ Ops → Billing shows it as paid.
 1. **Onboarding screens.** There is no UI to add a patient, a family member, a companion or a
    weekly schedule. Today that's SQL: `create_patient` exists but no screen calls it, and
    schedules come only from the seed.
-2. **Automatic trip generation.** `ops_generate_trips` exists, but nothing calls it on a
-   schedule, and the ops console has no button for it.
+2. **Automatic trip generation.** Ops creates trips by hand (Schedules → Create trips); no nightly
+   job calls it yet, so trips run out if nobody presses it.
 3. **A scheduler for `notify-dispatch`**, plus deploying it to the hosted project.
 4. **Real senders:** WhatsApp, SMS OTP and push (section 7).
 5. **Razorpay checkout** in the family app.

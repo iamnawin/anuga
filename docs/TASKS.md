@@ -286,6 +286,9 @@ Branch `feat/anugacare-hardening`. Source: external review `docs/research/anugac
       app never hard-codes the window; the button enables itself when the window opens.
 - [ ] X1 one mobile app (first slice: see "Unified AnugaCare entry" below), release signing, push,
       offline queue, live family refresh (analysis section 6).
+- [x] Logo (2026-10-27): founder artwork in `docs/logo/`; app icons, favicons, Android launcher
+      icons, sign-in screens and the site root page. Open: SVG master, Android adaptive icons.
+- [x] Next.js 16.4.0 -> 16.4.3 (2 critical, 1 high advisory fixed in 16.4.1; `pnpm audit` clean).
 
 Coordination (PR: see `docs/HANDOFF.md`; draft, not merged):
 
@@ -323,6 +326,22 @@ Branch `feat/anugacare-unified-entry`, stacked on `feat/anugacare-hardening` (PR
 - [ ] Run against Supabase local on a device or emulator (not done: no Docker, no device here).
 - [ ] Family home clips at 200% text (patient card, bottom navigation): pre-existing, family app.
 - [ ] Retire the standalone family and companion entry points once the unified app ships.
+
+## Demo data, Create trips, unified app on the test site (2026-10-27) `[~]`
+
+Branch `feat/anugacare-brand` (PR #16).
+
+- [x] `supabase/seed/demo_refresh.sql`: current demo state on the hosted synthetic project; safe to
+      rerun; refuses non-synthetic patients or accounts.
+- [x] Migration `20261027000200_ops_create_trips.sql`: `ops_create_schedule_trips()` returns each
+      pickup date as created or skipped; no duplicates (unique schedule + pickup time); 1-60 days;
+      ops or trusted backend only. `ops_generate_trips` now counts its created rows.
+- [x] Ops console Schedules: **Create trips** button with the per-date result (en/te/hi; te/hi
+      need native review).
+- [x] Test site: unified app at `/app/`.
+- [x] Apply `20261027000200` to the hosted synthetic project (dashboard SQL editor; founder, 2026-10-28) and run `demo_refresh.sql`.
+- [ ] Nightly automatic trip generation (not built; ops presses Create trips for now).
+- [ ] Pending founder decisions, unchanged: F01, F03, F07 and whether no-shows are billed.
 
 ## Backlog (from spec, unscheduled)
 

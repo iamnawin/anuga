@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/components/AuthProvider';
@@ -7,6 +8,7 @@ import { useI18n } from '@/components/I18nProvider';
 import { LanguageSwitcher } from '@/components/OpsShell';
 import { isOtpCode, normalizeIndianMobile } from '@/lib/phone';
 import { getSupabase } from '@/lib/supabase';
+import symbol from './anugacare-symbol.png';
 
 export default function LoginPage() {
   const { t } = useI18n();
@@ -58,7 +60,10 @@ export default function LoginPage() {
 
   return (
     <main className="page login">
-      <div className="brand-block login-brand"><strong className="brand">AnugaCare</strong></div>
+      <div className="brand-block login-brand">
+        <Image src={symbol} alt="" width={56} height={56} unoptimized priority />
+        <strong className="brand">AnugaCare</strong>
+      </div>
       <div className="login-head">
         <h1>{t('login.title')}</h1>
         <LanguageSwitcher />

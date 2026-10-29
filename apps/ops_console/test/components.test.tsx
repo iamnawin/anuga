@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { ApiProvider } from '@/components/ApiProvider';
 import { I18nProvider } from '@/components/I18nProvider';
+import { CreateTrips } from '@/components/CreateTrips';
 import { FareEditor } from '@/components/FareEditor';
 import { ReassignTrip, type ReassignableTrip } from '@/components/ReassignTrip';
 import { ScheduleAssignForm } from '@/components/ScheduleAssignForm';
@@ -25,6 +26,7 @@ function fakeApi(overrides: Partial<OpsApi> = {}): OpsApi {
     companionOptions: vi.fn().mockResolvedValue(options),
     assignTripCompanion: vi.fn().mockResolvedValue(undefined),
     assignScheduleCompanions: vi.fn().mockResolvedValue(undefined),
+    createScheduleTrips: vi.fn().mockResolvedValue([]),
     ...overrides,
   };
 }
@@ -103,6 +105,34 @@ describe('ScheduleAssignForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Save' }));
     expect((await screen.findByRole('alert')).textContent).toContain('not eligible');
     expect(onSaved).not.toHaveBeenCalled();
+  });
+});
+
+describe('CreateTrips', () => {
+  test('shows which dates were created and which were skipped', async () => {
+    const api = fakeApi({ createScheduleTrips: vi.fn().mockResolvedValue([
+      { pickup_date: '2026-10-28', pickup_at: '2026-10-28T01:30:00Z', created: false },
+      { pickup_date: '2026-10-30', pickup_at: '2026-10-30T01:30:00Z', created: true },
+    ]) });
+    const onCreated = vi.fn();
+    wrap(api, <CreateTrips scheduleId="s1" onCreated={onCreated} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Create trips' }));
+    const status = await screen.findByRole('status');
+    expect(api.createScheduleTrips).toHaveBeenCalledWith('s1');
+    expect(onCreated).toHaveBeenCalled();
+    expect(status.textContent).toContain('Created 1, skipped 1 (already scheduled).');
+    expect(status.textContent).toContain('Already scheduled');
+    expect(status.textContent).toMatch(/30 Oct.*Created/);
+  });
+
+  test('shows the database error and no result', async () => {
+    const api = fakeApi({ createScheduleTrips: vi.fn().mockRejectedValue(new DbError({ code: '42501', message: 'ops only' })) });
+    const onCreated = vi.fn();
+    wrap(api, <CreateTrips scheduleId="s1" onCreated={onCreated} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Create trips' }));
+    expect((await screen.findByRole('alert')).textContent).toBeTruthy();
+    expect(screen.queryByRole('status')).toBeNull();
+    expect(onCreated).not.toHaveBeenCalled();
   });
 });
 
