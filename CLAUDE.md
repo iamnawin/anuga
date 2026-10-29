@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Project:** Dialysis Companion App (ZeroOrigins), codename `companion` (brand name not final).
+**Project:** AnugaCare, dialysis companion service (ZeroOrigins), codename `companion` (ADR 0006).
 
 ## Read first
 
@@ -61,7 +61,9 @@ The database is the security boundary; apps are thin clients over RPCs:
   companion options), `0600` family read RPCs (patients with access level, timeline, inbox),
   `0700` notification dispatch (service-role claim/mark RPCs, `notification_deliveries`),
   `0800` vault storage (private bucket, server-generated paths, signed-URL RPCs) and consents,
-  `0900` payments (invoices, fares, payment state; amounts in paise).
+  `0900` payments (invoices, fares, payment state; amounts in paise),
+  `20261022000100` trip controls (training/suspension, companion start window, required notes,
+  companion trip reads limited to the detail window).
 - **Grants are revoked by default.** Supabase normally grants every public table to API roles;
   migration `0200` revokes that. Any new table needs explicit grants and RLS policies in its migration.
 - **`private` schema** holds `security definer` helpers (`is_ops`, `can_view_patient`,

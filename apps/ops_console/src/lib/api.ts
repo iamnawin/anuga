@@ -71,7 +71,7 @@ export interface ExceptionRow {
   since: string;
 }
 
-export type IneligibleReason = 'inactive' | 'not_verified' | 'outside_radius';
+export type IneligibleReason = 'inactive' | 'not_verified' | 'not_trained' | 'outside_radius';
 
 export interface CompanionOption {
   companion_id: string;

@@ -44,7 +44,7 @@ cat > "$OUT/static/index.html" <<'HTML'
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>ANUGA</title>
+<title>AnugaCare</title>
 <style>
   body { font-family: system-ui, sans-serif; margin: 0; padding: 24px 16px; background: #F7FBFA; color: #10243A; }
   main { max-width: 480px; margin: 0 auto; }
@@ -56,7 +56,7 @@ cat > "$OUT/static/index.html" <<'HTML'
 </head>
 <body>
 <main>
-  <h1>ANUGA</h1>
+  <h1>AnugaCare</h1>
   <p class="banner"><strong>Test site.</strong> All people, patients and bills here are invented. Payments are simulated.</p>
   <a class="app" href="/ops/">Ops console<span>Trips, schedules, exceptions, billing</span></a>
   <a class="app" href="/family/">Family app / కుటుంబం / परिवार<span>Bookings, pickup code, records, bills</span></a>

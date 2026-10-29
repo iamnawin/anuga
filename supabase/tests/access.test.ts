@@ -83,9 +83,11 @@ describe('trips and schedules', () => {
   });
 
   test('a companion sees only trips assigned to them', async () => {
+    // Seed trips fall inside the companion read window only at some times of day.
+    const tripForAsha = await createTrip(600);
     const tripForRavi = await createTrip(600, ids.ravi);
     const asha = await probeAsUser(ids.asha, (db) => db.query<{ id: string }>('select id from public.trips'));
-    assert.ok(asha.length > 0);
+    assert.ok(asha.some((t) => t.id === tripForAsha));
     assert.ok(!asha.some((t) => t.id === tripForRavi));
     const ravi = await probeAsUser(ids.ravi, (db) => db.query<{ id: string }>('select id from public.trips'));
     assert.ok(ravi.some((t) => t.id === tripForRavi));

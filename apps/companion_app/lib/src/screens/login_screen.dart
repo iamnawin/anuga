@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ANUGA', style: TextStyle(fontWeight: FontWeight.w700)),
+        title: const Text('AnugaCare', style: TextStyle(fontWeight: FontWeight.w700)),
         actions: [LanguageMenu(onChanged: widget.onLocaleChanged)],
       ),
       body: SafeArea(

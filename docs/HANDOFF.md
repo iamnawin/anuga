@@ -1,5 +1,35 @@
 # Handoff
 
+## AnugaCare hardening (2026-10-22)
+
+Branch `feat/anugacare-hardening` from the old checkpoint branch with main `de28006` merged in
+(TASKS/HANDOFF conflicts resolved by keeping both sides). Published as a draft PR for review.
+
+Status, kept separate: implemented = yes; merged = no; hosted migration applied = no;
+deployed = no. F05 window (180 min) is a placeholder pending founder decision.
+
+- Brand: AnugaCare (ADR 0006). Only user-facing strings changed. Telugu/Hindi spellings
+  `అనుగాకేర్` / `अनुगाकेयर` need a native check. Trademark search open (M10).
+- Analysis: `docs/research/anugacare-mobile-analysis.md`. No APK exists (CI builds but does not
+  upload; no Android SDK here). Hosted web bundles scanned: anon key only, no service key, no
+  third-party SDKs, no source maps. REA ran on the family bundle but ran out of memory on dart2js
+  output (partial). Recommendation: keep Flutter, merge the two apps, ops console stays web.
+- DB fixes F02, F04, F05, F06 in `supabase/migrations/20261022000100_trip_controls.sql`.
+  Ops console shows the new `not_trained` reason. The ops Playwright spec now has ops start
+  Ravi's trip (seed trips can be days ahead, past the companion start window).
+- Checks run: `pnpm db:test` 151 pass / 8 skipped / 0 fail (was 142/8); new tests fail 8/9 with
+  the migration removed (the 9th checks family/ops access is kept); `pnpm typecheck`;
+  `pnpm contract:export` no drift; `scripts/check-all.sh` ALL CHECKS PASSED; ops lint, typecheck,
+  52 Vitest; both Flutter apps analyze clean, family 35 pass / 6 skipped, companion 39 / 3.
+- Not run: `pnpm db:test:supabase`, Playwright e2e, `scripts/e2e-journey.sh` (no Docker). CI
+  covers them on push. Hosted staging DB not migrated (no deploy authorized).
+
+- 2026-10-23: real-DB Flutter tests (both `supabase_local_test.dart`) now have ops start the seed
+  trip, since it can be past the start window. Rollout order and verification are in the PR body.
+
+Exact next task: founder answers on F01 consent, F03 occupancy, F07 pricing and the F05 window;
+review the draft PR; then merge, migrate and deploy in the order given in the PR.
+
 ## Architecture walkthrough (2026-10-20)
 
 Added `docs/ARCHITECTURE.md`, written from the code on main (64c4603). It covers the
@@ -129,6 +159,191 @@ PR status: https://github.com/iamnawin/anuga/pull/4 OPEN; no merge or deploy. Do
 
 Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-bell-4fgv07`)
 
+## Research/design push checkpoint (2026-10-22)
+
+Founder requested committing and pushing the pending changes. Branch:
+`checkpoint/research-design-2026-10-22`, based on local `5ec8f77`. This new branch
+preserves the unpushed research/design checkpoint without overwriting the divergent
+remote `claude/trusting-bell-4fgv07` branch. Added the founder's UI mockup PDF and
+ignored `.omx/` generated logs/state, consistent with the existing checkpoint rule.
+No application, database, dependency or deployment changes.
+
+Checks: `git diff --check` and staged whitespace check; PDF header/trailer checked.
+`scripts/check-all.sh` attempted through Bash but stopped at dependency installation:
+WSL pnpm could not find Node (`exec: node: not found`). No application or database
+suite completed; this checkpoint is documentation/assets only.
+
+Exact next task: review this checkpoint against current main and carry forward the
+research/design inputs as needed. Do not use this historical checkout as the current
+implementation baseline. Push this branch to origin; no merge or deploy authorized.
+
+## Documentation checkpoint (2026-10-16)
+
+Founder authorized committing the existing local research/design work before the
+product-inventory bootstrap. Branch: `claude/trusting-bell-4fgv07`, baseline
+`299a9bf`. This checkout is historical; fetched `origin/main` is the implementation
+baseline for the next task. Preserve the research reconciliation and cancellation
+worktree pointers below as dated receipts, not current runtime verification.
+
+Checkpoint scope: three research documents, four public-site screenshots, fifteen
+design boards, the Excalidraw source, and existing HANDOFF/TASKS edits. Local `.omx/`
+logs/state are excluded. No application, SQL, dependency or provider changes.
+Checks: staged whitespace checks passed; design JSON parsed and PNG signatures checked. App/database/runtime
+checks are not run for this documentation checkpoint. No merge or deployment.
+Exact next task: carry out the supplied product-inventory documentation bootstrap
+from current main, preserving these local inputs and separating evidence by branch.
+
+## Cancellation validation complete (2026-10-13)
+
+Implementation remains uncommitted in `D:/AI-Workspace/Repos/anuga-cancellation`,
+branch `feat/companion-cancellation-notification`, main base `64c4603`.
+The missing-local-tools blocker below is resolved. Real local Supabase suite:
+157 passed, zero skips, including simultaneous cancellations. Companion notices
+delivered safely in en/te/hi through real Edge/test adapter with no repeated-dispatch
+duplicate. Full browser/Dart/Edge journey PASSED, including existing test-mode billing.
+Typecheck, unchanged contract export and final diff review passed. No extra app,
+migration or test-source changes in this continuation; implementation worktree's
+HANDOFF/TASKS/AGENTS/SETUP record the validation and reproducible local-tool setup.
+Local Supabase/Docker services and keep-alive stopped; Docker autostart disabled;
+tools/images retained. Implementation worktree handoff is the authoritative receipt
+and lists the exact uncommitted files ready for review.
+PR #10 remains OPEN, unchanged and unmerged. No commit, push, PR creation, deployment
+or new business policy. No validation blockers remain. Exact next task: founder
+reviews the uncommitted implementation diff; commit/PR requires separate authorization.
+Ops intake and app consolidation are separate tasks. Earlier research inputs preserved.
+
+## Implementation continuation pointer (2026-10-12)
+
+Founder authorized the companion cancellation notice task after the research review.
+Implementation is uncommitted on `feat/companion-cancellation-notification` in
+`D:/AI-Workspace/Repos/anuga-cancellation`, based on current main `64c4603`.
+Read that worktree's `docs/HANDOFF.md` for changed files, runtime results and blockers.
+One new migration reuses the shared transition/outbox with cancellation-only duplicate
+protection; unchanged PR #10 SQL is a rolled-back test fixture, not a merge.
+Final PGlite: 148 passed, 9 skipped; typecheck passed; contract unchanged. Real
+Supabase/concurrent PG/full connected journey remain blocked by missing local tools.
+No commit, push, merge or deploy. This older checkout's research/TASKS/design inputs
+are preserved; no application implementation belongs here. Next: review the new
+worktree diff and run outstanding real-Supabase checks in a disposable environment.
+
+## Current-main / PR #10 research reconciliation (2026-10-12)
+
+Working checkout remains `claude/trusting-bell-4fgv07` at `299a9bf`; research
+documents are untracked and the previous cleanup's HANDOFF/TASKS edits are retained.
+Fetched origin and compared main `64c4603e5812358f6030ab8c9038747a93ba9b40` with
+OPEN PR #10 head `c561a9d27a2098c3ee5932b60e4e09ceb6ccb46e` using GitHub CLI,
+`git show`, `git grep` and branch diff. No checkout/merge/app modification.
+This section supersedes historical next-task statements below for this review.
+
+Updated only the three research documents and this handoff. Matrix section 5 now
+separates current main from PR #10: main has combined redesigned web hosting and
+independent sessions; PR #10 implements existing-pattern weekday editing and future
+unstarted replacement, with companion notifications for that specific cancellation
+path. It remains unmerged; no claim about today's hosted schema or live feature.
+Intake/new-patient/new-schedule/generation UI, pause/end/individual moves, automatic
+generation, readiness/waiting capture, early warnings/reminders, structured needs,
+general companion cancellation notices and policy features remain gaps. Receipts,
+invites, metrics, availability/earnings and unified mobile packaging remain deferred.
+
+Return permissions resolved from code (unchanged in PR #10): assigned companions
+and Ops can advance handed_over -> session_done -> returning. Owner/editor have
+only the family scheduled -> cancelled transition; patient/viewer cannot advance
+return states. Patient's pickup-OTP permission is not return permission. No independent
+ready RPC exists. Ops companion reassignment accepts scheduled trips only, including
+no special issue-resolution or return-leg reassignment. Companion read projection
+masks patient essentials outside its time window; transition writes do not check
+that window. Missing readiness does not prove an overrun; event timestamps do not
+measure actual companion arrival/waiting. Preserve those boundaries pending review.
+
+Correction to previous cleanup: Ops can read vault data through audited functions
+when the patient's owner has active ops_vault_access consent (0400, vault.test.ts).
+Ops has no vault-write grant; companions remain denied. Matrix corrected accordingly.
+
+Smallest recommended next implementation: one slice of N5, notify the currently
+assigned companion on every authorized cancellation using existing outbox/template.
+No new billing/cutoff/reason policy, provider or screen. Acceptance in proposal
+section 0 covers Family/Ops allowed cases, all denied actors, no-assignment, rollback,
+concurrent/retry behavior, safe en/te/hi content and exact-one notification including
+PR #10 integration. A single writer must replace/reconcile its explicit pattern
+sender; do not add a duplicate or blindly merge that branch. This is a recommendation,
+not code-change/merge/deployment authorization.
+
+Founder business decisions pending: cancellation cutoff; no-show/late-cancel billing;
+overrun grace/charges; waiting compensation; consented companion gender/preference
+collection; mobility service exclusions. New-owner onboarding, independent-ready
+actors, active return reassignment and scheduler/cost need separate scope review.
+App consolidation and final id remain a separate pre-store-release decision, not an
+operational prerequisite; do not combine them with the notification slice.
+
+Validation: source refs/PR state, scope diff, SQL/helpers and existing test-source
+inspection; local document links/whitespace and changed-path checks. No application
+or database tests executed: this is source analysis/documentation only. Existing
+historical CI results are not a fresh test result. No new browser research, competitor
+submission, APK inspection, artifact cleanup, commit, push, deploy or publication.
+Prior TASKS edits, design/screenshots and .omx inputs preserved; integration worktree
+unchanged. Exact next task: review the proposed notification slice and its acceptance
+criteria, then authorize implementation separately; policy-dependent N1-N5 extensions
+and consolidation stay pending. Resume from current main, not this old checkout.
+
+## Research cleanup handoff (2026-10-12)
+
+Branch/worktree: `claude/trusting-bell-4fgv07` at `299a9bf`,
+`D:/AI-Workspace/Ideas/Anuga`. Latest local task: founder requested cleanup of
+Claude's three uncommitted research documents and generated hook artifacts only.
+This section supersedes this checkout's old next-task instructions for this task.
+Historical deployment/PR status below is stale: current product context is in
+`D:/AI-Workspace/Repos/anuga-integration/docs/HANDOFF.md` (`feat/weekly-visit-pattern`).
+That handoff records role-based consolidation as a recommendation, not implemented,
+and PR #10 scheduling work as unmerged. Do not rebuild its completed work from here.
+
+Completed:
+- Read AGENTS, HANDOFF, the three research documents, and all four generated JSON files.
+- Corrected the unsupported recurring-dialysis exclusivity claim: Hospy360 advertises
+  monthly dialysis support and digniMuv regular bookings. Competitor private-app
+  scheduling/backup workflows are unknown; Anuga superiority is not established.
+- Distinguished visible forms/public vendor statements from verified service behavior;
+  removed unsourced no-show outcome, app-rating and one-hour will-call assertions.
+  Narrowed universal intake, reminder, cancellation and user-expectation claims.
+- Marked the gap matrix/counts as the old `299a9bf` snapshot; later main/PR #10
+  work must be reconciled before planning. Corrected the vault row to exclude Ops.
+- Kept N1-N5 as proposed operational priorities, X1 app consolidation as a separate
+  pre-store-release workstream, and all business policies/final app id pending.
+  Removed implied ops ownership/vault access and unapproved mobility booking blocks.
+- Corrected proposed waiting metrics (readiness-to-returning is a response interval,
+  not actual waiting) and return reassignment: the existing RPC only accepts scheduled
+  trips, so active return reassignment remains unresolved. Readiness actor scope also
+  needs review. Preserved database security and existing trip states in the proposal.
+- Inspected `.claude-flow`: command-memory logs, neural counters, policy receipts
+  and ledger anchors from Ruflo post-command hooks; no substantive research.
+  Parsed all four JSON files, checked resolved path/no reparse points and exact count,
+  then removed only that folder. Three documents and four internal-reference PNGs retained.
+
+Validation: targeted official-page checks for Hospy360 and Ride Health; migration
+0300 reassignment/cancellation checks and vault test-source review; matrix row-count,
+Markdown local-link, retained screenshot and whitespace checks. No completed browser
+research was repeated, no APK inspected, no competitor forms submitted. digniMuv's
+how-it-works page timed out and HosFriend's policy page was inaccessible to the web
+tool; original findings remain attributed vendor observations, not freshly verified.
+App/database tests were not run: no app code, dependencies, migrations or config changed.
+Documents and cleanup remain local/uncommitted by explicit founder instruction;
+no commit, push, deploy or publication. Original `.omx/` and design inputs untouched.
+
+Outstanding decisions: cancellation cutoff; no-show/late-cancellation billing;
+overrun grace and whether extra time is billed; companion gender collection/consent;
+final single mobile app id. Proposed owner onboarding, readiness actors, mobility
+service limits, scheduling mechanism/cost and active return reassignment also need
+scope/access review. No new policy values approved; numerical examples are test inputs.
+
+Exact next task: founder reviews the cleaned research and resolves required policy
+choices. Before any implementation, reconcile the snapshot matrix against current
+main and PR #10, then agree one small operational slice. Keep consolidation planning
+separate. No implementation, rollout or publication is authorized by this cleanup.
+
+## Historical handoff (before current research cleanup)
+
+Last updated: 2026-10-11 (session 3, Claude Code local Windows, branch `staging-handoff` pushed onto
+`claude/trusting-bell-4fgv07` = PR iamnawin/anuga#2). Session 2: 2026-10-09, Claude Code cloud.
+
 ## Current state
 
 - Done and verified: **M0**, **M1**, **M1a** (real Supabase), **M2** (`packages/shared_dart`),
@@ -140,6 +355,16 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
   from scratch here; nothing was duplicated.
 - Repository: **https://github.com/iamnawin/anuga** (private). Work is on the branch above with a
   draft PR to `main` (not merged).
+
+- Repository: **https://github.com/iamnawin/anuga** (private). M3-M9 were merged to `main` in
+  iamnawin/anuga#1 (2026-10-09).
+- **Hosted staging (ADR 0004, founder-approved 2026-10-09, synthetic data only):** Supabase project
+  `anuga` (`vsvkllfgrnlbhdydysny`, Mumbai) has all nine migrations, the seed (6 trips) and the
+  `vault-files` + `payments` functions (with CORS for browsers). Web apps deploy to the Vercel
+  project `anuga-staging` (`/ops/`, `/family/`, `/companion/`, preview deploys behind Vercel
+  Authentication) via the manual **deploy staging** workflow. The founder's Git-linked Vercel
+  project `anuga` auto-deploys the ops console only and is not the staging site.
+  Setup and remaining founder steps: `docs/SETUP.md`, "Hosted staging".
 
 ## Decisions made
 
@@ -310,6 +535,12 @@ Last updated: 2026-10-08 (session 2, Claude Code cloud, branch `claude/trusting-
 
 - Telugu and Hindi strings have not been reviewed by a native speaker.
 - Ops console on a hosted Supabase project: none exists (gated, M10).
+
+- Staging (2026-10-09): migrations, seed and security advisors checked through the Supabase
+  connector (advisors: only intended findings: deny-all RLS tables, RPCs callable by signed-in
+  users, password checks unused with phone OTP). The live functions and web apps could not be
+  reached from the cloud session (network policy denies `*.supabase.co`); `deploy staging` runs
+  `scripts/staging-smoke.ts` from GitHub instead, once `VERCEL_TOKEN` and `STAGING_TEST_OTP` exist.
 - Private storage bucket policies and signed URLs: M8.
 - Android SDK cannot be installed in the cloud session (the proxy denies `dl.google.com`):
   `flutter build apk --debug` runs only in CI (`companion-app`, `family-app`). No emulator or
@@ -353,6 +584,12 @@ Setup command for the cloud environment:
 For Supabase local in a cloud session: `nohup dockerd &` (as root), then `docs/SETUP.md` Path B.
 
 ## Historical staging context from PR #2 (superseded next task)
+
+- `[auth.sms.test_otp]` and the fake Twilio values are local-only. Staging uses dashboard test
+  numbers with a founder-chosen code (ADR 0004); production needs a real SMS provider (paid,
+  founder authorization) and no test numbers.
+- The Supabase connector times out on statements that drop or delete (it waits for a confirmation
+  it cannot show). Such migrations must be run in the staging dashboard SQL editor.
 
 ## Session 3 (2026-10-11): founder feedback, duplicate PR, design work next
 

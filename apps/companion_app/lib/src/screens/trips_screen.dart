@@ -69,7 +69,7 @@ class _TripsScreenState extends State<TripsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ANUGA', style: TextStyle(fontWeight: FontWeight.w700)),
+        title: const Text('AnugaCare', style: TextStyle(fontWeight: FontWeight.w700)),
         actions: [
           IconButton(tooltip: l10n.refresh, icon: const Icon(Icons.refresh, size: 28), onPressed: _load),
           LanguageMenu(onChanged: widget.onLocaleChanged),

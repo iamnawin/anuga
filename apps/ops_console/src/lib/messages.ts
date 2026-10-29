@@ -80,6 +80,7 @@ const en = {
   'companion.eligible': 'eligible',
   'companion.reason.inactive': 'inactive',
   'companion.reason.not_verified': 'not verified',
+  'companion.reason.not_trained': 'training not done',
   'companion.reason.outside_radius': 'outside radius',
   'companion.distance': '{km} km',
 
@@ -209,6 +210,7 @@ const te: Messages = {
   'companion.eligible': 'అర్హులు',
   'companion.reason.inactive': 'క్రియాశీలంగా లేరు',
   'companion.reason.not_verified': 'ధృవీకరించబడలేదు',
+  'companion.reason.not_trained': 'శిక్షణ పూర్తి కాలేదు',
   'companion.reason.outside_radius': 'పరిధి బయట',
   'companion.distance': '{km} కి.మీ',
 
@@ -335,6 +337,7 @@ const hi: Messages = {
   'companion.eligible': 'योग्य',
   'companion.reason.inactive': 'निष्क्रिय',
   'companion.reason.not_verified': 'सत्यापित नहीं',
+  'companion.reason.not_trained': 'प्रशिक्षण पूरा नहीं',
   'companion.reason.outside_radius': 'दायरे से बाहर',
   'companion.distance': '{km} कि.मी.',
 

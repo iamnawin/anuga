@@ -250,6 +250,60 @@ paid services authorization, breach runbook with a named owner, real-Supabase te
 for Salesforce (ADR 0005): a paid Hyperforce India org, a DPA and the privacy-notice update.
 Not started without explicit founder approval.
 
+## Research cleanup (2026-10-12, local/uncommitted)
+
+Checkpoint update (2026-10-16): founder authorized committing the retained research,
+design inputs and handoff before the documentation bootstrap. Earlier no-commit
+wording below records the prior task boundary. Application/runtime checks are not
+repeated for the checkpoint; product inventory is the next authorized task.
+
+- [x] Review three research documents; qualify unsupported competitor claims and old-snapshot gap counts.
+- [x] Inspect four generated `.claude-flow` JSON artifacts and remove only that hook-output folder; preserve documents/screenshots.
+- [x] Update HANDOFF; separate proposed N1-N5 operations from X1 mobile consolidation; keep business policies pending.
+- [ ] Founder policy review and reconcile gaps against current main/PR #10 before implementation planning.
+- No app/dependency/migration/config changes; no commit, push, deploy or publish authorized.
+
+## AnugaCare hardening (2026-10-22) `[~]`
+
+Branch `feat/anugacare-hardening`. Source: external review `docs/research/anugacare-db-findings-2026-10-22.md`.
+
+- [x] Brand AnugaCare in user-facing names (ADR 0006); ids and package names unchanged.
+- [x] Mobile readiness and framework analysis: `docs/research/anugacare-mobile-analysis.md`
+      (keep Flutter, merge into one app, ops stays web).
+- [x] Migration `20261022000100_trip_controls.sql`: F02 training required for assignment and
+      companions must be active, verified and trained to act; F04 companion reads of `trips` and
+      `trip_events` limited to the detail window; F05 companion start window
+      (`app_settings.companion_start_minutes_before`, 180 placeholder); F06 notes required for
+      companion `completed` and `issue_reported`. 9 allowed/denied tests in `trip_controls.test.ts`.
+- [ ] Founder decisions, then fixes: F01 consent withdrawal, F03 companion occupancy, F07 price per visit.
+- [ ] **Pending founder decision:** F05 start window. 180 minutes is a proposed placeholder, not
+      approved (the review says the window is undecided). It is one `app_settings` row.
+- [x] Real-DB Flutter tests (`supabase_local_test.dart` in both apps) have ops start the seed
+      trip, which can be days ahead; the 40-minute journey (`scripts/e2e-journey.sh`) still covers
+      a companion starting inside the window.
+- [ ] Companion app: hide or explain "Start" outside the window (now refused by the database).
+- [ ] X1 one mobile app, release signing, push, offline queue, live family refresh (analysis section 6).
+
+Coordination (PR: see `docs/HANDOFF.md`; draft, not merged):
+
+| Item | Owner | Status |
+|---|---|---|
+| This PR (`feat/anugacare-hardening`) | iamnawin (with Claude Code) | Implemented; not merged; migration not applied; not deployed |
+| F01 / F03 / F07 / F05 window decisions | Founder | Blocked on decision |
+| PR #10 weekly visit pattern, PR #11 cancellation notification | Unassigned | Open; independent of this PR except `docs/HANDOFF.md` |
+| PRs #3 to #7 | Unassigned | Content already on main via #8; candidates to close |
+
+- Affected modules: `supabase/migrations` (new `20261022000100`, redefines `advance_trip`,
+  `verify_pickup_otp`, `ops_companion_options`, `private.assert_companion_eligible`,
+  `private.can_view_trip`, `trips` policy `participants`), `supabase/tests`, ops console
+  (`api.ts`, `messages.ts`, e2e spec), both Flutter apps (brand strings, real-DB tests), docs, CI.
+- Dependencies: PR #11 redefines `private.apply_transition` and PR #10 `ops_generate_trips`;
+  neither is touched here. Whoever merges second rebases `docs/HANDOFF.md` and re-runs `pnpm db:test`.
+  Their migrations are dated `20261012...`, before this one: if this PR lands first, rename them
+  to a later timestamp so hosted `supabase db push` does not see out-of-order migrations.
+- Rule for parallel work: a later migration that redefines one of the functions above must start
+  from this PR's version, or the F02/F04/F05/F06 checks are silently dropped.
+
 ## Backlog (from spec, unscheduled)
 
 Requests ("I need..."), medicine refill reminders, live companion location during active trips,
@@ -278,3 +332,10 @@ roles, trip data export for pilot metrics, deletion job for consent withdrawal.
 - [x] Hosting fix PR #9 opened; source CI 38150546061 running. Documentation-only live receipt checked with git diff --check.
 - [x] Publish fix PR #9 merged at 37bdae2c. Code CI 38150546061/de8f72a: six jobs pass, real Supabase 150/150 zero skips, ops browser 7 pass, full journey/test billing and APKs. Main product source matches deployed/tested code. Final doc-only receipt checked, no app rerun; receipt/main CI may be running.
 - [ ] Founder manual active-window visit. Additive synthetic fixture and walkthrough remain in LOCAL_TESTING.
+
+## Research/design push checkpoint (2026-10-22)
+
+- [x] Preserve the unpushed research/design checkpoint on a separate branch.
+- [x] Add the founder UI mockup PDF; ignore generated `.omx/` session state.
+- Validation: whitespace checks and PDF structure checks; full check script blocked
+  at installation because Node is unavailable to WSL pnpm. See HANDOFF.
