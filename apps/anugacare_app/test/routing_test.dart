@@ -32,6 +32,29 @@ void main() {
       expect(rpc.calls, isNot(contains('family_my_patients')));
     });
 
+    testWidgets('companion home lists a past trip under Previous, not Today', (tester) async {
+      final now = DateTime.now();
+      Map<String, Object?> trip(String id, DateTime pickup) => {
+        'trip_id': id,
+        'scheduled_pickup_at': pickup.toUtc().toIso8601String(),
+        'scheduled_return_at': pickup.add(const Duration(hours: 5)).toUtc().toIso8601String(),
+        'status': 'scheduled',
+        'centre_name': 'Synthetic Dialysis Centre 1',
+        'centre_address': '1 Example Road, Hyderabad (synthetic)',
+        'details_visible': false,
+      };
+      await pumpApp(
+        tester,
+        FakeAccountAuth(signedInAs: companionPhone),
+        companionTrips: [trip('yesterday', now.subtract(const Duration(days: 1))), trip('today', now)],
+      );
+
+      double y(Finder f) => tester.getTopLeft(f).dy;
+      expect(find.text('Previous'), findsOneWidget);
+      expect(y(find.byKey(const Key('trip-today'))), lessThan(y(find.text('Previous'))));
+      expect(y(find.text('Previous')), lessThan(y(find.byKey(const Key('trip-yesterday')))));
+    });
+
     testWidgets('the login offers no role choice', (tester) async {
       await pumpApp(tester, FakeAccountAuth());
 

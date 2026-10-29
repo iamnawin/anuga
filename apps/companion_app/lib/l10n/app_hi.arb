@@ -1,6 +1,7 @@
 {
   "@@locale": "hi",
   "appTitle": "अनुगाकेयर",
+  "previous": "पिछली यात्राएँ",
   "syntheticBanner": "डेवलपमेंट बिल्ड · केवल कृत्रिम डेटा",
   "language": "भाषा",
   "loginTitle": "साथी साइन इन",
