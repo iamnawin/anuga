@@ -1,5 +1,46 @@
 # Handoff
 
+## Stack merged, staging check, companion trips fix (2026-10-29)
+
+Founder authorized merging PRs #12 -> #13 -> #14 -> #16 in order. All four merged (merge commits
+cf83d00, a18e046, 5075857, f68c271); main is f68c271 and its CI passed all 7 jobs. No human
+reviews exist on these PRs; the only comments are from the `ecc-tools` bot. Stacked PRs had to go
+through GitHub's async merge endpoint; #16 needed a no-change `-s ours` merge of main (main's tree
+equalled #16's old base) before it could retarget. No force push.
+
+- **Deployment:** none triggered. Vercel Git deploys are off and both deploy workflows are manual.
+  The live build (`dpl_AXCU2dk617jCXhNzinmEfUgq5ADb`, from 8539c3c) has the same tree as main.
+  `/`, `/app/`, `/ops/schedules/`, `/family/`, `/companion/` return 200.
+- **Hosted migrations:** `20261022000100`, `20261027000100`, `20261027000200` all applied.
+- **Staging, ops (done):** Create trips on a Mon/Wed/Fri 07:00 schedule: first press 7 created /
+  5 skipped, second press 0 created / 12 skipped; upcoming trips 5 -> 12.
+- **Staging, companion `+919000000201` on `/app/` (done; founder entered the code):** My trips
+  lists 6 upcoming trips (details only for the nearest; others say details appear closer to
+  pickup); trip detail opens, Start disabled with "You can start from 4:00AM", back returns to the
+  list. With this session, from the page: `companion_my_trips` 200; `ops_exception_queue` 403
+  "ops only"; `family_my_patients` 403 "family accounts only"; direct `patients` read 0 rows.
+  Sign-out returns to the shared sign-in and removes the `anuga-app-auth` session.
+- **Staging, not yet done:** family on `/app/` (home, bookings, navigation, logout), whether the
+  family home shows any companion data after the switch, and an ops account on `/app/`. Blocked
+  on the founder entering the hosted test code.
+- **ADR 0007 accepted:** founder approved the unified-app direction.
+- **F05 stays provisional:** the 180-minute start window is a placeholder in `app_settings`, not
+  an approved product rule.
+- **Companion trips fix** (branch `fix/companion-trips-today`): `TripsScreen` listed past trips
+  under Today; now they go under a new **Previous** heading. Also: a slower earlier refresh cannot
+  replace a newer result, refresh clears old cards, Retry button after an error, `previous` string
+  in en/te/hi (te/hi need native review). The unified app's companion home uses the same screen.
+  Ported from the uncommitted ANU-004 worktree (`anuga-product-inventory`, left untouched); its
+  doc edits target the unmerged ANU-002/003 docs and its screenshots show the old title, so they
+  were not ported.
+- Checks: companion `flutter analyze --fatal-infos` clean, `flutter test` 47 pass / 3 skipped
+  (new `trips_states_test.dart`, 4 tests; 3 fail on the old screen); unified app analyze clean,
+  22 pass (new Previous-not-Today test fails on the old screen). Not run: full
+  `scripts/check-all.sh`, real-Supabase tests (no Docker).
+
+Exact next task: finish the signed-in staging checks above; then publish the fix to anuga.vercel.app
+(manual deploy, separate authorization) and check a past trip in `/app/` as companion.
+
 ## Demo data, Create trips, unified app on the test site (2026-10-27)
 
 Branch `feat/anugacare-brand` (PR #16), pushed (3e91a3b), not merged. Published to anuga.vercel.app

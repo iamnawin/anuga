@@ -312,8 +312,8 @@ Coordination (PR: see `docs/HANDOFF.md`; draft, not merged):
 
 ## Unified AnugaCare entry, X1 first slice (2026-10-26) `[~]`
 
-Branch `feat/anugacare-unified-entry`, stacked on `feat/anugacare-hardening` (PR #12). ADR 0007
-(proposed). Owner: iamnawin with Claude Code.
+PR #13, merged to main 2026-10-29. ADR 0007 accepted (founder approved the unified-app direction,
+2026-10-29). Owner: iamnawin with Claude Code.
 
 - [x] `apps/anugacare_app`: one phone/OTP sign-in, no role picker; home from `profiles.role`
       (family home, companion trips); ops accounts sent to the console; other roles refused.
@@ -342,6 +342,21 @@ Branch `feat/anugacare-brand` (PR #16).
 - [x] Apply `20261027000200` to the hosted synthetic project (dashboard SQL editor; founder, 2026-10-28) and run `demo_refresh.sql`.
 - [ ] Nightly automatic trip generation (not built; ops presses Create trips for now).
 - [ ] Pending founder decisions, unchanged: F01, F03, F07 and whether no-shows are billed.
+
+## Stack merged, staging check, companion trips fix (2026-10-29) `[~]`
+
+- [x] PRs #12, #13, #14, #16 merged to main in order (merge commits cf83d00, a18e046, 5075857,
+      f68c271); main CI green on f68c271. No human reviews on these PRs (bot comments only).
+- [x] Staging, ops: Create trips pressed twice on a Mon/Wed/Fri schedule: 7 created / 5 skipped,
+      then 0 created / 12 skipped.
+- [ ] Staging, signed in: family home/bookings/navigation/logout, companion trips/navigation,
+      account switching leaves no earlier account's data, ops and unauthorized accounts refused
+      protected views. Waiting on the founder to enter the hosted test code.
+- [x] Companion trips (also the unified app's companion home): past trips listed under
+      **Previous** instead of **Today**; a slower earlier refresh can no longer replace a newer
+      result; refresh clears old cards; visible Retry after an error; `previous` string in en/te/hi
+      (te/hi need native review). Ported from the uncommitted ANU-004 worktree.
+- [ ] F05 start window stays a provisional 180-minute placeholder, not an approved product rule.
 
 ## Backlog (from spec, unscheduled)
 

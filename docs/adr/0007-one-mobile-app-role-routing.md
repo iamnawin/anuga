@@ -1,8 +1,8 @@
 # ADR 0007: One AnugaCare mobile app, home chosen by the database role
 
-- Status: proposed (founder asked for the first unified app slice, 2026-10-26; accepted when the
-  draft PR is approved)
-- Date: 2026-10-26
+- Status: accepted (founder approved the unified-app direction in chat, 2026-10-29; first slice
+  merged in PR #13). Proposed 2026-10-26.
+- Date: 2026-10-26; accepted 2026-10-29
 
 ## Context
 
