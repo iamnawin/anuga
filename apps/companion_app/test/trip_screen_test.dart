@@ -6,15 +6,35 @@ import 'package:shared_dart/shared_dart.dart';
 import 'support/fake_backend.dart';
 import 'support/pump.dart';
 
-Future<FakeBackend> pumpTrip(WidgetTester tester, TripStatus status, {bool visible = true, String? otp}) async {
+// Pickup 07:00 IST; with a 180-minute window Start opens at 04:00 IST.
+final pickupAt = DateTime.utc(2026, 10, 9, 1, 30);
+final startOpens = DateTime.utc(2026, 10, 8, 22, 30);
+
+Future<FakeBackend> pumpTrip(
+  WidgetTester tester,
+  TripStatus status, {
+  bool visible = true,
+  String? otp,
+  DateTime? startAllowedAt,
+  DateTime Function() now = DateTime.now,
+}) async {
   final backend = FakeBackend()
     ..addTrip(
-      FakeTrip(id: 't1', pickupAt: DateTime.utc(2026, 10, 9, 1, 30), status: status, detailsVisible: visible, otp: otp),
+      FakeTrip(
+        id: 't1',
+        pickupAt: pickupAt,
+        status: status,
+        detailsVisible: visible,
+        otp: otp,
+        startAllowedAt: startAllowedAt,
+      ),
     );
   final trip = (await backend.api.myTrips()).single;
-  await pumpLocalized(tester, TripScreen(api: backend.api, trip: trip));
+  await pumpLocalized(tester, TripScreen(api: backend.api, trip: trip, now: now));
   return backend;
 }
+
+bool enabled(WidgetTester tester, String key) => tester.widget<ButtonStyleButton>(byKey(key)).onPressed != null;
 
 Finder byKey(String key) => find.byKey(Key(key));
 
@@ -134,5 +154,47 @@ void main() {
     await tester.pumpAndSettle();
     expect(backend.trips['t1']!.status, TripStatus.noShow);
     expect(find.text('This trip is closed.'), findsOneWidget);
+  });
+
+  testWidgets('before the start window, Start is disabled and says when it opens', (tester) async {
+    final backend = await pumpTrip(
+      tester,
+      TripStatus.scheduled,
+      startAllowedAt: startOpens,
+      now: () => startOpens.subtract(const Duration(hours: 2)),
+    );
+    // ICU puts a narrow no-break space before AM.
+    expect(find.text('You can start from 4:00 AM.'), findsOneWidget);
+    expect(enabled(tester, 'action-companion_en_route'), isFalse);
+    expect(enabled(tester, 'action-noShow'), isTrue);
+    await tapVisible(tester, byKey('action-companion_en_route'));
+    expect(backend.calls, isNot(contains('advance_trip')));
+  });
+
+  testWidgets('inside the start window, Start works and no hint is shown', (tester) async {
+    final backend = await pumpTrip(
+      tester,
+      TripStatus.scheduled,
+      startAllowedAt: startOpens,
+      now: () => startOpens.add(const Duration(minutes: 1)),
+    );
+    expect(byKey('start-opens'), findsNothing);
+    await tapVisible(tester, byKey('action-companion_en_route'));
+    expect(backend.trips['t1']!.status, TripStatus.companionEnRoute);
+  });
+
+  testWidgets('Start enables itself when the window opens', (tester) async {
+    var clock = startOpens.subtract(const Duration(minutes: 5));
+    await pumpTrip(tester, TripStatus.scheduled, startAllowedAt: startOpens, now: () => clock);
+    expect(enabled(tester, 'action-companion_en_route'), isFalse);
+    clock = startOpens;
+    await tester.pump(const Duration(minutes: 5));
+    expect(enabled(tester, 'action-companion_en_route'), isTrue);
+    expect(byKey('start-opens'), findsNothing);
+  });
+
+  testWidgets('without a start time from the server, Start stays enabled', (tester) async {
+    await pumpTrip(tester, TripStatus.scheduled);
+    expect(enabled(tester, 'action-companion_en_route'), isTrue);
   });
 }

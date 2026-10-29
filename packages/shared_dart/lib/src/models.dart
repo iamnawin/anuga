@@ -21,6 +21,7 @@ class CompanionTrip {
     this.homeLng,
     this.mobilityNotes,
     this.emergencyContacts = const [],
+    this.startAllowedAt,
   });
 
   factory CompanionTrip.fromJson(Json json) => CompanionTrip(
@@ -39,6 +40,7 @@ class CompanionTrip {
     emergencyContacts: [
       for (final c in (json['emergency_contacts'] as List<dynamic>? ?? const [])) EmergencyContact.fromJson(c as Json),
     ],
+    startAllowedAt: json['start_allowed_at'] == null ? null : _time(json['start_allowed_at']),
   );
 
   final String tripId;
@@ -54,6 +56,10 @@ class CompanionTrip {
   final double? homeLng;
   final String? mobilityNotes;
   final List<EmergencyContact> emergencyContacts;
+
+  /// Earliest time the companion may start (on the way), from
+  /// `companion_start_minutes_before`. Null if the server does not send it.
+  final DateTime? startAllowedAt;
 }
 
 class EmergencyContact {

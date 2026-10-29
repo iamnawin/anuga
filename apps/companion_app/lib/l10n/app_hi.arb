@@ -42,6 +42,7 @@
   "statusNoShow": "मरीज़ उपलब्ध नहीं",
   "statusIssueReported": "समस्या दर्ज",
   "actionStart": "मैं निकल गया/गई हूँ",
+  "startOpensAt": "आप {time} से निकल सकते हैं।",
   "actionNoShow": "मरीज़ उपलब्ध नहीं",
   "confirmNoShow": "मरीज़ को अनुपलब्ध चिह्नित करें? परिवार और ऑपरेशंस को सूचना जाएगी।",
   "otpLabel": "परिवार से मिला पिकअप कोड",
