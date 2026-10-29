@@ -24,8 +24,9 @@ equalled #16's old base) before it could retarget. No force push.
   family home shows any companion data after the switch, and an ops account on `/app/`. Blocked
   on the founder entering the hosted test code.
 - **ADR 0007 accepted:** founder approved the unified-app direction.
-- **F05 stays provisional:** the 180-minute start window is a placeholder in `app_settings`, not
-  an approved product rule.
+- **F05:** the 180-minute companion start window is implemented (one `app_settings` row, enforced
+  in the database and shown in the app) but remains a provisional product value, not an approved
+  business rule.
 - **Companion trips fix** (branch `fix/companion-trips-today`): `TripsScreen` listed past trips
   under Today; now they go under a new **Previous** heading. Also: a slower earlier refresh cannot
   replace a newer result, refresh clears old cards, Retry button after an error, `previous` string

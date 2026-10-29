@@ -90,7 +90,8 @@ restricted functions), not only in app code.
 - Today's / upcoming trips, patient essentials (restricted fields only), check-in buttons, OTP entry,
   issue report, earnings summary.
 - "On my way" (start) is possible only from a configurable time before pickup
-  (`companion_start_minutes_before`; 180 minutes is a placeholder pending founder decision F05).
+  (`companion_start_minutes_before`; 180 minutes is implemented but is a provisional value, not an approved business rule; founder
+  decision F05).
   Before then the button is disabled and shows when it opens; the database refuses an early start.
 
 ### 3.8 Ops console (web)

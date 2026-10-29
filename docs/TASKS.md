@@ -276,8 +276,8 @@ Branch `feat/anugacare-hardening`. Source: external review `docs/research/anugac
       (`app_settings.companion_start_minutes_before`, 180 placeholder); F06 notes required for
       companion `completed` and `issue_reported`. 9 allowed/denied tests in `trip_controls.test.ts`.
 - [ ] Founder decisions, then fixes: F01 consent withdrawal, F03 companion occupancy, F07 price per visit.
-- [ ] **Pending founder decision:** F05 start window. 180 minutes is a proposed placeholder, not
-      approved (the review says the window is undecided). It is one `app_settings` row.
+- [ ] **Pending founder decision:** F05 start window. The 180-minute window is implemented (one
+      `app_settings` row) but remains a provisional product value, not an approved business rule.
 - [x] Real-DB Flutter tests (`supabase_local_test.dart` in both apps) have ops start the seed
       trip, which can be days ahead; the 40-minute journey (`scripts/e2e-journey.sh`) still covers
       a companion starting inside the window.
@@ -356,7 +356,8 @@ Branch `feat/anugacare-brand` (PR #16).
       **Previous** instead of **Today**; a slower earlier refresh can no longer replace a newer
       result; refresh clears old cards; visible Retry after an error; `previous` string in en/te/hi
       (te/hi need native review). Ported from the uncommitted ANU-004 worktree.
-- [ ] F05 start window stays a provisional 180-minute placeholder, not an approved product rule.
+- [ ] F05: the 180-minute window is implemented but remains a provisional product value, not an
+      approved business rule.
 
 ## Backlog (from spec, unscheduled)
 
