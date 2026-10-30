@@ -67,12 +67,17 @@ class FakeAccountAuth implements AccountAuth {
 
 /// RPCs the role homes call on first load; records every call.
 class FakeRpc {
+  FakeRpc({this.companionTrips = const []});
+
+  /// Rows `companion_my_trips` returns.
+  final List<Object?> companionTrips;
   final calls = <String>[];
 
   Future<Object?> call(String function, Map<String, Object?> params) async {
     calls.add(function);
     return switch (function) {
-      'family_my_patients' || 'companion_my_trips' || 'my_notifications' => <Object?>[],
+      'companion_my_trips' => companionTrips,
+      'family_my_patients' || 'my_notifications' => <Object?>[],
       _ => throw RpcException('42501', 'not expected in this test: $function'),
     };
   }
@@ -105,9 +110,10 @@ Future<FakeRpc> pumpApp(
   FakeAccountAuth auth, {
   Locale locale = const Locale('en'),
   bool settle = true,
+  List<Object?> companionTrips = const [],
 }) async {
   usePhoneScreen(tester);
-  final rpc = FakeRpc();
+  final rpc = FakeRpc(companionTrips: companionTrips);
   await tester.pumpWidget(
     AnugaCareApp(
       auth: auth,

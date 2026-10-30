@@ -29,6 +29,7 @@ class TripsScreen extends StatefulWidget {
 class _TripsScreenState extends State<TripsScreen> {
   List<CompanionTrip>? _trips;
   Object? _error;
+  int _request = 0;
 
   @override
   void initState() {
@@ -37,16 +38,22 @@ class _TripsScreenState extends State<TripsScreen> {
   }
 
   Future<void> _load() async {
+    if (!mounted) return;
+    final request = ++_request;
+    setState(() {
+      _trips = null;
+      _error = null;
+    });
     try {
       final trips = await widget.api.myTrips();
-      if (mounted) {
+      if (mounted && request == _request) {
         setState(() {
           _trips = trips;
           _error = null;
         });
       }
     } catch (e) {
-      if (mounted) setState(() => _error = e);
+      if (mounted && request == _request) setState(() => _error = e);
     }
   }
 
@@ -64,8 +71,9 @@ class _TripsScreenState extends State<TripsScreen> {
     final l10n = AppLocalizations.of(context);
     final trips = _trips;
     final today = istDay(widget.clock());
-    final todays = trips?.where((t) => !istDay(t.scheduledPickupAt).isAfter(today)).toList() ?? const [];
+    final todays = trips?.where((t) => istDay(t.scheduledPickupAt) == today).toList() ?? const [];
     final upcoming = trips?.where((t) => istDay(t.scheduledPickupAt).isAfter(today)).toList() ?? const [];
+    final previous = trips?.where((t) => istDay(t.scheduledPickupAt).isBefore(today)).toList() ?? const [];
 
     return Scaffold(
       appBar: AppBar(
@@ -79,11 +87,26 @@ class _TripsScreenState extends State<TripsScreen> {
       body: RefreshIndicator(
         onRefresh: _load,
         child: ListView(
+          physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(16),
           children: [
             Text(l10n.tripsTitle, style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 8),
-            if (_error != null) Text(l10n.errorGeneric, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            if (_error != null) ...[
+              Semantics(
+                liveRegion: true,
+                child: Text(l10n.errorGeneric, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+              ),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: TextButton.icon(
+                  key: const Key('trips-retry'),
+                  onPressed: _load,
+                  icon: const Icon(Icons.refresh),
+                  label: Text(l10n.refresh),
+                ),
+              ),
+            ],
             if (trips == null && _error == null) Text(l10n.loading),
             if (trips != null && trips.isEmpty) Text(l10n.noTrips),
             if (todays.isNotEmpty) ...[
@@ -93,6 +116,10 @@ class _TripsScreenState extends State<TripsScreen> {
             if (upcoming.isNotEmpty) ...[
               _Header(l10n.upcoming),
               for (final t in upcoming) _TripTile(trip: t, onTap: () => _open(t)),
+            ],
+            if (previous.isNotEmpty) ...[
+              _Header(l10n.previous),
+              for (final t in previous) _TripTile(trip: t, onTap: () => _open(t)),
             ],
             const SizedBox(height: 24),
             Text(l10n.syntheticBanner, textAlign: TextAlign.center),
