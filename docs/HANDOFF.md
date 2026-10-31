@@ -1,5 +1,41 @@
 # Handoff
 
+## Staging verification takeover (2026-10-31)
+
+Current worktree `D:\AI-Workspace\Repos\anuga-trips-fix`, branch
+`docs/staging-verification-2026-10-30`. Started clean; other worktrees preserved.
+PR #17 is merged at `e18a0d23db35b59ebbdb31fb8eff1e4f6c452ff6`. Live alias verified
+through authenticated Vercel inspect/API: READY deployment
+`dpl_BcdNXbscaAv1U1rqUh15GzodHxA7`, source exactly that merge commit. Live Flutter
+bundle hash matches the existing staging artifact. No new deployment performed.
+
+- Fixed `supabase/seed/companion_trip_groups.sql`: any execution time in IST,
+  Previous at yesterday's last microsecond, Today noon, Upcoming tomorrow 10:00.
+  The RPC's rolling 24-hour lookback means Previous expires at next IST midnight;
+  rerun/refresh then. Patient-detail permissions unchanged.
+- Synthetic/Asha guards, exact three IDs, collision and dependency refusals;
+  reruns update in place. Separate cleanup refuses dependencies and foreign
+  ownership. No hosted SQL run by the agent; `demo_refresh.sql` not run.
+- Family `9000000101`: session identity projected in browser as
+  `20000000-0000-0000-0000-000000000001` / `919000000101`. Home/bookings,
+  Records/Bills/Updates navigation, booking detail/back, logout and reload PASS.
+- Full fast checks exit 0: PGlite 170 pass/8 skipped, ops 54, shared Dart 27,
+  companion 47/3 skipped, family 35/6 skipped, unified 22. All format/analyze,
+  lint/typecheck/build checks passed. 16 fixture tests cover real SQL/RPC windows,
+  IST boundaries, guards, reruns and cleanup; local PGlite only.
+- Full ledger and SQL walkthrough:
+  `docs/evidence/staging-verification-2026-10-31/README.md`; sanitized deployment
+  evidence alongside it. No OTPs or session tokens recorded in repository files.
+
+Exact next task: founder executes the narrow fixture twice in hosted synthetic
+SQL Editor and returns dates/deadline; then authenticate Asha `9000000201` and
+Ops `9000000001` separately. Complete grouping/refresh/stale-response/Retry
+(label intentional failure **injected-error test**), switching and protected-view
+checks. Browser access host unavailable; native Chrome fallback works. Checks
+without direct browser evidence remain Blocked. Follow-up PR preparation pending.
+The 180-minute start window remains provisional; real data, paid providers and
+production launch remain gated. This section supersedes historical next tasks.
+
 ## Stack merged, staging check, companion trips fix (2026-10-29)
 
 Founder authorized merging PRs #12 -> #13 -> #14 -> #16 in order. All four merged (merge commits

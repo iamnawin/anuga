@@ -1,5 +1,21 @@
 # Tasks and milestones
 
+## Synthetic staging verification (2026-10-31) `[~]`
+
+- [x] Confirm PR #17 (`e18a0d2`) on live alias by deployment/source metadata and
+      bundle evidence: `dpl_BcdNXbscaAv1U1rqUh15GzodHxA7`.
+- [x] Narrow three-trip Asha fixture at all IST execution times, midnight deadline,
+      guarded reruns/cleanup; 16 PGlite tests. No application access-rule change.
+- [x] Full fast checks pass: database 170/8 skipped, ops 54, shared Dart 27,
+      companion 47/3 skipped, family 35/6 skipped, unified 22.
+- [x] Family 9000000101 identity, home, bookings/detail/back, navigation and logout/reload.
+- [ ] Hosted narrow fixture execution/rerun and Asha identity/Previous/Today/Upcoming.
+- [ ] Browser refresh, stale responses, Retry (**injected-error test**).
+- [ ] Browser account switching, Ops 9000000001 routing and protected-view denials.
+- [ ] Follow-up PR and CI receipt; no merge or deploy under this task.
+- Evidence and exact blockers: `docs/evidence/staging-verification-2026-10-31/README.md`.
+- F05 180 minutes remains provisional; M10/real data/paid providers remain gated.
+
 ## Founder sketch UI streams (2026-10-11)
 
 - [x] S2: inspect all 15 concept boards and seven previous ops screenshots; preserve source boards; define tokens and existing-screen mappings in `docs/design/tokens.md`.

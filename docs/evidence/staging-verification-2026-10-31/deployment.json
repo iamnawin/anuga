@@ -1,0 +1,18 @@
+﻿{
+    "checked_at_utc":  "2026-10-31T14:21:25.0046768Z",
+    "site":  "https://anuga.vercel.app/app/",
+    "deployment_id":  "dpl_BcdNXbscaAv1U1rqUh15GzodHxA7",
+    "deployment_url":  "anuga-9xa3ti1gy-iamnawins-projects.vercel.app",
+    "ready_state":  "READY",
+    "target":  "production",
+    "aliases":  [
+                    "anuga.vercel.app",
+                    "anuga-iamnawins-projects.vercel.app"
+                ],
+    "source_sha":  "e18a0d23db35b59ebbdb31fb8eff1e4f6c452ff6",
+    "source_message":  "Merge pull request #17 from iamnawin/fix/companion-trips-today",
+    "live_main_dart_js_sha256":  "FFDEAB2EE53D9D7114848BE0C66C8371D8C27D96413B8574C1E93BA954F1BD8F",
+    "local_existing_build_sha256":  "FFDEAB2EE53D9D7114848BE0C66C8371D8C27D96413B8574C1E93BA954F1BD8F",
+    "assets_match":  true,
+    "evidence_method":  "Authenticated Vercel inspect of live alias plus deployment API metadata; HTTPS download SHA256 of live /app/main.dart.js and existing local staging build. Unique deployment URL returned Vercel authentication HTML, not an app asset; excluded from asset comparison."
+}
