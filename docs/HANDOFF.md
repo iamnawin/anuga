@@ -27,12 +27,21 @@ bundle hash matches the existing staging artifact. No new deployment performed.
   `docs/evidence/staging-verification-2026-10-31/README.md`; sanitized deployment
   evidence alongside it. No OTPs or session tokens recorded in repository files.
 
-Exact next task: founder executes the narrow fixture twice in hosted synthetic
-SQL Editor and returns dates/deadline; then authenticate Asha `9000000201` and
-Ops `9000000001` separately. Complete grouping/refresh/stale-response/Retry
+Founder supplied matching hosted SQL output for all three fixture rows, with
+deadline `2026-11-01 00:00:00` IST (recorded in `fixture-hosted-result.json`).
+Agent did not execute hosted SQL; the final rows do not prove rerun count.
+Draft follow-up PR: https://github.com/iamnawin/anuga/pull/18; code CI at
+`ec86d55`: https://github.com/iamnawin/anuga/actions/runs/41210470804.
+SQL passed 178/178 (162 real Supabase, 16 PGlite fixture tests); browser install
+failed because latest runner became Ubuntu 26.04, unsupported by Playwright
+1.56.1. Pinned only that job to Ubuntu 24.04; CI rerun pending. No app changes.
+
+Exact next task: authenticate Asha `9000000201` on `/app/` (the founder first
+signed into separate `/companion/`), then Ops `9000000001`. Complete
+grouping/refresh/stale-response/Retry
 (label intentional failure **injected-error test**), switching and protected-view
 checks. Browser access host unavailable; native Chrome fallback works. Checks
-without direct browser evidence remain Blocked. Follow-up PR preparation pending.
+without direct browser evidence remain Blocked. PR stays draft during verification.
 The 180-minute start window remains provisional; real data, paid providers and
 production launch remain gated. This section supersedes historical next tasks.
 

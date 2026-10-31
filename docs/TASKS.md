@@ -9,10 +9,13 @@
 - [x] Full fast checks pass: database 170/8 skipped, ops 54, shared Dart 27,
       companion 47/3 skipped, family 35/6 skipped, unified 22.
 - [x] Family 9000000101 identity, home, bookings/detail/back, navigation and logout/reload.
-- [ ] Hosted narrow fixture execution/rerun and Asha identity/Previous/Today/Upcoming.
+- [x] Founder-supplied hosted fixture output matches all three rows; deadline
+      2026-11-01 00:00 IST. Rerun count not independently evidenced.
+- [ ] Asha identity/Previous/Today/Upcoming on `/app/`.
 - [ ] Browser refresh, stale responses, Retry (**injected-error test**).
 - [ ] Browser account switching, Ops 9000000001 routing and protected-view denials.
-- [ ] Follow-up PR and CI receipt; no merge or deploy under this task.
+- [x] Draft follow-up PR #18 opened; no merge or deploy under this task.
+- [ ] Final PR CI receipt (run 41210470804 running).
 - Evidence and exact blockers: `docs/evidence/staging-verification-2026-10-31/README.md`.
 - F05 180 minutes remains provisional; M10/real data/paid providers remain gated.
 

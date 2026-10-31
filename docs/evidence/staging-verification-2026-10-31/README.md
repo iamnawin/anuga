@@ -5,6 +5,7 @@ Site: https://anuga.vercel.app/app/. Tested application source:
 Vercel deployment: `dpl_BcdNXbscaAv1U1rqUh15GzodHxA7`, READY, live alias confirmed
 through authenticated Vercel inspect/API. See [deployment.json](deployment.json).
 The live `/app/main.dart.js` SHA256 matches the existing local staging artifact.
+Follow-up: [draft PR #18](https://github.com/iamnawin/anuga/pull/18).
 The unique deployment URL returned Vercel authentication HTML and was excluded
 from the asset comparison. Vercel calls this target `production`; it remains the
 founder-authorized synthetic test site, not an authorized real-data launch.
@@ -62,6 +63,11 @@ link nulling. Repeated cleanup is safe. Do not replace it with prefix deletion.
 
 Pass requires direct browser evidence; local/widget tests are not browser passes.
 No OTPs or session tokens belong in this receipt.
+Founder supplied the hosted SQL Editor's three matching rows, with verification
+deadline `2026-11-01 00:00:00` IST; see
+[fixture-hosted-result.json](fixture-hosted-result.json). This is user-supplied
+hosted evidence, not agent execution. Two runs were requested; the final rows
+alone do not independently establish the execution count. No cleanup executed.
 
 | Check | Result | Evidence / next requirement |
 | --- | --- | --- |
@@ -107,6 +113,13 @@ the unchanged RPC. A separate real-clock case calls default RPC bounds.
   caught a UTF-8 BOM while SQL was being edited; corrected before final run.
 - Real Supabase, Playwright/full journey, device testing: not run locally;
   Docker unavailable. PGlite tests do not establish hosted execution.
+
+Initial PR CI `41210470804` at `ec86d55`: SQL step passed 178/178 (162 against
+real local Supabase and 16 fixture tests against throwaway PGlite). The job then
+failed installing Chromium: `ubuntu-latest` resolved to Ubuntu 26.04, which
+pinned Playwright 1.56.1 explicitly refuses. Browser/Flutter journey steps were
+skipped. Only `supabase-local.runs-on` is pinned to `ubuntu-24.04` to restore the
+existing browser checks without a dependency upgrade; rerun result pending.
 
 The provisional 180-minute companion start window is unchanged. Production
 launch, real data and paid providers remain gated.
