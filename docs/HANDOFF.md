@@ -19,6 +19,16 @@ bundle hash matches the existing staging artifact. No new deployment performed.
 - Family `9000000101`: session identity projected in browser as
   `20000000-0000-0000-0000-000000000001` / `919000000101`. Home/bookings,
   Records/Bills/Updates navigation, booking detail/back, logout and reload PASS.
+- Asha on `/app/`: live auth endpoint confirms `30000000-...-0001` /
+  `919000000201`. Previous (Oct 30 23:59 Completed), Today (Oct 31 noon), Upcoming
+  (Nov 1 10:00 masked) PASS; all three exact fixture IDs in her RPC result.
+  Ordinary refresh clears cards then restores them. Overlapping-response test
+  delivered older empty result after newer populated result; populated cards
+  stayed. Retry **injected-error test** PASS: error and visible Refresh recovery
+  control, then successful reload. Temporary fetch hooks removed and page
+  reloaded. Family → Asha switching and Asha logout PASS.
+- Asha protected reads: own trips 200/9 rows; family/ops RPCs 403/42501; direct
+  patients read zero rows. Sanitized auth/access output in companion-access.json.
 - Full fast checks exit 0: PGlite 170 pass/8 skipped, ops 54, shared Dart 27,
   companion 47/3 skipped, family 35/6 skipped, unified 22. All format/analyze,
   lint/typecheck/build checks passed. 16 fixture tests cover real SQL/RPC windows,
@@ -34,14 +44,17 @@ Draft follow-up PR: https://github.com/iamnawin/anuga/pull/18; code CI at
 `ec86d55`: https://github.com/iamnawin/anuga/actions/runs/41210470804.
 SQL passed 178/178 (162 real Supabase, 16 PGlite fixture tests); browser install
 failed because latest runner became Ubuntu 26.04, unsupported by Playwright
-1.56.1. Pinned only that job to Ubuntu 24.04; CI rerun pending. No app changes.
+1.56.1. Pinned only that job to Ubuntu 24.04. Rerun `41210884363` at `e200f58`
+passed all seven jobs: SQL 178/178, ops browser 7, both real-DB Flutter tests,
+full JOURNEY PASSED and three debug APKs. `ci.json` records tested source.
+No app changes; remaining receipt changes are docs only.
 
-Exact next task: authenticate Asha `9000000201` on `/app/` (the founder first
-signed into separate `/companion/`), then Ops `9000000001`. Complete
-grouping/refresh/stale-response/Retry
-(label intentional failure **injected-error test**), switching and protected-view
-checks. Browser access host unavailable; native Chrome fallback works. Checks
-without direct browser evidence remain Blocked. PR stays draft during verification.
+Exact next task: Ops `9000000001` on the selected `/app/` tab; passive browser
+observer will emit only identity from its successful auth response before the
+app intentionally signs Ops out. Confirm ops-console guidance and cleared
+unified session, then finish the receipt/PR. Browser access host unavailable;
+native Chrome fallback works. Ops remains Blocked until observed. PR stays draft
+during verification.
 The 180-minute start window remains provisional; real data, paid providers and
 production launch remain gated. This section supersedes historical next tasks.
 

@@ -11,11 +11,15 @@
 - [x] Family 9000000101 identity, home, bookings/detail/back, navigation and logout/reload.
 - [x] Founder-supplied hosted fixture output matches all three rows; deadline
       2026-11-01 00:00 IST. Rerun count not independently evidenced.
-- [ ] Asha identity/Previous/Today/Upcoming on `/app/`.
-- [ ] Browser refresh, stale responses, Retry (**injected-error test**).
-- [ ] Browser account switching, Ops 9000000001 routing and protected-view denials.
+- [x] Asha identity/Previous/Today/Upcoming on `/app/`.
+- [x] Browser refresh, stale responses, Retry (**injected-error test**).
+- [x] Browser Family → Asha switching and Asha protected-view denials.
+- [ ] Ops 9000000001 identity/routing through `/app/`.
 - [x] Draft follow-up PR #18 opened; no merge or deploy under this task.
-- [ ] Final PR CI receipt (run 41210470804 running).
+- [x] Code CI 41210884363 at e200f58: all seven jobs pass, SQL 178/178 (162 real
+      Supabase + 16 PGlite fixture), ops browser 7, real-DB Flutter and full journey,
+      three APK builds. Initial Ubuntu 26.04/Playwright install failure fixed by
+      pinning only the Supabase job to Ubuntu 24.04.
 - Evidence and exact blockers: `docs/evidence/staging-verification-2026-10-31/README.md`.
 - F05 180 minutes remains provisional; M10/real data/paid providers remain gated.
 

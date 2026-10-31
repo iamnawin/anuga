@@ -1,0 +1,25 @@
+{
+  "site": "https://anuga.vercel.app/app/",
+  "method": "Read-only same-browser requests using its current session; emitted only identity, counts, fixture IDs and status codes",
+  "identity": {
+    "endpoint": "auth/v1/user",
+    "status": 200,
+    "id": "30000000-0000-0000-0000-000000000001",
+    "phone": "919000000201"
+  },
+  "checks": [
+    {
+      "rpc": "companion_my_trips",
+      "status": 200,
+      "rows": 9,
+      "fixtureIds": [
+        "92000000-0000-0000-0000-000000000001",
+        "92000000-0000-0000-0000-000000000002",
+        "92000000-0000-0000-0000-000000000003"
+      ]
+    },
+    { "rpc": "family_my_patients", "status": 403, "code": "42501" },
+    { "rpc": "ops_exception_queue", "status": 403, "code": "42501" }
+  ],
+  "patients": { "status": 200, "rows": 0 }
+}

@@ -77,21 +77,26 @@ alone do not independently establish the execution count. No cleanup executed.
 | Family bookings | Pass | Native Chrome screenshot: Nov 6/9/11/13 07:00 scheduled cards with Asha; not confused with companion My trips |
 | Family navigation | Pass | Records showed synthetic monthly labs; Bills showed September invoice; Updates rendered visit messages; Bookings → Nov 2 detail → in-app Back returned to list |
 | Family logout | Pass | Sign out returned to blank shared sign-in; browser reload retained sign-in with no family patient/cards |
-| Previous | Blocked | Hosted narrow fixture execution and authenticated Asha observation pending |
-| Today | Blocked | Hosted narrow fixture execution and authenticated Asha observation pending |
-| Upcoming | Blocked | Hosted narrow fixture execution and authenticated Asha observation pending |
-| Companion refresh | Blocked | Pending Asha session with qualifying fixtures |
-| Companion stale-response handling | Blocked | Widget regression exists; browser overlapping responses not tested |
-| Retry — injected-error test | Blocked | No deliberate failed browser request injected yet; keep separate from ordinary failures |
-| Account switching | Blocked | Pending Family logout → Asha sign-in with identity confirmation and no retained family content |
+| Asha identity `9000000201` | Pass | Live `auth/v1/user` 200: ID `30000000-0000-0000-0000-000000000001`, phone `919000000201`; see companion-access.json |
+| Previous | Pass | On `/app/`, scrolled after Upcoming: Previous → Fri 30 Oct, 23:59, Completed; RPC includes exact fixture 0001 |
+| Today | Pass | On `/app/`: Today → Sat 31 Oct, 12:00, Scheduled; RPC includes exact fixture 0002 |
+| Upcoming | Pass | On `/app/`: Upcoming → Sun 1 Nov, 10:00, Scheduled, patient details masked; RPC includes exact fixture 0003 |
+| Companion refresh | Pass | Ordinary top Refresh cleared old cards, showed Loading, then restored current trips with no error |
+| Companion stale-response handling | Pass | Browser-only injected-response ordering test: held response 1, displayed real populated response 2, released older response as empty `[]`; current Today/Upcoming cards remained, not replaced by empty state. Hook counted exactly 2 requests and was removed |
+| Retry — injected-error test | Pass | Temporarily rejected only companion trip-list fetches (2 failures), observed generic error and visible recovery control labelled Refresh; restored fetch, clicked recovery control, observed Loading then current trips with error removed |
+| Account switching | Pass | Same `/app/`: Family logout/reload had no cards; Asha identity then confirmed by live auth endpoint; companion My trips replaced Family navigation/records/bills with no prior Family view retained |
 | Ops routing via `/app/` | Blocked | Pending `9000000001` sign-in; expected “Use the ops console” and unified session cleared, not automatic authenticated console transfer |
-| Protected-view restrictions | Blocked | Prior handoff records Asha denials; not reverified in this session |
+| Protected-view restrictions | Pass | In authenticated Asha browser: companion RPC 200 with 9 rows; family and ops RPCs 403/42501; direct patients read 200/zero rows. Separate `/family/` also refused Asha. See companion-access.json |
 
 Browser fallback: browser access host unavailable; native `@oai/sky` controls used.
 Early UI actions were interrupted by user input; refreshed state before retrying.
 The user stopped Computer Use with Escape, then explicitly resumed verification.
 Pre-existing console listener errors were observed; their origin was not isolated,
 so this receipt does not claim a clean browser console.
+Injected test hooks matched only `/rpc/companion_my_trips`; they did not change
+server behavior, permissions or hosted data. Normal fetch was restored and a
+browser reload cleared temporary globals after the tests. Denied-access probes
+and injected errors are intentional test events, not ordinary application failures.
 
 ## Local validation
 
@@ -119,7 +124,16 @@ real local Supabase and 16 fixture tests against throwaway PGlite). The job then
 failed installing Chromium: `ubuntu-latest` resolved to Ubuntu 26.04, which
 pinned Playwright 1.56.1 explicitly refuses. Browser/Flutter journey steps were
 skipped. Only `supabase-local.runs-on` is pinned to `ubuntu-24.04` to restore the
-existing browser checks without a dependency upgrade; rerun result pending.
+existing browser checks without a dependency upgrade.
+Version-specific requirements:
+[Playwright 1.56.1](https://github.com/microsoft/playwright/blob/v1.56.1/docs/src/intro-js.md#system-requirements).
+Rerun [41210884363](https://github.com/iamnawin/anuga/actions/runs/41210884363)
+at `e200f58` passed all seven jobs; see [ci.json](ci.json). SQL 178/178 includes
+162 real-Supabase tests and 16 PGlite fixture tests. Ops browser and both real-DB
+Flutter journey tests passed; full test-billing/notification journey reported
+JOURNEY PASSED; all three Android debug APK jobs passed.
+Subsequent receipt commit changes documentation/evidence only. Its workflow may
+run separately; the completed code-bearing run above is the validation evidence.
 
 The provisional 180-minute companion start window is unchanged. Production
 launch, real data and paid providers remain gated.
