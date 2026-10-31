@@ -1,0 +1,28 @@
+{
+  "source": "Founder-supplied SQL Editor result in this session; agent did not execute hosted SQL",
+  "verification_deadline_ist": "2026-11-01 00:00:00",
+  "rerun_note": "Requested two executions; supplied final row output alone does not independently prove execution count",
+  "rows": [
+    {
+      "id": "92000000-0000-0000-0000-000000000001",
+      "companion_phone": "919000000201",
+      "status": "completed",
+      "pickup_ist": "2026-10-30 23:59:59.999999",
+      "expected_group": "Previous"
+    },
+    {
+      "id": "92000000-0000-0000-0000-000000000002",
+      "companion_phone": "919000000201",
+      "status": "scheduled",
+      "pickup_ist": "2026-10-31 12:00:00.000000",
+      "expected_group": "Today"
+    },
+    {
+      "id": "92000000-0000-0000-0000-000000000003",
+      "companion_phone": "919000000201",
+      "status": "scheduled",
+      "pickup_ist": "2026-11-01 10:00:00.000000",
+      "expected_group": "Upcoming"
+    }
+  ]
+}

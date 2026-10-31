@@ -1,5 +1,63 @@
 # Handoff
 
+## Staging verification takeover (2026-10-31)
+
+Current worktree `D:\AI-Workspace\Repos\anuga-trips-fix`, branch
+`docs/staging-verification-2026-10-30`. Started clean; other worktrees preserved.
+PR #17 is merged at `e18a0d23db35b59ebbdb31fb8eff1e4f6c452ff6`. Live alias verified
+through authenticated Vercel inspect/API: READY deployment
+`dpl_BcdNXbscaAv1U1rqUh15GzodHxA7`, source exactly that merge commit. Live Flutter
+bundle hash matches the existing staging artifact. No new deployment performed.
+
+- Fixed `supabase/seed/companion_trip_groups.sql`: any execution time in IST,
+  Previous at yesterday's last microsecond, Today noon, Upcoming tomorrow 10:00.
+  The RPC's rolling 24-hour lookback means Previous expires at next IST midnight;
+  rerun/refresh then. Patient-detail permissions unchanged.
+- Synthetic/Asha guards, exact three IDs, collision and dependency refusals;
+  reruns update in place. Separate cleanup refuses dependencies and foreign
+  ownership. No hosted SQL run by the agent; `demo_refresh.sql` not run.
+- Family `9000000101`: session identity projected in browser as
+  `20000000-0000-0000-0000-000000000001` / `919000000101`. Home/bookings,
+  Records/Bills/Updates navigation, booking detail/back, logout and reload PASS.
+- Asha on `/app/`: live auth endpoint confirms `30000000-...-0001` /
+  `919000000201`. Previous (Oct 30 23:59 Completed), Today (Oct 31 noon), Upcoming
+  (Nov 1 10:00 masked) PASS; all three exact fixture IDs in her RPC result.
+  Ordinary refresh clears cards then restores them. Overlapping-response test
+  delivered older empty result after newer populated result; populated cards
+  stayed. Retry **injected-error test** PASS: error and visible Refresh recovery
+  control, then successful reload. Temporary fetch hooks removed and page
+  reloaded. Family → Asha switching and Asha logout PASS.
+- Asha protected reads: own trips 200/9 rows; family/ops RPCs 403/42501; direct
+  patients read zero rows. Sanitized auth/access output in companion-access.json.
+- Full fast checks exit 0: PGlite 170 pass/8 skipped, ops 54, shared Dart 27,
+  companion 47/3 skipped, family 35/6 skipped, unified 22. All format/analyze,
+  lint/typecheck/build checks passed. 16 fixture tests cover real SQL/RPC windows,
+  IST boundaries, guards, reruns and cleanup; local PGlite only.
+- Full ledger and SQL walkthrough:
+  `docs/evidence/staging-verification-2026-10-31/README.md`; sanitized deployment
+  evidence alongside it. No OTPs or session tokens recorded in repository files.
+
+Founder supplied matching hosted SQL output for all three fixture rows, with
+deadline `2026-11-01 00:00:00` IST (recorded in `fixture-hosted-result.json`).
+Agent did not execute hosted SQL; the final rows do not prove rerun count.
+Draft follow-up PR: https://github.com/iamnawin/anuga/pull/18; code CI at
+`ec86d55`: https://github.com/iamnawin/anuga/actions/runs/41210470804.
+SQL passed 178/178 (162 real Supabase, 16 PGlite fixture tests); browser install
+failed because latest runner became Ubuntu 26.04, unsupported by Playwright
+1.56.1. Pinned only that job to Ubuntu 24.04. Rerun `41210884363` at `e200f58`
+passed all seven jobs: SQL 178/178, ops browser 7, both real-DB Flutter tests,
+full JOURNEY PASSED and three debug APKs. `ci.json` records tested source.
+No app changes; remaining receipt changes are docs only.
+
+Exact next task: Ops `9000000001` on the selected `/app/` tab; passive browser
+observer will emit only identity from its successful auth response before the
+app intentionally signs Ops out. Confirm ops-console guidance and cleared
+unified session, then finish the receipt/PR. Browser access host unavailable;
+native Chrome fallback works. Ops remains Blocked until observed. PR stays draft
+during verification.
+The 180-minute start window remains provisional; real data, paid providers and
+production launch remain gated. This section supersedes historical next tasks.
+
 ## Stack merged, staging check, companion trips fix (2026-10-29)
 
 Founder authorized merging PRs #12 -> #13 -> #14 -> #16 in order. All four merged (merge commits
