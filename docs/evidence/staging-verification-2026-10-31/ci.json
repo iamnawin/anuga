@@ -1,0 +1,36 @@
+{
+    "source_sha":  "e200f5883076ef019a7217ea8fae5a4e675a2428",
+    "status":  "completed",
+    "conclusion":  "success",
+    "url":  "https://github.com/iamnawin/anuga/actions/runs/41210884363",
+    "jobs":  [
+                 {
+                     "name":  "db-tests",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "anugacare-app",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "companion-app",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "shared-dart",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "family-app",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "ops-console",
+                     "conclusion":  "success"
+                 },
+                 {
+                     "name":  "supabase-local",
+                     "conclusion":  "success"
+                 }
+             ]
+}
