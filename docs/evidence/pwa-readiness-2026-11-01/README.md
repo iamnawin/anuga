@@ -46,7 +46,7 @@ no trip, schedule, invoice or vault mutation was performed.
 | English/Telugu/Hindi layout | Pass | Real-font release web screenshots: sign-in and populated Family/Companion homes at 360x780; visually reviewed for wrapping, controls and glyph rendering |
 | English/Telugu/Hindi wording | Blocked | Layout/glyph review is not native-speaker or product-copy approval; Telugu/Hindi phrasing still needs approval |
 | 200% text and keyboard space | Pass - widget only | Each locale at 360x640, text 1x/2x and 280 px simulated keyboard inset; phone/code submit, validation and change-number controls scroll into view and accept taps without layout exceptions. Real mobile IME remains unverified |
-| OTP navigation | Pass - widget only | A route-back event on idle OTP returns to phone entry. Original implementation failed this regression. Browser-history Back and installed-PWA system Back are not established by this test |
+| OTP navigation | Pass - widget only | A route-back event on idle OTP returns to phone entry. Original implementation failed this regression. Browser-history Back was subsequently verified in desktop Chrome; installed-PWA system Back remains unverified |
 | Family login/role | Pass - local browser + hosted auth | Verification 200, ID 20000000-0000-0000-0000-000000000001 / phone 919000000101; synthetic patient and bookings rendered |
 | Family navigation/back | Pass - local browser | Records/Bills/Updates/Bookings tabs; scheduled booking detail and visible Back returned to list |
 | Session reload | Pass - local browser | Reload after Family sign-in restored the Family home |
@@ -58,7 +58,9 @@ no trip, schedule, invoice or vault mutation was performed.
 | Pause/resume and logout | Pass - widget only | Valid inactive/hidden/paused/resumed lifecycle sequence preserves each role and cannot restore a logged-out home. Does not establish OS background termination/token renewal behavior |
 | Browser JavaScript errors | Pass | No pageerror events in final smoke run; earlier automation attempts failed input/locator handling and were corrected, not counted as application failures |
 | Android emulator / physical Android runtime | Blocked | flutter doctor: Android SDK absent; flutter emulators: none; no connected Android device. No emulator/physical screenshots claimed |
-| Offline service/data | Blocked / not promised | No custom offline cache or offline patient-data store added. Auth/trip operations require connectivity; offline launch/recovery not established |
+| Offline refresh/recovery | Pass - local browser | Disabled browser network, observed generic error on Refresh, restored network and Refresh recovered. Cold offline launch and offline data availability are not promised or established |
+| Browser-history Back | Pass - local browser | With a previous page in history, Back from OTP stayed on /app/ and displayed phone entry |
+| Browser freeze/resume | Pass - local browser | CDP frozen/active retained the correct companion view, then logout/reload stayed signed out. This is not OS termination or installed-PWA behavior |
 
 ## Screenshots
 
@@ -73,7 +75,10 @@ viewport, using the hosted synthetic data. They are not Android screenshots.
 
 Also: [empty OTP](en-otp-empty.png), [Family detail](en-family-detail.png),
 [injected error](en-companion-injected-error.png), [Ops guidance](en-ops-guidance.png).
-No entered OTP is present in screenshots.
+No entered OTP is present in screenshots. Follow-up: [offline error](offline-error.png)
+and [Back/offline/resume results](followup-results.json). No pageerror events
+were recorded. The follow-up driver initially failed its own HTTP sentinel
+setup; corrected before the recorded successful run. No product change needed.
 
 ## Validation
 
@@ -87,8 +92,8 @@ No entered OTP is present in screenshots.
   skipped; unified37. All formatting/analyze/lint/typecheck/build checks passed.
   After adding stale-code/error assertions only, the focused15-test matrix
   was rerun and passed. `git diff --check` passed.
-- Read-only code review: no blocking issues; physical/browser-history Back
-  remains separate from Flutter route-back coverage.
+- Read-only code review: no blocking issues; installed-PWA system Back
+  remains separate from the now-passing desktop browser-history check.
 - Reproduction source/logs retained locally under ignored
   `artifacts/pwa-readiness/` (`smoke.mjs`, `check-all.log`).
 

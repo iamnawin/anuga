@@ -9,6 +9,7 @@
 - [x] Fresh Family/Asha/Ops identities, navigation/back, reload/logout/switching,
       companion injected-error recovery, Ops direction (no /ops/ journey).
 - [x] New 15-widget matrix: narrow layout, 200% text, keyboard inset, lifecycle.
+- [x] Desktop browser-history Back, offline Refresh/reconnect, browser freeze/resume.
 - [ ] Phone home-screen installation, actual keyboard/system Back/OS resume.
 - [ ] Native-speaker wording approval, separate from layout review.
 - [x] Sequential local check-all passes; focused matrix rerun passes.

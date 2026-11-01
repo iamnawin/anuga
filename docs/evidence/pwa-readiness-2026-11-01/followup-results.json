@@ -1,0 +1,38 @@
+{
+  "surface": "Desktop Chrome mobile viewport, not Android emulator or physical device",
+  "checks": [
+    {
+      "name": "Browser-history Back from OTP",
+      "result": "Pass",
+      "evidence": {
+        "url": "http://127.0.0.1:3190/app/",
+        "phoneEntryVisible": true
+      }
+    },
+    {
+      "name": "Authenticated 9000000201",
+      "result": "Pass",
+      "evidence": {
+        "status": 200,
+        "id": "30000000-0000-0000-0000-000000000001",
+        "phone": "919000000201"
+      }
+    },
+    {
+      "name": "Offline refresh and reconnect",
+      "result": "Pass",
+      "evidence": "Browser network disabled, error shown; network restored and Refresh recovered. No server mutations"
+    },
+    {
+      "name": "Browser freeze and resume",
+      "result": "Pass",
+      "evidence": "Correct companion view remains after CDP frozen/active; not OS termination or physical-device behavior"
+    },
+    {
+      "name": "Logout and reload",
+      "result": "Pass",
+      "evidence": "Blank shared sign-in after reload"
+    }
+  ],
+  "pageErrors": []
+}

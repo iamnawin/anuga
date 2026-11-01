@@ -29,6 +29,13 @@ gated. Follow-up PR: https://github.com/iamnawin/anuga/pull/19. Automated CI
 status is tracked on its checks tab. Next manual step: phone PWA installation,
 keyboard/system Back/background checks and native-speaker wording approval
 when a phone is available.
+Follow-up desktop browser checks also Pass: browser-history Back from OTP
+stays on /app/ and returns to phone entry; offline Refresh shows an error then
+recovers after reconnect; frozen/active lifecycle retains Asha view; logout and
+reload remain signed out. Sanitized followup-results.json and offline screenshot
+are in the same evidence folder. No product code changed in this follow-up.
+Latest code/docs head 3c31c1c passed all seven jobs (run41310853678); subsequent
+follow-up changes contain evidence/docs only; latest checks are on PR #19.
 
 
 ## Staging verification takeover (2026-10-31)
