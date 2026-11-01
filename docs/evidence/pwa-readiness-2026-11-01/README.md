@@ -97,6 +97,13 @@ setup; corrected before the recorded successful run. No product change needed.
 - Reproduction source/logs retained locally under ignored
   `artifacts/pwa-readiness/` (`smoke.mjs`, `check-all.log`).
 
+Documentation audit: SETUP, app README, ARCHITECTURE, PRODUCT_SPEC delivery
+priority, ADR0007 update, AGENTS and CLAUDE now reflect PWA first with Android
+preserved. HANDOFF/TASKS carry actual results and next steps. CI at `4116517`
+passed all seven jobs in [run41311699371](https://github.com/iamnawin/anuga/actions/runs/41311699371);
+later documentation-only changes are tracked by PR #19 checks. Founder confirms
+no phone is currently available; no device or language-approval pass is implied.
+
 ## Carry-forward gates
 
 No new signed-in /ops/ journey. Hosted fixture cleanup remains pending.

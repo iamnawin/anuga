@@ -1,5 +1,12 @@
 # Handoff
 
+Documentation audit (2026-11-01): synchronized SETUP, app README, architecture,
+PRODUCT_SPEC delivery priority, ADR0007 update and agent entry notes with the
+PWA-first direction and preserved Android support. HANDOFF/TASKS/evidence were
+already updated. CI at `4116517` passed all seven jobs (41311699371); subsequent
+changes are docs only, with current checks tracked in PR #19. Phone unavailable
+confirmed by founder; device/wording gaps and production gates remain explicit.
+
 ## PWA-first mobile readiness (2026-11-01)
 
 Founder prioritized PWA; existing Android/APK support stays. Isolated feature

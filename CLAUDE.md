@@ -4,6 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Project:** AnugaCare, dialysis companion service (ZeroOrigins), codename `companion` (ADR 0006).
 
+Current delivery direction (2026-11-01): unified `apps/anugacare_app` web/PWA
+first for feature iteration; preserve Android projects and APK support. SETUP
+contains the synthetic web build/serve and CI artifact instructions. PR #19 is
+open and undeployed; HANDOFF/evidence distinguish browser/widget passes from
+pending phone installation, actual keyboard/system Back/OS resume and wording
+approval. No new signed-in /ops/ journey; fixture cleanup pending and fixtures
+must be refreshed before grouping checks. F05 180 minutes remains provisional;
+production launch, real data and paid providers remain gated.
+
 ## Read first
 
 1. `docs/HANDOFF.md`: current state, last checks run, blockers and the **exact next task**.

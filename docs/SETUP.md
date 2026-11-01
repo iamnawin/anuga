@@ -47,6 +47,60 @@ dart test test/trip_state_machine_test.dart   # one file
 dart test --name "wrong OTP"                  # one test
 ```
 
+## Unified AnugaCare: PWA-first development (2026-11-01)
+
+Current founder direction is PWA first while features evolve. Keep the existing
+Flutter Android projects and APK support; no Android SDK is required for web
+builds or browser testing. SDK/emulator/device setup is needed for native runs.
+
+From repository root in PowerShell, use only the existing synthetic backend and
+public client settings already committed in the staging workflow:
+
+```powershell
+$settings = Get-Content .github/workflows/deploy-staging.yml
+$stagingUrl = (($settings | Select-String '^  STAGING_SUPABASE_URL:').Line -split ': ', 2)[1].Trim()
+$publicKey = (($settings | Select-String '^  STAGING_SUPABASE_ANON_KEY:').Line -split ': ', 2)[1].Trim()
+foreach ($app in @('family_app', 'companion_app', 'anugacare_app')) {
+    Push-Location "apps/$app"
+    try { flutter pub get; if ($LASTEXITCODE) { throw 'pub get failed' } }
+    finally { Pop-Location }
+}
+Push-Location apps/anugacare_app
+try {
+    flutter build web --release --no-web-resources-cdn --base-href /app/ --dart-define=SUPABASE_URL=$stagingUrl --dart-define=SUPABASE_PUBLISHABLE_KEY=$publicKey
+    if ($LASTEXITCODE) { throw 'Web build failed' }
+} finally { Pop-Location }
+New-Item -ItemType Directory -Force artifacts/pwa-readiness/site/app | Out-Null
+Copy-Item apps/anugacare_app/build/web/* artifacts/pwa-readiness/site/app -Recurse -Force
+uv run --no-project python -m http.server 3190 --bind 127.0.0.1 --directory artifacts/pwa-readiness/site
+```
+
+Open `http://127.0.0.1:3190/app/`; stop the server with Ctrl+C. Build files are
+ignored. Loopback is local-only, not a phone-accessible deployment. Never compile
+a service-role key or use real patient data. Public client settings are not OTPs;
+enter authorized test codes in the app without recording them in evidence.
+
+The existing manifest defines AnugaCare standalone display and branded icons.
+Chrome installability diagnostics passed; this is not a real phone installation
+pass. Do not promise cold offline launch or offline patient data. Browser offline
+Refresh/reconnect recovered in testing; network-backed operations still need
+connectivity. Physical keyboard/system Back/OS resume and native-speaker wording
+approval remain pending; founder has no phone available for these checks now.
+
+Android remains a supported build target. CI job `anugacare-app` compiles with
+the same public synthetic settings and uploads `anugacare-android-staging`
+containing `app-debug.apk`. Native runtime is not verified by compilation.
+The last downloaded APK is ignored at
+`artifacts/pwa-readiness/android/app-debug.apk`; its tested source/hash and CI
+run are in PR #19. PWA changes in that PR are not yet merged or deployed.
+
+Evidence, screenshots, source/build hash and remaining gates:
+[evidence ledger](evidence/pwa-readiness-2026-11-01/README.md),
+[PR #19](https://github.com/iamnawin/anuga/pull/19).
+No new signed-in /ops/ journey. Hosted fixture cleanup remains pending; refresh
+the narrow fixture before future grouping checks. The 180-minute start window
+remains provisional; production launch, real data and paid providers stay gated.
+
 ## Companion app (M4 onward)
 
 ```sh

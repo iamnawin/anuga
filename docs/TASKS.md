@@ -14,6 +14,7 @@
 - [ ] Native-speaker wording approval, separate from layout review.
 - [x] Sequential local check-all passes; focused matrix rerun passes.
 - [x] PR #19 opened; automated CI status tracked in its checks tab.
+- [x] Sync SETUP, app README, architecture, spec/ADR delivery note and agent entry docs.
 - Carry forward fixture cleanup pending, refresh fixtures before grouping checks;
   180-minute start window provisional; production/real-data/paid-provider gates.
 - Evidence: `docs/evidence/pwa-readiness-2026-11-01/README.md`.
