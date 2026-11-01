@@ -1,5 +1,34 @@
 # Handoff
 
+## PWA-first mobile readiness (2026-11-01)
+
+Founder prioritized PWA; existing Android/APK support stays. Isolated feature
+branch `feat/anugacare-mobile-readiness` starts from current main `09a74f8`
+(PR #18 merged after all seven final-head jobs passed, run 41308362201).
+Fixed reproduced Flutter OTP route-back behavior and cleared stale code/error
+when changing number. No auth/RLS/backend access-rule changes.
+Release web build against the existing synthetic backend passed; local build
+`apps/anugacare_app/build/web`, ready-to-serve copy under
+`artifacts/pwa-readiness/site/app`. Chrome installability diagnostics pass;
+EN/TE/HI sign-in and populated homes visually reviewed at 360x780.
+Fresh hosted-auth browser checks confirm Family/Asha/Ops identities, Family
+navigation/detail/back/session reload, logout/account switching, companion
+injected-error recovery and Ops guidance. No new signed-in /ops/ journey.
+New widget matrix: 15 passed (360x640, each locale at1x/2x, keyboard inset,
+route Back, role guidance, lifecycle/logout). Native/installed-PWA Back,
+actual keyboard, OS resume/termination and phone installation remain Blocked:
+no SDK/emulator/phone. Wording approval is separate and outstanding.
+Existing unified CI APK retains Android support and now gets public synthetic
+backend settings plus an uploaded artifact; native runtime remains unverified.
+Sequential check-all exit0 (PGlite170/8 skips, ops54, shared27, companion47/3
+skips, family35/6 skips, unified37); final focused15 matrix rerun passed.
+Full result ledger/screenshots: `docs/evidence/pwa-readiness-2026-11-01/README.md`.
+No deployment. Hosted fixture cleanup pending; refresh fixtures before new
+grouping checks. F05 180 minutes provisional; production/real data/paid providers
+gated. Next: finish CI/PR receipt, then phone PWA installation/keyboard/Back/
+background checks and native-speaker wording approval when a phone is available.
+
+
 ## Staging verification takeover (2026-10-31)
 
 Current worktree `D:\AI-Workspace\Repos\anuga-trips-fix`, branch

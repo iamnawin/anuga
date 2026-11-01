@@ -1,0 +1,119 @@
+{
+  "surface": "Desktop Chrome mobile viewport, not Android emulator or physical device",
+  "checks": [
+    {
+      "name": "Chrome installability diagnostics",
+      "result": "Pass",
+      "evidence": {
+        "errors": [],
+        "manifest": {
+          "backgroundColor": "rgba(247,251,250,1)",
+          "description": "AnugaCare: one app for families, patients and companions (synthetic data in dev).",
+          "display": "kStandalone",
+          "icons": [
+            {
+              "url": "http://127.0.0.1:3190/app/icons/Icon-192.png",
+              "sizes": "192x192",
+              "type": "image/png"
+            },
+            {
+              "url": "http://127.0.0.1:3190/app/icons/Icon-512.png",
+              "sizes": "512x512",
+              "type": "image/png"
+            },
+            {
+              "url": "http://127.0.0.1:3190/app/icons/Icon-maskable-192.png",
+              "sizes": "192x192",
+              "type": "image/png"
+            },
+            {
+              "url": "http://127.0.0.1:3190/app/icons/Icon-maskable-512.png",
+              "sizes": "512x512",
+              "type": "image/png"
+            }
+          ],
+          "id": "http://127.0.0.1:3190/app/",
+          "name": "AnugaCare",
+          "orientation": "PORTRAIT_PRIMARY",
+          "preferRelatedApplications": false,
+          "scope": "http://127.0.0.1:3190/app/",
+          "startUrl": "http://127.0.0.1:3190/app/",
+          "themeColor": "rgba(0,102,107,1)"
+        }
+      }
+    },
+    {
+      "name": "Authenticated 9000000101",
+      "result": "Pass",
+      "evidence": {
+        "status": 200,
+        "id": "20000000-0000-0000-0000-000000000001",
+        "phone": "919000000101"
+      }
+    },
+    {
+      "name": "Family home",
+      "result": "Pass",
+      "evidence": "Synthetic patient and scheduled bookings rendered"
+    },
+    {
+      "name": "Family navigation",
+      "result": "Pass",
+      "evidence": "Records, Bills, Updates and Bookings tabs opened"
+    },
+    {
+      "name": "Family detail and back",
+      "result": "Pass",
+      "evidence": "Opened scheduled booking then returned to Bookings"
+    },
+    {
+      "name": "Family session after reload",
+      "result": "Pass",
+      "evidence": "Correct role home restored from stored session"
+    },
+    {
+      "name": "Logout and reload",
+      "result": "Pass",
+      "evidence": "Blank shared sign-in after reload"
+    },
+    {
+      "name": "Authenticated 9000000201",
+      "result": "Pass",
+      "evidence": {
+        "status": 200,
+        "id": "30000000-0000-0000-0000-000000000001",
+        "phone": "919000000201"
+      }
+    },
+    {
+      "name": "Companion home and account switching",
+      "result": "Pass",
+      "evidence": "My trips replaced Family tabs after explicit logout and new verified identity"
+    },
+    {
+      "name": "Companion injected-error test",
+      "result": "Pass",
+      "evidence": "Aborted trip-list requests; error then Refresh recovered after restoring requests"
+    },
+    {
+      "name": "Logout and reload",
+      "result": "Pass",
+      "evidence": "Blank shared sign-in after reload"
+    },
+    {
+      "name": "Authenticated 9000000001",
+      "result": "Pass",
+      "evidence": {
+        "status": 200,
+        "id": "10000000-0000-0000-0000-000000000001",
+        "phone": "919000000001"
+      }
+    },
+    {
+      "name": "Ops role direction",
+      "result": "Pass",
+      "evidence": "Use the ops console; unified session cleared"
+    }
+  ],
+  "pageErrors": []
+}
