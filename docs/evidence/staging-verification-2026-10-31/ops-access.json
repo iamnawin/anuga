@@ -1,0 +1,15 @@
+{
+  "observed_date_ist": "2026-11-01",
+  "url": "https://anuga.vercel.app/app/",
+  "auth_verify": {
+    "status": 200,
+    "id": "10000000-0000-0000-0000-000000000001",
+    "phone": "919000000001"
+  },
+  "direction_title": "Use the ops console",
+  "direction_body": "This number belongs to an AnugaCare operations account. Open the ops console on a computer.",
+  "unified_session_cleared": true,
+  "back_to_sign_in": "Pass: blank shared sign-in, no prior account views",
+  "observer_removed": true,
+  "scope": "/app/ role direction; no automatic /ops/ transfer or console link, no new authenticated /ops/ journey"
+}

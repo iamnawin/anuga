@@ -5,7 +5,7 @@ Site: https://anuga.vercel.app/app/. Tested application source:
 Vercel deployment: `dpl_BcdNXbscaAv1U1rqUh15GzodHxA7`, READY, live alias confirmed
 through authenticated Vercel inspect/API. See [deployment.json](deployment.json).
 The live `/app/main.dart.js` SHA256 matches the existing local staging artifact.
-Follow-up: [draft PR #18](https://github.com/iamnawin/anuga/pull/18).
+Follow-up: [PR #18](https://github.com/iamnawin/anuga/pull/18).
 The unique deployment URL returned Vercel authentication HTML and was excluded
 from the asset comparison. Vercel calls this target `production`; it remains the
 founder-authorized synthetic test site, not an authorized real-data launch.
@@ -85,7 +85,7 @@ alone do not independently establish the execution count. No cleanup executed.
 | Companion stale-response handling | Pass | Browser-only injected-response ordering test: held response 1, displayed real populated response 2, released older response as empty `[]`; current Today/Upcoming cards remained, not replaced by empty state. Hook counted exactly 2 requests and was removed |
 | Retry — injected-error test | Pass | Temporarily rejected only companion trip-list fetches (2 failures), observed generic error and visible recovery control labelled Refresh; restored fetch, clicked recovery control, observed Loading then current trips with error removed |
 | Account switching | Pass | Same `/app/`: Family logout/reload had no cards; Asha identity then confirmed by live auth endpoint; companion My trips replaced Family navigation/records/bills with no prior Family view retained |
-| Ops routing via `/app/` | Blocked | Pending `9000000001` sign-in; expected “Use the ops console” and unified session cleared, not automatic authenticated console transfer |
+| Ops identity and routing via `/app/` | Pass | Nov 1 live auth verify 200: ID `10000000-0000-0000-0000-000000000001`, phone `919000000001`. Displayed Use the ops console and operations-account guidance. Unified session cleared; Back to sign in returned blank sign-in without prior account views. No automatic console transfer/link. See ops-access.json |
 | Protected-view restrictions | Pass | In authenticated Asha browser: companion RPC 200 with 9 rows; family and ops RPCs 403/42501; direct patients read 200/zero rows. Separate `/family/` also refused Asha. See companion-access.json |
 
 Browser fallback: browser access host unavailable; native `@oai/sky` controls used.
@@ -132,8 +132,23 @@ at `e200f58` passed all seven jobs; see [ci.json](ci.json). SQL 178/178 includes
 162 real-Supabase tests and 16 PGlite fixture tests. Ops browser and both real-DB
 Flutter journey tests passed; full test-billing/notification journey reported
 JOURNEY PASSED; all three Android debug APK jobs passed.
-Subsequent receipt commit changes documentation/evidence only. Its workflow may
-run separately; the completed code-bearing run above is the validation evidence.
+Receipt head `e15f21d` also passed all seven jobs in
+[run 41212055526](https://github.com/iamnawin/anuga/actions/runs/41212055526).
+Merge remains conditional on CI passing on the final Ops receipt head.
+
+## Ops completion - 2026-11-01
+
+The prior completed sign-in could not be recovered: the inspected tab was
+signed out and the observer absent. Repeated synthetic Ops sign-in with founder
+authorization. A passive fetch observer projected only ID/phone/status from the
+real verification response without modifying it. Observed console direction,
+cleared unified session and Back to sign in navigation. Observer removed.
+This verifies /app/ direction, not a new authenticated /ops/ console journey.
+The Oct 31 grouping evidence is historical; its deadline has passed. Rerun the
+narrow fixture before repeating group checks. Hosted cleanup and independent
+proof of two hosted executions remain outstanding. Founder authorized ready
+and merge after verification and final-head CI pass, respecting protections.
+No deployment requested.
 
 The provisional 180-minute companion start window is unchanged. Production
 launch, real data and paid providers remain gated.

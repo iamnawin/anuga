@@ -49,12 +49,19 @@ passed all seven jobs: SQL 178/178, ops browser 7, both real-DB Flutter tests,
 full JOURNEY PASSED and three debug APKs. `ci.json` records tested source.
 No app changes; remaining receipt changes are docs only.
 
-Exact next task: Ops `9000000001` on the selected `/app/` tab; passive browser
-observer will emit only identity from its successful auth response before the
-app intentionally signs Ops out. Confirm ops-console guidance and cleared
-unified session, then finish the receipt/PR. Browser access host unavailable;
-native Chrome fallback works. Ops remains Blocked until observed. PR stays draft
-during verification.
+Ops completion (2026-11-01): repeated authorized synthetic sign-in on `/app/`.
+Live verification response 200 confirms `10000000-0000-0000-0000-000000000001` /
+`919000000001`. Observed Use the ops console and operations-account guidance;
+unified session cleared. Back to sign in returned blank shared sign-in without
+prior account views. No automatic console transfer/link; no new /ops/ journey.
+Passive identity observer removed. Sanitized result: `ops-access.json` beside
+the ledger. All requested browser ledger rows now Pass. Receipt head `e15f21d`
+passed all seven CI jobs (run `41212055526`).
+Exact next task: push this docs-only Ops receipt, confirm CI on its final head,
+then mark PR #18 ready and merge under founder authorization and repository
+protections. No deployment. Oct 31 fixture deadline has passed; rerun the narrow
+fixture for future grouping checks. Hosted cleanup was not run; two hosted runs
+are not independently proven.
 The 180-minute start window remains provisional; real data, paid providers and
 production launch remain gated. This section supersedes historical next tasks.
 

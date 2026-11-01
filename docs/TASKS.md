@@ -1,6 +1,6 @@
 # Tasks and milestones
 
-## Synthetic staging verification (2026-10-31) `[~]`
+## Synthetic staging verification (2026-10-31; Ops completed Nov 1) `[x]`
 
 - [x] Confirm PR #17 (`e18a0d2`) on live alias by deployment/source metadata and
       bundle evidence: `dpl_BcdNXbscaAv1U1rqUh15GzodHxA7`.
@@ -14,8 +14,10 @@
 - [x] Asha identity/Previous/Today/Upcoming on `/app/`.
 - [x] Browser refresh, stale responses, Retry (**injected-error test**).
 - [x] Browser Family → Asha switching and Asha protected-view denials.
-- [ ] Ops 9000000001 identity/routing through `/app/`.
-- [x] Draft follow-up PR #18 opened; no merge or deploy under this task.
+- [x] Ops 9000000001 live identity, console guidance, cleared session and
+      Back to sign in navigation; sanitized ops-access.json. No new /ops/ journey.
+- [x] Follow-up PR #18 opened. Founder now authorizes ready/merge after final-head
+      CI passes, respecting protections. No deployment under this follow-up.
 - [x] Code CI 41210884363 at e200f58: all seven jobs pass, SQL 178/178 (162 real
       Supabase + 16 PGlite fixture), ops browser 7, real-DB Flutter and full journey,
       three APK builds. Initial Ubuntu 26.04/Playwright install failure fixed by
