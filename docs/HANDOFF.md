@@ -25,8 +25,10 @@ skips, family35/6 skips, unified37); final focused15 matrix rerun passed.
 Full result ledger/screenshots: `docs/evidence/pwa-readiness-2026-11-01/README.md`.
 No deployment. Hosted fixture cleanup pending; refresh fixtures before new
 grouping checks. F05 180 minutes provisional; production/real data/paid providers
-gated. Next: finish CI/PR receipt, then phone PWA installation/keyboard/Back/
-background checks and native-speaker wording approval when a phone is available.
+gated. Follow-up PR: https://github.com/iamnawin/anuga/pull/19. Automated CI
+status is tracked on its checks tab. Next manual step: phone PWA installation,
+keyboard/system Back/background checks and native-speaker wording approval
+when a phone is available.
 
 
 ## Staging verification takeover (2026-10-31)

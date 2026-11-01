@@ -3,7 +3,9 @@
 Founder direction: prioritize PWA and feature iteration; preserve existing
 Android/APK support. Branch `feat/anugacare-mobile-readiness` starts from current
 main `09a74f87c5679cb1604f159fc70404ad8924206f` (merged PR #18).
-No deployment, production launch, real patient data or paid-provider activation.
+[PR #19](https://github.com/iamnawin/anuga/pull/19) carries this pass; automated
+CI status is on its checks tab. No deployment, production launch, real patient
+data or paid-provider activation.
 
 ## Build and run
 
