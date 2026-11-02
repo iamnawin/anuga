@@ -201,6 +201,25 @@ jobs:
           eval "$(supabase status -o env)"
           flutter pub get
           SUPABASE_URL="$API_URL" SUPABASE_PUBLISHABLE_KEY="$PUBLISHABLE_KEY" flutter test test/supabase_local_test.dart
+      - name: Build Family care-request preview against Supabase local
+        run: |
+          eval "$(supabase status -o env)"
+          (cd apps/companion_app && flutter pub get)
+          (cd apps/anugacare_app && flutter pub get && flutter build web --release --no-web-resources-cdn --base-href /app/ --dart-define=SUPABASE_URL="$API_URL" --dart-define=SUPABASE_PUBLISHABLE_KEY="$PUBLISHABLE_KEY")
+      - run: supabase db reset
+      - name: Family submits, ops fulfils, Family sees persisted status
+        run: pnpm --filter @companion/ops_console exec playwright test e2e/care_request.spec.ts
+        env:
+          CARE_REQUEST_JOURNEY: 1
+          CI: true
+      - if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: care-request-preview
+          path: |
+            apps/anugacare_app/build/web/
+            apps/ops_console/test-results/care-request/
+          if-no-files-found: ignore
       # M7: the first journey across ops console (browser), companion + family API layers
       # and the notify-dispatch Edge Function, in order, on a fresh seed.
       - run: scripts/e2e-journey.sh

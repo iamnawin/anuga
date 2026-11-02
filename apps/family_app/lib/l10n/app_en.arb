@@ -179,5 +179,27 @@
     }
   },
   "lineMonthlyFee": "Monthly fee",
-  "billTotal": "Total"
+  "billTotal": "Total",
+  "careRequestTitle": "Request care",
+  "careRequestIntro": "Request companion care for a pickup. This does not reserve a dialysis appointment or guarantee availability.",
+  "careRegisteredCentre": "Only this patient's registered centre is supported here. Contact ops for a different centre.",
+  "carePackage": "Package",
+  "careChoosePackage": "Choose an existing package.",
+  "careNoPackages": "No active packages are available. Contact ops.",
+  "careDate": "Pickup date (IST)",
+  "careTime": "Pickup time (IST)",
+  "careFuturePickup": "Enter a future pickup date (YYYY-MM-DD) and time (HH:mm), in IST.",
+  "careReview": "Review request",
+  "carePickup": "Pickup (IST)",
+  "carePendingExplanation": "Ops must create the visit and arrange a companion. Availability is not yet confirmed.",
+  "careSubmit": "Submit request",
+  "careSubmitting": "Submitting…",
+  "careEdit": "Edit request",
+  "carePermissionNeeded": "Requesting care requires owner or editor access and active trip consent from the patient's owner. Check Privacy and consent.",
+  "careDuplicate": "A schedule already covers this pickup. Refresh bookings or contact ops.",
+  "carePending": "Pending ops confirmation",
+  "careConfirmed": "Confirmed · companion not assigned",
+  "careAssigned": "Confirmed · companion assigned",
+  "careInactive": "Inactive request",
+  "careOpenVisit": "Open visit"
 }

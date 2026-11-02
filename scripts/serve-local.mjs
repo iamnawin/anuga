@@ -12,11 +12,17 @@ const types = {
   '.ttf': 'font/ttf', '.otf': 'font/otf', '.woff2': 'font/woff2',
 };
 
-for (const [name, port, directory] of [
+const surfaces = process.argv.includes('--care-preview') ? [
+  ['Care preview', 3104, 'artifacts/care-preview/.vercel/output/static'],
+] : process.argv.includes('--pwa') ? [
+  ['AnugaCare', 3103, 'apps/anugacare_app/build/web'],
+] : [
   ['Ops', 3100, 'apps/ops_console/out'],
   ['Family', 3101, 'apps/family_app/build/web'],
   ['Companion', 3102, 'apps/companion_app/build/web'],
-]) {
+];
+
+for (const [name, port, directory] of surfaces) {
   const base = resolve(root, directory);
   await stat(resolve(base, 'index.html'));
   const server = createServer(async (req, res) => {
@@ -25,7 +31,15 @@ for (const [name, port, directory] of [
         res.writeHead(405, { Allow: 'GET, HEAD' }).end();
         return;
       }
-      let path = resolve(base, `.${decodeURIComponent(new URL(req.url, 'http://localhost').pathname)}`);
+      let requestPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+      if (name === 'AnugaCare') {
+        if (!requestPath.startsWith('/app/')) {
+          res.writeHead(404).end('Not found');
+          return;
+        }
+        requestPath = requestPath.slice(4);
+      }
+      let path = resolve(base, `.${requestPath}`);
       if (path !== base && !path.startsWith(base + sep)) {
         res.writeHead(403).end();
         return;
@@ -42,5 +56,5 @@ for (const [name, port, directory] of [
     }
   });
   server.on('error', (error) => { console.error(`${name}: ${error.message}`); process.exit(1); });
-  server.listen(port, '127.0.0.1', () => console.log(`${name}: http://127.0.0.1:${port}/`));
+  server.listen(port, '127.0.0.1', () => console.log(`${name}: http://127.0.0.1:${port}/${name === 'AnugaCare' ? 'app/' : ''}`));
 }

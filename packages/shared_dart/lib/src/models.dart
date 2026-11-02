@@ -405,3 +405,74 @@ class InvoiceLine {
   final int amountPaise;
   final DateTime? serviceDate;
 }
+
+/// Existing active package offered by `family_care_options()`.
+class CarePackage {
+  const CarePackage({required this.id, required this.name});
+
+  factory CarePackage.fromJson(Json json) => CarePackage(id: json['id'] as String, name: json['name'] as String);
+
+  final String id;
+  final String name;
+}
+
+/// The patient's registered centre and existing supported packages.
+class CareOptions {
+  const CareOptions({required this.centreId, required this.centreName, required this.packages});
+
+  factory CareOptions.fromJson(Json json) => CareOptions(
+    centreId: json['centre_id'] as String,
+    centreName: json['centre_name'] as String,
+    packages: [for (final row in json['packages'] as List<dynamic>) CarePackage.fromJson(row as Json)],
+  );
+
+  final String centreId;
+  final String centreName;
+  final List<CarePackage> packages;
+}
+
+/// A one-date schedule and its actual trip/assignment state, projected by SQL.
+class CareRequest {
+  const CareRequest({
+    required this.scheduleId,
+    required this.patientId,
+    required this.patientName,
+    required this.centreId,
+    required this.centreName,
+    required this.packageId,
+    required this.packageName,
+    required this.pickupAt,
+    required this.requestState,
+    this.tripId,
+    this.tripStatus,
+    this.companionName,
+  });
+
+  factory CareRequest.fromJson(Json json) => CareRequest(
+    scheduleId: json['schedule_id'] as String,
+    patientId: json['patient_id'] as String,
+    patientName: json['patient_name'] as String,
+    centreId: json['centre_id'] as String,
+    centreName: json['centre_name'] as String,
+    packageId: json['package_id'] as String,
+    packageName: json['package_name'] as String,
+    pickupAt: _time(json['pickup_at']),
+    requestState: json['request_state'] as String,
+    tripId: json['trip_id'] as String?,
+    tripStatus: json['trip_status'] == null ? null : TripStatus.fromDb(json['trip_status'] as String),
+    companionName: json['companion_name'] as String?,
+  );
+
+  final String scheduleId;
+  final String patientId;
+  final String patientName;
+  final String centreId;
+  final String centreName;
+  final String packageId;
+  final String packageName;
+  final DateTime pickupAt;
+  final String requestState;
+  final String? tripId;
+  final TripStatus? tripStatus;
+  final String? companionName;
+}

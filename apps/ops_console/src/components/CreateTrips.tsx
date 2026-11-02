@@ -7,9 +7,11 @@ import { ErrorMessage } from './ErrorMessage';
 import { useOpsApi } from './ApiProvider';
 import { useI18n } from './I18nProvider';
 
-// Generates a schedule's trips for the configured window (trip_generation_days).
+// Care requests recheck consent before confirmation; weekly schedules use the existing generator.
 // Safe to press again: dates that already have a trip are reported as skipped.
-export function CreateTrips({ scheduleId, onCreated }: { scheduleId: string; onCreated(): void }) {
+export function CreateTrips({ scheduleId, careRequest = false, onCreated }: {
+  scheduleId: string; careRequest?: boolean; onCreated(): void;
+}) {
   const { t, lang } = useI18n();
   const api = useOpsApi();
   const [result, setResult] = useState<CreatedTripDate[] | null>(null);
@@ -23,7 +25,9 @@ export function CreateTrips({ scheduleId, onCreated }: { scheduleId: string; onC
         setBusy(true);
         setError(null);
         try {
-          const rows = await api().createScheduleTrips(scheduleId);
+          const rows = careRequest
+            ? await api().confirmCareRequest(scheduleId)
+            : await api().createScheduleTrips(scheduleId);
           setResult(rows);
           onCreated();
         } catch (err) {
@@ -31,7 +35,7 @@ export function CreateTrips({ scheduleId, onCreated }: { scheduleId: string; onC
         } finally {
           setBusy(false);
         }
-      }}>{t('schedules.createTrips')}</button>
+      }}>{t(careRequest ? 'careRequests.confirm' : 'schedules.createTrips')}</button>
       <ErrorMessage error={error} />
       {result && (
         <div role="status" className="panel">

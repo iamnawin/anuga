@@ -41,6 +41,17 @@ describe('createOpsApi', () => {
     ]);
   });
 
+  test('reads care requests and confirms through the consent-checked RPC', async () => {
+    const { client, calls } = fakeClient({ data: [], error: null });
+    const api = createOpsApi(client);
+    await api.careRequests();
+    await api.confirmCareRequest('request-1');
+    expect(calls).toEqual([
+      { fn: 'ops_care_requests', args: undefined },
+      { fn: 'ops_confirm_care_request', args: { p_schedule_id: 'request-1' } },
+    ]);
+  });
+
   test('turns database errors into DbError with code and hint', async () => {
     const { client } = fakeClient({ data: null, error: { code: 'P0001', message: 'not eligible', hint: 'radius' } });
     const error = await createOpsApi(client).assignTripCompanion('t', 'far').catch((e: unknown) => e);

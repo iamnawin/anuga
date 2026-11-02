@@ -1,0 +1,13 @@
+{
+  "backend": "Existing hosted synthetic Supabase: real Auth/Postgres/RPCs/RLS",
+  "surface": "desktop Chromium phone viewport, not a physical phone",
+  "schedule_id": "11b3459b-ca11-4d28-b626-892c2fedd956",
+  "pickup_date_ist": "2026-11-05",
+  "pickup_time_ist": "18:05",
+  "concurrent_retries_return_same_schedule": true,
+  "family_after_reload": "pending",
+  "ops_sees_request": true,
+  "family_after_confirmation": "confirmed",
+  "family_after_assigned_reload": "assigned",
+  "result": "Pass"
+}

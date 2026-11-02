@@ -62,6 +62,30 @@ class FamilyApi {
       FamilyBoardRow.fromJson(row),
   ];
 
+  /// Existing registered centre/packages for an owner/editor with trip consent.
+  Future<CareOptions> careOptions(String patientId) async =>
+      CareOptions.fromJson(_single(await _rpc('family_care_options', {'p_patient_id': patientId})));
+
+  /// Persists a pending one-date schedule, not a confirmed trip or payment.
+  /// Reuse [requestId] when retrying an unknown network result.
+  Future<String> requestCare({
+    required String requestId,
+    required String patientId,
+    required String centreId,
+    required String packageId,
+    required DateTime pickupAt,
+  }) async => (await _rpc('family_request_care', {
+    'p_request_id': requestId,
+    'p_patient_id': patientId,
+    'p_centre_id': centreId,
+    'p_package_id': packageId,
+    'p_pickup_at': _timestamp(pickupAt),
+  })) as String;
+
+  Future<List<CareRequest>> careRequests(String patientId) async => [
+    for (final row in _rows(await _rpc('family_care_requests', {'p_patient_id': patientId}))) CareRequest.fromJson(row),
+  ];
+
   /// Returns the 6-digit code to read out to the companion at the door.
   Future<String> issuePickupOtp(String tripId) async =>
       (await _rpc('issue_pickup_otp', {'p_trip_id': tripId})) as String;

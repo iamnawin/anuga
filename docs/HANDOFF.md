@@ -1,5 +1,24 @@
 # Handoff
 
+## Family care-request slice (2026-11-02)
+
+Branch `feat/family-care-request` from main09a74f8; PR #19 remains separate.
+Implemented registered-patient/centre/package/ISTpickup review/submit, persisted
+one-date schedule requests, backend-derived Family status and existing ops
+confirmation/assignment. Owner/editor access and owner trips consent enforced
+in SQL; confirmation rechecks consent. UUID and natural-slot duplicate guards.
+User applied migration20261102000100; hosted browser journey passed: request
+11b3459b-ca11-4d28-b626-892c2fedd956 -> ops confirms/assigns -> Family reloads assigned
+tripd185a2fb-fe5c-4618-8e70-5711f9c6bdce. Concurrent HTTP retries returned the same ID.
+Focused SQL11/shared2/FamilyUI7/ops22 passed; no historical manual verification.
+Preview/evidence and exact five created synthetic schedules/two trips are in
+`docs/evidence/care-request-2026-11-02/README.md`; cleanup not executed. Registered
+centre only; no appointment, price, availability or payment promise. Next: PR/CI
+and preview review; phone/wording checks pending. Android preserved, F05 provisional,
+production/real data/paid providers gated. Previous grouping fixtures still need
+refresh before reuse; their hosted cleanup remains pending.
+
+
 ## Staging verification takeover (2026-10-31)
 
 Current worktree `D:\AI-Workspace\Repos\anuga-trips-fix`, branch

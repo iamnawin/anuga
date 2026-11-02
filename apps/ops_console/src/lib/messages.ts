@@ -32,6 +32,14 @@ const en = {
   'common.save': 'Save',
   'common.close': 'Close',
 
+  'careRequests.label': 'Care request',
+  'careRequests.confirm': 'Confirm request',
+  'careRequests.pickup': 'Requested pickup',
+  'careRequests.status': 'Request status',
+  'careRequests.pending': 'Pending ops',
+  'careRequests.confirmed': 'Confirmed',
+  'careRequests.assigned': 'Assigned',
+
   'schedules.title': 'Weekly schedules',
   'schedules.patient': 'Patient',
   'schedules.centre': 'Centre',
@@ -167,6 +175,14 @@ const te: Messages = {
   'common.save': 'సేవ్',
   'common.close': 'మూసివేయి',
 
+  'careRequests.label': 'సేవ అభ్యర్థన',
+  'careRequests.confirm': 'అభ్యర్థనను నిర్ధారించండి',
+  'careRequests.pickup': 'కోరిన పికప్ సమయం',
+  'careRequests.status': 'అభ్యర్థన స్థితి',
+  'careRequests.pending': 'ఆప్స్ చర్య కోసం వేచి ఉంది',
+  'careRequests.confirmed': 'నిర్ధారించబడింది',
+  'careRequests.assigned': 'కేటాయించబడింది',
+
   'schedules.title': 'వారపు షెడ్యూల్‌లు',
   'schedules.patient': 'రోగి',
   'schedules.centre': 'కేంద్రం',
@@ -298,6 +314,14 @@ const hi: Messages = {
   'common.cancel': 'रद्द करें',
   'common.save': 'सेव करें',
   'common.close': 'बंद करें',
+
+  'careRequests.label': 'देखभाल का अनुरोध',
+  'careRequests.confirm': 'अनुरोध की पुष्टि करें',
+  'careRequests.pickup': 'अनुरोधित पिकअप',
+  'careRequests.status': 'अनुरोध की स्थिति',
+  'careRequests.pending': 'ऑप्स की कार्रवाई की प्रतीक्षा',
+  'careRequests.confirmed': 'पुष्टि हुई',
+  'careRequests.assigned': 'सौंपा गया',
 
   'schedules.title': 'साप्ताहिक शेड्यूल',
   'schedules.patient': 'मरीज़',

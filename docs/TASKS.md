@@ -1,5 +1,17 @@
 # Tasks and milestones
 
+## First Family care request (2026-11-02) `[x]`
+
+- [x] Authorized patient/registered centre/existing package/ISTpickup -> review/submit.
+- [x] Persisted one-date schedule visible in Family before trip generation and in ops.
+- [x] Owner consent/permissions, retry identity and server duplicate guards.
+- [x] Existing ops confirmation/assignment -> truthful persisted Family status.
+- [x] Hosted synthetic browser demo, screenshots and focused SQL/API/UI checks.
+- Evidence and preview: `docs/evidence/care-request-2026-11-02/README.md`.
+- Remaining: CI/PR review, phone/wording verification and scoped fixture cleanup;
+  no production launch or new pricing/availability/payment/cancellation rules.
+
+
 ## Synthetic staging verification (2026-10-31; Ops completed Nov 1) `[x]`
 
 - [x] Confirm PR #17 (`e18a0d2`) on live alias by deployment/source metadata and
