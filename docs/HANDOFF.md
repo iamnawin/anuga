@@ -1,5 +1,10 @@
 # Handoff
 
+Repository overview (2026-11-02): added the previously missing root README with
+approved branding, synthetic screenshots, PWA-first/Android-preserved status,
+quick-start commands and links to the source-of-truth docs. No application or
+backend behavior changed; included in PR #19.
+
 Documentation audit (2026-11-01): synchronized SETUP, app README, architecture,
 PRODUCT_SPEC delivery priority, ADR0007 update and agent entry notes with the
 PWA-first direction and preserved Android support. HANDOFF/TASKS/evidence were
