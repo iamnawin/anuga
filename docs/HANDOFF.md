@@ -2,7 +2,14 @@
 
 ## Family care-request slice (2026-11-02)
 
-Branch `feat/family-care-request` from main09a74f8; PR #19 remains separate.
+Branch `feat/family-care-request` from main09a74f8; PR #19 remains separate. PR #20:
+https://github.com/iamnawin/anuga/pull/20. Working preview (Vercel team sign-in):
+https://anuga-9qi06zoi3-iamnawins-projects.vercel.app/app/ and /ops/;
+READY dpl_EB72Cb7QJqnF7oycpuD3y1fVbqtV, source93c028b. Browser demo used the
+same prebuilt output on loopback with the hosted backend. No production promotion.
+Initial CI caught a shared-test editor grant leak; scoped fixture cleanup fixed
+care/dispatch19/19. Latest CI tracked on PR #20; no product/schema change for fix.
+
 Implemented registered-patient/centre/package/ISTpickup review/submit, persisted
 one-date schedule requests, backend-derived Family status and existing ops
 confirmation/assignment. Owner/editor access and owner trips consent enforced

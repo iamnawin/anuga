@@ -7,6 +7,7 @@
 - [x] Owner consent/permissions, retry identity and server duplicate guards.
 - [x] Existing ops confirmation/assignment -> truthful persisted Family status.
 - [x] Hosted synthetic browser demo, screenshots and focused SQL/API/UI checks.
+- [x] PR #20 opened, protected synthetic preview READY; care/dispatch isolation regression19/19.
 - Evidence and preview: `docs/evidence/care-request-2026-11-02/README.md`.
 - Remaining: CI/PR review, phone/wording verification and scoped fixture cleanup;
   no production launch or new pricing/availability/payment/cancellation rules.

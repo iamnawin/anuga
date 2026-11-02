@@ -51,7 +51,14 @@ Run `powershell -File scripts/build-care-preview.ps1`, then
 `node scripts/serve-local.mjs --care-preview`. Open
 `http://127.0.0.1:3104/app/` and `http://127.0.0.1:3104/ops/`.
 Build output: `artifacts/care-preview/.vercel/output` (ignored). Published preview
-URL/source/deployment identification are recorded in the PR receipt.
+[Family preview](https://anuga-9qi06zoi3-iamnawins-projects.vercel.app/app/) and
+[Ops preview](https://anuga-9qi06zoi3-iamnawins-projects.vercel.app/ops/) are READY
+preview deployment `dpl_EB72Cb7QJqnF7oycpuD3y1fVbqtV`, from source `93c028b`.
+Vercel team sign-in is required; the protected URL redirects unauthenticated
+requests to SSO. Actual browser evidence used the identical prebuilt files on
+loopback against the hosted backend; no signed-in remote-preview pass is claimed.
+[Deployment/bundle receipt](deployment.json). No production alias promotion.
+Follow-up: [PR #20](https://github.com/iamnawin/anuga/pull/20).
 
 - 11 focused SQL tests passed (PGlite, actual migrations/RLS), including midnight,
   consent withdrawal, allowed/denied reads/writes and duplicate cases. Missing
@@ -67,6 +74,12 @@ URL/source/deployment identification are recorded in the PR receipt.
 - Read-only access review found no blocking issue. Some logical slot conflicts
   use SQLSTATE 22023 and currently show the generic request error, rather than specific
   duplicate copy; successful same-intent retries remain idempotent.
+
+Initial CI exposed a test-isolation failure: the care-suite editor grant stayed
+on the shared seed patient, changing later dispatch recipient counts from four
+to six. Scoped the fixture hooks to this suite and removed only its editor grant
+afterward. The affected care + dispatch tests now pass together: 19/19. Product
+code and the hosted migration did not change for this fix; latest CI is in PR #20.
 
 ## Synthetic effects and remaining gates
 

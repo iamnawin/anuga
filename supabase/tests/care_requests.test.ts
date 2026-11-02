@@ -1,5 +1,5 @@
 // Focused contract checks for the Family care-request vertical slice.
-import { before, describe, test } from 'node:test';
+import { after, before, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { asAdmin, asUser, createUser, expectPgError, ids, probeAsAnon, probeAsUser, type Db } from './support/db.ts';
@@ -12,7 +12,7 @@ const plusPackage = '60000000-0000-0000-0000-000000000002';
 
 type Intent = { requestId: string; patientId: string; centreId: string; packageId: string; pickup: string };
 
-before(async () => {
+async function setUpCareFixtures() {
   await createUser(editor);
   await createUser(stranger);
   await asAdmin(async (db) => {
@@ -24,7 +24,7 @@ before(async () => {
     await db.query(`insert into public.packages (id,code,name,price_per_visit_paise,companion_pay_per_visit_paise,active)
       values ($1,'care_request_inactive','Inactive (synthetic)',0,0,false) on conflict do nothing`, [inactivePackage]);
   });
-});
+}
 
 async function intent(offset = 40, time = '17:43:00'): Promise<Intent> {
   const [{ pickup }] = await asAdmin((db) => db.query<{ pickup: string }>(
@@ -41,6 +41,12 @@ async function submit(db: Db, value: Intent): Promise<string> {
 }
 
 describe('Family care request contracts', () => {
+  before(setUpCareFixtures);
+  after(async () => {
+    // The DB suites share a seed. Do not change later notification recipients.
+    await asAdmin((db) => db.query(
+      'delete from public.patient_access where patient_id=$1 and user_id=$2', [ids.patient, editor]));
+  });
   test('owner and editor get registered centre and only active existing packages', async () => {
     for (const user of [ids.owner, editor]) {
       const [{ options }] = await probeAsUser(user, (db) => db.query<{ options: { centre_id: string; packages: { id: string; name: string }[] } }>(
