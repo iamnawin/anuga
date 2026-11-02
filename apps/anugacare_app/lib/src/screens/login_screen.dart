@@ -64,92 +64,103 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  void _changeNumber() {
+    _code.clear();
+    setState(() {
+      _sentTo = null;
+      _message = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final scheme = Theme.of(context).colorScheme;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          // Fixed wordmark, as on the family and companion screens; the localized name is the window title.
-          'AnugaCare',
-          style: TextStyle(color: scheme.primary, fontWeight: FontWeight.w700, letterSpacing: 1),
+    return PopScope(
+      canPop: _sentTo == null,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop && _sentTo != null && !_busy) _changeNumber();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            // Fixed wordmark, as on the family and companion screens; the localized name is the window title.
+            'AnugaCare',
+            style: TextStyle(color: scheme.primary, fontWeight: FontWeight.w700, letterSpacing: 1),
+          ),
+          actions: [LanguageMenu(onChanged: widget.onLocaleChanged)],
         ),
-        actions: [LanguageMenu(onChanged: widget.onLocaleChanged)],
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 24),
-              Center(
-                child: Image.asset(
-                  'assets/brand/anugacare-symbol.png',
-                  key: const Key('brand-symbol'),
-                  height: 88,
-                  semanticLabel: 'AnugaCare',
-                ),
-              ),
-              const SizedBox(height: 24),
-              CareHeading(_sentTo == null ? l10n.loginTitle : l10n.codeLabel),
-              if (_sentTo == null) ...[
-                Text(l10n.loginIntro, style: Theme.of(context).textTheme.bodyLarge),
-                const SizedBox(height: 16),
-              ],
-              CarePanel(
-                child: Row(
-                  children: [
-                    Icon(Icons.lock_outline, color: scheme.primary),
-                    const SizedBox(width: 12),
-                    Expanded(child: Text(l10n.syntheticBanner)),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 32),
-              if (_sentTo == null) ...[
-                TextField(
-                  key: const Key('phone'),
-                  controller: _phone,
-                  keyboardType: TextInputType.phone,
-                  autofillHints: const [AutofillHints.telephoneNumber],
-                  decoration: InputDecoration(
-                    labelText: l10n.phoneLabel,
-                    helperText: l10n.phoneHint,
-                    prefixIcon: const Icon(Icons.phone_outlined),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 24),
+                Center(
+                  child: Image.asset(
+                    'assets/brand/anugacare-symbol.png',
+                    key: const Key('brand-symbol'),
+                    height: 88,
+                    semanticLabel: 'AnugaCare',
                   ),
                 ),
-                const SizedBox(height: 16),
-                FilledButton(onPressed: _busy ? null : _sendCode, child: Text(l10n.sendCode)),
-              ] else ...[
-                Text(l10n.codeSentTo(_sentTo!), style: Theme.of(context).textTheme.titleMedium),
-                const SizedBox(height: 16),
-                TextField(
-                  key: const Key('code'),
-                  controller: _code,
-                  keyboardType: TextInputType.number,
-                  maxLength: 6,
-                  autofillHints: const [AutofillHints.oneTimeCode],
-                  decoration: InputDecoration(labelText: l10n.codeLabel),
+                const SizedBox(height: 24),
+                CareHeading(_sentTo == null ? l10n.loginTitle : l10n.codeLabel),
+                if (_sentTo == null) ...[
+                  Text(l10n.loginIntro, style: Theme.of(context).textTheme.bodyLarge),
+                  const SizedBox(height: 16),
+                ],
+                CarePanel(
+                  child: Row(
+                    children: [
+                      Icon(Icons.lock_outline, color: scheme.primary),
+                      const SizedBox(width: 12),
+                      Expanded(child: Text(l10n.syntheticBanner)),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 8),
-                FilledButton(onPressed: _busy ? null : _verify, child: Text(l10n.signIn)),
-                const SizedBox(height: 8),
-                OutlinedButton(
-                  onPressed: _busy ? null : () => setState(() => _sentTo = null),
-                  child: Text(l10n.changeNumber),
-                ),
+                const SizedBox(height: 32),
+                if (_sentTo == null) ...[
+                  TextField(
+                    key: const Key('phone'),
+                    controller: _phone,
+                    keyboardType: TextInputType.phone,
+                    autofillHints: const [AutofillHints.telephoneNumber],
+                    decoration: InputDecoration(
+                      labelText: l10n.phoneLabel,
+                      helperText: l10n.phoneHint,
+                      prefixIcon: const Icon(Icons.phone_outlined),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  FilledButton(onPressed: _busy ? null : _sendCode, child: Text(l10n.sendCode)),
+                ] else ...[
+                  Text(l10n.codeSentTo(_sentTo!), style: Theme.of(context).textTheme.titleMedium),
+                  const SizedBox(height: 16),
+                  TextField(
+                    key: const Key('code'),
+                    controller: _code,
+                    keyboardType: TextInputType.number,
+                    maxLength: 6,
+                    autofillHints: const [AutofillHints.oneTimeCode],
+                    decoration: InputDecoration(labelText: l10n.codeLabel),
+                  ),
+                  const SizedBox(height: 8),
+                  FilledButton(onPressed: _busy ? null : _verify, child: Text(l10n.signIn)),
+                  const SizedBox(height: 8),
+                  OutlinedButton(onPressed: _busy ? null : _changeNumber, child: Text(l10n.changeNumber)),
+                ],
+                if (_message != null) ...[
+                  const SizedBox(height: 16),
+                  Text(
+                    _message!,
+                    key: const Key('loginMessage'),
+                    style: TextStyle(color: scheme.error, fontSize: 18),
+                  ),
+                ],
               ],
-              if (_message != null) ...[
-                const SizedBox(height: 16),
-                Text(
-                  _message!,
-                  key: const Key('loginMessage'),
-                  style: TextStyle(color: scheme.error, fontSize: 18),
-                ),
-              ],
-            ],
+            ),
           ),
         ),
       ),

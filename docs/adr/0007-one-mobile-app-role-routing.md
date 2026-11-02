@@ -57,3 +57,17 @@ update only `full_name`, `phone` and `preferred_language`, so nobody can change 
   (`scripts/check-all.sh` and CI do this).
 - Changes to the `HomeScreen` or `TripsScreen` constructors need a matching change in
   `apps/anugacare_app/lib/src/app.dart`; the `anugacare-app` CI job fails until it is made.
+
+## Delivery-priority update (2026-11-01)
+
+Founder chose PWA first for further feature iteration and explicitly retained
+all existing Android/APK support. The unified Flutter web app at `/app/` and
+Android target continue to share the same role views and backend access rules.
+This changes delivery priority, not the accepted single-entry or database-role
+decision. Store distribution remains a future step, not an authorization to
+remove Android projects, launch production or activate paid providers.
+
+Browser installability/layout checks are separate from actual phone home-screen
+installation, native keyboard/system Back/OS resume and wording approval. See
+`docs/evidence/pwa-readiness-2026-11-01/README.md` and SETUP for evidence and
+limitations. No offline patient-data capability is implied by PWA support.

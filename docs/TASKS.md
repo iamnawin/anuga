@@ -1,5 +1,13 @@
 # Tasks and milestones
 
+## Authorized PR #19 + #20 integration (2026-11-02) `[~]`
+
+- [x] Both latest heads: seven green CI jobs; combined diff review has no blocker.
+- [x] PR #19 merged14118fa; preserve both implementations and evidence.
+- [ ] Combined CI, PR #20 merge, existing synthetic staging publication.
+- [ ] Next slice: assigned companion visit and persisted Family progress.
+
+
 ## First Family care request (2026-11-02) `[x]`
 
 - [x] Authorized patient/registered centre/existing package/ISTpickup -> review/submit.
@@ -11,6 +19,25 @@
 - Evidence and preview: `docs/evidence/care-request-2026-11-02/README.md`.
 - Remaining: CI/PR review, phone/wording verification and scoped fixture cleanup;
   no production launch or new pricing/availability/payment/cancellation rules.
+
+## PWA-first mobile readiness (2026-11-01) `[~]`
+
+- [x] New feature branch from main after PR #18; preserve Android/APK support.
+- [x] Reproduce/fix OTP route Back; clear stale OTP/error when changing number.
+- [x] Release web build uses existing synthetic backend; no deployment.
+- [x] Chrome installability diagnostics; EN/TE/HI phone-viewport screenshots.
+- [x] Fresh Family/Asha/Ops identities, navigation/back, reload/logout/switching,
+      companion injected-error recovery, Ops direction (no /ops/ journey).
+- [x] New 15-widget matrix: narrow layout, 200% text, keyboard inset, lifecycle.
+- [x] Desktop browser-history Back, offline Refresh/reconnect, browser freeze/resume.
+- [ ] Phone home-screen installation, actual keyboard/system Back/OS resume.
+- [ ] Native-speaker wording approval, separate from layout review.
+- [x] Sequential local check-all passes; focused matrix rerun passes.
+- [x] PR #19 opened; automated CI status tracked in its checks tab.
+- [x] Sync SETUP, app README, architecture, spec/ADR delivery note and agent entry docs.
+- Carry forward fixture cleanup pending, refresh fixtures before grouping checks;
+  180-minute start window provisional; production/real-data/paid-provider gates.
+- Evidence: `docs/evidence/pwa-readiness-2026-11-01/README.md`.
 
 
 ## Synthetic staging verification (2026-10-31; Ops completed Nov 1) `[x]`
