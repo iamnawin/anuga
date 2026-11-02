@@ -137,9 +137,15 @@ Companion pay hypothesis: ~₹250/visit. Fares passed through at cost. Amounts a
 
 ## 5a. Tech stack (decided defaults)
 
+Delivery priority (founder, 2026-11-01; ADR 0007 update): iterate on the unified
+Flutter PWA first and preserve existing Android/APK support. Native packaging
+and physical-device readiness are separate from browser readiness; no store or
+production launch is authorized. Access rules and product scope do not change.
+
+
 | Layer | Choice |
 | --- | --- |
-| Mobile apps (family/patient + companion) | **Flutter**, Android first (iOS later from same codebase), one AnugaCare app whose family or companion views are chosen by `profiles.role` (`docs/adr/0007-one-mobile-app-role-routing.md`) |
+| Mobile apps (family/patient + companion) | **Flutter**, PWA first for feature iteration with Android/APK support preserved (iOS later from the same codebase), one AnugaCare app whose family or companion views are chosen by `profiles.role` (`docs/adr/0007-one-mobile-app-role-routing.md`) |
 | Backend | **Supabase**: Postgres + **PostGIS**, Auth (phone OTP), Storage (private buckets), Edge Functions |
 | Region | **Supabase Mumbai (ap-south-1)**: health data stays in India |
 | Ops console | **Next.js** (TypeScript) on Vercel, using Supabase |

@@ -3,6 +3,16 @@
 Written 2026-10-20 from the code on `main` (64c4603), not from the plans. Where the code and
 the spec differ, the code is described here and the gap is listed under "Not built yet".
 
+Delivery update (2026-11-01): founder prioritizes the existing unified Flutter
+web/PWA at `/app/` for feature iteration. Android projects and APK support stay.
+ADR 0007 is accepted. The app remains a thin client: database role routing,
+Supabase Auth/RPCs and RLS are unchanged. No custom offline patient-data store
+or offline-first service worker was added. PR #19 contains mobile readiness
+fixes/evidence and configured synthetic APK artifacts; it is not yet merged or
+deployed. See SETUP and `docs/evidence/pwa-readiness-2026-11-01/README.md` for
+build/run instructions and the distinction between browser/widget and device
+verification. Other sections retain their dated architecture snapshot.
+
 ## 1. One-minute picture
 
 ```mermaid
@@ -11,7 +21,7 @@ flowchart LR
     OPS["Ops console<br/>Next.js, /ops/"]
     FAM["Family app<br/>Flutter, /family/ + Android"]
     COM["Companion app<br/>Flutter, /companion/ + Android"]
-    UNI["AnugaCare app (unified, ADR 0007 proposed)<br/>Flutter, /app/: family or companion<br/>screens chosen by profiles.role"]
+    UNI["AnugaCare app (unified, ADR 0007 accepted; PWA first, Android retained)<br/>Flutter, /app/: family or companion<br/>screens chosen by profiles.role"]
   end
   subgraph SB["Supabase (system of record, Mumbai)"]
     AUTH["Auth<br/>phone OTP"]

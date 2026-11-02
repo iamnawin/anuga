@@ -110,6 +110,10 @@ jobs:
   anugacare-app:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # Public synthetic client settings, identical to deploy-staging.yml.
+      SUPABASE_URL: https://vsvkllfgrnlbhdydysny.supabase.co
+      SUPABASE_PUBLISHABLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzdmtsbGZncm5sYmhkeWR5c255Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NTUzMzcsImV4cCI6MjEwNzEzMTMzN30.40dbINejc5MsvwrOIjFDB4vEQWdimt-VkZxdafbGQ7Q
     defaults:
       run:
         working-directory: apps/anugacare_app
@@ -130,7 +134,16 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - run: flutter build apk --debug
+      - name: Build runnable synthetic staging APK
+        run: >-
+          flutter build apk --debug
+          --dart-define=SUPABASE_URL=$SUPABASE_URL
+          --dart-define=SUPABASE_PUBLISHABLE_KEY=$SUPABASE_PUBLISHABLE_KEY
+      - uses: actions/upload-artifact@v5
+        with:
+          name: anugacare-android-staging
+          path: apps/anugacare_app/build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
 
   # Authoritative run on real Supabase (Postgres 17, real auth schema and roles,
   # storage schema) using Docker on the GitHub runner. No hosted project, no secrets.

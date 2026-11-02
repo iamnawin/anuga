@@ -1,5 +1,25 @@
 # Tasks and milestones
 
+## PWA-first mobile readiness (2026-11-01) `[~]`
+
+- [x] New feature branch from main after PR #18; preserve Android/APK support.
+- [x] Reproduce/fix OTP route Back; clear stale OTP/error when changing number.
+- [x] Release web build uses existing synthetic backend; no deployment.
+- [x] Chrome installability diagnostics; EN/TE/HI phone-viewport screenshots.
+- [x] Fresh Family/Asha/Ops identities, navigation/back, reload/logout/switching,
+      companion injected-error recovery, Ops direction (no /ops/ journey).
+- [x] New 15-widget matrix: narrow layout, 200% text, keyboard inset, lifecycle.
+- [x] Desktop browser-history Back, offline Refresh/reconnect, browser freeze/resume.
+- [ ] Phone home-screen installation, actual keyboard/system Back/OS resume.
+- [ ] Native-speaker wording approval, separate from layout review.
+- [x] Sequential local check-all passes; focused matrix rerun passes.
+- [x] PR #19 opened; automated CI status tracked in its checks tab.
+- [x] Sync SETUP, app README, architecture, spec/ADR delivery note and agent entry docs.
+- Carry forward fixture cleanup pending, refresh fixtures before grouping checks;
+  180-minute start window provisional; production/real-data/paid-provider gates.
+- Evidence: `docs/evidence/pwa-readiness-2026-11-01/README.md`.
+
+
 ## Synthetic staging verification (2026-10-31; Ops completed Nov 1) `[x]`
 
 - [x] Confirm PR #17 (`e18a0d2`) on live alias by deployment/source metadata and
