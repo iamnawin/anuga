@@ -1,5 +1,15 @@
 # Tasks and milestones
 
+## Assigned visit ? companion journey ? Family progress (2026-11-02) `[~]`
+
+- [x] Integrate #19/#20, combined CI7 green, publish existing synthetic staging.
+- [x] Fresh guarded Family/Companion detail reads; persisted Family milestone time.
+- [x] Hosted browser: request ? ops assignment ? OTP/all8 stages ? all roles Completed.
+- [x] Focused SQL12/Family18/Companion31; no backend-rule or permission change.
+- [ ] Final sequential checks, feature preview and PR evidence/CI.
+- Physical phone/wording and cleanup remain pending; production stays gated.
+
+
 ## Authorized PR #19 + #20 integration (2026-11-02) `[~]`
 
 - [x] Both latest heads: seven green CI jobs; combined diff review has no blocker.

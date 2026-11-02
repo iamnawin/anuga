@@ -23,19 +23,29 @@ class TripScreen extends StatefulWidget {
   State<TripScreen> createState() => _TripScreenState();
 }
 
-class _TripScreenState extends State<TripScreen> {
+class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
+  late CompanionTrip? _trip = widget.trip;
   late TripStatus _status = widget.trip.status;
   final _otp = TextEditingController();
   bool _busy = false;
   String? _error;
   String? _info;
   Timer? _startTimer;
+  bool _loading = false;
+  bool _refreshAfterAction = false;
+  int _request = 0;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _scheduleStartTimer();
+  }
+
+  void _scheduleStartTimer() {
+    _startTimer?.cancel();
     // Enable "Start" when the window opens (F05), without reopening the screen.
-    final opensAt = widget.trip.startAllowedAt;
+    final opensAt = _trip?.startAllowedAt;
     if (opensAt != null && opensAt.isAfter(widget.now())) {
       _startTimer = Timer(opensAt.difference(widget.now()), () {
         if (mounted) setState(() {});
@@ -45,14 +55,62 @@ class _TripScreenState extends State<TripScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _startTimer?.cancel();
     _otp.dispose();
     super.dispose();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _reload();
+  }
+
+  Future<void> _reload() async {
+    if (_busy) {
+      _refreshAfterAction = true;
+      return;
+    }
+    final request = ++_request;
+    setState(() {
+      _trip = null;
+      _loading = true;
+      _error = null;
+      _info = null;
+      _otp.clear();
+    });
+    try {
+      // Explicit pickup range keeps an opened visit refreshable after midnight.
+      // Patient fields still come only from the server's restricted projection.
+      final trips = await widget.api.myTrips(
+        from: widget.trip.scheduledPickupAt.subtract(const Duration(seconds: 1)),
+        to: widget.trip.scheduledPickupAt.add(const Duration(seconds: 1)),
+      );
+      if (!mounted || request != _request) return;
+      final trip = trips.where((t) => t.tripId == widget.trip.tripId).firstOrNull;
+      setState(() {
+        _trip = trip;
+        _loading = false;
+        if (trip == null) {
+          _error = AppLocalizations.of(context).errorNotAllowed;
+        } else {
+          _status = trip.status;
+        }
+      });
+      _scheduleStartTimer();
+    } catch (error) {
+      if (mounted && request == _request) {
+        setState(() {
+          _loading = false;
+          _error = _describe(error, AppLocalizations.of(context));
+        });
+      }
+    }
+  }
+
   /// The database refuses a start before this time (advance_trip, F05).
   bool get _tooEarlyToStart =>
-      _status == TripStatus.scheduled && (widget.trip.startAllowedAt?.isAfter(widget.now()) ?? false);
+      _status == TripStatus.scheduled && (_trip?.startAllowedAt?.isAfter(widget.now()) ?? false);
 
   String _describe(Object error, AppLocalizations l10n) {
     if (error is RpcException && error.isNotAllowed) return l10n.errorNotAllowed;
@@ -61,6 +119,8 @@ class _TripScreenState extends State<TripScreen> {
   }
 
   Future<void> _perform(TripAction action) async {
+    if (_busy || _loading || _trip == null) return;
+    final initialStatus = _status;
     final l10n = AppLocalizations.of(context);
     String? note;
     switch (action.kind) {
@@ -83,6 +143,7 @@ class _TripScreenState extends State<TripScreen> {
       case TripActionKind.advance:
         break;
     }
+    if (!mounted || _trip == null || _loading || initialStatus != _status) return;
     await _run(() async {
       final trip = await widget.api.advance(widget.trip.tripId, action.to, note: note);
       _status = trip.status;
@@ -109,6 +170,8 @@ class _TripScreenState extends State<TripScreen> {
   }
 
   Future<void> _run(Future<void> Function() action) async {
+    if (_busy || _loading || _trip == null) return;
+    ++_request;
     setState(() {
       _busy = true;
       _error = null;
@@ -117,9 +180,19 @@ class _TripScreenState extends State<TripScreen> {
     try {
       await action();
     } catch (e) {
-      if (mounted) _error = _describe(e, AppLocalizations.of(context));
+      if (mounted) {
+        _trip = null;
+        _otp.clear();
+        _error = _describe(e, AppLocalizations.of(context));
+      }
     } finally {
-      if (mounted) setState(() => _busy = false);
+      if (mounted) {
+        setState(() => _busy = false);
+        if (_refreshAfterAction) {
+          _refreshAfterAction = false;
+          await _reload();
+        }
+      }
     }
   }
 
@@ -149,14 +222,39 @@ class _TripScreenState extends State<TripScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).languageCode;
-    final trip = widget.trip;
+    final trip = _trip;
     final theme = Theme.of(context);
     final actions = companionActions(_status);
+    final appBar = AppBar(
+      title: const Text('AnugaCare', style: TextStyle(fontWeight: FontWeight.w700)),
+      actions: [
+        IconButton(
+          key: const Key('visit-refresh'),
+          tooltip: l10n.refresh,
+          onPressed: _busy ? null : _reload,
+          icon: const Icon(Icons.refresh),
+        ),
+      ],
+    );
+
+    if (trip == null) {
+      return Scaffold(
+        appBar: appBar,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              _loading ? l10n.loading : _error ?? l10n.errorNotAllowed,
+              key: _loading ? const Key('visit-loading') : const Key('error'),
+              style: theme.textTheme.bodyLarge,
+            ),
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AnugaCare', style: TextStyle(fontWeight: FontWeight.w700)),
-      ),
+      appBar: appBar,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),

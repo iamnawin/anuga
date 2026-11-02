@@ -1,0 +1,37 @@
+{
+  "backend": "Existing synthetic project vsvkllfgrnlbhdydysny",
+  "recorded_at": "2026-11-02T15:18:18.872Z",
+  "cleanup_executed": false,
+  "schedules": [
+    {
+      "schedule_id": "c99b9b35-6a64-4d51-abba-34a7b0bf44e5",
+      "trip_id": "be9aba9d-9684-4c09-8458-e200849f59bf",
+      "pickup_at": "2026-11-02T16:15:00+00:00",
+      "request_state": "completed"
+    },
+    {
+      "schedule_id": "5b1fcbb4-edee-4d18-8d38-7b16718dd70c",
+      "trip_id": "6fca4f77-645e-4d15-a19c-c20488852009",
+      "pickup_at": "2026-11-02T16:05:00+00:00",
+      "request_state": "completed"
+    },
+    {
+      "schedule_id": "a54ada9c-0e63-403d-8d97-6113db427366",
+      "trip_id": "20455da0-0eef-4856-8630-b1ea6713ad64",
+      "pickup_at": "2026-11-02T15:53:00+00:00",
+      "request_state": "at_centre"
+    },
+    {
+      "schedule_id": "813b965f-a88e-4a3b-92d4-b096706a0a08",
+      "trip_id": "f46d43c3-a296-4c00-9e65-dc2f8faeb213",
+      "pickup_at": "2026-11-02T15:47:00+00:00",
+      "request_state": "companion_en_route"
+    },
+    {
+      "schedule_id": "b6d7a770-6b1d-4f85-a021-8b4453d30b09",
+      "trip_id": "08782ea6-304c-40c5-9dd8-f03d4836380e",
+      "pickup_at": "2026-11-02T15:42:00+00:00",
+      "request_state": "assigned"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 // Real browser journey against Supabase local in CI. CARE_PREVIEW_URL optionally
 // drives the explicitly configured synthetic hosted preview with an environment OTP.
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page, type Locator } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { randomUUID } from 'node:crypto';
 
@@ -9,9 +9,41 @@ test.skip(!enabled, 'CARE_REQUEST_JOURNEY=1 with Supabase local and built PWA');
 const shots = 'test-results/care-request';
 const preview = process.env.CARE_PREVIEW_URL;
 const opsPath = (path: string) => preview ? `/ops${path}/` : path;
+// Auth and pickup codes are transient UI inputs, never diagnostic artifacts.
+test.use({ trace: 'off', screenshot: 'off', video: 'off' });
+
+type CareRow = { schedule_id: string; request_state: string; trip_id: string | null };
+type EventRow = { to_status: string; created_at: string; note: string | null };
+
+async function signedInIdentity(page: Page, expectedPhone: string) {
+  const verified = page.waitForResponse((r) => new URL(r.url()).pathname === '/auth/v1/verify');
+  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  const response = await verified;
+  expect(response.status()).toBe(200);
+  const { user } = await response.json() as { user: { id: string; phone: string } };
+  expect(user.phone.replace(/^\+/, '')).toBe(expectedPhone);
+  return { user_id: user.id, phone: user.phone };
+}
+
+function milestoneTime(value: string) {
+  return `${new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short', year: 'numeric',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+  }).format(new Date(value))} IST`;
+}
 
 async function enableFlutter(page: Page) {
   await page.getByRole('button', { name: 'Enable accessibility' }).evaluate((element) => (element as HTMLElement).click());
+}
+
+async function revealFlutter(page: Page, locator: Locator) {
+  for (let scroll = 0; scroll < 20; scroll++) {
+    if (await locator.isVisible()) return;
+    await page.mouse.move(190, 650);
+    await page.mouse.wheel(0, 500);
+    await page.waitForTimeout(150);
+  }
+  await expect(locator).toBeVisible();
 }
 
 // Flutter replaces its semantic editing node on focus. Use real keyboard input
@@ -25,13 +57,15 @@ async function enterFlutter(page: Page, name: string, value: string) {
   await page.keyboard.insertText(value);
 }
 
-test('Family submits -> ops sees and confirms -> Family sees persisted assignment', async ({ browser }) => {
-  test.setTimeout(150_000);
+test('Family request -> assigned companion journey -> persisted completion across roles', async ({ browser }) => {
+  test.setTimeout(240_000);
   mkdirSync(shots, { recursive: true });
   const familyContext = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true });
   const opsContext = await browser.newContext({ baseURL: preview ?? `http://127.0.0.1:${process.env.OPS_CONSOLE_PORT ?? 3000}` });
+  const companionContext = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true });
   const family = await familyContext.newPage();
   const ops = await opsContext.newPage();
+  const companion = await companionContext.newPage();
   family.setDefaultTimeout(30_000);
   ops.setDefaultTimeout(30_000);
   const receipt: Record<string, unknown> = { backend: preview ? 'Existing hosted synthetic Supabase: real Auth/Postgres/RPCs/RLS' : 'Supabase local: real Auth/Postgres/RPCs/RLS', surface: 'desktop Chromium phone viewport, not a physical phone' };
@@ -43,15 +77,21 @@ test('Family submits -> ops sees and confirms -> Family sees persisted assignmen
     await enterFlutter(family, 'Mobile number', '9000000101');
     await family.getByRole('button', { name: 'Send code', exact: true }).click();
     await enterFlutter(family, '6-digit code', otp);
-    await family.getByRole('button', { name: 'Sign in', exact: true }).click();
+    receipt.family_identity = await signedInIdentity(family, '919000000101');
     await family.getByRole('button', { name: 'Request care', exact: true }).waitFor();
     await expect(family.getByText('Lakshmi Rao (synthetic)', { exact: true })).toBeVisible();
     await family.getByRole('button', { name: 'Request care', exact: true }).click();
     await family.getByText('Package', { exact: true }).click();
     await family.getByRole('menuitem', { name: 'Basic', exact: true }).click();
-    const day = new Date(Date.now() + (3 * 24 * 60 + 330) * 60_000).toISOString().slice(0, 10);
-    const minute = 18 * 60 + Math.floor(Math.random() * 60);
-    const pickupTime = `${Math.floor(minute / 60).toString().padStart(2, '0')}:${(minute % 60).toString().padStart(2, '0')}`;
+    // Whole-minute pickup shortly ahead, inside the unchanged 180-minute Start
+    // window. Convert the same instant to IST date AND time across midnight.
+    const pickup = process.env.CARE_PICKUP_AT ? new Date(process.env.CARE_PICKUP_AT)
+      : new Date(Math.ceil(Date.now() / 60_000) * 60_000 + (30 + Math.floor(Math.random() * 10)) * 60_000);
+    // The seeded recurring schedule owns 07:00 IST; use a distinct demo intent.
+    if (pickup.getUTCHours() === 1 && pickup.getUTCMinutes() === 30) pickup.setUTCMinutes(31);
+    const pickupIst = new Date(pickup.getTime() + 330 * 60_000).toISOString();
+    const day = pickupIst.slice(0, 10);
+    const pickupTime = pickupIst.slice(11, 16);
     await enterFlutter(family, 'Pickup date (IST)', day);
     await enterFlutter(family, 'Pickup time (IST)', pickupTime);
     await family.screenshot({ path: `${shots}/01-family-request.png` });
@@ -84,13 +124,13 @@ test('Family submits -> ops sees and confirms -> Family sees persisted assignmen
         ? family.getByText(name).last()
         : family.getByRole('group', { name }).first();
     };
-    await expect(familyCard('Pending ops confirmation')).toBeVisible();
+    await revealFlutter(family, familyCard('Pending ops confirmation'));
     const pendingRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
     await family.reload();
     await enableFlutter(family);
     const pendingRows = await (await pendingRead).json() as { schedule_id: string; request_state: string }[];
     expect(pendingRows.find((row) => row.schedule_id === scheduleId)?.request_state).toBe('pending');
-    await expect(familyCard('Pending ops confirmation')).toBeVisible();
+    await revealFlutter(family, familyCard('Pending ops confirmation'));
     receipt.family_after_reload = 'pending';
     await family.screenshot({ path: `${shots}/03-family-persisted-pending.png` });
 
@@ -98,7 +138,7 @@ test('Family submits -> ops sees and confirms -> Family sees persisted assignmen
     await ops.getByLabel('Mobile number').fill('9000000001');
     await ops.getByRole('button', { name: 'Send code' }).click();
     await ops.getByLabel('6-digit code').fill(otp);
-    await ops.getByRole('button', { name: 'Sign in', exact: true }).click();
+    receipt.ops_identity = await signedInIdentity(ops, '919000000001');
     await expect(ops).toHaveURL(/\/trips\/?$/);
     await ops.goto(opsPath('/schedules'));
     const card = ops.locator(`[data-schedule-id="${scheduleId}"]`);
@@ -108,8 +148,9 @@ test('Family submits -> ops sees and confirms -> Family sees persisted assignmen
     await card.screenshot({ path: `${shots}/04-ops-pending-request.png` });
     await card.getByRole('button', { name: 'Confirm request', exact: true }).click();
     await expect(card.getByText('Confirmed', { exact: true })).toBeVisible();
-    await family.getByRole('button', { name: 'Refresh', exact: true }).click();
-    await expect(familyCard('Confirmed · companion not assigned')).toBeVisible();
+    await family.reload();
+    await enableFlutter(family);
+    await revealFlutter(family, familyCard('Confirmed · companion not assigned'));
     receipt.family_after_confirmation = 'confirmed';
     await family.screenshot({ path: `${shots}/05-family-confirmed.png` });
 
@@ -128,16 +169,132 @@ test('Family submits -> ops sees and confirms -> Family sees persisted assignmen
     const assignedRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
     await family.reload();
     await enableFlutter(family);
-    const assignedRows = await (await assignedRead).json() as { schedule_id: string; request_state: string }[];
-    expect(assignedRows.find((row) => row.schedule_id === scheduleId)?.request_state).toBe('assigned');
-    await expect(familyCard('Confirmed · companion assigned')).toBeVisible();
+    const assignedRows = await (await assignedRead).json() as CareRow[];
+    const assigned = assignedRows.find((row) => row.schedule_id === scheduleId)!;
+    expect(assigned.request_state).toBe('assigned');
+    expect(assigned.trip_id).toBeTruthy();
+    const tripId = assigned.trip_id!;
+    receipt.trip_id = tripId;
+    await revealFlutter(family, familyCard('Confirmed · companion assigned'));
     receipt.family_after_assigned_reload = 'assigned';
     await family.screenshot({ path: `${shots}/07-family-persisted-assigned.png` });
+
+    const pwa = preview ? `${preview}/app/` : 'http://127.0.0.1:3103/app/';
+    await companion.goto(pwa);
+    await enableFlutter(companion);
+    await enterFlutter(companion, 'Mobile number', '9000000201');
+    await companion.getByRole('button', { name: 'Send code', exact: true }).click();
+    await enterFlutter(companion, '6-digit code', otp);
+    const companionRead = companion.waitForResponse((r) => r.url().endsWith('/rpc/companion_my_trips'));
+    receipt.companion_identity = await signedInIdentity(companion, '919000000201');
+    const companionTrips = await (await companionRead).json() as { trip_id: string; status: string; details_visible: boolean }[];
+    const companionTrip = companionTrips.find((row) => row.trip_id === tripId);
+    expect(companionTrip?.status).toBe('scheduled');
+    expect(companionTrip?.details_visible).toBe(true);
+    // Match the unique pickup slot on the restricted companion card; subsequent
+    // mutation responses must refer to the exact generated trip ID.
+    const companionTile = () => companion.getByRole('group', { name: new RegExp(`${pickupTime}.*Lakshmi Rao`) }).first();
+    await revealFlutter(companion, companionTile());
+    await companionTile().click();
+    await expect(companion.getByRole('button', { name: "I'm on my way", exact: true })).toBeVisible();
+    await companion.screenshot({ path: `${shots}/08-companion-assigned-visit.png` });
+    await familyCard('Confirmed · companion assigned').getByRole('button', { name: 'Open visit', exact: true }).click();
+    await expect(family.getByRole('button', { name: 'Get pickup code', exact: true })).toBeVisible();
+
+    const milestones: { status: string; latest_event_at: string }[] = [];
+    receipt.milestones = milestones;
+    const refreshFamily = async (status: string, label: string) => {
+      const boardRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_trip_board'));
+      const timelineRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_trip_timeline'));
+      await family.getByRole('button', { name: /^Refresh(?: Refresh)?$/ }).click();
+      const board = await (await boardRead).json() as { trip_id: string; status: string }[];
+      const events = await (await timelineRead).json() as EventRow[];
+      expect(board.find((row) => row.trip_id === tripId)?.status).toBe(status);
+      expect(events.at(-1)?.to_status).toBe(status);
+      const latest = events.at(-1)!;
+      await expect(family.getByRole('checkbox', { name: label, exact: true })).toBeVisible();
+      await expect(family.getByText(`Latest visit update: ${milestoneTime(latest.created_at)}`, { exact: false })).toBeVisible();
+      milestones.push({ status, latest_event_at: latest.created_at });
+      return events;
+    };
+    const advance = async (label: string, status: string, familyLabel: string, note?: string) => {
+      receipt.current_stage = status;
+      const changed = companion.waitForResponse((r) => r.url().endsWith('/rpc/advance_trip'));
+      await companion.getByRole('button', { name: label, exact: true }).click();
+      if (note !== undefined) {
+        // Existing note dialog has a title and one unlabelled editing node.
+        await enterFlutter(companion, '', note);
+        await companion.getByRole('button', { name: 'Submit', exact: true }).click();
+      }
+      const result = await changed;
+      expect(result.status()).toBe(200);
+      const body = await result.json();
+      const persisted = Array.isArray(body) ? body[0] : body;
+      expect(persisted.id).toBe(tripId);
+      expect(persisted.status).toBe(status);
+      return refreshFamily(status, familyLabel);
+    };
+
+    await advance("I'm on my way", 'companion_en_route', 'Companion on the way');
+    const issued = family.waitForResponse((r) => r.url().endsWith('/rpc/issue_pickup_otp'));
+    await family.getByRole('button', { name: 'Get pickup code', exact: true }).click();
+    const pickupCode = await (await issued).json() as string;
+    expect(/^\d{6}$/.test(pickupCode)).toBe(true);
+    await family.getByRole('button', { name: 'Close', exact: true }).click();
+    await enterFlutter(companion, 'Pickup code from the family', pickupCode);
+    receipt.current_stage = 'picked_up';
+    const verified = companion.waitForResponse((r) => r.url().endsWith('/rpc/verify_pickup_otp'));
+    await companion.getByRole('button', { name: 'Verify code and pick up', exact: true }).click();
+    const verification = await (await verified).json() as { ok: boolean; status: string };
+    expect(verification.ok).toBe(true);
+    expect(verification.status).toBe('picked_up');
+    await refreshFamily('picked_up', 'Picked up');
+    await advance('Reached the centre', 'at_centre', 'At centre');
+    await family.screenshot({ path: `${shots}/09-family-at-centre.png` });
+    await advance('Handed over at the centre', 'handed_over', 'Handed over to centre staff', 'Handed over to centre staff (synthetic).');
+    await advance('Session finished', 'session_done', 'Session done');
+    await advance('Starting the return journey', 'returning', 'On the way home');
+    await advance('Dropped home safely', 'dropped_home', 'Dropped home');
+    const completionNote = 'Returned home safely; family informed (synthetic).';
+    const completedEvents = await advance('Complete visit', 'completed', 'Completed', completionNote);
+    expect(completedEvents.at(-1)?.note).toBe(completionNote);
+    receipt.milestones = milestones;
+    receipt.pickup_verified = true;
+    receipt.required_completion_note_persisted = true;
+    await expect(companion.getByText('This trip is closed.', { exact: true })).toBeVisible();
+    await companion.screenshot({ path: `${shots}/10-companion-completed.png` });
+    // Read completion again from each role after navigation/reload, rather than
+    // inferring it from a mutation reply or a timeline alone.
+    const completedCompanionRead = companion.waitForResponse((r) => r.url().endsWith('/rpc/companion_my_trips'));
+    await companion.reload();
+    await enableFlutter(companion);
+    const reloadedTrips = await (await completedCompanionRead).json() as { trip_id: string; status: string }[];
+    expect(reloadedTrips.find((row) => row.trip_id === tripId)?.status).toBe('completed');
+    await revealFlutter(companion, companionTile());
+    await expect(companionTile().getByRole('checkbox', { name: 'Completed', exact: true })).toBeVisible();
+    const completedFamilyRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
+    await family.reload();
+    await enableFlutter(family);
+    const completedRequests = await (await completedFamilyRead).json() as CareRow[];
+    expect(completedRequests.find((row) => row.schedule_id === scheduleId)?.request_state).toBe('completed');
+    await revealFlutter(family, familyCard('Completed'));
+    await family.screenshot({ path: `${shots}/11-family-persisted-completed.png` });
+    await ops.goto(opsPath('/trips'));
+    const opsTrip = ops.locator(`[data-trip-id="${tripId}"]`);
+    await expect(opsTrip.getByText('Completed', { exact: true })).toBeVisible();
+    await opsTrip.screenshot({ path: `${shots}/12-ops-completed.png` });
+    receipt.completion_after_reload = { family: 'completed', companion: 'completed', ops: 'completed' };
     await family.getByRole('button', { name: 'Sign out', exact: true }).click();
+    delete receipt.current_stage;
     receipt.result = 'Pass';
+  } catch (error) {
+    receipt.result = 'Fail';
+    // The test reporter holds the assertion; receipts never copy request bodies.
+    throw error;
   } finally {
     writeFileSync(`${shots}/receipt.json`, JSON.stringify(receipt, null, 2) + '\n');
     await familyContext.close();
     await opsContext.close();
+    await companionContext.close();
   }
 });

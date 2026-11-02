@@ -186,6 +186,64 @@ describe('Family care request contracts', () => {
     assert.equal(repeat[0].created, false);
   });
 
+  test('requested visit completes through guarded companion stages and all read models agree', async () => {
+    const [{ pickup }] = await asAdmin((db) => db.query<{ pickup: string }>(
+      `with candidate as (select date_trunc('minute',now()) + interval '30 minutes' as at)
+       select to_char(at + case when to_char(at at time zone 'Asia/Kolkata','HH24:MI')='07:00'
+         then interval '1 minute' else interval '0 minutes' end,
+         'YYYY-MM-DD"T"HH24:MI:SSOF') as pickup from candidate`));
+    const value = { ...await intent(), pickup };
+    const scheduleId = await asUser(ids.owner, (db) => submit(db, value));
+    await asUser(ids.ops, (db) => db.query('select * from public.ops_confirm_care_request($1)', [scheduleId]));
+    await asUser(ids.ops, (db) => db.query('select public.ops_assign_schedule_companions($1,$2,$3)',
+      [scheduleId, ids.asha, ids.ravi]));
+    const [request] = await probeAsUser(ids.owner, (db) => db.query<{ trip_id: string }>(
+      'select trip_id from public.family_care_requests($1) where schedule_id=$2', [ids.patient, scheduleId]));
+    const tripId = request.trip_id;
+    const states: string[] = [];
+    const readState = async (state: string) => {
+      states.push(state);
+      const [family] = await probeAsUser(ids.viewer, (db) => db.query<{ status: string }>(
+        'select status from public.family_trip_board($1) where trip_id=$2', [ids.patient, tripId]));
+      const [companion] = await probeAsUser(ids.asha, (db) => db.query<{ status: string; details_visible: boolean }>(
+        'select status,details_visible from public.companion_my_trips() where trip_id=$1', [tripId]));
+      const events = await probeAsUser(ids.viewer, (db) => db.query<{ to_status: string; note: string; created_at: Date }>(
+        'select * from public.family_trip_timeline($1)', [tripId]));
+      assert.equal(family.status, state);
+      assert.equal(companion.status, state);
+      assert.equal(companion.details_visible, true);
+      assert.deepEqual(events.map((e) => e.to_status), states);
+      assert.ok(events.every((e) => e.created_at instanceof Date));
+      assert.ok(events.every((e) => !('actor_id' in e) && !('location' in e)));
+      return events;
+    };
+    await asUser(ids.asha, (db) => db.query("select public.advance_trip($1,'companion_en_route')", [tripId]));
+    await readState('companion_en_route');
+    await expectPgError(probeAsUser(ids.asha, (db) => db.query("select public.advance_trip($1,'picked_up')", [tripId])), '22023');
+    await expectPgError(probeAsUser(ids.viewer, (db) => db.query('select public.issue_pickup_otp($1)', [tripId])), '42501');
+    const [{ code }] = await asUser(ids.owner, (db) => db.query<{ code: string }>(
+      'select public.issue_pickup_otp($1) as code', [tripId]));
+    await expectPgError(probeAsUser(ids.ravi, (db) => db.query('select public.verify_pickup_otp($1,$2)', [tripId, code])), '42501');
+    const [{ result }] = await asUser(ids.asha, (db) => db.query<{ result: { ok: boolean } }>(
+      'select public.verify_pickup_otp($1,$2) as result', [tripId, code]));
+    assert.equal(result.ok, true);
+    await readState('picked_up');
+    for (const state of ['at_centre', 'handed_over', 'session_done', 'returning', 'dropped_home']) {
+      await asUser(ids.asha, (db) => db.query('select public.advance_trip($1,$2::public.trip_status)', [tripId, state]));
+      await readState(state);
+    }
+    await expectPgError(probeAsUser(ids.asha, (db) => db.query("select public.advance_trip($1,'completed')", [tripId])), '22023');
+    await asUser(ids.asha, (db) => db.query("select public.advance_trip($1,'completed','Synthetic visit complete; handed back to family.')", [tripId]));
+    const events = await readState('completed');
+    assert.equal(events.at(-1)?.note, 'Synthetic visit complete; handed back to family.');
+    const [completed] = await probeAsUser(ids.owner, (db) => db.query<{ request_state: string; trip_status: string }>(
+      'select request_state,trip_status from public.family_care_requests($1) where schedule_id=$2', [ids.patient, scheduleId]));
+    assert.deepEqual(completed, { request_state: 'completed', trip_status: 'completed' });
+    const [ops] = await probeAsUser(ids.ops, (db) => db.query<{ status: string }>(
+      "select status from public.ops_trip_board(now()-interval '1 day',now()+interval '1 day') where trip_id=$1", [tripId]));
+    assert.equal(ops.status, 'completed');
+  });
+
   test('Family submit -> ops visibility -> ops confirmation/assignment -> persisted Family status', async () => {
     const value = await intent(43);
     const id = await asUser(ids.owner, (db) => submit(db, value));
