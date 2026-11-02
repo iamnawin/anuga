@@ -6,6 +6,7 @@ import 'care_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 import 'trip_screen.dart';
+import 'care_request_screen.dart';
 
 /// Booking board for one patient (`family_trip_board`): yesterday to two weeks ahead.
 class BookingsTab extends StatefulWidget {
@@ -20,6 +21,7 @@ class BookingsTab extends StatefulWidget {
 
 class _BookingsTabState extends State<BookingsTab> {
   List<FamilyBoardRow>? _rows;
+  List<CareRequest>? _requests;
   Object? _error;
 
   @override
@@ -30,10 +32,14 @@ class _BookingsTabState extends State<BookingsTab> {
 
   Future<void> _load() async {
     try {
-      final rows = await widget.api.tripBoard(widget.patient.patientId);
+      final result = await Future.wait<Object>([
+        widget.api.tripBoard(widget.patient.patientId),
+        widget.api.careRequests(widget.patient.patientId),
+      ]);
       if (mounted) {
         setState(() {
-          _rows = rows;
+          _rows = result[0] as List<FamilyBoardRow>;
+          _requests = result[1] as List<CareRequest>;
           _error = null;
         });
       }
@@ -47,12 +53,42 @@ class _BookingsTabState extends State<BookingsTab> {
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).languageCode;
     final rows = _rows;
+    final requests = _requests ?? const <CareRequest>[];
+    final requestTrips = requests.map((r) => r.tripId).whereType<String>().toSet();
     return RefreshIndicator(
       onRefresh: _load,
       child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16),
         children: [
-          CareHeading(l10n.tabBookings),
+          Row(
+            children: [
+              Expanded(child: CareHeading(l10n.tabBookings)),
+              IconButton(
+                key: const Key('care-refresh'),
+                tooltip: l10n.refresh,
+                onPressed: _load,
+                icon: const Icon(Icons.refresh),
+              ),
+            ],
+          ),
+          if (widget.patient.accessLevel.canChangeTrips)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: FilledButton.icon(
+                key: const Key('request-care'),
+                icon: const Icon(Icons.add),
+                label: Text(l10n.careRequestTitle),
+                onPressed: () async {
+                  final submitted = await Navigator.of(context).push<bool>(
+                    MaterialPageRoute<bool>(
+                      builder: (_) => CareRequestScreen(api: widget.api, patient: widget.patient),
+                    ),
+                  );
+                  if (submitted == true) await _load();
+                },
+              ),
+            ),
           if (widget.patient.accessLevel == AccessLevel.viewer)
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
@@ -61,8 +97,40 @@ class _BookingsTabState extends State<BookingsTab> {
           if (_error != null)
             Text(describeError(l10n, _error!), style: TextStyle(color: Theme.of(context).colorScheme.error)),
           if (rows == null && _error == null) Text(l10n.loading),
-          if (rows != null && rows.isEmpty) Text(l10n.noTrips),
-          for (final row in rows ?? const <FamilyBoardRow>[])
+          if (rows != null && rows.isEmpty && requests.isEmpty) Text(l10n.noTrips),
+          for (final request in requests)
+            Card(
+              key: Key('care-request-${request.scheduleId}'),
+              color: Theme.of(context).colorScheme.surfaceContainerLow,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(formatIstDateTime(request.pickupAt, locale), style: Theme.of(context).textTheme.titleMedium),
+                    Text(_requestStatus(l10n, request), key: Key('care-state-${request.scheduleId}')),
+                    Text('${request.centreName}\n${request.packageName}'),
+                    if (request.companionName != null) Text(l10n.companionLabel(request.companionName!)),
+                    if (request.requestState == 'pending') Text(l10n.carePendingExplanation),
+                    if (request.tripId != null && rows != null && rows.any((r) => r.tripId == request.tripId))
+                      TextButton(
+                        key: Key('care-visit-${request.scheduleId}'),
+                        onPressed: () async {
+                          final row = rows.firstWhere((r) => r.tripId == request.tripId);
+                          await Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => TripScreen(api: widget.api, patient: widget.patient, booking: row),
+                            ),
+                          );
+                          await _load();
+                        },
+                        child: Text(l10n.careOpenVisit),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          for (final row in (rows ?? const <FamilyBoardRow>[]).where((r) => !requestTrips.contains(r.tripId)))
             Card(
               key: Key('booking-${row.tripId}'),
               color: Theme.of(context).colorScheme.surfaceContainerLow,
@@ -94,3 +162,11 @@ class _BookingsTabState extends State<BookingsTab> {
     );
   }
 }
+
+String _requestStatus(AppLocalizations l10n, CareRequest request) => switch (request.requestState) {
+  'pending' => l10n.carePending,
+  'confirmed' => l10n.careConfirmed,
+  'assigned' => l10n.careAssigned,
+  'inactive' => l10n.careInactive,
+  _ => request.tripStatus == null ? l10n.carePending : statusLabel(l10n, request.tripStatus!),
+};

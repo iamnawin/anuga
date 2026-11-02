@@ -24,6 +24,10 @@ class FakeFamilyBackend {
     ConsentPurpose.opsVaultAccess: false,
   };
   final List<String> calls = [];
+  final List<Map<String, Object?>> careRequests = [];
+  final List<Map<String, Object?>> careSubmissions = [];
+  Future<void> Function()? beforeCareSubmit;
+  Object? careSubmitError;
   int _codes = 0;
   int _events = 0;
 
@@ -45,6 +49,55 @@ class FakeFamilyBackend {
           for (final v in visits.values)
             if (v.patientId == params['p_patient_id']) v.toBoardRow(),
         ];
+      case 'family_care_options':
+        _patient(params['p_patient_id']! as String);
+        if (!level.canChangeTrips || consentState[ConsentPurpose.trips] != true) {
+          throw const RpcException('42501', 'owner/editor and owner trip consent required');
+        }
+        return {
+          'centre_id': 'c1',
+          'centre_name': 'Centre 1',
+          'packages': [
+            {'id': 'basic', 'name': 'Basic'},
+            {'id': 'plus', 'name': 'Plus'},
+          ],
+        };
+      case 'family_care_requests':
+        _patient(params['p_patient_id']! as String);
+        return [
+          for (final request in careRequests)
+            if (request['patient_id'] == params['p_patient_id']) request,
+        ];
+      case 'family_request_care':
+        careSubmissions.add({...params});
+        final gate = beforeCareSubmit;
+        if (gate != null) await gate();
+        if (careSubmitError != null) throw careSubmitError!;
+        _patient(params['p_patient_id']! as String);
+        if (!level.canChangeTrips || consentState[ConsentPurpose.trips] != true) {
+          throw const RpcException('42501', 'owner/editor and owner trip consent required');
+        }
+        for (final request in careRequests) {
+          if (request['schedule_id'] == params['p_request_id'] ||
+              (request['patient_id'] == params['p_patient_id'] && request['pickup_at'] == params['p_pickup_at'])) {
+            return request['schedule_id'];
+          }
+        }
+        careRequests.add({
+          'schedule_id': params['p_request_id'],
+          'patient_id': params['p_patient_id'],
+          'patient_name': patients[params['p_patient_id']],
+          'centre_id': params['p_centre_id'],
+          'centre_name': 'Centre 1',
+          'package_id': params['p_package_id'],
+          'package_name': params['p_package_id'] == 'basic' ? 'Basic' : 'Plus',
+          'pickup_at': params['p_pickup_at'],
+          'trip_id': null,
+          'trip_status': null,
+          'companion_name': null,
+          'request_state': 'pending',
+        });
+        return params['p_request_id'];
       case 'family_trip_timeline':
         return [for (final e in _visit(params['p_trip_id']! as String).events) e];
       case 'issue_pickup_otp':

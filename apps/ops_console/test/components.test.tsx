@@ -21,12 +21,13 @@ const notEligible = new DbError({
 
 function fakeApi(overrides: Partial<OpsApi> = {}): OpsApi {
   return {
-    scheduleBoard: vi.fn(), tripBoard: vi.fn(), exceptionQueue: vi.fn(), opsTransitions: vi.fn(), advanceTrip: vi.fn(),
+    scheduleBoard: vi.fn(), careRequests: vi.fn().mockResolvedValue([]), tripBoard: vi.fn(), exceptionQueue: vi.fn(), opsTransitions: vi.fn(), advanceTrip: vi.fn(),
     recordTripFare: vi.fn().mockResolvedValue(undefined), invoices: vi.fn(), generateInvoice: vi.fn(), issueInvoice: vi.fn(),
     companionOptions: vi.fn().mockResolvedValue(options),
     assignTripCompanion: vi.fn().mockResolvedValue(undefined),
     assignScheduleCompanions: vi.fn().mockResolvedValue(undefined),
     createScheduleTrips: vi.fn().mockResolvedValue([]),
+    confirmCareRequest: vi.fn().mockResolvedValue([]),
     ...overrides,
   };
 }

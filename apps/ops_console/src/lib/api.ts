@@ -30,6 +30,22 @@ export interface ScheduleRow {
   upcoming_trips: number;
 }
 
+// One-date care requests use the existing schedules and generated trips.
+export interface CareRequestRow {
+  schedule_id: string;
+  patient_id: string;
+  patient_name: string;
+  centre_id: string;
+  centre_name: string;
+  package_id: string;
+  package_name: string;
+  pickup_at: string;
+  trip_id: string | null;
+  trip_status: TripStatus | null;
+  companion_name: string | null;
+  request_state: 'pending' | 'confirmed' | 'assigned' | 'inactive' | TripStatus;
+}
+
 // One pickup date from "Create trips": created now, or skipped because it already had a trip.
 export interface CreatedTripDate {
   pickup_date: string;
@@ -151,12 +167,14 @@ async function call<T>(promise: PromiseLike<PgResult<unknown>>): Promise<T> {
 
 export interface OpsApi {
   scheduleBoard(): Promise<ScheduleRow[]>;
+  careRequests(): Promise<CareRequestRow[]>;
   tripBoard(from: Date, to: Date, statuses?: TripStatus[]): Promise<TripRow[]>;
   exceptionQueue(): Promise<ExceptionRow[]>;
   companionOptions(patientId: string): Promise<CompanionOption[]>;
   opsTransitions(): Promise<Transition[]>;
   assignScheduleCompanions(scheduleId: string, primaryId: string, backupId: string): Promise<void>;
   createScheduleTrips(scheduleId: string): Promise<CreatedTripDate[]>;
+  confirmCareRequest(scheduleId: string): Promise<CreatedTripDate[]>;
   assignTripCompanion(tripId: string, companionId: string): Promise<void>;
   advanceTrip(tripId: string, to: TripStatus, note: string | null): Promise<void>;
   recordTripFare(tripId: string, farePaise: number): Promise<void>;
@@ -168,6 +186,7 @@ export interface OpsApi {
 export function createOpsApi(client: RpcClient): OpsApi {
   return {
     scheduleBoard: () => call(client.rpc('ops_schedule_board')),
+    careRequests: () => call(client.rpc('ops_care_requests')),
     tripBoard: (from, to, statuses) => call(client.rpc('ops_trip_board', {
       p_from: from.toISOString(),
       p_to: to.toISOString(),
@@ -182,6 +201,7 @@ export function createOpsApi(client: RpcClient): OpsApi {
       }));
     },
     createScheduleTrips: (scheduleId) => call(client.rpc('ops_create_schedule_trips', { p_schedule_id: scheduleId })),
+    confirmCareRequest: (scheduleId) => call(client.rpc('ops_confirm_care_request', { p_schedule_id: scheduleId })),
     assignTripCompanion: async (tripId, companionId) => {
       await call(client.rpc('ops_assign_trip_companion', { p_trip_id: tripId, p_companion_id: companionId }));
     },

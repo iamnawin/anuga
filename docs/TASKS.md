@@ -1,5 +1,25 @@
 # Tasks and milestones
 
+## Authorized PR #19 + #20 integration (2026-11-02) `[~]`
+
+- [x] Both latest heads: seven green CI jobs; combined diff review has no blocker.
+- [x] PR #19 merged14118fa; preserve both implementations and evidence.
+- [ ] Combined CI, PR #20 merge, existing synthetic staging publication.
+- [ ] Next slice: assigned companion visit and persisted Family progress.
+
+
+## First Family care request (2026-11-02) `[x]`
+
+- [x] Authorized patient/registered centre/existing package/ISTpickup -> review/submit.
+- [x] Persisted one-date schedule visible in Family before trip generation and in ops.
+- [x] Owner consent/permissions, retry identity and server duplicate guards.
+- [x] Existing ops confirmation/assignment -> truthful persisted Family status.
+- [x] Hosted synthetic browser demo, screenshots and focused SQL/API/UI checks.
+- [x] PR #20 opened, protected synthetic preview READY; care/dispatch isolation regression19/19.
+- Evidence and preview: `docs/evidence/care-request-2026-11-02/README.md`.
+- Remaining: CI/PR review, phone/wording verification and scoped fixture cleanup;
+  no production launch or new pricing/availability/payment/cancellation rules.
+
 ## PWA-first mobile readiness (2026-11-01) `[~]`
 
 - [x] New feature branch from main after PR #18; preserve Android/APK support.

@@ -17,14 +17,25 @@ export default defineConfig({
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: `http://127.0.0.1:${port}`,
+    channel: process.env.BROWSER_CHANNEL,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-  webServer: {
+  webServer: process.env.CARE_PREVIEW_URL ? {
+    command: 'node ../../scripts/serve-local.mjs --care-preview',
+    url: `${process.env.CARE_PREVIEW_URL}/app/`,
+    reuseExistingServer: !process.env.CI,
+    timeout: 30_000,
+  } : [{
     command: `pnpm exec next start --port ${port} --hostname 127.0.0.1`,
     url: `http://127.0.0.1:${port}/login`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
-  },
+  }, ...(process.env.CARE_REQUEST_JOURNEY ? [{
+    command: 'node ../../scripts/serve-local.mjs --pwa',
+    url: 'http://127.0.0.1:3103/app/',
+    reuseExistingServer: !process.env.CI,
+    timeout: 30_000,
+  }] : [])],
 });

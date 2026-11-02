@@ -1,0 +1,13 @@
+{
+  "url": "https://anuga-9qi06zoi3-iamnawins-projects.vercel.app",
+  "app_url": "https://anuga-9qi06zoi3-iamnawins-projects.vercel.app/app/",
+  "ops_url": "https://anuga-9qi06zoi3-iamnawins-projects.vercel.app/ops/",
+  "deployment_id": "dpl_EB72Cb7QJqnF7oycpuD3y1fVbqtV",
+  "state": "READY",
+  "target": "preview",
+  "built_tested_source": "93c028b60639c82d635bdf3edb777508c6df98b2",
+  "app_bundle_sha256": "6c42254f68d5974df5255462738d2e159679d8cae0a31b189a174a167fb5fcda",
+  "access": "Vercel team sign-in; unauthenticated HEAD redirects to SSO",
+  "browser_evidence": "Same prebuilt files served locally against hosted synthetic Supabase; unique protected deployment not signed-in browser-tested",
+  "production_promotion": false
+}

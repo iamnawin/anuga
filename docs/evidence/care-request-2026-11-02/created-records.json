@@ -1,0 +1,56 @@
+{
+  "project": "vsvkllfgrnlbhdydysny",
+  "verified_as_family_user": "20000000-0000-0000-0000-000000000001",
+  "records": [
+    {
+      "schedule_id": "11b3459b-ca11-4d28-b626-892c2fedd956",
+      "pickup_at": "2026-11-05T12:35:00+00:00",
+      "trip_id": "d185a2fb-fe5c-4618-8e70-5711f9c6bdce",
+      "request_state": "assigned",
+      "companion_name": "Asha Companion (synthetic)",
+      "patient_id": "70000000-0000-0000-0000-000000000001",
+      "centre_id": "50000000-0000-0000-0000-000000000001",
+      "package_id": "60000000-0000-0000-0000-000000000001"
+    },
+    {
+      "schedule_id": "c5d98fbc-8c2d-47f0-b36f-6c047cb27457",
+      "pickup_at": "2026-11-05T10:53:00+00:00",
+      "trip_id": null,
+      "request_state": "pending",
+      "companion_name": null,
+      "patient_id": "70000000-0000-0000-0000-000000000001",
+      "centre_id": "50000000-0000-0000-0000-000000000001",
+      "package_id": "60000000-0000-0000-0000-000000000001"
+    },
+    {
+      "schedule_id": "0bea013e-a2ee-4535-b208-152e0d164906",
+      "pickup_at": "2026-11-05T09:52:00+00:00",
+      "trip_id": "8ac8ec1c-bd77-40ca-a5a1-ef73d55e9338",
+      "request_state": "confirmed",
+      "companion_name": null,
+      "patient_id": "70000000-0000-0000-0000-000000000001",
+      "centre_id": "50000000-0000-0000-0000-000000000001",
+      "package_id": "60000000-0000-0000-0000-000000000001"
+    },
+    {
+      "schedule_id": "7fb1630d-f5f8-4974-8ce8-c9dc0f7d55c1",
+      "pickup_at": "2026-11-05T05:40:00+00:00",
+      "trip_id": null,
+      "request_state": "pending",
+      "companion_name": null,
+      "patient_id": "70000000-0000-0000-0000-000000000001",
+      "centre_id": "50000000-0000-0000-0000-000000000001",
+      "package_id": "60000000-0000-0000-0000-000000000001"
+    },
+    {
+      "schedule_id": "de4a92fd-705b-4b6d-a5ca-ff4b5e0dd945",
+      "pickup_at": "2026-11-05T03:22:00+00:00",
+      "trip_id": null,
+      "request_state": "pending",
+      "companion_name": null,
+      "patient_id": "70000000-0000-0000-0000-000000000001",
+      "centre_id": "50000000-0000-0000-0000-000000000001",
+      "package_id": "60000000-0000-0000-0000-000000000001"
+    }
+  ]
+}

@@ -1,5 +1,42 @@
 # Handoff
 
+## PR #19 + #20 integration (2026-11-02)
+
+Founder authorized merging both and publishing to existing synthetic staging.
+PR #19 merged at 14118fa; its latest head1c6e072 passed all seven CI jobs
+(run41388577371). PR #20 head a25d777 passed seven jobs (run41426141224).
+Read-only combined review found no blocker; product/workflow merge cleanly.
+Both historical receipts below are retained. Combined CI and staging publication
+will be checked before the assigned-visit progress slice on a new branch.
+Physical phone/wording and hosted cleanup gaps remain; Android retained,
+180-minute window provisional, production/real data/paid providers gated.
+
+
+## Family care-request slice (2026-11-02)
+
+Branch `feat/family-care-request` from main09a74f8; PR #19 remains separate. PR #20:
+https://github.com/iamnawin/anuga/pull/20. Working preview (Vercel team sign-in):
+https://anuga-9qi06zoi3-iamnawins-projects.vercel.app/app/ and /ops/;
+READY dpl_EB72Cb7QJqnF7oycpuD3y1fVbqtV, source93c028b. Browser demo used the
+same prebuilt output on loopback with the hosted backend. No production promotion.
+Initial CI caught a shared-test editor grant leak; scoped fixture cleanup fixed
+care/dispatch19/19. Latest CI tracked on PR #20; no product/schema change for fix.
+
+Implemented registered-patient/centre/package/ISTpickup review/submit, persisted
+one-date schedule requests, backend-derived Family status and existing ops
+confirmation/assignment. Owner/editor access and owner trips consent enforced
+in SQL; confirmation rechecks consent. UUID and natural-slot duplicate guards.
+User applied migration20261102000100; hosted browser journey passed: request
+11b3459b-ca11-4d28-b626-892c2fedd956 -> ops confirms/assigns -> Family reloads assigned
+tripd185a2fb-fe5c-4618-8e70-5711f9c6bdce. Concurrent HTTP retries returned the same ID.
+Focused SQL11/shared2/FamilyUI7/ops22 passed; no historical manual verification.
+Preview/evidence and exact five created synthetic schedules/two trips are in
+`docs/evidence/care-request-2026-11-02/README.md`; cleanup not executed. Registered
+centre only; no appointment, price, availability or payment promise. Next: PR/CI
+and preview review; phone/wording checks pending. Android preserved, F05 provisional,
+production/real data/paid providers gated. Previous grouping fixtures still need
+refresh before reuse; their hosted cleanup remains pending.
+
 Repository overview (2026-11-02): added the previously missing root README with
 approved branding, synthetic screenshots, PWA-first/Android-preserved status,
 quick-start commands and links to the source-of-truth docs. No application or
