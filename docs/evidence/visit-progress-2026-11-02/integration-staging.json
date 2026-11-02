@@ -6,5 +6,7 @@
   "app_bundle_sha256": "43d61770255240ace659cee0ddef80065fbc2a52d181c2192e026113f0f80ffc",
   "live_bundle_matches": true,
   "deployment_id": "dpl_7sNYcgT1NK6ASuzc2XAEnPNbK5Xm",
-  "target": "Existing synthetic test alias (Vercel production target; product production launch remains gated)"
+  "target": "Existing synthetic test alias (Vercel production target; product production launch remains gated)",
+  "ops_schedules_html_sha256": "3d7fb14b891c5389797136cc03dadab89ba541213316b375b08e6b523121ad66",
+  "live_ops_schedules_matches": true
 }

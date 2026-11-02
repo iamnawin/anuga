@@ -6,7 +6,8 @@
 - [x] Fresh guarded Family/Companion detail reads; persisted Family milestone time.
 - [x] Hosted browser: request ? ops assignment ? OTP/all8 stages ? all roles Completed.
 - [x] Focused SQL12/Family18/Companion31; no backend-rule or permission change.
-- [ ] Final sequential checks, feature preview and PR evidence/CI.
+- [x] Final sequential check-all passed; feature preview READY; evidence recorded.
+- [ ] Feature PR latest-head CI and review.
 - Physical phone/wording and cleanup remain pending; production stays gated.
 
 

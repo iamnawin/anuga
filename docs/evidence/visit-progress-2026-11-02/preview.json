@@ -1,0 +1,11 @@
+{
+  "url": "https://anuga-ndumyejey-iamnawins-projects.vercel.app",
+  "deployment_id": "dpl_GHJaZapWqQpPnL4vNeSHAyTCCfqp",
+  "target": "preview",
+  "status": "READY",
+  "source": "e09ba86ff324b30e3c3026b7f91436f5eff26c2a",
+  "app_bundle_sha256": "116d8357eeee44b120d2ac617b844a5066dfafead42b961e87ce28cd6c6b0758",
+  "unauthenticated_status": 302,
+  "requires_vercel_team_sign_in": true,
+  "browser_evidence": "Identical prebuilt files served on loopback against existing real hosted synthetic backend; no remote signed-in preview pass claimed"
+}

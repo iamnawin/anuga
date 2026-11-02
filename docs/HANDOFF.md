@@ -13,7 +13,11 @@ protection; Family status/assignment and full IST milestone timestamps come from
 persisted reads. No migration, permission or transition change. Hosted browser
 journey passed all eight stages on new requestc99b9b35/tripbe9aba9d; each Family
 refresh matched, all roles reloaded Completed. Focused SQL12/Family18/Companion31
-passed; full checks/feature preview and PR completion in progress. Evidence:
+passed; full sequential check-all passed (DB182/8skip, ops58, shared29,
+Companion54/3skip, Family49/6skip, unified37). READY feature preview
+https://anuga-ndumyejey-iamnawins-projects.vercel.app/app/ (Vercel team sign-in),
+deployment dpl_GHJaZapWqQpPnL4vNeSHAyTCCfqp, product source e09ba86.
+Next: feature PR/CI and founder review; do not merge the new slice automatically. Evidence:
 `docs/evidence/visit-progress-2026-11-02/README.md`. Five new synthetic requests/
 trips retained across driver attempts, exact IDs/states inventoried; no cleanup.
 Physical phone/wording gaps and old fixture cleanup remain. Android preserved;

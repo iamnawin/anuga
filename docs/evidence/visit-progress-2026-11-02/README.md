@@ -51,14 +51,15 @@ Asha `9000000201`; synthetic user IDs are in [receipt.json](receipt.json).
 The real hosted browser test passed in 28 seconds using the local prebuilt
 preview output. Screenshots here were visually inspected. The separately
 published feature preview uses these same files; deployment identification is
-in `preview.json`. Its Vercel team sign-in is separate from AnugaCare sign-in.
+in [preview.json](preview.json). Its Vercel team sign-in is separate from AnugaCare sign-in.
 
 ## Checks and retained data
 
 Focused checks: SQL12 (PGlite, not hosted SQL execution), Family18 and
 Companion31 widget tests passed. New refresh tests first failed on the old screens.
-EN/TE/HI Family progress layouts at 200% passed. Full sequential fast checks and
-latest feature CI are recorded in the PR/HANDOFF. No OTPs, tokens or pickup codes
+EN/TE/HI Family progress layouts at 200% passed. Full sequential fast checks passed: DB182/8skip, ops58, shared29, Companion54/3skip,
+Family49/6skip and unified37; format/analyze/lint/typecheck/build all clean. Latest
+feature CI is recorded in the PR. No OTPs, tokens or pickup codes
 are included in curated artifacts.
 
 Driver corrections covered auth URL query parameters, offscreen fixture cards,
