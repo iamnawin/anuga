@@ -17,7 +17,9 @@ passed; full sequential check-all passed (DB182/8skip, ops58, shared29,
 Companion54/3skip, Family49/6skip, unified37). READY feature preview
 https://anuga-ndumyejey-iamnawins-projects.vercel.app/app/ (Vercel team sign-in),
 deployment dpl_GHJaZapWqQpPnL4vNeSHAyTCCfqp, product source e09ba86.
-Next: feature PR/CI and founder review; do not merge the new slice automatically. Evidence:
+PR #21: https://github.com/iamnawin/anuga/pull/21 (open, not merged).
+Next: founder preview/PR review; latest-head CI status is linked on the PR.
+Do not merge the new slice automatically. Evidence:
 `docs/evidence/visit-progress-2026-11-02/README.md`. Five new synthetic requests/
 trips retained across driver attempts, exact IDs/states inventoried; no cleanup.
 Physical phone/wording gaps and old fixture cleanup remain. Android preserved;

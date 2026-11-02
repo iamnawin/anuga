@@ -7,7 +7,8 @@
 - [x] Hosted browser: request ? ops assignment ? OTP/all8 stages ? all roles Completed.
 - [x] Focused SQL12/Family18/Companion31; no backend-rule or permission change.
 - [x] Final sequential check-all passed; feature preview READY; evidence recorded.
-- [ ] Feature PR latest-head CI and review.
+- [x] PR #21 opened with preview and concise evidence.
+- [ ] Founder review; latest-head CI status is linked on PR #21.
 - Physical phone/wording and cleanup remain pending; production stays gated.
 
 
