@@ -135,5 +135,6 @@
   "careConfirmed": "पुष्टि हुई · साथी नियुक्त नहीं",
   "careAssigned": "पुष्टि हुई · साथी नियुक्त",
   "careInactive": "निष्क्रिय अनुरोध",
-  "careOpenVisit": "यात्रा खोलें"
+  "careOpenVisit": "यात्रा खोलें",
+  "visitLatestUpdate": "यात्रा का नवीनतम अपडेट: {dateTime}"
 }

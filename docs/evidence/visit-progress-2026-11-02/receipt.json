@@ -1,0 +1,67 @@
+{
+  "backend": "Existing hosted synthetic Supabase: real Auth/Postgres/RPCs/RLS",
+  "surface": "desktop Chromium phone viewport, not a physical phone",
+  "family_identity": {
+    "user_id": "20000000-0000-0000-0000-000000000001",
+    "phone": "919000000101"
+  },
+  "schedule_id": "c99b9b35-6a64-4d51-abba-34a7b0bf44e5",
+  "pickup_date_ist": "2026-11-02",
+  "pickup_time_ist": "21:45",
+  "concurrent_retries_return_same_schedule": true,
+  "family_after_reload": "pending",
+  "ops_identity": {
+    "user_id": "10000000-0000-0000-0000-000000000001",
+    "phone": "919000000001"
+  },
+  "ops_sees_request": true,
+  "family_after_confirmation": "confirmed",
+  "trip_id": "be9aba9d-9684-4c09-8458-e200849f59bf",
+  "family_after_assigned_reload": "assigned",
+  "companion_identity": {
+    "user_id": "30000000-0000-0000-0000-000000000001",
+    "phone": "919000000201"
+  },
+  "milestones": [
+    {
+      "status": "companion_en_route",
+      "latest_event_at": "2026-11-02T15:16:23.523792+00:00"
+    },
+    {
+      "status": "picked_up",
+      "latest_event_at": "2026-11-02T15:16:24.874428+00:00"
+    },
+    {
+      "status": "at_centre",
+      "latest_event_at": "2026-11-02T15:16:25.222709+00:00"
+    },
+    {
+      "status": "handed_over",
+      "latest_event_at": "2026-11-02T15:16:26.430437+00:00"
+    },
+    {
+      "status": "session_done",
+      "latest_event_at": "2026-11-02T15:16:26.781281+00:00"
+    },
+    {
+      "status": "returning",
+      "latest_event_at": "2026-11-02T15:16:27.164675+00:00"
+    },
+    {
+      "status": "dropped_home",
+      "latest_event_at": "2026-11-02T15:16:27.62491+00:00"
+    },
+    {
+      "status": "completed",
+      "latest_event_at": "2026-11-02T15:16:28.646539+00:00"
+    }
+  ],
+  "pickup_verified": true,
+  "required_completion_note_persisted": true,
+  "completion_after_reload": {
+    "family": "completed",
+    "companion": "completed",
+    "ops": "completed"
+  },
+  "result": "Pass"
+}

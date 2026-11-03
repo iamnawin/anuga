@@ -1,5 +1,31 @@
 # Handoff
 
+## Assigned visit and Family progress (2026-11-02)
+
+PRs #19/#20 merged14118fa/ce90f7c after combined seven-job CI41467176573
+(NDK download retry only). Synthetic anuga.vercel.app now READY deployment
+`dpl_7sNYcgT1NK6ASuzc2XAEnPNbK5Xm`; built5e2dfc2 tree equals merged main,
+live app bundle matches. Separate clean integration worktree preserved.
+
+Branch `feat/visit-progress` from combined main: existing companion stages and
+OTP/notes already worked. Added guarded detail Refresh/resume and stale-read
+protection; Family status/assignment and full IST milestone timestamps come from
+persisted reads. No migration, permission or transition change. Hosted browser
+journey passed all eight stages on new requestc99b9b35/tripbe9aba9d; each Family
+refresh matched, all roles reloaded Completed. Focused SQL12/Family18/Companion31
+passed; full sequential check-all passed (DB182/8skip, ops58, shared29,
+Companion54/3skip, Family49/6skip, unified37). READY feature preview
+https://anuga-ndumyejey-iamnawins-projects.vercel.app/app/ (Vercel team sign-in),
+deployment dpl_GHJaZapWqQpPnL4vNeSHAyTCCfqp, product source e09ba86.
+PR #21: https://github.com/iamnawin/anuga/pull/21 (open, not merged).
+Next: founder preview/PR review; latest-head CI status is linked on the PR.
+Do not merge the new slice automatically. Evidence:
+`docs/evidence/visit-progress-2026-11-02/README.md`. Five new synthetic requests/
+trips retained across driver attempts, exact IDs/states inventoried; no cleanup.
+Physical phone/wording gaps and old fixture cleanup remain. Android preserved;
+180-minute start window provisional; production/real data/paid providers gated.
+
+
 ## PR #19 + #20 integration (2026-11-02)
 
 Founder authorized merging both and publishing to existing synthetic staging.

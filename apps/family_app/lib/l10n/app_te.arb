@@ -135,5 +135,6 @@
   "careConfirmed": "నిర్ధారించబడింది · సహచరుడు కేటాయించలేదు",
   "careAssigned": "నిర్ధారించబడింది · సహచరుడు కేటాయించబడ్డారు",
   "careInactive": "క్రియాశీలం కాని అభ్యర్థన",
-  "careOpenVisit": "సందర్శన తెరవండి"
+  "careOpenVisit": "సందర్శన తెరవండి",
+  "visitLatestUpdate": "సందర్శన తాజా సమాచారం: {dateTime}"
 }

@@ -201,5 +201,12 @@
   "careConfirmed": "Confirmed · companion not assigned",
   "careAssigned": "Confirmed · companion assigned",
   "careInactive": "Inactive request",
-  "careOpenVisit": "Open visit"
+  "careOpenVisit": "Open visit",
+  "visitLatestUpdate": "Latest visit update: {dateTime}",
+  "@visitLatestUpdate": {
+    "description": "Time of the latest persisted visit milestone, not assignment or refresh time",
+    "placeholders": {
+      "dateTime": { "type": "String" }
+    }
+  }
 }

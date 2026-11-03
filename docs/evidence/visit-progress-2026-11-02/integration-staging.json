@@ -1,0 +1,12 @@
+{
+  "url": "https://anuga.vercel.app/app/",
+  "source": "5e2dfc2690c4d9b1107fa0655eec717ad2eb5bbb",
+  "main_merge": "ce90f7ca51506fc67cbf6a7dd9cbd52b7da9a978",
+  "tree": "05f1c7fe53066e43cf3f4d5c43fe261177c1471d",
+  "app_bundle_sha256": "43d61770255240ace659cee0ddef80065fbc2a52d181c2192e026113f0f80ffc",
+  "live_bundle_matches": true,
+  "deployment_id": "dpl_7sNYcgT1NK6ASuzc2XAEnPNbK5Xm",
+  "target": "Existing synthetic test alias (Vercel production target; product production launch remains gated)",
+  "ops_schedules_html_sha256": "3d7fb14b891c5389797136cc03dadab89ba541213316b375b08e6b523121ad66",
+  "live_ops_schedules_matches": true
+}
