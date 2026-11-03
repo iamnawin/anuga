@@ -63,7 +63,7 @@
   "statusCompleted": "పూర్తయింది",
   "statusCancelled": "రద్దు అయింది",
   "statusNoShow": "రోగి అందుబాటులో లేరు",
-  "statusIssueReported": "సమస్య నివేదించబడింది; మా బృందం చూస్తోంది",
+  "statusIssueReported": "సేవలో సమస్య",
   "tabRecords": "రికార్డులు",
   "noRecords": "ఇంకా రిపోర్టులు లేవు.",
   "addReportPhoto": "రిపోర్ట్ ఫోటో జోడించండి",
@@ -136,5 +136,6 @@
   "careAssigned": "నిర్ధారించబడింది · సహచరుడు కేటాయించబడ్డారు",
   "careInactive": "క్రియాశీలం కాని అభ్యర్థన",
   "careOpenVisit": "సందర్శన తెరవండి",
-  "visitLatestUpdate": "సందర్శన తాజా సమాచారం: {dateTime}"
+  "visitLatestUpdate": "సందర్శన తాజా సమాచారం: {dateTime}",
+  "serviceIssueHelp": "ఈ సందర్శనకు ఆప్స్ దృష్టి అవసరం. నమోదైన తాజా సేవా స్థితిని చూడటానికి రిఫ్రెష్ చేయండి."
 }

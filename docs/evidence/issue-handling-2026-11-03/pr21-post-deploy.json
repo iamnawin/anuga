@@ -1,0 +1,12 @@
+{
+  "url": "https://anuga.vercel.app/app/",
+  "trip_id": "be9aba9d-9684-4c09-8458-e200849f59bf",
+  "data_changes": "None; existing synthetic visit reads only",
+  "authenticated_user": {
+    "id": "20000000-0000-0000-0000-000000000001",
+    "phone": "919000000101"
+  },
+  "latest_milestone_at": "2026-11-02T15:16:28.646539+00:00",
+  "rendered_update_label": "Latest visit update: 2 Nov 2026, 20:46:28 IST",
+  "result": "Pass"
+}

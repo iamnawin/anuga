@@ -24,7 +24,7 @@ function apiFor(requests: CareRequestRow[]): OpsApi {
     tripBoard: vi.fn(), exceptionQueue: vi.fn(), opsTransitions: vi.fn(), companionOptions: vi.fn(),
     assignScheduleCompanions: vi.fn(), createScheduleTrips: vi.fn().mockResolvedValue([]),
     confirmCareRequest: vi.fn().mockResolvedValue([]),
-    assignTripCompanion: vi.fn(), advanceTrip: vi.fn(), recordTripFare: vi.fn(), invoices: vi.fn(),
+    assignTripCompanion: vi.fn(), advanceTrip: vi.fn(), resolveVisitIssue: vi.fn(), recordTripFare: vi.fn(), invoices: vi.fn(),
     generateInvoice: vi.fn(), issueInvoice: vi.fn(),
   };
 }

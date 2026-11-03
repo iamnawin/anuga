@@ -146,6 +146,7 @@ test('exception queue: a companion reports an issue, ops resolves it', async ({ 
   await expect(card).toContainText('Auto broke down near the centre (synthetic)');
   await page.screenshot({ path: `${shots}/06-exception-queue.png`, fullPage: true });
 
+  page.once('dialog', (dialog) => dialog.accept());
   await card.getByRole('button', { name: 'Move to: Companion on the way' }).click();
   await expect(page.getByRole('status')).toContainText('Trip moved to Companion on the way');
   await expect(page.locator(`[data-trip-id="${tripId}"]`)).toHaveCount(0);

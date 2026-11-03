@@ -42,17 +42,17 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - LIVE https://anuga.vercel.app serves root chooser and /ops/, /family/, /companion/. All four routes HTTP 200 and real three-role sign-in/reload/isolated sign-out pass. Source de8f72a, deployment dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. PR #9 merged at 37bdae2c; code CI 38150546061 passed all six jobs, real Supabase 150/150, full journey/test billing and both APKs. Main app code exactly matches verified published source. Final receipt is docs-only; its new CI may be running. Next: founder manual active-window visit from LOCAL_TESTING. M10 remains gated.
 - 2026-10-20: founder chose Salesforce as a one-way ops copy; Supabase stays the system of record (ADR 0005, milestone M9a, stream S6). PR #2 now carries only that decision; main already has its staging work.
 
-## Current delivery note (2026-11-01)
+## Current delivery note (2026-11-03)
 
-PR #18 is merged at `09a74f8`. Founder prioritizes PWA feature iteration while
-preserving existing Android/APK support. PR #19 is open, not merged/deployed;
-its preceding evidence head `4116517` passed all seven CI jobs (41311699371).
-See HANDOFF and `docs/evidence/pwa-readiness-2026-11-01/README.md` for actual
-browser/widget results, build locations and device/wording gaps. No phone is
-available for installation, real keyboard/system Back or OS resume checks.
-No new signed-in /ops/ journey; hosted fixture cleanup pending; refresh narrow
-fixtures before new grouping checks. The 180-minute window is provisional;
-production launch, real data and paid providers remain gated.
+PRs #19/#20/#21 are merged. PR #21 merge `21ae9bc` is published to the existing
+synthetic site; its seven-job CI and focused authenticated post-deployment smoke
+passed. PWA feature iteration remains first; Android/APK support is preserved.
+The issue-handling branch keeps operational notes private and uses explicit,
+stale-safe Ops resolution through existing transitions. Read HANDOFF for its PR,
+preview and actual verification status. Underway reassignment remains unsupported.
+Physical-phone/native-speaker checks and hosted fixture cleanup remain pending;
+refresh narrow fixtures before grouping checks. The 180-minute window remains
+provisional; production launch, real data and paid providers stay gated.
 
 ## Parallel work and shared documents
 

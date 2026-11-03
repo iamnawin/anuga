@@ -17,27 +17,46 @@ class InboxTab extends StatefulWidget {
   State<InboxTab> createState() => _InboxTabState();
 }
 
-class _InboxTabState extends State<InboxTab> {
+class _InboxTabState extends State<InboxTab> with WidgetsBindingObserver {
   List<InboxNotification>? _items;
   Object? _error;
+  int _request = 0;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _load();
   }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _load();
+  }
+
   Future<void> _load() async {
+    if (!mounted) return;
+    final request = ++_request;
+    setState(() {
+      _items = null;
+      _error = null;
+    });
     try {
       final items = await widget.api.notifications();
-      if (mounted) {
+      if (mounted && request == _request) {
         setState(() {
           _items = items;
           _error = null;
         });
       }
     } catch (e) {
-      if (mounted) setState(() => _error = e);
+      if (mounted && request == _request) setState(() => _error = e);
     }
   }
 
@@ -59,11 +78,26 @@ class _InboxTabState extends State<InboxTab> {
     return RefreshIndicator(
       onRefresh: _load,
       child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16),
         children: [
-          CareHeading(l10n.tabInbox),
+          Row(
+            children: [
+              Expanded(child: CareHeading(l10n.tabInbox)),
+              IconButton(
+                key: const Key('updates-refresh'),
+                tooltip: l10n.refresh,
+                onPressed: _load,
+                icon: const Icon(Icons.refresh),
+              ),
+            ],
+          ),
           if (_error != null)
-            Text(describeError(l10n, _error!), style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            Text(
+              describeError(l10n, _error!),
+              key: const Key('updates-error'),
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
           if (items == null && _error == null) Text(l10n.loading),
           if (items != null && items.isEmpty) Text(l10n.noUpdates),
           for (final n in items ?? const <InboxNotification>[])

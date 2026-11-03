@@ -131,6 +131,7 @@ void main() {
   testWidgets('reporting an issue needs a description', (tester) async {
     final backend = await pumpTrip(tester, TripStatus.pickedUp);
     await tapVisible(tester, byKey('action-reportIssue'));
+    expect(find.text('For ops only. This note is not shared with the family.'), findsOneWidget);
     await tester.tap(find.text('Submit'));
     await tester.pumpAndSettle();
     expect(find.text('Describe the issue.'), findsOneWidget);
@@ -139,7 +140,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(backend.trips['t1']!.status, TripStatus.issueReported);
     expect(backend.trips['t1']!.events.last.note, 'Auto broke down (synthetic)');
-    expect(find.text('Issue reported. Ops will contact you.'), findsOneWidget);
+    expect(find.text('Issue recorded.'), findsOneWidget);
+    expect(byKey('issue-waiting'), findsOneWidget);
     expect(byKey('action-reportIssue'), findsNothing);
   });
 

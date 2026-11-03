@@ -52,6 +52,15 @@ describe('createOpsApi', () => {
     ]);
   });
 
+  test('resolves the exact observed issue without truncating its timestamp', async () => {
+    const { client, calls } = fakeClient({ data: {}, error: null });
+    await createOpsApi(client).resolveVisitIssue('trip-1', '2026-11-03T10:45:00.123456+00:00', 'picked_up', 'Internal resolution');
+    expect(calls).toEqual([{ fn: 'ops_resolve_visit_issue', args: {
+      p_trip_id: 'trip-1', p_expected_since: '2026-11-03T10:45:00.123456+00:00',
+      p_to_status: 'picked_up', p_note: 'Internal resolution',
+    } }]);
+  });
+
   test('turns database errors into DbError with code and hint', async () => {
     const { client } = fakeClient({ data: null, error: { code: 'P0001', message: 'not eligible', hint: 'radius' } });
     const error = await createOpsApi(client).assignTripCompanion('t', 'far').catch((e: unknown) => e);

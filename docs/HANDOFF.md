@@ -1,5 +1,36 @@
 # Handoff
 
+## Visit issue and explicit Ops resolution (2026-11-03)
+
+PR #21 reviewed at e5907ae: no blockers, seven CI jobs passed (41471118832).
+Founder-authorized merge `21ae9bc` published to synthetic anuga.vercel.app,
+READY `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`; live app hash matches. Focused
+read-only Family completed-visit refresh smoke passed; existing visit untouched.
+
+Branch `feat/visit-issue-handling` reuses existing issue reporting/queue/actions.
+Private issue/all Ops notes now stay out of Family events, inbox, raw reads and
+mutation replies. A guarded row-locked resolution checks the exact current issue
+timestamp and recorded prior stage before existing `advance_trip`; no fallback
+restart, new transition, OTP bypass or underway reassignment. Ops actions require
+explicit confirmation. Family/Companion service guidance and Updates refresh
+are truthful; a short status badge remains readable at 200% in EN/TE/HI.
+
+Founder applied migration20261103000100 in SQL Editor (success); preflight found
+zero historical note copies. Hosted synthetic browser issue after OTP pickup ->
+Ops sees private note/stage/assignment -> explicit same-stage resume -> all three
+roles Completed passed. Family four RPCs/three direct tables exclude both private
+markers; underway reassignment denied. Focused SQL32/Ops30/Family24/Companion34 and
+sequential check-all passed (DB190/8skip, Ops66, shared29, Companion57/3skip,
+Family55/6skip, unified37); status clipping received a targeted regression fix.
+Evidence/actual IDs, retained records and preview are in
+`docs/evidence/issue-handling-2026-11-03/`. Next: review the feature branch's PR and
+preview, with latest CI tracked there. This new slice is not authorized for merge.
+
+Underway takeover still needs founder rules for handover, pickup verification
+and responsibility. Existing active trips were not changed by the demo. Scoped
+cleanup, physical phone and native-wording checks remain pending. Android stays;
+180-minute window provisional; production/real data/paid providers gated.
+
 ## Assigned visit and Family progress (2026-11-02)
 
 PRs #19/#20 merged14118fa/ce90f7c after combined seven-job CI41467176573

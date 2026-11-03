@@ -101,7 +101,7 @@
   "statusCompleted": "Completed",
   "statusCancelled": "Cancelled",
   "statusNoShow": "Patient was not available",
-  "statusIssueReported": "Issue reported; our team is on it",
+  "statusIssueReported": "Service issue",
   "tabRecords": "Records",
   "noRecords": "No reports yet.",
   "addReportPhoto": "Add a report photo",
@@ -208,5 +208,6 @@
     "placeholders": {
       "dateTime": { "type": "String" }
     }
-  }
+  },
+  "serviceIssueHelp": "This visit needs ops attention. Refresh to see the latest recorded service status."
 }

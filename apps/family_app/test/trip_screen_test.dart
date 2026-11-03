@@ -97,7 +97,7 @@ void main() {
     expect(backend.visits['t1']!.status, TripStatus.companionEnRoute);
   });
 
-  testWidgets('timeline shows who did what, with notes', (tester) async {
+  testWidgets('timeline shows service stages and actors without internal issue or ops notes', (tester) async {
     final backend = FakeFamilyBackend()..addVisit(FakeVisit(id: 't1', pickupAt: DateTime.utc(2026, 10, 9, 1, 30)));
     final v = backend.visits['t1']!;
     backend
@@ -108,7 +108,8 @@ void main() {
     final booking = (await backend.api.tripBoard('p1')).single;
     await pumpLocalized(tester, TripScreen(api: backend.api, patient: patient, booking: booking));
     expect(byKey('event-1'), findsOneWidget);
-    expect(find.textContaining('Auto broke down (synthetic)'), findsOneWidget);
+    expect(find.textContaining('Auto broke down (synthetic)'), findsNothing);
+    expect(find.textContaining('Resolved by ops'), findsNothing);
     expect(find.textContaining('by our team'), findsOneWidget);
     expect(find.textContaining('Call 108'), findsOneWidget);
   });

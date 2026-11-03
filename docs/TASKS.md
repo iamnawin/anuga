@@ -1,5 +1,17 @@
 # Tasks and milestones
 
+## Visit issue -> explicit Ops resolution -> Family status (2026-11-03) `[~]`
+
+- [x] Review/merge #21; publish synthetic staging; focused post-deploy smoke.
+- [x] Private operational notes across persisted Family read paths (ADR0008).
+- [x] Ops stage/assignment context; explicit, stale-safe resolution; no restart fallback.
+- [x] Truthful Family/Companion guidance and Updates refresh/resume.
+- [x] Focused checks and sequential check-all; hosted issue/resolution/completion demo.
+- [x] Record hosted migration, exact IDs, screenshots and scoped synthetic effects.
+- [ ] Founder feature PR/preview review; latest-head CI status is tracked on the PR.
+- Blocked product decision: safe underway takeover; existing reassignment remains scheduled-only.
+- Physical phone/native wording and cleanup pending; production remains gated.
+
 ## Assigned visit -> companion journey -> Family progress (2026-11-02) `[~]`
 
 - [x] Integrate #19/#20, combined CI7 green, publish existing synthetic staging.

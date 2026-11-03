@@ -153,6 +153,8 @@ class FakeFamilyBackend {
   /// Records a status change the way apply_transition() does: event + inbox row.
   void addEvent(FakeVisit v, TripStatus to, TransitionActor actor, String? note) {
     final from = v.status;
+    // RPCs expose service milestones, not internal issue or ops notes.
+    final publicNote = to == TripStatus.issueReported || actor == TransitionActor.ops ? null : note;
     v.status = to;
     _events++;
     v.events.add({
@@ -160,14 +162,14 @@ class FakeFamilyBackend {
       'from_status': from.dbValue,
       'to_status': to.dbValue,
       'actor_kind': actor.dbValue,
-      'note': note,
+      'note': publicNote,
       'created_at': DateTime.utc(2026, 10, 9, 1, _events).toIso8601String(),
     });
     inbox.add({
       'notification_id': inbox.length + 1,
       'trip_id': v.id,
       'template': 'trip_status_changed',
-      'payload': {'trip_id': v.id, 'from_status': from.dbValue, 'to_status': to.dbValue, 'note': note},
+      'payload': {'trip_id': v.id, 'from_status': from.dbValue, 'to_status': to.dbValue, 'note': publicNote},
       'created_at': DateTime.utc(2026, 10, 9, 1, _events).toIso8601String(),
     });
   }

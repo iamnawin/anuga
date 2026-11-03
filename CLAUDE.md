@@ -4,14 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Project:** AnugaCare, dialysis companion service (ZeroOrigins), codename `companion` (ADR 0006).
 
-Current delivery direction (2026-11-01): unified `apps/anugacare_app` web/PWA
-first for feature iteration; preserve Android projects and APK support. SETUP
-contains the synthetic web build/serve and CI artifact instructions. PR #19 is
-open and undeployed; HANDOFF/evidence distinguish browser/widget passes from
-pending phone installation, actual keyboard/system Back/OS resume and wording
-approval. No new signed-in /ops/ journey; fixture cleanup pending and fixtures
-must be refreshed before grouping checks. F05 180 minutes remains provisional;
-production launch, real data and paid providers remain gated.
+Current delivery direction (2026-11-03): unified `apps/anugacare_app` web/PWA
+first; preserve Android projects and APK support. PRs #19/#20/#21 are merged;
+#21 merge `21ae9bc` is published to synthetic staging with a focused signed-in
+smoke pass. HANDOFF/evidence record the current issue-handling PR and preview.
+Operational notes stay private; Ops resolution must target the same unresolved
+issue and recorded stage. Underway reassignment remains unsupported. Physical
+phone/wording checks and fixture cleanup remain pending; refresh fixtures before
+grouping checks. F05 180 minutes is provisional; production, real data and paid
+providers remain gated.
 
 ## Read first
 
