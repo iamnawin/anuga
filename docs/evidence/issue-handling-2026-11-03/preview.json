@@ -1,0 +1,11 @@
+{
+  "url": "https://anuga-8hftd37pw-iamnawins-projects.vercel.app",
+  "deployment_id": "dpl_Hx1U8Qmo66T8fKyPg3uvj5bLrPzd",
+  "target": "preview",
+  "status": "READY",
+  "source": "8f922eda199386ac30ebebff656d76eee56a736c",
+  "app_bundle_sha256": "f94cbe1d6d2d8f8f0924729a9aeb6f1d14678f07613f67d5a8939f7360f51820",
+  "requires_vercel_team_sign_in": true,
+  "unauthenticated_status": 302,
+  "browser_evidence": "Identical local prebuilt output against hosted synthetic backend; no protected remote signed-in pass claimed"
+}

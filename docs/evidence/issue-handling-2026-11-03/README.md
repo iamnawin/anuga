@@ -42,6 +42,17 @@ The browser uses identical local prebuilt preview files and real hosted syntheti
 Auth/Postgres/RPCs/RLS. It runs desktop Chrome at a phone viewport; it is not a
 physical-device test. Exact trip/schedule IDs, authenticated identities and checks
 are in `receipt.json`; retained synthetic records are in `created-records.json`.
+Final hosted rerun: **1 passed, 34.5 seconds**. Schedule
+`495bb4e9-be73-4991-8096-012b55aeb7d3`, trip
+`eaf13b18-7f1c-48f8-8a59-e6b7fd2e4db6`; pickup 3 Nov 2026, 20:10 IST.
+Two new synthetic schedules/trips were completed, including the earlier run;
+existing active visits were not changed. Final status-label regression checks
+passed24/24, and screenshots confirm the short badge and wrapped explanation.
+
+[Family preview](https://anuga-8hftd37pw-iamnawins-projects.vercel.app/app/) ·
+[Ops preview](https://anuga-8hftd37pw-iamnawins-projects.vercel.app/ops/), Vercel
+team sign-in required. READY `dpl_Hx1U8Qmo66T8fKyPg3uvj5bLrPzd`, product source
+`8f922ed`; later receipt changes are documentation only.
 
 | Check | Result | Evidence |
 | --- | --- | --- |

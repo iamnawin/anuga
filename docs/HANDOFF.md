@@ -25,6 +25,10 @@ Family55/6skip, unified37); status clipping received a targeted regression fix.
 Evidence/actual IDs, retained records and preview are in
 `docs/evidence/issue-handling-2026-11-03/`. Next: review the feature branch's PR and
 preview, with latest CI tracked there. This new slice is not authorized for merge.
+Preview: https://anuga-8hftd37pw-iamnawins-projects.vercel.app/app/ and /ops/;
+READY `dpl_Hx1U8Qmo66T8fKyPg3uvj5bLrPzd`, product source `8f922ed` (team sign-in).
+Final hosted rerun passed in 34.5 seconds after the label fix. Two new synthetic
+schedules/trips are retained, both completed; exact IDs are in created-records.json.
 
 Underway takeover still needs founder rules for handover, pickup verification
 and responsibility. Existing active trips were not changed by the demo. Scoped
