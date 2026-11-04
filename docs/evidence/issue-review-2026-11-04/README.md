@@ -45,7 +45,14 @@ all three runnable gates passed: focused SQL contracts, sequential
 three Flutter format/analyze/test suites), and the nine-test Family care-request
 suite. Automatic gate evidence records the output digests and execution context.
 Fresh read-only review found no remaining blocker after the refresh fix.
-Real Supabase/browser verification of the corrected source is pending in CI.
+Corrected source `335b58bdaf4eaa51210f9d124983cf61e409cc98` passed all seven jobs
+in [CI 41840577234](https://github.com/iamnawin/anuga/actions/runs/41840577234).
+Real Supabase SQL/Edge tests, seven Ops browser tests, the care-request browser
+journey (24.2 s), the issue browser journey with pickup preservation (22.4 s),
+the complete billing/notification journey (`JOURNEY PASSED`) and Android builds
+passed. [CI summary](ci-summary.json) records the exact source and step results.
+The final receipt changes documentation and gates only; its source-equality
+oracle checks that product/test/workflow files still match the tested commit.
 
 The pre-review PR head `63b3ed6` passed seven CI jobs in run `41644237755`;
 that is historical evidence, not verification of this review's changes.
@@ -57,8 +64,8 @@ expects the pickup-time fix. It is not applied to the hosted synthetic project
 by this review, and the existing preview does not contain these changes.
 Already overwritten pickup values are not backfilled: no original time is guessed.
 
-No local Docker executable is available; final CI must verify real Supabase and
-the browser journeys. This review does not repeat hosted data-mutating demos.
+No local Docker executable is available; CI supplied the real Supabase and browser
+verification. This review does not repeat hosted data-mutating demos.
 Physical-phone installation/keyboard/OS behavior and native-speaker wording approval
 remain separate checks. Underway companion takeover still needs founder policy;
 current scheduled-only reassignment remains enforced. Retained synthetic fixture

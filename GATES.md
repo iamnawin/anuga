@@ -14,11 +14,13 @@ Scope: review Request Care through assignment, issue reporting and explicit Ops 
   EXPECT: ALL CHECKS PASSED
   EVIDENCE: automatic-evidence=v1; definition-sha256=98df180913d68aff0172d0f3a908ec37f128c7a37a8c1577a342a9393f9642de; exit=0; EXPECT=matched; output-sha256=1931f5454ab81ca90e79eb9a99daa0fb70ce8b1ed3b8d1ff87adcdc8c4521500; output-bytes=59439; shell=C:\WINDOWS\system32\cmd.exe; cwd=D:\AI-Workspace\Repos\anuga-trips-fix; path=994d60dcc68d/58 entries
 
-- [ ] G3: final source CI proves the real Supabase and browser care-request/issue journeys
-  EVIDENCE: pending
+- [x] G3: final source CI proves the real Supabase and browser care-request/issue journeys
+  CHECK: node --input-type=commonjs -e "const {execFileSync}=require('node:child_process');const a=require('node:assert/strict');const sha='335b58bdaf4eaa51210f9d124983cf61e409cc98';const r=JSON.parse(execFileSync('gh',['run','view','41840577234','--json','headSha,conclusion,jobs'],{encoding:'utf8'}));a.equal(r.headSha,sha);a.equal(r.conclusion,'success');a.deepEqual(r.jobs.map(j=>j.name).sort(),['anugacare-app','companion-app','db-tests','family-app','ops-console','shared-dart','supabase-local']);r.jobs.forEach(j=>a.equal(j.conclusion,'success'));const steps=r.jobs.find(j=>j.name==='supabase-local').steps;['Family submits, ops fulfils, Family sees persisted status','Visit issue, explicit Ops resolution, private Family status'].forEach(name=>a.equal(steps.find(s=>s.name===name).conclusion,'success'));a.equal(execFileSync('git',['diff',sha,'--','apps','supabase','packages','scripts','.github','package.json','pnpm-lock.yaml'],{encoding:'utf8'}),'');console.log('CI_ACCEPTANCE_PASSED');"
+  EXPECT: CI_ACCEPTANCE_PASSED
+  EVIDENCE: automatic-evidence=v1; definition-sha256=9080015dfd7450ef3df6e0f923bfb1d836db539ed403a192ff53cdbcfa630835; exit=0; EXPECT=matched; output-sha256=72b02f9725d798bf68cbd5a562053ceac8d46f9c5aa2694090fd754c3b81af81; output-bytes=21; shell=C:\WINDOWS\system32\cmd.exe; cwd=D:\AI-Workspace\Repos\anuga-trips-fix; path=994d60dcc68d/58 entries
 
-- [ ] G4: final source review and receipt reconcile every scoped requirement, changes, evidence and remaining limits
-  EVIDENCE: pending
+- [x] G4: final source review and receipt reconcile every scoped requirement, changes, evidence and remaining limits
+  EVIDENCE: Root traced request, consent, duplicate checks, assignment, private-note paths, guarded incident resolution and persisted Family reads. Fresh read-only review found the booking race; both SQL/widget failures were reproduced before fixes, and final independent source review found no remaining blocker. Acceptance mapping and rollout/device/policy limits are in docs/evidence/issue-review-2026-11-04/README.md; final-source CI summary is ci-summary.json. Five scoped gates met; no deployment or hosted migration is claimed.
 
 - [x] G5: Family care requests retain the newest refresh result, clear failed reads, preserve retry identity and pass EN/TE/HI form checks
   CHECK: flutter test test/care_request_test.dart --reporter expanded

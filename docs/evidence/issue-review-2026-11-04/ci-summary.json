@@ -1,0 +1,53 @@
+{
+  "source": "335b58bdaf4eaa51210f9d124983cf61e409cc98",
+  "url": "https://github.com/iamnawin/anuga/actions/runs/41840577234",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "shared-dart",
+      "conclusion": "success"
+    },
+    {
+      "name": "companion-app",
+      "conclusion": "success"
+    },
+    {
+      "name": "ops-console",
+      "conclusion": "success"
+    },
+    {
+      "name": "db-tests",
+      "conclusion": "success"
+    },
+    {
+      "name": "family-app",
+      "conclusion": "success"
+    },
+    {
+      "name": "anugacare-app",
+      "conclusion": "success"
+    },
+    {
+      "name": "supabase-local",
+      "conclusion": "success"
+    }
+  ],
+  "realSupabaseSteps": [
+    {
+      "name": "SQL tests and the notify-dispatch Edge Function on real Supabase",
+      "conclusion": "success"
+    },
+    {
+      "name": "Family submits, ops fulfils, Family sees persisted status",
+      "conclusion": "success"
+    },
+    {
+      "name": "Visit issue, explicit Ops resolution, private Family status",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run scripts/e2e-journey.sh",
+      "conclusion": "success"
+    }
+  ]
+}

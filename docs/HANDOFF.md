@@ -16,9 +16,18 @@ rollout limits: `docs/evidence/issue-review-2026-11-04/README.md`, `GATES.md`.
 
 Focused SQL, all nine Family care-request tests and the complete sequential
 check-all script passed. Fresh read-only review found no remaining blocker.
-Real Supabase/browser CI for the corrected source is pending at this receipt.
+Corrected source `335b58b` passed all seven jobs in CI `41840577234`: real
+Supabase SQL/Edge checks, care-request and issue browser journeys (including
+pickup-time preservation), full billing/notification journey and Android builds.
+The final receipt changes docs/gates only; product source still matches that SHA.
 No merge, hosted migration or deployment has been performed. PR #22's old
 preview is not this fix's preview.
+
+Next: founder reviews PR #22 and the new migration/receipt. Apply
+`20261104000100` after the previous private-notes migration before publishing
+the corrected source, only as part of an authorized rollout. No original pickup
+timestamps are guessed or backfilled. Review acceptance gates: five met, zero
+unmet or abandoned; device/wording and takeover policy remain separate work.
 
 
 ## Visit issue and explicit Ops resolution (2026-11-03)
