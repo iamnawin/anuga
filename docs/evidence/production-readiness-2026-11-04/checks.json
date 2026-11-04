@@ -1,0 +1,10 @@
+{
+  "checkedAtUtc": "2026-11-04T14:12:37.647Z",
+  "source": "fd6c8dc53b45c7bbca01609ed9ca64f28028a5e4",
+  "command": "C:/Program Files/Git/bin/bash.exe scripts/check-all.sh",
+  "exitCode": 0,
+  "successMarker": "ALL CHECKS PASSED",
+  "rawOutputSha256": "c6d5ed569d5eadb361590d42a1f68834ed6fe22fd721f0e587dc7fab5baf66c7",
+  "scope": "root DB/typecheck; Ops lint/typecheck/unit/build; shared Dart format/analyze/test; Companion, Family and unified Flutter format/analyze/test",
+  "limits": "No local Docker/physical Android; CI real-platform proof is separate. Production readiness is not inferred from passing tests."
+}

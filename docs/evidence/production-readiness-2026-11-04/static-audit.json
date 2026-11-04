@@ -1,0 +1,592 @@
+{
+  "source": "fd6c8dc53b45c7bbca01609ed9ca64f28028a5e4",
+  "checkedAtUtc": "2026-11-04T14:14:40.930Z",
+  "catalogues": [
+    {
+      "name": "anugacare_app",
+      "englishKeys": 27,
+      "languages": [
+        {
+          "lang": "te",
+          "keys": 27,
+          "missing": [],
+          "extra": [],
+          "empty": [],
+          "placeholderMismatch": [],
+          "identicalToEnglish": [],
+          "stringsWithoutNativeScript": []
+        },
+        {
+          "lang": "hi",
+          "keys": 27,
+          "missing": [],
+          "extra": [],
+          "empty": [],
+          "placeholderMismatch": [],
+          "identicalToEnglish": [],
+          "stringsWithoutNativeScript": []
+        }
+      ]
+    },
+    {
+      "name": "family_app",
+      "englishKeys": 138,
+      "languages": [
+        {
+          "lang": "te",
+          "keys": 138,
+          "missing": [],
+          "extra": [],
+          "empty": [],
+          "placeholderMismatch": [],
+          "identicalToEnglish": [],
+          "stringsWithoutNativeScript": []
+        },
+        {
+          "lang": "hi",
+          "keys": 138,
+          "missing": [],
+          "extra": [],
+          "empty": [],
+          "placeholderMismatch": [],
+          "identicalToEnglish": [],
+          "stringsWithoutNativeScript": []
+        }
+      ]
+    },
+    {
+      "name": "companion_app",
+      "englishKeys": 74,
+      "languages": [
+        {
+          "lang": "te",
+          "keys": 74,
+          "missing": [],
+          "extra": [],
+          "empty": [],
+          "placeholderMismatch": [],
+          "identicalToEnglish": [],
+          "stringsWithoutNativeScript": []
+        },
+        {
+          "lang": "hi",
+          "keys": 74,
+          "missing": [],
+          "extra": [],
+          "empty": [],
+          "placeholderMismatch": [],
+          "identicalToEnglish": [],
+          "stringsWithoutNativeScript": []
+        }
+      ]
+    },
+    {
+      "name": "ops_console",
+      "englishKeys": 141,
+      "languages": [
+        {
+          "lang": "te",
+          "keys": 141,
+          "missing": [],
+          "extra": [],
+          "empty": [],
+          "placeholderMismatch": [],
+          "identicalToEnglish": [],
+          "stringsWithoutNativeScript": []
+        },
+        {
+          "lang": "hi",
+          "keys": 141,
+          "missing": [],
+          "extra": [],
+          "empty": [],
+          "placeholderMismatch": [],
+          "identicalToEnglish": [],
+          "stringsWithoutNativeScript": []
+        }
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "scheduled",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "companion_en_route",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "picked_up",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "at_centre",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "handed_over",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "session_done",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "returning",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "dropped_home",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "completed",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "cancelled",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "no_show",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_status_changed",
+      "status": "issue_reported",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "invoice_issued",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "companion_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "companion_changed",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "trip_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "en",
+      "template": "schedule_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "scheduled",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "companion_en_route",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "picked_up",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "at_centre",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "handed_over",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "session_done",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "returning",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "dropped_home",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "completed",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "cancelled",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "no_show",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_status_changed",
+      "status": "issue_reported",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "invoice_issued",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "companion_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "companion_changed",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "trip_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "te",
+      "template": "schedule_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "scheduled",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "companion_en_route",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "picked_up",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "at_centre",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "handed_over",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "session_done",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "returning",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "dropped_home",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "completed",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "cancelled",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "no_show",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_status_changed",
+      "status": "issue_reported",
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "invoice_issued",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "companion_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "companion_changed",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "trip_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    },
+    {
+      "lang": "hi",
+      "template": "schedule_assigned",
+      "status": null,
+      "nonEmpty": true,
+      "unresolvedTokens": [],
+      "privateMarkerAbsent": true
+    }
+  ],
+  "hardcodedTextCandidates": [
+    {
+      "file": "apps/companion_app/lib/src/screens/login_screen.dart",
+      "line": 80,
+      "text": "title: const Text('AnugaCare', style: TextStyle(fontWeight: FontWeight.w700)),"
+    },
+    {
+      "file": "apps/companion_app/lib/src/screens/trip_screen.dart",
+      "line": 231,
+      "text": "title: const Text('AnugaCare', style: TextStyle(fontWeight: FontWeight.w700)),"
+    },
+    {
+      "file": "apps/companion_app/lib/src/screens/trips_screen.dart",
+      "line": 80,
+      "text": "title: const Text('AnugaCare', style: TextStyle(fontWeight: FontWeight.w700)),"
+    }
+  ],
+  "credentialIndicators": [],
+  "limits": [
+    "Token/key checks do not approve translation meaning or all ICU grammar.",
+    "Hardcoded-text search is heuristic; source review and rendered screens are still required.",
+    "No authenticated hosted rows, auth accounts, Storage objects, secrets or logs are inventoried."
+  ],
+  "structuralPass": true,
+  "publicHttp": {
+    "/": {
+      "status": 200,
+      "finalUrl": "https://anuga.vercel.app/"
+    },
+    "/app/": {
+      "status": 200,
+      "finalUrl": "https://anuga.vercel.app/app/"
+    },
+    "/ops/login/": {
+      "status": 200,
+      "finalUrl": "https://anuga.vercel.app/ops/login/"
+    },
+    "/family/": {
+      "status": 200,
+      "finalUrl": "https://anuga.vercel.app/family/"
+    },
+    "/companion/": {
+      "status": 200,
+      "finalUrl": "https://anuga.vercel.app/companion/"
+    },
+    "appBundle": {
+      "status": 200,
+      "bytes": 3779242,
+      "sha256": "116d8357eeee44b120d2ac617b844a5066dfafead42b961e87ce28cd6c6b0758",
+      "matchesRecordedPr21": true,
+      "recordedSource": "21ae9bc2ad4ae4e5bb3befd8b4b27a8b3b1bd65c"
+    },
+    "auth": {
+      "url": "https://vsvkllfgrnlbhdydysny.supabase.co",
+      "publicKeyRole": "anon",
+      "status": 200,
+      "phoneEnabled": true,
+      "disableSignup": false,
+      "smsProvider": "twilio",
+      "unverified": [
+        "test-phone map/OTP values",
+        "SMS credentials",
+        "MFA",
+        "session timeout dashboard",
+        "region/plan/backups"
+      ]
+    },
+    "anonymousPatients": {
+      "status": 401,
+      "rowsReturned": null
+    }
+  }
+}

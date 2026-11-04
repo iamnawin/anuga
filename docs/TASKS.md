@@ -1,5 +1,20 @@
 # Tasks and milestones
 
+## Production readiness audit (2026-11-04) `[x]` audit / `[!]` release
+
+- [x] Verify source/PR/CI and current synthetic deployment with fresh metadata/hash.
+- [x] Map automated journey/auth/refresh/privacy coverage and real-device gaps.
+- [x] Audit EN/TE/HI keys/placeholders/renderers; prepare unsigned human approval plan.
+- [x] Inventory disposable seed and historical demo manifests; propose safe cleanup.
+- [x] Reproduce consent and overlap gaps without hosted writes; review security/ops gates.
+- [x] Publish readiness report, 31-row matrix and physical Android test plan on working branch.
+- [ ] Close P0 trip-consent behavior and establish an attested real-data boundary.
+- [ ] Close applicable P1 device/language/auth, capacity/pricing, provider/finance,
+      privacy/retention, monitoring/backup/rollback/incident and release gates.
+- [ ] Founder release approval before any real patient activity. NO-GO remains.
+- Reports: `docs/PRODUCTION_READINESS.md`, `docs/ANDROID_TEST_PLAN.md`.
+- No deletion, real SMS/payment, deployment, merge or new feature workflow authorized.
+
 ## Request Care and issue acceptance review (2026-11-04) `[x]`
 
 - [x] Trace care submission/confirmation/assignment through issue and resolution.

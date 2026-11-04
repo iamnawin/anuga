@@ -1,5 +1,38 @@
 # Handoff
 
+## Production readiness audit (2026-11-04)
+
+**NO-GO for real patient onboarding.** Read `docs/PRODUCTION_READINESS.md` for
+the 31-row release matrix, evidence boundaries, priorities and exact remaining
+tasks. `docs/ANDROID_TEST_PLAN.md` is the executable Chrome/installed-PWA and
+EN/TE/HI human test plan. Existing historical feature evidence is linked, not
+replaced. Audit branch: `docs/production-readiness-2026-11-04`, based on `fd6c8dc`.
+
+Fresh disposable probes reproduce trip-consent withdrawal leaving details/start
+enabled (P0) and overlapping assignments accepted (P1). No hosted data changed.
+Catalogue keys/placeholders match (27 unified / 138 Family / 74 Companion / 141
+Ops per locale); 51 notification render cases pass structural/private-marker
+checks. Human meaning approval and physical Android tests remain unperformed.
+Current session discovers only Windows/Chrome/Edge devices.
+
+PR #22 remains OPEN; main/current public synthetic app is PR #21 `21ae9bc`.
+Read-only Vercel inspect and fresh app hash match deployment
+`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`; the November 4 fixes are not published there.
+CI `41840577234` at code `335b58b` and `41842285891` at docs head `fd6c8dc` both
+pass seven jobs. Fresh full local check-all passed. Production Node dependency
+audit: zero advisories across 106 dependencies; this is not a historical/Flutter/
+Deno security certification. Public auth settings expose signups enabled, contrary
+to the seeded-staging setup instruction; no OTP request was made.
+
+Hosted DB rows/Storage/logs, production tenancy/settings and backups are unverified.
+Cleanup is a backup-first, exact-manifest proposal only. New audit scripts and
+sanitized observations live in `docs/evidence/production-readiness-2026-11-04/`.
+No runtime/migration/build/workflow changes, provider activation, deletion, main
+merge or deployment. Next: founder assigns privacy/DB, device/language, ops/finance
+and release owners to the report's remaining gates; do not start cancellation/
+rescheduling or treat feature GATES.md as production approval.
+
+
 ## Request Care and issue review (2026-11-04)
 
 Review scope confirmed by founder: latest issue handling plus Request Care

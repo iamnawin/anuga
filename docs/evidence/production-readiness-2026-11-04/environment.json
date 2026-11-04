@@ -1,0 +1,41 @@
+{
+  "checkedAtUtc": "2026-11-04T14:01:39.539Z",
+  "vercel": {
+    "id": "dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN",
+    "url": "anuga-4pq7l2305-iamnawins-projects.vercel.app",
+    "readyState": "READY",
+    "target": "production",
+    "createdAt": 1793682526209,
+    "sourceAttestation": "main.dart.js hash matches PR21 receipt; CLI has no git commit metadata"
+  },
+  "devices": [
+    {
+      "name": "Windows",
+      "targetPlatform": "windows-x64",
+      "isSupported": true
+    },
+    {
+      "name": "Chrome",
+      "targetPlatform": "web-javascript",
+      "isSupported": true
+    },
+    {
+      "name": "Edge",
+      "targetPlatform": "web-javascript",
+      "isSupported": true
+    }
+  ],
+  "productionDependencyAudit": {
+    "command": "pnpm audit --prod --json",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "totalDependencies": 106
+  },
+  "hostedDatabaseInventory": "Unverified: no authenticated management/database connection configured or used",
+  "hostedStorageAndLogs": "Unverified: no object listing/log retrieval performed"
+}
