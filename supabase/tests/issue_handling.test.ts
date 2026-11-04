@@ -113,6 +113,27 @@ describe('visit issue handling', () => {
     await resolve(ids.ops, second, 'companion_en_route');
   });
 
+  test('resuming a picked-up issue preserves the original verified pickup time', async () => {
+    const trip = await createTrip(25);
+    await advance(ids.asha, trip, 'companion_en_route');
+    const [{ code }] = await asUser(ids.owner, (db) => db.query<{ code: string }>(
+      'select public.issue_pickup_otp($1) as code', [trip]));
+    await asUser(ids.asha, (db) => db.query('select public.verify_pickup_otp($1,$2)', [trip, code]));
+    const [before] = await probeAsUser(ids.ops, (db) => db.query(
+      'select picked_up_at::text as picked_up_at, scheduled_pickup_at::text as scheduled_pickup_at, companion_id from public.trips where id=$1', [trip]));
+    assert.ok(before.picked_up_at);
+    await advance(ids.asha, trip, 'issue_reported', 'Transport delay after pickup (synthetic)');
+    await resolve(ids.ops, await queueRow(trip), 'picked_up', 'Resume the same journey (synthetic)');
+    const [after] = await probeAsUser(ids.ops, (db) => db.query(
+      'select picked_up_at::text as picked_up_at, scheduled_pickup_at::text as scheduled_pickup_at, companion_id from public.trips where id=$1', [trip]));
+    assert.deepEqual(after, before);
+    // An incident resume is a new status event, not another verified pickup.
+    const visible = await familyReads(trip);
+    assert.equal(visible.timeline.at(-1)?.from_status, 'issue_reported');
+    assert.equal(visible.timeline.at(-1)?.to_status, 'picked_up');
+    await advance(ids.asha, trip, 'at_centre');
+  });
+
   test('missing prior stage cannot invent a restart; explicit cancellation remains a separate supported action', async () => {
     const trip = await createTrip(25);
     await advance(ids.asha, trip, 'companion_en_route');
@@ -173,6 +194,9 @@ describe('visit issue handling', () => {
     const sql = await readFile(new URL('../migrations/20261103000100_private_visit_issue_notes.sql', import.meta.url), 'utf8');
     await asAdmin((db) => db.exec(sql));
     await asAdmin((db) => db.exec(sql));
+    // Restore subsequent function definitions after replaying this historical migration.
+    const followup = await readFile(new URL('../migrations/20261104000100_preserve_issue_pickup_time.sql', import.meta.url), 'utf8');
+    await asAdmin((db) => db.exec(followup));
     assert.deepEqual(await probeAsUser(ids.ops, (db) => db.query('select to_jsonb(t) as row from public.trips t where id=$1', [trip])), before);
     assert.deepEqual(await asAdmin((db) => db.query('select id,created_at from public.trip_events where id=$1', [event.id])), beforeEvent);
     assert.ok(!serialize(await familyReads(trip)).includes(marker));

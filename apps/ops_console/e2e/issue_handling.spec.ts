@@ -183,6 +183,10 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     await companion.getByRole('button', { name: 'Verify code and pick up', exact: true }).click();
     const verification = await (await verified).json() as { ok: boolean; status: string };
     expect(verification.ok && verification.status === 'picked_up').toBe(true);
+    const pickupRead = await opsContext.request.get(`${rest}trips?id=eq.${tripId}&select=picked_up_at`, { headers: opsHeaders });
+    expect(pickupRead.status()).toBe(200);
+    const [originalPickup] = await pickupRead.json() as { picked_up_at: string }[];
+    expect(originalPickup.picked_up_at).toBeTruthy();
     await refreshFamily('picked_up', 'Picked up');
     await companion.screenshot({ path: `${shots}/01-companion-underway.png` });
 
@@ -244,7 +248,12 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     });
     const resolved = ops.waitForResponse((r) => isRpc(r.url(), 'ops_resolve_visit_issue'));
     await issue.getByRole('button', { name: 'Move to: Picked up', exact: true }).click();
-    expect((await resolved).status()).toBe(200);
+    const resolution = await resolved;
+    expect(resolution.status()).toBe(200);
+    const resolutionBody = await resolution.json();
+    const resumedTrip = Array.isArray(resolutionBody) ? resolutionBody[0] : resolutionBody;
+    expect(resumedTrip.picked_up_at).toBe(originalPickup.picked_up_at);
+    receipt.original_pickup_time_preserved = true;
     await expect(issue).toHaveCount(0);
     const resumedEvents = await refreshFamily('picked_up', 'Picked up');
     receipt.resumed_at = resumedEvents.at(-1)!.created_at;

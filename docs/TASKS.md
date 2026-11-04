@@ -1,5 +1,16 @@
 # Tasks and milestones
 
+## Request Care and issue acceptance review (2026-11-04) `[~]`
+
+- [x] Trace care submission/confirmation/assignment through issue and resolution.
+- [x] Reproduce and fix pickup-time rewrite on incident resume with additive SQL.
+- [x] Reproduce and fix Family stale refresh/failure cards using existing guards.
+- [x] Add SQL/widget regressions and real-browser pickup timestamp assertion.
+- [x] Final local gates: focused SQL, nine Family care tests, full check-all.
+- [ ] Real-Supabase/browser CI for reviewed source.
+- [ ] Record final evidence and update open PR #22; no merge/deploy authorized.
+- Manual device/wording checks and underway takeover policy remain outside this review.
+
 ## Visit issue -> explicit Ops resolution -> Family status (2026-11-03) `[~]`
 
 - [x] Review/merge #21; publish synthetic staging; focused post-deploy smoke.

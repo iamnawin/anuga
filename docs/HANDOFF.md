@@ -1,5 +1,26 @@
 # Handoff
 
+## Request Care and issue review (2026-11-04)
+
+Review scope confirmed by founder: latest issue handling plus Request Care
+integration, on `feat/visit-issue-handling` (PR #22). The Ideas checkout is an
+older hardening branch; current feature worktree is `Repos/anuga-trips-fix`.
+
+Reproduced and fixed two defects: Ops resume after pickup replaced verified
+pickup time; overlapping/failed Family booking refreshes could show stale cards.
+New additive migration `20261104000100_preserve_issue_pickup_time.sql` retains
+the original pickup fact. Family bookings reuses the existing guarded refresh
+pattern. Added failing-before/passing-after SQL/widget tests and a browser
+pickup-preservation assertion. Scope, acceptance mapping, current validation and
+rollout limits: `docs/evidence/issue-review-2026-11-04/README.md`, `GATES.md`.
+
+Focused SQL, all nine Family care-request tests and the complete sequential
+check-all script passed. Fresh read-only review found no remaining blocker.
+Real Supabase/browser CI for the corrected source is pending at this receipt.
+No merge, hosted migration or deployment has been performed. PR #22's old
+preview is not this fix's preview.
+
+
 ## Visit issue and explicit Ops resolution (2026-11-03)
 
 PR #21 reviewed at e5907ae: no blockers, seven CI jobs passed (41471118832).
