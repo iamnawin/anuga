@@ -1,5 +1,15 @@
 # Handoff
 
+## Production hardening in progress (2026-11-04)
+
+Founder approved blocking Companion actions/details after trip-consent withdrawal
+and one occupied visit per Companion, including late completion and concurrent
+assignment enforcement. Pricing/buffers and the active-visit Ops safety workflow
+remain gated. See `PRODUCTION_GATES.md` and
+`docs/evidence/production-hardening-2026-11-04/README.md` for scoped execution.
+Consent fix is on `fix/production-consent-enforcement`, after audit PR23. No
+hosted migration, cleanup, merge, real SMS/payment or deployment authorized.
+
 ## Production readiness audit (2026-11-04)
 
 **NO-GO for real patient onboarding.** Read `docs/PRODUCTION_READINESS.md` for
