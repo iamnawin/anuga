@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { getSupabase } from '@/lib/supabase';
 
@@ -25,6 +25,7 @@ async function resolveRole(session: Session | null): Promise<{ status: AuthStatu
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  const generation = useRef(0);
   const [state, setState] = useState<{ status: AuthStatus; userName: string | null }>({
     status: 'loading', userName: null,
   });
@@ -33,14 +34,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const supabase = getSupabase();
     let cancelled = false;
     const update = (session: Session | null) => {
-      resolveRole(session).then((next) => {
-        if (!cancelled) setState(next);
-      });
+      const request = ++generation.current;
+      setState({ status: session ? 'loading' : 'signedOut', userName: null });
+      if (!session) return;
+      // Invalidate synchronously; defer only the profile request, outside the
+      // auth callback. Older session/role results cannot restore an old account.
+      setTimeout(() => {
+        if (cancelled || request !== generation.current) return;
+        resolveRole(session).then((next) => {
+          if (!cancelled && request === generation.current) setState(next);
+        }).catch(() => {
+          if (!cancelled && request === generation.current) setState({ status: 'notOps', userName: null });
+        });
+      }, 0);
     };
-    supabase.auth.getSession().then(({ data }) => update(data.session));
+    const initial = generation.current;
+    supabase.auth.getSession().then(({ data }) => {
+      if (!cancelled && initial === generation.current) update(data.session);
+    }).catch(() => {
+      if (!cancelled && initial === generation.current) update(null);
+    });
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
-      // Defer the profile query: Supabase recommends not awaiting inside this callback.
-      if (event !== 'INITIAL_SESSION') setTimeout(() => update(session), 0);
+      if (event !== 'INITIAL_SESSION') update(session);
     });
     return () => {
       cancelled = true;
@@ -49,8 +64,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signOut = useCallback(async () => {
+    const request = ++generation.current;
     await getSupabase().auth.signOut();
-    setState({ status: 'signedOut', userName: null });
+    if (request === generation.current) setState({ status: 'signedOut', userName: null });
   }, []);
 
   return <AuthContext.Provider value={{ ...state, signOut }}>{children}</AuthContext.Provider>;

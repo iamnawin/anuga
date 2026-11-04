@@ -1,5 +1,12 @@
 # Tasks and milestones
 
+## Session recovery hardening (2026-11-04) `[~]`
+
+- [x] Reproduce and fix delayed auth/role response races in Ops and unified app.
+- [x] Add four Ops regressions and two Flutter regressions; focused checks pass.
+- [ ] Final full regression/CI and physical expiry/account-switch receipts.
+- No production readiness, device or translation approval is implied.
+
 ## Production hardening (2026-11-04) `[~]`
 
 - [x] Record founder consent/occupancy decisions; retain pending pricing/buffer/safety approvals.

@@ -9,6 +9,36 @@ import 'support/fakes.dart';
 
 void main() {
   group('one sign-in, home from the database role', () {
+    testWidgets('session expiry invalidates a delayed stored role response', (tester) async {
+      final lookup = Completer<String?>();
+      final auth = FakeAccountAuth(signedInAs: companionPhone)..roleLookup = () => lookup.future;
+      final rpc = await pumpApp(tester, auth, settle: false);
+      auth.sessionEvents.add(null);
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('expired')), findsOneWidget);
+      lookup.complete('companion');
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('expired')), findsOneWidget);
+      expect(rpc.calls, isEmpty);
+    });
+
+    testWidgets('a stale lookup failure cannot replace a newer signed-in home', (tester) async {
+      final lookup = Completer<String?>();
+      final auth = FakeAccountAuth(signedInAs: companionPhone)..roleLookup = () => lookup.future;
+      final rpc = await pumpApp(tester, auth, settle: false);
+      await auth.signOut();
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Sign in again'));
+      await tester.pumpAndSettle();
+      auth.roleLookup = null;
+      await signIn(tester, familyPhone);
+      expect(rpc.calls, contains('family_my_patients'));
+      lookup.completeError(StateError('old offline lookup'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('accountError')), findsNothing);
+      expect(find.text('No patient is linked to this account yet. Ask the family owner to add you.'), findsOneWidget);
+    });
+
     testWidgets('family account opens the family home and only family RPCs run', (tester) async {
       final auth = FakeAccountAuth();
       final rpc = await pumpApp(tester, auth);
