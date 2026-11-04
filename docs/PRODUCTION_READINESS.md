@@ -13,6 +13,9 @@ Reviewed checkout: `D:\AI-Workspace\Repos\anuga-trips-fix`, initially clean on
 `feat/visit-issue-handling` at `fd6c8dc53b45c7bbca01609ed9ca64f28028a5e4`.
 Audit work is isolated on `docs/production-readiness-2026-11-04`, based on that
 commit; application, database, build and workflow files are unchanged.
+Documentation delivery: [draft PR #23](https://github.com/iamnawin/anuga/pull/23)
+targets the unmerged feature branch. Its new CI is separate from the audited
+product runs below; no success is inferred for a pending documentation run.
 
 | Item | Verified state and evidence |
 |---|---|

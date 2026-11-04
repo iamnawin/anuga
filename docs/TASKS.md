@@ -13,6 +13,7 @@
       privacy/retention, monitoring/backup/rollback/incident and release gates.
 - [ ] Founder release approval before any real patient activity. NO-GO remains.
 - Reports: `docs/PRODUCTION_READINESS.md`, `docs/ANDROID_TEST_PLAN.md`.
+- Delivery: draft PR #23 against `feat/visit-issue-handling`; both PRs remain unmerged.
 - No deletion, real SMS/payment, deployment, merge or new feature workflow authorized.
 
 ## Request Care and issue acceptance review (2026-11-04) `[x]`

@@ -7,6 +7,9 @@ the 31-row release matrix, evidence boundaries, priorities and exact remaining
 tasks. `docs/ANDROID_TEST_PLAN.md` is the executable Chrome/installed-PWA and
 EN/TE/HI human test plan. Existing historical feature evidence is linked, not
 replaced. Audit branch: `docs/production-readiness-2026-11-04`, based on `fd6c8dc`.
+Draft audit PR: https://github.com/iamnawin/anuga/pull/23, targeted to
+`feat/visit-issue-handling` to avoid mixing unmerged product changes into the
+audit diff. New documentation-branch CI is separate from the verified product CI.
 
 Fresh disposable probes reproduce trip-consent withdrawal leaving details/start
 enabled (P0) and overlapping assignments accepted (P1). No hosted data changed.
