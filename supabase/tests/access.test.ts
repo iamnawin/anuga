@@ -2,6 +2,7 @@
 import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { asAdmin, createTrip, createUser, expectPgError, ids, probeAsAnon, probeAsUser } from './support/db.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 const stranger = '20000000-0000-0000-0000-0000000000ff';
 
@@ -172,6 +173,7 @@ describe('family trip board', () => {
 });
 
 describe('assignment rules', () => {
+  isolateCompanionAvailability();
   test('only ops can assign companions', async () => {
     await expectPgError(probeAsUser(ids.owner, (db) =>
       db.query('select public.ops_assign_schedule_companions($1, $2, $3)', [ids.schedule, ids.ravi, ids.asha])));
@@ -207,6 +209,7 @@ describe('assignment rules', () => {
 });
 
 describe('trip generation', () => {
+  isolateCompanionAvailability();
   test('generates Mon/Wed/Fri at 07:00 IST and is idempotent', async () => {
     const rows = await asAdmin((db) => db.query<{ dow: number; local_time: string }>(
       `select extract(isodow from scheduled_pickup_at at time zone 'Asia/Kolkata')::int as dow,
