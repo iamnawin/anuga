@@ -5,6 +5,7 @@
 import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { asAdmin, asUser, createTrip, expectPgError, ids, probeAsUser } from './support/db.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 async function setCompanion(id: string, fields: { training?: boolean; active?: boolean; status?: string }): Promise<void> {
   await asAdmin((db) => db.query(
@@ -28,6 +29,7 @@ async function setStatus(tripId: string, status: string): Promise<void> {
 }
 
 describe('F02 companion training and suspension', () => {
+  isolateCompanionAvailability();
   test('a trained companion can be assigned; an untrained one is refused and shown as not_trained', async () => {
     const trip = await createTrip(60, null);
     await asUser(ids.ops, (db) => db.query('select public.ops_assign_trip_companion($1, $2)', [trip, ids.ravi]));
@@ -76,6 +78,7 @@ describe('F02 companion training and suspension', () => {
 });
 
 describe('F05 companion start window', () => {
+  isolateCompanionAvailability();
   test('a companion can start within the window but not 30 days early', async () => {
     const soon = await createTrip(60, ids.asha);
     await advance(ids.asha, soon, 'companion_en_route');
@@ -113,6 +116,7 @@ describe('F05 companion start window', () => {
 });
 
 describe('F06 required notes', () => {
+  isolateCompanionAvailability();
   test('a companion completes with a note; null, empty and blank notes are refused', async () => {
     const trip = await createTrip(0, ids.asha);
     await setStatus(trip, 'dropped_home');
@@ -134,6 +138,7 @@ describe('F06 required notes', () => {
 });
 
 describe('F04 companion reads limited to the detail window', () => {
+  isolateCompanionAvailability();
   test('inside the window the companion reads trip and events; far ahead they read neither', async () => {
     const near = await createTrip(30, ids.asha);
     await advance(ids.asha, near, 'companion_en_route');

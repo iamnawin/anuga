@@ -5,6 +5,7 @@
 import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { asAdmin, asUser, createTrip, expectPgError, ids, probeAsUser } from './support/db.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 type TripStatus = string;
 
@@ -23,6 +24,7 @@ async function familyStatusNotifications(tripId: string): Promise<TripStatus[]> 
 }
 
 describe('first journey', () => {
+  isolateCompanionAvailability(true);
   let tripId = '';
   let otp = '';
 
@@ -145,6 +147,7 @@ describe('first journey', () => {
 });
 
 describe('exceptions', () => {
+  isolateCompanionAvailability();
   test('family can cancel a scheduled trip but not one already under way', async () => {
     const scheduled = await createTrip(120);
     assert.equal(await advance(ids.owner, scheduled, 'cancelled', 'Admitted elsewhere'), 'cancelled');
