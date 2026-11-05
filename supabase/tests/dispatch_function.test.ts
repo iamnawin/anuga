@@ -4,6 +4,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { asAdmin, asUser, createTrip, ids } from './support/db.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
+
+isolateCompanionAvailability();
 
 const url = process.env.SUPABASE_URL;
 const anonKey = process.env.SUPABASE_ANON_KEY;
