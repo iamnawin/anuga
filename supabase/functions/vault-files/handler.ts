@@ -57,10 +57,10 @@ function errorResponse(error: unknown): Response {
   if (error instanceof RpcError) {
     if (error.code === '42501') return json({ error: 'not_allowed', message: error.message }, 403);
     if (error.code === '22023' || error.code === 'P0002') return json({ error: 'invalid', message: error.message }, 400);
-    return json({ error: 'database', message: error.message }, 502);
+    return json({ error: 'database', message: 'database request failed' }, 502);
   }
-  // Server log only (no request body, so no patient data); the client gets a generic error.
-  console.error('vault-files:', error instanceof Error ? error.message : String(error));
+  // Provider exception messages can contain object paths, tokens or patient data.
+  console.error('vault-files: unexpected_failure');
   return json({ error: 'internal', message: 'unexpected error' }, 500);
 }
 

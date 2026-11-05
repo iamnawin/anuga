@@ -28,6 +28,12 @@ function fakeStore(rows: ClaimedNotification[], failStatus: 'pending' | 'failed'
 }
 
 describe('render', () => {
+  test('issue status reports the event without claiming that a team has acknowledged it', () => {
+    const expected = { en: 'Issue reported', te: 'సమస్య నివేదించబడింది', hi: 'समस्या दर्ज' };
+    for (const [lang, text] of Object.entries(expected)) {
+      assert.equal(render('trip_status_changed', { to_status: 'issue_reported' }, lang).body, text);
+    }
+  });
   test('every template and status has text in en, te and hi', () => {
     for (const lang of ['en', 'te', 'hi']) {
       for (const template of TEMPLATES) {
@@ -54,7 +60,7 @@ describe('render', () => {
       assert.ok(!m.body.includes('BP') && !m.title.includes('BP'), lang);
     }
     assert.equal(render('trip_status_changed', { to_status: 'issue_reported', note: 'Auto broke down' }, 'en').body,
-      "Issue reported; our team is on it Open the app to read the companion's note.");
+      "Issue reported Open the app to read the companion's note.");
     // The system's own pickup note is not a companion note.
     assert.equal(render('trip_status_changed', { to_status: 'picked_up', note: 'pickup OTP verified' }, 'en').body,
       'Picked up from home');
@@ -121,9 +127,19 @@ describe('dispatchOnce', () => {
     const summary = await dispatchOnce(f.store, { push: flaky, sms: recorderAdapter } as Partial<Record<Channel, Adapter>>);
     assert.deepEqual(summary, { claimed: 4, sent: 0, retrying: 1, failed: 3 });
     assert.deepEqual(f.failed.map((x) => [x.id, x.permanent]), [[1, false], [2, true], [3, true], [4, true]]);
-    assert.match(f.failed[1].error, /no phone/);
+    assert.equal(f.failed[1].error, 'delivery_permanent_failure');
     assert.match(f.failed[2].error, /no adapter for channel whatsapp/);
-    assert.match(f.failed[3].error, /unknown notification template/);
+    assert.equal(f.failed[3].error, 'notification_render_failed');
+  });
+
+  test('failure records exclude provider exceptions and untrusted template text', async () => {
+    const marker = 'PRIVATE_synthetic_note_token_signed_url';
+    const adapter: Adapter = { name: 'synthetic', send: async () => { throw new AdapterError(marker, true); } };
+    const f = fakeStore([row(1), row(2, { template: marker })]);
+    await dispatchOnce(f.store, { push: adapter });
+    assert.equal(f.failed.length, 2);
+    assert.ok(f.failed.every((failure) => !failure.error.includes(marker)));
+    assert.deepEqual(f.failed.map((failure) => failure.permanent), [true, true]);
   });
 
   test('a retry the database turns into a final failure is counted as failed', async () => {

@@ -34,6 +34,6 @@ Deno.serve(async (request: Request) => {
     return Response.json(summary);
   } catch (error) {
     const status = error instanceof ConfigError ? 500 : 502;
-    return Response.json({ error: (error as Error).message }, { status });
+    return Response.json({ error: error instanceof ConfigError ? 'server_misconfigured' : 'dispatch_failed' }, { status });
   }
 });

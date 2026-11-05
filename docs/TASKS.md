@@ -1,5 +1,14 @@
 # Tasks and milestones
 
+## Production operations hardening (2026-11-05) `[~]`
+
+- [x] Remove unsupported outbound issue acknowledgement in EN/TE/HI.
+- [x] Redact raw provider/database error text from core notification/vault/payment paths.
+- [x] Add read-only schema attestation and executable operations/recovery runbooks.
+- [x] Verify focused runtime checks 35/35 and disposable read-only SQL execution.
+- [ ] Hosted attestation, named owners, alert receipt and isolated recovery/rollback/incident drill.
+- [ ] Provider/payment/retention decisions and final release approval; NO-GO remains.
+
 ## Session recovery hardening (2026-11-04) `[~]`
 
 - [x] Reproduce and fix delayed auth/role response races in Ops and unified app.

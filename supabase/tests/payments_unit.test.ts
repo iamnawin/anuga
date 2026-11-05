@@ -1,6 +1,6 @@
 // Unit tests for the payments functions (supabase/functions/_shared/payments.ts):
 // adapter selection, Razorpay order request, webhook signatures, request handling.
-import { describe, test } from 'node:test';
+import { describe, test, mock } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   ConfigError, handlePaymentRequest, handleWebhook, hmacSha256Hex, razorpayAdapter, RpcError, selectPaymentAdapter,
@@ -65,6 +65,18 @@ describe('razorpay adapter', () => {
 });
 
 describe('payments handler', () => {
+  test('unexpected provider failures emit a safe log event and generic response', async () => {
+    const marker = 'PRIVATE_synthetic_payment_bearer_token';
+    const log = mock.method(console, 'error', () => {});
+    try {
+      const { d } = deps({ userRpc: async () => { throw new Error(marker); } });
+      const response = await handlePaymentRequest(post({ action: 'start', invoice_id: 'inv1' }), d);
+      assert.equal(response.status, 500);
+      assert.ok(!JSON.stringify(log.mock.calls).includes(marker));
+      assert.ok(!(await response.text()).includes(marker));
+      assert.equal(log.mock.calls.length, 1, 'failure remains observable');
+    } finally { log.mock.restore(); }
+  });
   test('start: the database authorizes first, then an order is created and stored', async () => {
     const { d, calls } = deps();
     const response = await handlePaymentRequest(post({ action: 'start', invoice_id: 'inv1' }), d);

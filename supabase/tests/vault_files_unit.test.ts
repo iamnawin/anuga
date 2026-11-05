@@ -1,6 +1,6 @@
 // Unit tests for the vault-files Edge Function handler with fake dependencies:
 // it must ask the database (as the caller) before signing anything.
-import { describe, test } from 'node:test';
+import { describe, test, mock } from 'node:test';
 import assert from 'node:assert/strict';
 import { handleVaultRequest, RpcError, supabaseVaultDeps, type VaultDeps } from '../functions/vault-files/handler.ts';
 
@@ -35,6 +35,18 @@ const post = (body: unknown, jwt: string | null = userJwt) => new Request('http:
 });
 
 describe('vault-files handler', () => {
+  test('unexpected Storage failures never put provider data in logs or the client response', async () => {
+    const marker = 'PRIVATE_synthetic_storage_signed_url_token';
+    const log = mock.method(console, 'error', () => {});
+    try {
+      const { deps } = fakeDeps({ signDownload: async () => { throw new Error(marker); } });
+      const response = await handleVaultRequest(post({ action: 'download', document_id: 'd1' }), deps);
+      assert.equal(response.status, 500);
+      assert.ok(!JSON.stringify(log.mock.calls).includes(marker));
+      assert.ok(!(await response.text()).includes(marker));
+      assert.equal(log.mock.calls.length, 1, 'failure remains observable');
+    } finally { log.mock.restore(); }
+  });
   test('upload: database first, then a signed URL for the path the database chose', async () => {
     const { deps, calls } = fakeDeps();
     const response = await handleVaultRequest(post({ action: 'upload', patient_id: 'p1', doc_type: 'lab_report',

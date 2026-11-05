@@ -1,5 +1,15 @@
 # Handoff
 
+## Production operations hardening (2026-11-05)
+
+Stacked after consent PR #24 and session PR #25. Truthful issue notifications,
+sensitive error classes, a read-only catalogue attestation and executable
+operations/recovery runbooks are prepared. Focused runtime tests are 35/35 and
+the attestation SQL executes read-only in the disposable harness. See
+`docs/PRODUCTION_READINESS_DASHBOARD.md` and the production-hardening evidence.
+Hosted attestation, alert/recovery/incident drills, physical Android and human
+language review remain open. NO-GO; no deploy/merge/cleanup/provider activation.
+
 ## Session lifecycle hardening (2026-11-04)
 
 `fix/production-session-recovery` invalidates late role/bootstrap responses after

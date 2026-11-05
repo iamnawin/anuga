@@ -16,7 +16,7 @@ const STATUS: Record<string, Record<Language, string>> = {
   completed: { en: 'Visit completed', te: 'సందర్శన పూర్తయింది', hi: 'विज़िट पूरी हुई' },
   cancelled: { en: 'Visit cancelled', te: 'సందర్శన రద్దు అయింది', hi: 'विज़िट रद्द' },
   no_show: { en: 'Patient was not available', te: 'రోగి అందుబాటులో లేరు', hi: 'मरीज़ उपलब्ध नहीं थे' },
-  issue_reported: { en: 'Issue reported; our team is on it', te: 'సమస్య నివేదించబడింది; మా బృందం చూస్తోంది', hi: 'समस्या दर्ज; हमारी टीम देख रही है' },
+  issue_reported: { en: 'Issue reported', te: 'సమస్య నివేదించబడింది', hi: 'समस्या दर्ज' },
 };
 
 const TEXT: Record<string, Record<Language, Rendered>> = {
