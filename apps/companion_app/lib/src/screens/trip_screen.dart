@@ -298,6 +298,10 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(statusLabel(l10n, _status), style: theme.textTheme.titleLarge),
+                          if (_visitProgressStatuses.contains(_status)) ...[
+                            const SizedBox(height: 12),
+                            _VisitProgressStrip(status: _status),
+                          ],
                           const SizedBox(height: 8),
                           Text(l10n.pickupAt(formatIstTime(trip.scheduledPickupAt, locale))),
                           Text(l10n.returnAt(formatIstTime(trip.scheduledReturnAt, locale))),
@@ -401,6 +405,53 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+const _visitProgressStatuses = [
+  TripStatus.scheduled,
+  TripStatus.companionEnRoute,
+  TripStatus.pickedUp,
+  TripStatus.atCentre,
+  TripStatus.handedOver,
+  TripStatus.sessionDone,
+  TripStatus.returning,
+  TripStatus.droppedHome,
+  TripStatus.completed,
+];
+
+/// A compact visual summary of the real nine-state journey. The exact localized
+/// status above remains the accessible source of truth.
+class _VisitProgressStrip extends StatelessWidget {
+  const _VisitProgressStrip({required this.status});
+
+  final TripStatus status;
+
+  @override
+  Widget build(BuildContext context) {
+    final current = _visitProgressStatuses.indexOf(status);
+    final colors = Theme.of(context).colorScheme;
+    return ExcludeSemantics(
+      child: Row(
+        key: const Key('visit-progress'),
+        children: [
+          for (var index = 0; index < _visitProgressStatuses.length; index++) ...[
+            Expanded(
+              key: Key('visit-progress-stage-$index'),
+              child: Container(
+                key: index == current ? Key('visit-progress-current-$index') : null,
+                height: index == current ? 8 : 6,
+                decoration: BoxDecoration(
+                  color: index <= current ? colors.primary : colors.outlineVariant,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
+            ),
+            if (index != _visitProgressStatuses.length - 1) const SizedBox(width: 4),
+          ],
+        ],
       ),
     );
   }
