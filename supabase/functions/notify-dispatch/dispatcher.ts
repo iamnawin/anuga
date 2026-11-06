@@ -49,8 +49,8 @@ export async function dispatchOnce(
     let message;
     try {
       message = render(row.template, row.payload ?? {}, row.recipient_language);
-    } catch (error) {
-      await fail((error as Error).message, true);
+    } catch {
+      await fail('notification_render_failed', true);
       continue;
     }
     try {
@@ -66,7 +66,8 @@ export async function dispatchOnce(
       summary.sent++;
     } catch (error) {
       const permanent = error instanceof AdapterError && error.permanent;
-      await fail(error instanceof Error ? error.message : String(error), permanent);
+      // Provider exceptions can contain phone numbers, tokens or message text.
+      await fail(permanent ? 'delivery_permanent_failure' : 'delivery_transient_failure', permanent);
     }
   }
   return summary;

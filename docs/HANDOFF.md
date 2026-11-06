@@ -1,5 +1,64 @@
 # Handoff
 
+## Durable checkpoint validation (2026-11-06 16:05 IST)
+
+Recovery state commit `7a06f1b` is pushed on PR #27. The corrected ignored
+Unlazy G2 oracle reran the complete `scripts/check-all.sh` suite on that exact
+head and passed (exit 0, expected success marker matched). PR CI run
+`42203363529` is in progress; do not merge until all seven jobs pass. `STATE-001`
+is VERIFIED. Active task is `INT-002`: sequential #22-#27 integration after CI.
+No runtime file, hosted migration, deployment or synthetic record changed.
+
+## Persistent mission recovery checkpoint (2026-11-06 15:57 IST)
+
+The autonomous integration/UI/synthetic-staging mission now has durable state in
+`docs/EXECUTION_STATE.md`, `docs/PROGRESS_LEDGER.md`, `docs/RECOVERY.md` and
+`docs/RELEASE_CHECKLIST.md`. GitHub was freshly reconciled: `origin/main` remains
+PR #21 merge `21ae9bc`; PRs #22-#27 are open in a literal dependency chain,
+mergeable/CLEAN, and each has seven successful CI jobs. PR #27 is `d14e55c` and
+CI `42172886236` is green. No stack PR, November hosted migration or target
+staging deployment has occurred.
+
+The full local suite on `d14e55c` reached `ALL CHECKS PASSED`; the ignored
+Unlazy ledger still needs one clean evidence rerun after correcting its matcher.
+The three new Family/Patient/Companion boards are reference inputs only. They do
+not authorize maps/ETA, calls, clinical checklists, payments, expanded Patient
+access or a four-stage replacement for the real visit lifecycle. Next: commit
+and push this recovery checkpoint, rerun the corrected local gate, then merge
+#22-#27 sequentially before starting new UI work from main. Physical Android and
+human Telugu/Hindi approval remain separate, unperformed gates.
+
+## PR #27 care-request CI fixture repair (2026-11-06)
+
+Latest run `42167845149` failed only the real-Supabase care-request browser
+journey. At 11:05 IST on Friday it requested 11:45-16:45 and selected Asha,
+while the fresh seed already occupied Asha from 07:00-12:00. The database
+correctly returned SQLSTATE `22023` and rolled the assignment back; the form
+was neither stale nor timing out on a successful write. The journey now selects
+unoccupied Ravi as primary, signs in as Ravi, and asserts the assignment RPC is
+HTTP 200 before checking rendered state. Full local check-all passes. Corrected
+head `4a05c29` passes all seven jobs in CI `42170840666`, including care, issue,
+combined journeys and Android builds. G6 is restored; human/external G7/G8 stay
+open. PR #26 is now a literal ancestor of #27. No occupancy, product or hosted
+data behavior changed.
+
+## Production operations hardening (2026-11-05)
+
+Stacked after consent PR #24 and session PR #25. Truthful issue notifications,
+sensitive error classes, a read-only catalogue attestation and executable
+operations/recovery runbooks are prepared. Focused runtime tests are 35/35 and
+the attestation SQL executes read-only in the disposable harness. See
+`docs/PRODUCTION_READINESS_DASHBOARD.md` and the production-hardening evidence.
+Hosted attestation, alert/recovery/incident drills, physical Android and human
+language review remain open. NO-GO; no deploy/merge/cleanup/provider activation.
+
+Final technical source `618af1d` on PR #27 passed all seven jobs in CI
+`42041948258`; the stacked PR #26 run `42041948190` also passed all seven jobs.
+The production hardening stack is PR #24 consent, #25 session recovery, #26
+Companion occupancy and #27 operations. Seven of nine `PRODUCTION_GATES.md`
+acceptance gates are met. G7 physical Android/native-language approval and G8
+production boundary/recovery/safety/release attestations remain open.
+
 ## Session lifecycle hardening (2026-11-04)
 
 `fix/production-session-recovery` invalidates late role/bootstrap responses after

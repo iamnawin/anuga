@@ -138,9 +138,9 @@ function errorResponse(error: unknown): Response {
   if (error instanceof RpcError) {
     if (error.code === '42501') return json({ error: 'not_allowed', message: error.message }, 403);
     if (error.code === '22023' || error.code === 'P0002') return json({ error: 'invalid', message: error.message }, 400);
-    return json({ error: 'database', message: error.message }, 502);
+    return json({ error: 'database', message: 'database request failed' }, 502);
   }
-  console.error('payments:', error instanceof Error ? error.message : String(error));
+  console.error('payments: unexpected_failure');
   return json({ error: 'internal', message: 'unexpected error' }, 500);
 }
 

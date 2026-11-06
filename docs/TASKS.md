@@ -1,19 +1,73 @@
 # Tasks and milestones
 
+## Autonomous integration, UI and synthetic staging mission (2026-11-06) `[~]`
+
+Authoritative atomic task status and fixed weights live in
+`docs/PROGRESS_LEDGER.md`; resume instructions live in `docs/RECOVERY.md`.
+
+- [x] `STATE-001`: durable execution/recovery records pushed at `7a06f1b`;
+      corrected full local Unlazy gate passes.
+- [x] `INT-001`: reconcile main, worktrees, PRs #21-#27, CI and migrations.
+- [~] `INT-002`: integrate the implemented/green #22-#27 stack into main in
+      dependency order; not yet merged.
+- [~] `UI-001`: reconcile the three new reference boards with approved tokens and
+      supported functionality; boards are not runtime evidence.
+- [~] `UI-002` / `UI-003` / `UI-004`: preserve existing implemented Family and
+      Companion flows; audit supported Patient view and make only evidence-backed
+      targeted UI changes after stack integration.
+- [ ] `NAV-001`: verify configured navigation capability; prefer a truthful
+      external handoff over fabricated map/ETA UI.
+- [~] `PWA-001`: prior implementation exists; target deployed install/session/
+      cache behavior and physical-device acceptance remain open.
+- [x] `QA-001`: current PR #27 real-Supabase CI journeys pass; rerun on integrated
+      main and deployed synthetic staging.
+- [!] `QA-002`: physical Android and human Telugu/Hindi/healthcare wording review
+      require named people and remain NOT TESTED.
+- [~] `REL-001`: PR/CI completion in progress; no stack merge yet.
+- [ ] `REL-002`: hosted identity/history/recovery verification, migrations,
+      deployment and post-deploy journey not started.
+
+Current mission progress: implemented 61/100, verified 23/100, merged 0/100,
+deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
+
+## PR #27 CI fixture repair (2026-11-06) `[x]`
+
+- [x] Inspect run `42167845149`, uploaded screenshots/receipt, job/server logs,
+      seed intervals, assignment RPC and occupancy trigger.
+- [x] Prove the 11:45 care request overlapped Asha's seeded Friday 07:00-12:00 visit;
+      the database correctly refused and rolled back with SQLSTATE `22023`.
+- [x] Use unoccupied seeded Ravi as primary and assert the assignment RPC response
+      before checking UI state; do not weaken enforcement or increase timeouts.
+- [x] Focused Ops lint/typecheck/unit tests and care/occupancy database tests pass.
+- [x] Full local check-all and corrected-head CI `42170840666`: all seven jobs pass.
+- [x] Verify #22 -> #27 base references and make PR #26 a literal ancestor of PR #27 without force-push.
+- G6 technical CI passes; G7 physical/language and G8 hosted/release evidence remain open.
+
+## Production operations hardening (2026-11-05) `[~]`
+
+- [x] Remove unsupported outbound issue acknowledgement in EN/TE/HI.
+- [x] Redact raw provider/database error text from core notification/vault/payment paths.
+- [x] Add read-only schema attestation and executable operations/recovery runbooks.
+- [x] Verify focused runtime checks 36/36 and disposable read-only SQL execution.
+- [x] Final technical source CI `42041948258`: all seven jobs pass at `618af1d`.
+- [ ] Hosted attestation, named owners, alert receipt and isolated recovery/rollback/incident drill.
+- [ ] Provider/payment/retention decisions and final release approval; NO-GO remains.
+
 ## Session recovery hardening (2026-11-04) `[~]`
 
 - [x] Reproduce and fix delayed auth/role response races in Ops and unified app.
 - [x] Add four Ops regressions and two Flutter regressions; focused checks pass.
-- [ ] Final full regression/CI and physical expiry/account-switch receipts.
+- [x] Final full automated regression/CI for the session fix (PR #25, seven jobs).
+- [ ] Physical expiry/account-switch receipts.
 - No production readiness, device or translation approval is implied.
 
 ## Production hardening (2026-11-04) `[~]`
 
 - [x] Record founder consent/occupancy decisions; retain pending pricing/buffer/safety approvals.
 - [x] Reproduce three consent defects and add DB projection/RLS/action enforcement.
-- [ ] Verify consent/assignment races against real Postgres and final-source CI.
-- [ ] Complete scheduling/auth/notification hardening and operational runbooks.
-- [ ] Reconcile the existing 31 release rows with actual evidence.
+- [x] Verify consent/assignment races against real Postgres and final-source CI.
+- [x] Complete scoped scheduling/auth/notification hardening and operational runbooks.
+- [x] Reconcile the existing 31 release rows with actual evidence.
 - [ ] Physical Android, human language, environment/recovery and founder release signoffs.
 - NO-GO remains; code-test completion does not authorize real patient activity.
 
