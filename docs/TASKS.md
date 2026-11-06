@@ -1,5 +1,15 @@
 # Tasks and milestones
 
+## Production hardening (2026-11-04) `[~]`
+
+- [x] Record founder consent/occupancy decisions; retain pending pricing/buffer/safety approvals.
+- [x] Reproduce three consent defects and add DB projection/RLS/action enforcement.
+- [ ] Verify consent/assignment races against real Postgres and final-source CI.
+- [ ] Complete scheduling/auth/notification hardening and operational runbooks.
+- [ ] Reconcile the existing 31 release rows with actual evidence.
+- [ ] Physical Android, human language, environment/recovery and founder release signoffs.
+- NO-GO remains; code-test completion does not authorize real patient activity.
+
 ## Production readiness audit (2026-11-04) `[x]` audit / `[!]` release
 
 - [x] Verify source/PR/CI and current synthetic deployment with fresh metadata/hash.
