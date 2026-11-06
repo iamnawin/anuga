@@ -8,8 +8,8 @@ Authoritative atomic task status and fixed weights live in
 - [x] `STATE-001`: durable execution/recovery records pushed at `7a06f1b`;
       corrected full local Unlazy gate passes.
 - [x] `INT-001`: reconcile main, worktrees, PRs #21-#27, CI and migrations.
-- [~] `INT-002`: integrate the implemented/green #22-#27 stack into main in
-      dependency order; not yet merged.
+- [x] `INT-002`: #22-#27 merged into main in dependency order at merge commits
+      `a8109ae`, `5b838b6`, `8d175b4`, `038fb67`, `88b0c0b`, `ea6d142`.
 - [~] `UI-001`: reconcile the three new reference boards with approved tokens and
       supported functionality; boards are not runtime evidence.
 - [~] `UI-002` / `UI-003` / `UI-004`: preserve existing implemented Family and
@@ -27,7 +27,7 @@ Authoritative atomic task status and fixed weights live in
 - [ ] `REL-002`: hosted identity/history/recovery verification, migrations,
       deployment and post-deploy journey not started.
 
-Current mission progress: implemented 61/100, verified 23/100, merged 0/100,
+Current mission progress: implemented 61/100, verified 33/100, merged 23/100,
 deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
 
 ## PR #27 CI fixture repair (2026-11-06) `[x]`

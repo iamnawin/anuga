@@ -1,5 +1,29 @@
 # ANUGA UI reference contract
 
+## November 6, 2026 AnugaCare concept boards
+
+The founder supplied three additional boards, retained beside this contract:
+
+- `AnugaCare concept family journey 2026-11-06.png`
+- `AnugaCare concept patient journey 2026-11-06.png`
+- `AnugaCare concept companion journey 2026-11-06.png`
+
+They are visual direction, not implementation evidence or an access contract.
+Reuse their clearer hierarchy, generous touch targets, teal/orange brand accents,
+chronological status treatment and role-focused primary actions. Preserve the
+existing platform font, 12-pixel card radius, 8-pixel input radius, flat surfaces
+and real application navigation rather than copying the phone mockups literally.
+
+| Concept board | Supported mapping | Required correction / deferred capability |
+| --- | --- | --- |
+| Family: Request -> Schedule -> Track -> Summary | Existing Family home, Request Care form, bookings cards, OTP/timeline and completed visit detail | Request Care uses registered centres/packages and a single supported pickup/return window. Do not add recurring-day controls, live map/ETA, call/share actions, invented photos or completion facts. |
+| Patient: Today -> Pickup OTP -> Visit Progress -> Return Home | Existing patient-facing Family view for authorized patient/owner accounts, OTP and chronological status | No new independent Patient sign-in or permissions. Remove medication/water readiness checklist, calls and guaranteed return wording unless existing contracts explicitly support them. |
+| Companion: Assignment -> Navigate -> Verify -> Handover | Existing Companion trip list/detail, start window, OTP verification, full state machine, required notes and issue flow | Present the real eight-stage lifecycle in readable groups. Do not replace it with four states, show diagnoses/medicines, claim embedded navigation/ETA, add a clinical checklist or fabricate arrival/completion. An external navigation handoff may be added only after configuration and destination checks. |
+
+Actual screenshots from a running build belong under `docs/screenshots/` or a
+dated `docs/evidence/` directory and must name the source commit/environment.
+These concept boards never satisfy a visual, device or release acceptance gate.
+
 Date: 2026-10-11. S2 baseline for S3, S4 and S5. Brand approval comes from the founder's current instruction; older product documents still call the brand undecided. Use ANUGA as the wordmark, Anuga in prose, and companion for the person's role. Keep package identifiers unchanged.
 
 ## Sources and corrected versions

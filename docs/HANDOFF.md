@@ -1,5 +1,20 @@
 # Handoff
 
+## PR #22-#27 dependency stack merged (2026-11-06 16:20 IST)
+
+After corrected local check-all and final PR #27 CI `42203978157` passed all
+seven jobs, the authorized stack was merged to `main` in dependency order:
+#22 `a8109ae`, #23 `5b838b6`, #24 `8d175b4`, #25 `038fb67`, #26 `88b0c0b`,
+#27 `ea6d142`. Each next PR was retargeted to current main, rechecked as CLEAN/
+mergeable with seven green jobs, then merged normally. Source branches remain.
+Main run `42205624861` is queued on final commit `ea6d142`.
+
+No hosted migration, deployment, synthetic-data mutation, provider activation or
+production action occurred. New work continues on local branch
+`feat/g7-ui-staging` from exact main. Active task: `UI-001`, preserve and map the
+three supplied concept boards, audit actual screens and make only supported
+targeted UI changes. Staging still represents the earlier PR #21 baseline.
+
 ## Durable checkpoint validation (2026-11-06 16:05 IST)
 
 Recovery state commit `7a06f1b` is pushed on PR #27. The corrected ignored
