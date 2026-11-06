@@ -1,5 +1,17 @@
 # Handoff
 
+## PR #27 care-request CI fixture repair (2026-11-06)
+
+Latest run `42167845149` failed only the real-Supabase care-request browser
+journey. At 11:05 IST on Friday it requested 11:45-16:45 and selected Asha,
+while the fresh seed already occupied Asha from 07:00-12:00. The database
+correctly returned SQLSTATE `22023` and rolled the assignment back; the form
+was neither stale nor timing out on a successful write. The journey now selects
+unoccupied Ravi as primary, signs in as Ravi, and asserts the assignment RPC is
+HTTP 200 before checking rendered state. Focused Ops and database checks pass;
+final seven-job CI is pending. G6 is reopened separately from human/external
+G7/G8. No occupancy, product or hosted data behavior changed.
+
 ## Production operations hardening (2026-11-05)
 
 Stacked after consent PR #24 and session PR #25. Truthful issue notifications,

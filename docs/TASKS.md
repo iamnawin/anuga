@@ -1,5 +1,17 @@
 # Tasks and milestones
 
+## PR #27 CI fixture repair (2026-11-06) `[~]`
+
+- [x] Inspect run `42167845149`, uploaded screenshots/receipt, job/server logs,
+      seed intervals, assignment RPC and occupancy trigger.
+- [x] Prove the 11:45 care request overlapped Asha's seeded Friday 07:00-12:00 visit;
+      the database correctly refused and rolled back with SQLSTATE `22023`.
+- [x] Use unoccupied seeded Ravi as primary and assert the assignment RPC response
+      before checking UI state; do not weaken enforcement or increase timeouts.
+- [x] Focused Ops lint/typecheck/unit tests and care/occupancy database tests pass.
+- [ ] Final seven-job PR #27 CI rerun.
+- G6 technical CI remains separate from G7 physical/language and G8 hosted/release evidence.
+
 ## Production operations hardening (2026-11-05) `[~]`
 
 - [x] Remove unsupported outbound issue acknowledgement in EN/TE/HI.

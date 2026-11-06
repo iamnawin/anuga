@@ -157,13 +157,21 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await card.getByRole('button', { name: 'Change companions', exact: true }).click();
     const primary = card.getByLabel('Primary companion');
     const backup = card.getByLabel('Backup companion');
-    const asha = primary.locator('option').filter({ hasText: 'Asha Companion (synthetic)' });
-    const ravi = backup.locator('option').filter({ hasText: 'Ravi Companion (synthetic)' });
-    await expect(asha).toHaveCount(1);
+    // The fresh seed assigns Asha to recurring 07:00-12:00 visits on
+    // Mon/Wed/Fri. A same-day near-term request can overlap that occupied
+    // interval, so use the verified but unoccupied seeded backup as primary.
+    const ravi = primary.locator('option').filter({ hasText: 'Ravi Companion (synthetic)' });
+    const asha = backup.locator('option').filter({ hasText: 'Asha Companion (synthetic)' });
     await expect(ravi).toHaveCount(1);
-    await primary.selectOption((await asha.getAttribute('value'))!);
-    await backup.selectOption((await ravi.getAttribute('value'))!);
+    await expect(asha).toHaveCount(1);
+    await primary.selectOption((await ravi.getAttribute('value'))!);
+    await backup.selectOption((await asha.getAttribute('value'))!);
+    const assignmentSaved = ops.waitForResponse((r) => r.url().endsWith('/rpc/ops_assign_schedule_companions'));
     await card.getByRole('button', { name: 'Save', exact: true }).click();
+    const assignmentResponse = await assignmentSaved;
+    const assignmentBody = await assignmentResponse.text();
+    expect(assignmentResponse.status(), assignmentBody).toBe(200);
+    receipt.assignment_response_status = assignmentResponse.status();
     await expect(card.getByText('Assigned', { exact: true })).toBeVisible();
     await card.screenshot({ path: `${shots}/06-ops-assigned.png` });
     const assignedRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
@@ -182,11 +190,11 @@ test('Family request -> assigned companion journey -> persisted completion acros
     const pwa = preview ? `${preview}/app/` : 'http://127.0.0.1:3103/app/';
     await companion.goto(pwa);
     await enableFlutter(companion);
-    await enterFlutter(companion, 'Mobile number', '9000000201');
+    await enterFlutter(companion, 'Mobile number', '9000000202');
     await companion.getByRole('button', { name: 'Send code', exact: true }).click();
     await enterFlutter(companion, '6-digit code', otp);
     const companionRead = companion.waitForResponse((r) => r.url().endsWith('/rpc/companion_my_trips'));
-    receipt.companion_identity = await signedInIdentity(companion, '919000000201');
+    receipt.companion_identity = await signedInIdentity(companion, '919000000202');
     const companionTrips = await (await companionRead).json() as { trip_id: string; status: string; details_visible: boolean }[];
     const companionTrip = companionTrips.find((row) => row.trip_id === tripId);
     expect(companionTrip?.status).toBe('scheduled');
