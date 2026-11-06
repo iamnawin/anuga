@@ -50,6 +50,7 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
   late Locale _locale = widget.initialLocale;
   late AccountStage _stage = widget.auth.isSignedIn ? AccountStage.checking : AccountStage.signedOut;
   late final StreamSubscription<void> _sessionEnded;
+  int _generation = 0;
 
   /// Set while the app signs out by itself, so the resulting sign-out event is
   /// not shown as an expired session. Cleared when a new session starts.
@@ -61,7 +62,10 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
     _sessionEnded = widget.auth.sessionEnded.listen((_) {
       final inSession =
           _stage == AccountStage.checking || _stage == AccountStage.family || _stage == AccountStage.companion;
-      if (!_signedOutByApp && inSession) _show(AccountStage.expired);
+      if (!_signedOutByApp) {
+        _generation++;
+        if (inSession) _show(AccountStage.expired);
+      }
     });
     if (_stage == AccountStage.checking) _resolve();
   }
@@ -73,10 +77,13 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
   }
 
   Future<void> _resolve() async {
+    final request = ++_generation;
     _signedOutByApp = false;
     _show(AccountStage.checking);
     try {
-      switch (await widget.auth.currentRole()) {
+      final role = await widget.auth.currentRole();
+      if (!mounted || request != _generation) return;
+      switch (role) {
         case 'family':
           _show(AccountStage.family);
         case 'companion':
@@ -87,20 +94,23 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
           await _signOut(AccountStage.noRole);
       }
     } on SessionExpiredException {
+      if (!mounted || request != _generation) return;
       await _signOut(AccountStage.expired);
     } catch (_) {
+      if (!mounted || request != _generation) return;
       _show(AccountStage.error);
     }
   }
 
   Future<void> _signOut(AccountStage next) async {
+    final request = ++_generation;
     _signedOutByApp = true;
     try {
       await widget.auth.signOut();
     } catch (_) {
       // The local session is cleared even when the server call fails.
     }
-    _show(next);
+    if (mounted && request == _generation) _show(next);
   }
 
   void _show(AccountStage stage) {

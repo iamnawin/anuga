@@ -1,5 +1,13 @@
 # Handoff
 
+## Session lifecycle hardening (2026-11-04)
+
+`fix/production-session-recovery` invalidates late role/bootstrap responses after
+logout/expiry/account switching in Ops and the unified Flutter app. Four Ops
+regressions failed before and pass after; unified routing has 24 passing cases.
+See `docs/evidence/production-hardening-2026-11-04/auth.md`. Real-device/session
+expiry and language approval remain open. No hosted settings or token TTL changed.
+
 ## Production hardening in progress (2026-11-04)
 
 Founder approved blocking Companion actions/details after trip-consent withdrawal
