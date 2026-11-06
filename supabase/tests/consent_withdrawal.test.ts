@@ -2,6 +2,7 @@ import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { asAdmin, asUser, createTrip, expectPgError, ids, probeAsUser } from './support/db.ts';
 import { actorConnection, waitForLock } from './support/concurrent.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 const consent = (active: boolean) => asUser(ids.owner, (db) =>
   db.query("select public.set_consent($1,'trips',$2)", [ids.patient, active]));
@@ -11,6 +12,7 @@ const start = (trip: string) => asUser(ids.asha, (db) =>
   db.query("select * from public.advance_trip($1,'companion_en_route')", [trip]));
 
 describe('trip consent withdrawal', () => {
+  isolateCompanionAvailability();
   test('a concurrent start waits for withdrawal and observes its committed result', { skip: !process.env.DATABASE_URL }, async () => {
     const trip = await createTrip(25);
     const owner = await actorConnection(ids.owner);

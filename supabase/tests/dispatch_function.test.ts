@@ -3,7 +3,8 @@
 // SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY are set (CI job supabase-local).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { asAdmin, asUser, createTrip, ids } from './support/db.ts';
+import { randomUUID } from 'node:crypto';
+import { asAdmin, asUser, createTrip, createUser, ids } from './support/db.ts';
 
 const url = process.env.SUPABASE_URL;
 const anonKey = process.env.SUPABASE_ANON_KEY;
@@ -19,8 +20,13 @@ test('the Edge Function refuses non-service callers', { skip }, async () => {
 });
 
 test('the Edge Function delivers a status change through the test adapter', { skip }, async () => {
-  const tripId = await createTrip(25);
-  await asUser(ids.asha, (db) => db.query(`select public.advance_trip($1, 'companion_en_route')`, [tripId]));
+  const companion = await createUser(randomUUID(), 'companion');
+  await asAdmin((db) => db.query(`insert into public.companions
+    (id,cluster_id,home_location,verification_status,training_completed)
+    select $1,cluster_id,home_location,verification_status,training_completed
+    from public.companions where id=$2`, [companion, ids.asha]));
+  const tripId = await createTrip(25, companion);
+  await asUser(companion, (db) => db.query(`select public.advance_trip($1, 'companion_en_route')`, [tripId]));
 
   const response = await invoke(serviceKey!);
   assert.equal(response.status, 200, await response.clone().text());

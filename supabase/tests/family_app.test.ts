@@ -2,6 +2,7 @@
 import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { asUser, createTrip, createUser, expectPgError, ids, probeAsAnon, probeAsUser } from './support/db.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 const stranger = '20000000-0000-0000-0000-0000000000fd';
 
@@ -33,6 +34,7 @@ describe('family_my_patients', () => {
 });
 
 describe('family_trip_timeline', () => {
+  isolateCompanionAvailability();
   test('family sees status events and public notes, without operational issue notes or locations', async () => {
     const tripId = await createTrip(30);
     await advance(ids.asha, tripId, 'companion_en_route', 'leaving now (synthetic)');
@@ -58,6 +60,7 @@ describe('family_trip_timeline', () => {
 });
 
 describe('my_notifications', () => {
+  isolateCompanionAvailability();
   test('family inbox has one push row per status change, newest first', async () => {
     const tripId = await createTrip(40);
     await advance(ids.asha, tripId, 'companion_en_route');

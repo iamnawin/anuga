@@ -8,6 +8,7 @@ import { asAdmin, asServiceRole, asUser, createTrip, expectPgError, ids, probeAs
 import { selectAdapters } from '../functions/notify-dispatch/adapters.ts';
 import { drain, type ClaimedNotification, type DispatchStore } from '../functions/notify-dispatch/dispatcher.ts';
 import type { DeliveryRecorder } from '../functions/notify-dispatch/adapters.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 // DispatchStore over SQL as the service role: the same RPCs the REST store calls.
 const sqlStore: DispatchStore & DeliveryRecorder = {
@@ -129,6 +130,7 @@ describe('claim, lease and retry', () => {
 });
 
 describe('dispatcher end to end (test adapter)', () => {
+  isolateCompanionAvailability();
   test('a trip status change reaches every family member, in their language', async () => {
     await asAdmin((db) => db.query(`update public.profiles set preferred_language = 'te' where id = $1`, [ids.viewer]));
     try {

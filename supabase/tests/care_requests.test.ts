@@ -3,6 +3,7 @@ import { after, before, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { asAdmin, asUser, createUser, expectPgError, ids, probeAsAnon, probeAsUser, type Db } from './support/db.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 const editor = '20000000-0000-0000-0000-00000000ca01';
 const stranger = '20000000-0000-0000-0000-00000000ca02';
@@ -41,6 +42,7 @@ async function submit(db: Db, value: Intent): Promise<string> {
 }
 
 describe('Family care request contracts', () => {
+  isolateCompanionAvailability();
   before(setUpCareFixtures);
   after(async () => {
     // The DB suites share a seed. Do not change later notification recipients.

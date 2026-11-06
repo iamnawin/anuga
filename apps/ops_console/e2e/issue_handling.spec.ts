@@ -138,9 +138,14 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     await enterFlutter(companion, 'Mobile number', '9000000201');
     await companion.getByRole('button', { name: 'Send code', exact: true }).click();
     await enterFlutter(companion, '6-digit code', otp);
+    const companionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_my_trips'));
     const companionIdentity = await identity(companion, '9000000201');
     receipt.companion_identity = companionIdentity;
     expect(companionIdentity.user_id).toBe(asha);
+    const companionTrips = await (await companionRead).json() as { trip_id: string; status: string; details_visible: boolean }[];
+    const companionTrip = companionTrips.find((row) => row.trip_id === tripId);
+    expect(companionTrip?.status).toBe('scheduled');
+    expect(companionTrip?.details_visible).toBe(true);
     const companionTile = () => companion.getByRole('group', { name: new RegExp(`${time}.*Lakshmi Rao`) }).first();
     await revealFlutter(companion, companionTile());
     await companionTile().click();

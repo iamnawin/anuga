@@ -225,6 +225,9 @@ jobs:
         env:
           CARE_REQUEST_JOURNEY: 1
           CI: true
+      # Occupancy is enforced across every trip. Give the independent issue
+      # journey a clean synthetic fixture instead of inheriting care assignments.
+      - run: supabase db reset
       - name: Visit issue, explicit Ops resolution, private Family status
         run: pnpm --filter @companion/ops_console exec playwright test e2e/issue_handling.spec.ts
         env:

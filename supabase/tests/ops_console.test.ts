@@ -4,6 +4,7 @@
 import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { asAdmin, asUser, createTrip, createUser, expectPgError, ids, probeAsAnon, probeAsUser } from './support/db.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 const stranger = '20000000-0000-0000-0000-0000000000fe';
 const nonOps = [ids.owner, ids.viewer, ids.asha];
@@ -92,6 +93,7 @@ describe('ops trip board', () => {
 });
 
 describe('ops exception queue', () => {
+  isolateCompanionAvailability();
   test('contains late, no_show and issue_reported trips with the latest note', async () => {
     const late = await createScheduledTrip(-20);
     const noShow = await createTrip(-10);
@@ -143,6 +145,7 @@ describe('ops exception queue', () => {
 });
 
 describe('ops companion options', () => {
+  isolateCompanionAvailability();
   test('explains why each companion in the cluster is or is not eligible', async () => {
     const rows = await probeAsUser(ids.ops, (db) =>
       db.query('select * from public.ops_companion_options($1)', [ids.patient]));

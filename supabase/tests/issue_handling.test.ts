@@ -3,6 +3,7 @@ import { describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { asAdmin, asUser, createTrip, expectPgError, ids, probeAsAnon, probeAsUser } from './support/db.ts';
+import { isolateCompanionAvailability } from './support/scheduling_fixtures.ts';
 
 type QueueRow = { trip_id: string; status: string; status_before_issue: string | null; companion_id: string; last_note: string | null; since: string };
 
@@ -27,6 +28,7 @@ async function familyReads(trip: string, user: string = ids.owner) {
 }
 
 describe('visit issue handling', () => {
+  isolateCompanionAvailability();
   test('Ops sees the required issue note and prior stage; every Family-readable path excludes it', async () => {
     const trip = await createTrip(25);
     await advance(ids.asha, trip, 'companion_en_route');
