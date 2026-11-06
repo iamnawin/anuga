@@ -20,10 +20,10 @@ skips, 0 failed. Focused operations checks: 36 passed, 0 failed.
 
 ## Acceptance result
 
-`PRODUCTION_GATES.md`: 6 met, 3 open while corrected PR #27 CI is pending.
+`PRODUCTION_GATES.md`: 7 met, 2 open.
 
-- G6 is reopened: the corrected care-request fixture must pass the complete
-  real-Supabase/browser/Android CI workflow.
+- G6 passes: corrected head `4a05c29` passed the complete seven-job
+  real-Supabase/browser/Android workflow in run `42170840666`.
 - G7 remains open: physical Android Chrome/installed-PWA execution and signed
   Telugu/Hindi healthcare-language approval need people and real hardware.
 - G8 remains open: production isolation/schema parity, backup/restore/rollback/
@@ -44,6 +44,7 @@ Receipt-head run `42167845149` failed `care_request.spec.ts:167`. Its Friday
 07:00-12:00. The occupancy trigger correctly refused the overlap with SQLSTATE
 `22023` and the transaction rolled back; the UI stayed in the assignment form.
 The test now uses unoccupied Ravi, signs in as that assigned Companion, and
-asserts the assignment HTTP response before rendered state. Until the corrected
-head passes all seven jobs, G6 is reopened and the gate count is 6 met / 3 open.
-This technical regression is separate from G7 and G8 human/external evidence.
+asserts the assignment HTTP response before rendered state. Corrected head
+`4a05c29` passed all seven jobs in run `42170840666`, including the care, issue
+and combined real-Supabase journeys and all Android builds. G6 is restored;
+this technical result is separate from G7 and G8 human/external evidence.

@@ -8,9 +8,11 @@ while the fresh seed already occupied Asha from 07:00-12:00. The database
 correctly returned SQLSTATE `22023` and rolled the assignment back; the form
 was neither stale nor timing out on a successful write. The journey now selects
 unoccupied Ravi as primary, signs in as Ravi, and asserts the assignment RPC is
-HTTP 200 before checking rendered state. Focused Ops and database checks pass;
-final seven-job CI is pending. G6 is reopened separately from human/external
-G7/G8. No occupancy, product or hosted data behavior changed.
+HTTP 200 before checking rendered state. Full local check-all passes. Corrected
+head `4a05c29` passes all seven jobs in CI `42170840666`, including care, issue,
+combined journeys and Android builds. G6 is restored; human/external G7/G8 stay
+open. PR #26 is now a literal ancestor of #27. No occupancy, product or hosted
+data behavior changed.
 
 ## Production operations hardening (2026-11-05)
 

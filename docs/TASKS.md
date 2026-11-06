@@ -1,6 +1,6 @@
 # Tasks and milestones
 
-## PR #27 CI fixture repair (2026-11-06) `[~]`
+## PR #27 CI fixture repair (2026-11-06) `[x]`
 
 - [x] Inspect run `42167845149`, uploaded screenshots/receipt, job/server logs,
       seed intervals, assignment RPC and occupancy trigger.
@@ -9,8 +9,9 @@
 - [x] Use unoccupied seeded Ravi as primary and assert the assignment RPC response
       before checking UI state; do not weaken enforcement or increase timeouts.
 - [x] Focused Ops lint/typecheck/unit tests and care/occupancy database tests pass.
-- [ ] Final seven-job PR #27 CI rerun.
-- G6 technical CI remains separate from G7 physical/language and G8 hosted/release evidence.
+- [x] Full local check-all and corrected-head CI `42170840666`: all seven jobs pass.
+- [x] Verify #22 -> #27 base references and make PR #26 a literal ancestor of PR #27 without force-push.
+- G6 technical CI passes; G7 physical/language and G8 hosted/release evidence remain open.
 
 ## Production operations hardening (2026-11-05) `[~]`
 

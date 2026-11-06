@@ -5,7 +5,7 @@ This dashboard summarizes progress; only the matrix and linked evidence can clos
 
 | Gate | Status | Completed technical work | Evidence still required to close |
 |---|---|---|---|
-| Technical candidate CI | In progress | Run `42167845149` isolated a care-request test-fixture collision; occupancy correctly refused overlapping Asha assignment. Journey now uses unoccupied Ravi and asserts the assignment RPC response | Final seven-job rerun on the corrected PR #27 head |
+| Technical candidate CI | Pass | Run `42167845149` isolated a care-request test-fixture collision; occupancy correctly refused overlapping Asha assignment. Corrected head `4a05c29` uses unoccupied Ravi and asserts the assignment RPC response; run `42170840666` passes all seven jobs | Preserve the deterministic fixture and response assertion; this does not close G7/G8 |
 | P0 Consent withdrawal | Blocked | DB-enforced detail/action denial, OTP protection, serialization; PR #24 CI seven jobs pass | Apply/attest candidate schema in approved environment; execute active-visit safety workflow rehearsal |
 | P0 Production isolation and parity | Blocked | Read-only catalogue attestation SQL and exact operator procedure | Name separate real-data project; Auth/Storage/Edge/Vercel dashboard receipts; schema/grant/policy comparison; seed-free proof |
 | P1 Companion scheduling and pricing | Blocked | Founder occupancy contract verified at the DB boundary, including late visits and concurrent checks; PR #26 CI seven jobs pass | Active-visit handover rehearsal. Pricing, charging, no-show and subscriptions remain founder decisions |
@@ -18,9 +18,9 @@ This dashboard summarizes progress; only the matrix and linked evidence can clos
 physical-device, human-language, recovery, legal/pilot or founder release approval.
 No deployment, merge, hosted migration, cleanup, real SMS or payment is authorized.
 
-The latest PR #27 CI failure is a separate technical gate (G6), not evidence for
-or against G7 physical-device/language approval or G8 hosted/recovery/release
-attestation. Those two human/external gates remain open even after CI returns green.
+The repaired PR #27 CI failure was a separate technical gate (G6), not evidence
+for or against G7 physical-device/language approval or G8 hosted/recovery/release
+attestation. G6 is green; those two human/external gates remain open.
 
 ## Remaining founder decisions
 
@@ -35,7 +35,7 @@ attestation. Those two human/external gates remain open even after CI returns gr
 
 ## Evidence sequence
 
-1. Review stacked PRs #22 -> #23 -> #24 -> #25 -> #26 -> #27. Final technical source `618af1d` passed all seven CI jobs in run `42041948258`.
+1. Review stacked PRs #22 -> #23 -> #24 -> #25 -> #26 -> #27. Corrected technical source `4a05c29` passed all seven CI jobs in run `42170840666`.
 2. Release owner identifies the intended environment and completes the read-only
    [attestation](runbooks/environment-attestation.md); no migration is applied by this check.
 3. Platform/Ops execute the isolated recovery and incident drill in
