@@ -5,7 +5,8 @@
 - [x] Remove unsupported outbound issue acknowledgement in EN/TE/HI.
 - [x] Redact raw provider/database error text from core notification/vault/payment paths.
 - [x] Add read-only schema attestation and executable operations/recovery runbooks.
-- [x] Verify focused runtime checks 35/35 and disposable read-only SQL execution.
+- [x] Verify focused runtime checks 36/36 and disposable read-only SQL execution.
+- [x] Final technical source CI `42041948258`: all seven jobs pass at `618af1d`.
 - [ ] Hosted attestation, named owners, alert receipt and isolated recovery/rollback/incident drill.
 - [ ] Provider/payment/retention decisions and final release approval; NO-GO remains.
 
@@ -13,16 +14,17 @@
 
 - [x] Reproduce and fix delayed auth/role response races in Ops and unified app.
 - [x] Add four Ops regressions and two Flutter regressions; focused checks pass.
-- [ ] Final full regression/CI and physical expiry/account-switch receipts.
+- [x] Final full automated regression/CI for the session fix (PR #25, seven jobs).
+- [ ] Physical expiry/account-switch receipts.
 - No production readiness, device or translation approval is implied.
 
 ## Production hardening (2026-11-04) `[~]`
 
 - [x] Record founder consent/occupancy decisions; retain pending pricing/buffer/safety approvals.
 - [x] Reproduce three consent defects and add DB projection/RLS/action enforcement.
-- [ ] Verify consent/assignment races against real Postgres and final-source CI.
-- [ ] Complete scheduling/auth/notification hardening and operational runbooks.
-- [ ] Reconcile the existing 31 release rows with actual evidence.
+- [x] Verify consent/assignment races against real Postgres and final-source CI.
+- [x] Complete scoped scheduling/auth/notification hardening and operational runbooks.
+- [x] Reconcile the existing 31 release rows with actual evidence.
 - [ ] Physical Android, human language, environment/recovery and founder release signoffs.
 - NO-GO remains; code-test completion does not authorize real patient activity.
 

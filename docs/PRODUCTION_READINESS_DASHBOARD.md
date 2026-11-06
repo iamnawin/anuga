@@ -7,7 +7,7 @@ This dashboard summarizes progress; only the matrix and linked evidence can clos
 |---|---|---|---|
 | P0 Consent withdrawal | Blocked | DB-enforced detail/action denial, OTP protection, serialization; PR #24 CI seven jobs pass | Apply/attest candidate schema in approved environment; execute active-visit safety workflow rehearsal |
 | P0 Production isolation and parity | Blocked | Read-only catalogue attestation SQL and exact operator procedure | Name separate real-data project; Auth/Storage/Edge/Vercel dashboard receipts; schema/grant/policy comparison; seed-free proof |
-| P1 Companion scheduling and pricing | In progress | Founder occupancy contract implemented at DB boundary, including late visits and concurrent checks | Final real-Supabase CI; active-visit handover rehearsal. Pricing, charging, no-show and subscriptions remain founder decisions |
+| P1 Companion scheduling and pricing | Blocked | Founder occupancy contract verified at the DB boundary, including late visits and concurrent checks; PR #26 CI seven jobs pass | Active-visit handover rehearsal. Pricing, charging, no-show and subscriptions remain founder decisions |
 | P1 Android, language and session recovery | Blocked | Ops/unified stale-session races fixed; PR #25 app/Android and real-Supabase CI pass | Physical Android Chrome/PWA execution; real expiry/network/account-switch evidence; signed Telugu/Hindi healthcare review |
 | P1 Notifications, payments and recovery | Blocked | Truthful issue text, sensitive-error redaction, read-only attestation, operations/restore/rollback/incident runbooks | Named owners; provider/payment policy; alert receipt; retention approval; isolated DB+Storage+Auth recovery/rollback/incident drill |
 
@@ -30,7 +30,7 @@ No deployment, merge, hosted migration, cleanup, real SMS or payment is authoriz
 
 ## Evidence sequence
 
-1. Review stacked PRs #22 → #23 → #24 → #25 → scheduling → operations.
+1. Review stacked PRs #22 -> #23 -> #24 -> #25 -> #26 -> #27. Final technical source `618af1d` passed all seven CI jobs in run `42041948258`.
 2. Release owner identifies the intended environment and completes the read-only
    [attestation](runbooks/environment-attestation.md); no migration is applied by this check.
 3. Platform/Ops execute the isolated recovery and incident drill in

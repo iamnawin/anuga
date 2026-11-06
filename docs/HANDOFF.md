@@ -10,6 +10,13 @@ the attestation SQL executes read-only in the disposable harness. See
 Hosted attestation, alert/recovery/incident drills, physical Android and human
 language review remain open. NO-GO; no deploy/merge/cleanup/provider activation.
 
+Final technical source `618af1d` on PR #27 passed all seven jobs in CI
+`42041948258`; the stacked PR #26 run `42041948190` also passed all seven jobs.
+The production hardening stack is PR #24 consent, #25 session recovery, #26
+Companion occupancy and #27 operations. Seven of nine `PRODUCTION_GATES.md`
+acceptance gates are met. G7 physical Android/native-language approval and G8
+production boundary/recovery/safety/release attestations remain open.
+
 ## Session lifecycle hardening (2026-11-04)
 
 `fix/production-session-recovery` invalidates late role/bootstrap responses after

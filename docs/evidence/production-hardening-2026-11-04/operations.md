@@ -9,7 +9,7 @@ Runtime hardening removes an unsupported acknowledgement from EN/TE/HI issue
 notifications and replaces raw provider/database exception text in notification
 failure records, dispatcher responses, vault logs/responses and payment logs/
 responses with fixed error classes. Positive-marker regressions failed before and
-pass after: 35/35 focused tests.
+pass after: 36/36 focused tests.
 
 Official Supabase documentation confirms database backups exclude Storage bytes,
 restore-to-new-project needs manual Storage/Edge/Auth reconfiguration, and S3

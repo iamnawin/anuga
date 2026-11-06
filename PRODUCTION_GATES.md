@@ -25,8 +25,8 @@ Scope: executable fixes and evidence; no merge, deploy, hosted cleanup, real SMS
   EXPECT: ALL CHECKS PASSED
   EVIDENCE: automatic-evidence=v1; definition-sha256=98df180913d68aff0172d0f3a908ec37f128c7a37a8c1577a342a9393f9642de; exit=0; EXPECT=matched; output-sha256=bc249a83be76d0c13f6d250af6ed4ebfd8b8893dc6245f0a1a34cf29e8dfda18; output-bytes=60073; shell=C:\WINDOWS\system32\cmd.exe; cwd=D:\AI-Workspace\Repos\anuga-trips-fix; path=994d60dcc68d/58 entries. After later stacked changes, combined DB 215/215 decided cases pass (11 environment skips); root/Ops/shared checks passed before one local analyzer stall, then Companion/Family/unified analyze and 57/57/39 tests passed on clean reruns. Final-source CI is G6.
 
-- [ ] G6: technical candidates pass applicable real-Supabase/browser CI and Android build jobs
-  EVIDENCE: PR24 CI 41849818581 and PR25 CI 41993514673 pass all seven jobs. PR26/PR27 final-source CI pending.
+- [x] G6: technical candidates pass applicable real-Supabase/browser CI and Android build jobs
+  EVIDENCE: PR24 CI 41849818581, PR25 CI 41993514673, PR26 CI 42041948190 and final technical source PR27 CI 42041948258 each pass all seven jobs. PR27 run 42041948258 verifies commit 618af1d85e62b91e19fee0507c0ac4aa6ac5b720, including real Supabase/browser journeys and all Android debug builds.
 
 - [ ] G7: physical Android Chrome/PWA and native-speaker healthcare approval have actual signed receipts
   EVIDENCE: pending; hardware and human reviewers unavailable
@@ -35,4 +35,4 @@ Scope: executable fixes and evidence; no merge, deploy, hosted cleanup, real SMS
   EVIDENCE: pending; production changes/deployment not authorized
 
 - [x] G9: final 31-row matrix/dashboard records exact fixes, PRs, evidence and remaining owner decisions
-  EVIDENCE: `docs/PRODUCTION_READINESS.md` remains the 31-row source of truth; `docs/PRODUCTION_READINESS_DASHBOARD.md` links technical progress, owners, decisions and the exact external evidence sequence. Final CI references pending.
+  EVIDENCE: `docs/PRODUCTION_READINESS.md` remains the 31-row source of truth; `docs/PRODUCTION_READINESS_DASHBOARD.md` links technical progress, owners, decisions and the exact external evidence sequence. Final technical source CI is 42041948258.
