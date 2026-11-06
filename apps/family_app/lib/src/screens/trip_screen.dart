@@ -191,6 +191,10 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                           maxLines: 4,
                         ),
                       ),
+                      if (_progressStatus(b.status, events) case final progress?) ...[
+                        const SizedBox(height: 12),
+                        _VisitProgressStrip(status: progress),
+                      ],
                       _Fact(l10n.pickupAt(formatIstTime(b.scheduledPickupAt, locale))),
                       _Fact(l10n.returnAt(formatIstTime(b.scheduledReturnAt, locale))),
                       _Fact('${l10n.centre}: ${b.centreName}'),
@@ -268,6 +272,62 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+const _visitProgressStatuses = [
+  TripStatus.scheduled,
+  TripStatus.companionEnRoute,
+  TripStatus.pickedUp,
+  TripStatus.atCentre,
+  TripStatus.handedOver,
+  TripStatus.sessionDone,
+  TripStatus.returning,
+  TripStatus.droppedHome,
+  TripStatus.completed,
+];
+
+TripStatus? _progressStatus(TripStatus current, List<TripEvent>? events) {
+  if (_visitProgressStatuses.contains(current)) return current;
+  if (current != TripStatus.issueReported || events == null) return null;
+  for (final event in events.reversed) {
+    if (_visitProgressStatuses.contains(event.toStatus)) return event.toStatus;
+  }
+  return null;
+}
+
+/// A compact visual summary of the real nine-state journey. Exact localized
+/// status text and the persisted event timeline remain the accessible content.
+class _VisitProgressStrip extends StatelessWidget {
+  const _VisitProgressStrip({required this.status});
+
+  final TripStatus status;
+
+  @override
+  Widget build(BuildContext context) {
+    final current = _visitProgressStatuses.indexOf(status);
+    final colors = Theme.of(context).colorScheme;
+    return ExcludeSemantics(
+      child: Row(
+        key: const Key('visit-progress'),
+        children: [
+          for (var index = 0; index < _visitProgressStatuses.length; index++) ...[
+            Expanded(
+              key: Key('visit-progress-stage-$index'),
+              child: Container(
+                key: index == current ? Key('visit-progress-current-$index') : null,
+                height: index == current ? 8 : 6,
+                decoration: BoxDecoration(
+                  color: index <= current ? colors.primary : colors.outlineVariant,
+                  borderRadius: BorderRadius.circular(999),
+                ),
+              ),
+            ),
+            if (index != _visitProgressStatuses.length - 1) const SizedBox(width: 4),
+          ],
+        ],
       ),
     );
   }
