@@ -177,6 +177,7 @@ export interface OpsApi {
   confirmCareRequest(scheduleId: string): Promise<CreatedTripDate[]>;
   assignTripCompanion(tripId: string, companionId: string): Promise<void>;
   advanceTrip(tripId: string, to: TripStatus, note: string | null): Promise<void>;
+  resolveVisitIssue(tripId: string, expectedSince: string, to: TripStatus, note: string | null): Promise<void>;
   recordTripFare(tripId: string, farePaise: number): Promise<void>;
   invoices(monthStart: string): Promise<InvoiceRow[]>;
   generateInvoice(patientId: string, monthStart: string): Promise<string>;
@@ -207,6 +208,12 @@ export function createOpsApi(client: RpcClient): OpsApi {
     },
     advanceTrip: async (tripId, to, note) => {
       await call(client.rpc('advance_trip', { p_trip_id: tripId, p_to_status: to, p_note: note }));
+    },
+    resolveVisitIssue: async (tripId, expectedSince, to, note) => {
+      // Preserve the server timestamp, including microseconds, for the issue guard.
+      await call(client.rpc('ops_resolve_visit_issue', {
+        p_trip_id: tripId, p_expected_since: expectedSince, p_to_status: to, p_note: note,
+      }));
     },
     recordTripFare: async (tripId, farePaise) => {
       await call(client.rpc('ops_record_trip_fare', { p_trip_id: tripId, p_fare_paise: farePaise }));

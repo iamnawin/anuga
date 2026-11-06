@@ -75,6 +75,8 @@
   "errorNotAllowed": "Not allowed. This trip may have been reassigned.",
   "errorStepNotPossible": "This step is no longer possible. Refresh the trip.",
   "tripCompleted": "Visit completed. Thank you!",
-  "issueReported": "Issue reported. Ops will contact you.",
-  "tripClosed": "This trip is closed."
+  "issueReported": "Issue recorded.",
+  "tripClosed": "This trip is closed.",
+  "issueNoteHelp": "For ops only. This note is not shared with the family.",
+  "issueWaiting": "This visit needs ops attention. You can continue after ops updates its status. Refresh to check."
 }

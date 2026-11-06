@@ -1,0 +1,21 @@
+{
+  "project": "vsvkllfgrnlbhdydysny",
+  "cleanup_executed": false,
+  "records": [
+    {
+      "schedule_id": "59290d82-908c-427a-98db-dd44df39725f",
+      "trip_id": "1308153b-399e-4831-9454-f44fb7fb9530",
+      "pickup_ist": "2026-11-03 12:08",
+      "state": "completed",
+      "assignee": "Asha Companion (synthetic)"
+    },
+    {
+      "schedule_id": "495bb4e9-be73-4991-8096-012b55aeb7d3",
+      "trip_id": "eaf13b18-7f1c-48f8-8a59-e6b7fd2e4db6",
+      "pickup_ist": "2026-11-03 20:10",
+      "state": "completed",
+      "assignee": "Asha Companion (synthetic)"
+    }
+  ],
+  "effects": "Two new synthetic care schedules/trips completed; only these new visits received issue/resolve actions. No existing visit changed."
+}

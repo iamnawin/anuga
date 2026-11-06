@@ -63,7 +63,7 @@
   "statusCompleted": "पूर्ण",
   "statusCancelled": "रद्द",
   "statusNoShow": "मरीज़ उपलब्ध नहीं थे",
-  "statusIssueReported": "समस्या दर्ज; हमारी टीम देख रही है",
+  "statusIssueReported": "सेवा में समस्या",
   "tabRecords": "रिकॉर्ड",
   "noRecords": "अभी कोई रिपोर्ट नहीं।",
   "addReportPhoto": "रिपोर्ट की फ़ोटो जोड़ें",
@@ -136,5 +136,6 @@
   "careAssigned": "पुष्टि हुई · साथी नियुक्त",
   "careInactive": "निष्क्रिय अनुरोध",
   "careOpenVisit": "यात्रा खोलें",
-  "visitLatestUpdate": "यात्रा का नवीनतम अपडेट: {dateTime}"
+  "visitLatestUpdate": "यात्रा का नवीनतम अपडेट: {dateTime}",
+  "serviceIssueHelp": "इस यात्रा पर ऑप्स का ध्यान आवश्यक है। दर्ज की गई नवीनतम सेवा स्थिति देखने के लिए रिफ्रेश करें।"
 }

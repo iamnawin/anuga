@@ -127,7 +127,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
       case TripActionKind.noShow:
         if (!await _confirm(l10n.confirmNoShow)) return;
       case TripActionKind.reportIssue:
-        note = await _askNote(l10n.issueNote, l10n.issueNoteRequired, required: true);
+        note = await _askNote(l10n.issueNote, l10n.issueNoteRequired, required: true, help: l10n.issueNoteHelp);
         if (note == null) return;
       case TripActionKind.advance when action.note != NoteRequirement.none:
         final required = action.note == NoteRequirement.required;
@@ -213,10 +213,12 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
   }
 
   /// Returns the trimmed note, '' for an empty optional note, or null when cancelled.
-  Future<String?> _askNote(String label, String requiredMessage, {required bool required}) => showDialog<String>(
-    context: context,
-    builder: (context) => _NoteDialog(label: label, requiredMessage: requiredMessage, required: required),
-  );
+  Future<String?> _askNote(String label, String requiredMessage, {required bool required, String? help}) =>
+      showDialog<String>(
+        context: context,
+        builder: (context) =>
+            _NoteDialog(label: label, requiredMessage: requiredMessage, required: required, help: help),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -347,6 +349,10 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                 child: Text(l10n.emergencyNumber, style: TextStyle(color: theme.colorScheme.onErrorContainer)),
               ),
               const SizedBox(height: 24),
+              if (_status == TripStatus.issueReported) ...[
+                Text(l10n.issueWaiting, key: const Key('issue-waiting'), style: theme.textTheme.bodyLarge),
+                const SizedBox(height: 16),
+              ],
               if (_status.isTerminal) ...[
                 Text(l10n.tripClosed, style: theme.textTheme.titleMedium),
                 const SizedBox(height: 16),
@@ -427,11 +433,12 @@ class _Fact extends StatelessWidget {
 
 /// Owns its text controller so it is disposed only after the dialog is gone.
 class _NoteDialog extends StatefulWidget {
-  const _NoteDialog({required this.label, required this.requiredMessage, required this.required});
+  const _NoteDialog({required this.label, required this.requiredMessage, required this.required, this.help});
 
   final String label;
   final String requiredMessage;
   final bool required;
+  final String? help;
 
   @override
   State<_NoteDialog> createState() => _NoteDialogState();
@@ -453,13 +460,22 @@ class _NoteDialogState extends State<_NoteDialog> {
     return AlertDialog(
       scrollable: true,
       title: Text(widget.label),
-      content: TextField(
-        key: const Key('note'),
-        controller: _controller,
-        autofocus: true,
-        minLines: 2,
-        maxLines: 5,
-        decoration: InputDecoration(errorText: _error),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (widget.help != null) ...[
+            Text(widget.help!, key: const Key('issue-note-help')),
+            const SizedBox(height: 12),
+          ],
+          TextField(
+            key: const Key('note'),
+            controller: _controller,
+            autofocus: true,
+            minLines: 2,
+            maxLines: 5,
+            decoration: InputDecoration(errorText: _error),
+          ),
+        ],
       ),
       actions: [
         TextButton(onPressed: () => Navigator.pop(context), child: Text(l10n.cancel)),

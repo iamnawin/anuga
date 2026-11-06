@@ -33,7 +33,7 @@ describe('family_my_patients', () => {
 });
 
 describe('family_trip_timeline', () => {
-  test('family sees the status events oldest first, with notes but no locations', async () => {
+  test('family sees status events and public notes, without operational issue notes or locations', async () => {
     const tripId = await createTrip(30);
     await advance(ids.asha, tripId, 'companion_en_route', 'leaving now (synthetic)');
     await advance(ids.asha, tripId, 'issue_reported', 'traffic block (synthetic)');
@@ -41,7 +41,7 @@ describe('family_trip_timeline', () => {
       const rows = await probeAsUser(user, (db) => db.query('select * from public.family_trip_timeline($1)', [tripId]));
       assert.deepEqual(rows.map((r) => [r.from_status, r.to_status, r.actor_kind, r.note]), [
         ['scheduled', 'companion_en_route', 'companion', 'leaving now (synthetic)'],
-        ['companion_en_route', 'issue_reported', 'companion', 'traffic block (synthetic)'],
+        ['companion_en_route', 'issue_reported', 'companion', null],
       ]);
       for (const hidden of ['location', 'actor_id']) assert.ok(!(hidden in rows[0]), hidden);
     }

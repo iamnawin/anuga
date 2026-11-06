@@ -1,0 +1,9 @@
+{
+  "project": "vsvkllfgrnlbhdydysny",
+  "file": "supabase/migrations/20261103000100_private_visit_issue_notes.sql",
+  "sha256": "96d427a07c9f61f488ad2e54521fda70eba2f5ef14586413e7a1f8f2cf039f87",
+  "applied_by": "Founder in SQL Editor",
+  "reported_result": "Success. No rows returned",
+  "agent_executed_sql": false,
+  "behavior_verified": "Real hosted report -> Ops guarded resolution -> Family note isolation -> completion"
+}

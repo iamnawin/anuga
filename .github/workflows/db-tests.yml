@@ -225,6 +225,11 @@ jobs:
         env:
           CARE_REQUEST_JOURNEY: 1
           CI: true
+      - name: Visit issue, explicit Ops resolution, private Family status
+        run: pnpm --filter @companion/ops_console exec playwright test e2e/issue_handling.spec.ts
+        env:
+          CARE_REQUEST_JOURNEY: 1
+          CI: true
       - if: always()
         uses: actions/upload-artifact@v5
         with:
@@ -232,6 +237,7 @@ jobs:
           path: |
             apps/anugacare_app/build/web/
             apps/ops_console/test-results/care-request/
+            apps/ops_console/test-results/issue-handling/
           if-no-files-found: ignore
       # M7: the first journey across ops console (browser), companion + family API layers
       # and the notify-dispatch Edge Function, in order, on a fresh seed.

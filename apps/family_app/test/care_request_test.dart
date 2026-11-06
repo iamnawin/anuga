@@ -11,7 +11,12 @@ import 'package:shared_dart/shared_dart.dart';
 import 'support/fake_backend.dart';
 import 'support/pump.dart';
 
-Future<void> pumpBookings(WidgetTester tester, FakeFamilyBackend backend, {String language = 'en'}) async {
+Future<void> pumpBookings(
+  WidgetTester tester,
+  FakeFamilyBackend backend, {
+  String language = 'en',
+  FamilyApi? api,
+}) async {
   usePhoneScreen(tester);
   await tester.pumpWidget(
     MaterialApp(
@@ -28,7 +33,7 @@ Future<void> pumpBookings(WidgetTester tester, FakeFamilyBackend backend, {Strin
       builder: largeText,
       home: Scaffold(
         body: BookingsTab(
-          api: backend.api,
+          api: api ?? backend.api,
           patient: FamilyPatient(
             patientId: 'p1',
             fullName: 'Lakshmi Rao (synthetic)',
@@ -56,7 +61,71 @@ Future<void> reviewRequest(WidgetTester tester) async {
   await tapVisible(tester, byKey('care-review'));
 }
 
+List<Map<String, Object?>> requestRows(String state) => [
+  {
+    'schedule_id': 's1',
+    'patient_id': 'p1',
+    'patient_name': 'Lakshmi Rao (synthetic)',
+    'centre_id': 'c1',
+    'centre_name': 'Centre 1',
+    'package_id': 'basic',
+    'package_name': 'Basic',
+    'pickup_at': '2026-11-04T01:45:00Z',
+    'trip_id': 't1',
+    'trip_status': state,
+    'companion_name': 'Asha Companion (synthetic)',
+    'request_state': state,
+  },
+];
+
 void main() {
+  testWidgets('a slower bookings response cannot replace the latest care status', (tester) async {
+    final responses = <Completer<Object?>>[];
+    await pumpBookings(
+      tester,
+      FakeFamilyBackend(),
+      api: FamilyApi((fn, params) async {
+        if (fn == 'family_trip_board') return <Object?>[];
+        final response = Completer<Object?>();
+        responses.add(response);
+        return response.future;
+      }),
+    );
+    await tapVisible(tester, byKey('care-refresh'));
+    responses[1].complete(requestRows('completed'));
+    await tester.pumpAndSettle();
+    responses[0].complete(requestRows('issue_reported'));
+    await tester.pumpAndSettle();
+    expect(find.text('Completed'), findsOneWidget);
+    expect(find.text('Service issue'), findsNothing);
+  });
+
+  testWidgets('failed bookings refresh clears old cards and recovers without replaying a request', (tester) async {
+    var fail = false;
+    final backend = FakeFamilyBackend()
+      ..addVisit(FakeVisit(id: 'old', pickupAt: DateTime.utc(2026, 11, 4), status: TripStatus.scheduled));
+    await pumpBookings(
+      tester,
+      backend,
+      api: FamilyApi((fn, params) async {
+        if (fail) throw const RpcException('42501', 'not allowed');
+        if (fn == 'family_care_requests') return requestRows('issue_reported');
+        return backend.rpc(fn, params);
+      }),
+    );
+    expect(byKey('booking-old'), findsOneWidget);
+    expect(byKey('care-request-s1'), findsOneWidget);
+    fail = true;
+    await tapVisible(tester, byKey('care-refresh'));
+    expect(byKey('booking-old'), findsNothing);
+    expect(byKey('care-request-s1'), findsNothing);
+    expect(find.text('You do not have permission for this.'), findsOneWidget);
+    fail = false;
+    await tapVisible(tester, byKey('care-refresh'));
+    expect(byKey('care-request-s1'), findsOneWidget);
+    expect(backend.careSubmissions, isEmpty);
+  });
+
   testWidgets('request is reviewed, persisted and reloaded with ops-backed states', (tester) async {
     final backend = FakeFamilyBackend();
     await pumpBookings(tester, backend);

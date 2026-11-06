@@ -1,0 +1,57 @@
+{
+  "backend": "Existing hosted synthetic Supabase: real Auth/Postgres/RPCs/RLS",
+  "surface": "desktop Chromium phone viewport; no physical-device claim",
+  "family_identity": {
+    "user_id": "20000000-0000-0000-0000-000000000001",
+    "phone": "919000000101"
+  },
+  "pickup_ist": "2026-11-03 20:10",
+  "schedule_id": "495bb4e9-be73-4991-8096-012b55aeb7d3",
+  "ops_identity": {
+    "user_id": "10000000-0000-0000-0000-000000000001",
+    "phone": "919000000001"
+  },
+  "trip_id": "eaf13b18-7f1c-48f8-8a59-e6b7fd2e4db6",
+  "companion_identity": {
+    "user_id": "30000000-0000-0000-0000-000000000001",
+    "phone": "919000000201"
+  },
+  "issue_reported_at": "2026-11-03T13:22:18.456393+00:00",
+  "underway_reassignment_denied": true,
+  "family_private_notes_absent_during_issue": {
+    "family_trip_timeline": true,
+    "family_trip_board": true,
+    "family_care_requests": true,
+    "my_notifications": true,
+    "direct_trips": true,
+    "direct_trip_events": true,
+    "direct_notifications": true
+  },
+  "resumed_at": "2026-11-03T13:22:20.952637+00:00",
+  "family_private_notes_absent_after_resolution": {
+    "family_trip_timeline": true,
+    "family_trip_board": true,
+    "family_care_requests": true,
+    "my_notifications": true,
+    "direct_trips": true,
+    "direct_trip_events": true,
+    "direct_notifications": true
+  },
+  "completion": {
+    "family": "completed",
+    "companion": "completed",
+    "ops": "completed",
+    "assignee_unchanged": true
+  },
+  "required_completion_note_persisted": true,
+  "family_private_notes_absent_at_completion": {
+    "family_trip_timeline": true,
+    "family_trip_board": true,
+    "family_care_requests": true,
+    "my_notifications": true,
+    "direct_trips": true,
+    "direct_trip_events": true,
+    "direct_notifications": true
+  },
+  "result": "Pass"
+}

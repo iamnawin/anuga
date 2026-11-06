@@ -184,7 +184,12 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                     children: [
                       Chip(
                         key: const Key('status'),
-                        label: Text(statusLabel(l10n, b.status), style: const TextStyle(fontSize: 18)),
+                        label: Text(
+                          statusLabel(l10n, b.status),
+                          style: const TextStyle(fontSize: 18),
+                          softWrap: true,
+                          maxLines: 4,
+                        ),
                       ),
                       _Fact(l10n.pickupAt(formatIstTime(b.scheduledPickupAt, locale))),
                       _Fact(l10n.returnAt(formatIstTime(b.scheduledReturnAt, locale))),
@@ -202,6 +207,11 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                   ),
                 ),
                 const SizedBox(height: 12),
+                if (b.status == TripStatus.issueReported)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Text(l10n.serviceIssueHelp, key: const Key('visit-issue-help')),
+                  ),
                 if (_canIssueCode)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),

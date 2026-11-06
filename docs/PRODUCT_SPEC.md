@@ -63,6 +63,11 @@ restricted functions), not only in app code.
 - **OTP at pickup**: family/patient issues a code in their app and shares it with the companion.
 - Live location of companion during active trip only.
 - Post-visit note from companion (text + optional photo of a report/receipt).
+- Issue reports and Ops transition notes are internal operational context;
+  Family receives persisted service status/time, while companion handover and
+  post-visit notes remain Family-facing (ADR 0008). Ops explicitly resumes the
+  recorded prior stage or cancels through existing permissions; missing stage
+  blocks resume. Underway reassignment is not supported by the current rules.
 
 ### 3.3 Health vault (private)
 

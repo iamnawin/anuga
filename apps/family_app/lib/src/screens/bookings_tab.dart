@@ -23,6 +23,7 @@ class _BookingsTabState extends State<BookingsTab> {
   List<FamilyBoardRow>? _rows;
   List<CareRequest>? _requests;
   Object? _error;
+  int _request = 0;
 
   @override
   void initState() {
@@ -31,12 +32,19 @@ class _BookingsTabState extends State<BookingsTab> {
   }
 
   Future<void> _load() async {
+    if (!mounted) return;
+    final request = ++_request;
+    setState(() {
+      _rows = null;
+      _requests = null;
+      _error = null;
+    });
     try {
       final result = await Future.wait<Object>([
         widget.api.tripBoard(widget.patient.patientId),
         widget.api.careRequests(widget.patient.patientId),
       ]);
-      if (mounted) {
+      if (mounted && request == _request) {
         setState(() {
           _rows = result[0] as List<FamilyBoardRow>;
           _requests = result[1] as List<CareRequest>;
@@ -44,7 +52,7 @@ class _BookingsTabState extends State<BookingsTab> {
         });
       }
     } catch (e) {
-      if (mounted) setState(() => _error = e);
+      if (mounted && request == _request) setState(() => _error = e);
     }
   }
 
