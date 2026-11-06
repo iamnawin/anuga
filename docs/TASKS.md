@@ -1,5 +1,34 @@
 # Tasks and milestones
 
+## Autonomous integration, UI and synthetic staging mission (2026-11-06) `[~]`
+
+Authoritative atomic task status and fixed weights live in
+`docs/PROGRESS_LEDGER.md`; resume instructions live in `docs/RECOVERY.md`.
+
+- [~] `STATE-001`: establish and push durable execution/recovery records.
+- [x] `INT-001`: reconcile main, worktrees, PRs #21-#27, CI and migrations.
+- [~] `INT-002`: integrate the implemented/green #22-#27 stack into main in
+      dependency order; not yet merged.
+- [~] `UI-001`: reconcile the three new reference boards with approved tokens and
+      supported functionality; boards are not runtime evidence.
+- [~] `UI-002` / `UI-003` / `UI-004`: preserve existing implemented Family and
+      Companion flows; audit supported Patient view and make only evidence-backed
+      targeted UI changes after stack integration.
+- [ ] `NAV-001`: verify configured navigation capability; prefer a truthful
+      external handoff over fabricated map/ETA UI.
+- [~] `PWA-001`: prior implementation exists; target deployed install/session/
+      cache behavior and physical-device acceptance remain open.
+- [x] `QA-001`: current PR #27 real-Supabase CI journeys pass; rerun on integrated
+      main and deployed synthetic staging.
+- [!] `QA-002`: physical Android and human Telugu/Hindi/healthcare wording review
+      require named people and remain NOT TESTED.
+- [~] `REL-001`: PR/CI completion in progress; no stack merge yet.
+- [ ] `REL-002`: hosted identity/history/recovery verification, migrations,
+      deployment and post-deploy journey not started.
+
+Current mission progress: implemented 56/100, verified 18/100, merged 0/100,
+deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
+
 ## PR #27 CI fixture repair (2026-11-06) `[x]`
 
 - [x] Inspect run `42167845149`, uploaded screenshots/receipt, job/server logs,

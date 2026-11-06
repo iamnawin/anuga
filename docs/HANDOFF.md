@@ -1,5 +1,24 @@
 # Handoff
 
+## Persistent mission recovery checkpoint (2026-11-06 15:57 IST)
+
+The autonomous integration/UI/synthetic-staging mission now has durable state in
+`docs/EXECUTION_STATE.md`, `docs/PROGRESS_LEDGER.md`, `docs/RECOVERY.md` and
+`docs/RELEASE_CHECKLIST.md`. GitHub was freshly reconciled: `origin/main` remains
+PR #21 merge `21ae9bc`; PRs #22-#27 are open in a literal dependency chain,
+mergeable/CLEAN, and each has seven successful CI jobs. PR #27 is `d14e55c` and
+CI `42172886236` is green. No stack PR, November hosted migration or target
+staging deployment has occurred.
+
+The full local suite on `d14e55c` reached `ALL CHECKS PASSED`; the ignored
+Unlazy ledger still needs one clean evidence rerun after correcting its matcher.
+The three new Family/Patient/Companion boards are reference inputs only. They do
+not authorize maps/ETA, calls, clinical checklists, payments, expanded Patient
+access or a four-stage replacement for the real visit lifecycle. Next: commit
+and push this recovery checkpoint, rerun the corrected local gate, then merge
+#22-#27 sequentially before starting new UI work from main. Physical Android and
+human Telugu/Hindi approval remain separate, unperformed gates.
+
 ## PR #27 care-request CI fixture repair (2026-11-06)
 
 Latest run `42167845149` failed only the real-Supabase care-request browser
