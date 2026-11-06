@@ -1,6 +1,6 @@
 # AnugaCare progress ledger
 
-Last reconciled: 2026-11-06 15:57:39 IST (Asia/Kolkata)
+Last reconciled: 2026-11-06 16:05:39 IST (Asia/Kolkata)
 
 Statuses are `NOT_STARTED`, `IN_PROGRESS`, `IMPLEMENTED`, `VERIFIED`, `MERGED`
 or `BLOCKED`. A higher state is never inferred from a lower one.
@@ -12,9 +12,9 @@ the task table, not estimated from chat activity.
 
 | Task | Weight | Status | Dependency | Objective and acceptance | Branch / commit / PR | Tests and evidence | Remaining work / exact next action |
 | --- | ---: | --- | --- | --- | --- | --- | --- |
-| STATE-001 Durable recovery state | 5 | IN_PROGRESS | None | Execution state, ledger, recovery and release checklist exist; HANDOFF/TASKS agree with Git and CI | `fix/production-operations-hardening` / `d14e55c` / PR #27 | Git/GitHub reconciled 2026-11-06 15:57 IST | Commit and push these records, then change to VERIFIED after diff checks |
+| STATE-001 Durable recovery state | 5 | VERIFIED | None | Execution state, ledger, recovery and release checklist exist; HANDOFF/TASKS agree with Git and CI | `fix/production-operations-hardening` / checkpoint `7a06f1b` / PR #27 | Pushed; diff checks pass; corrected Unlazy full-suite gate passed 2026-11-06 16:05 IST | Preserve these files at every later checkpoint |
 | INT-001 Repository and PR audit | 8 | VERIFIED | None | Main, worktrees, local changes, PRs #21-#27, CI and migration chain are inventoried from actual sources | PRs #22-#27; head `d14e55c` | Literal ancestry verified; all six PRs clean/mergeable; 7/7 CI each; latest run `42172886236` | Preserve evidence when bases change during merge |
-| INT-002 Hardening stack integration | 10 | IMPLEMENTED | INT-001 | #22-#27 remain compatible and land on main in order without weakening access controls | Current stack ends at PR #27 `d14e55c` | Full suite reached `ALL CHECKS PASSED`; hosted changes none | Rerun corrected gate, make #23 ready, merge/retarget sequentially, verify main CI |
+| INT-002 Hardening stack integration | 10 | IMPLEMENTED | INT-001 | #22-#27 remain compatible and land on main in order without weakening access controls | Current stack ends at PR #27 checkpoint `7a06f1b` | Corrected full-suite gate passes; CI `42203363529` running; hosted changes none | Wait for CI, make #23 ready, merge/retarget sequentially, verify main CI |
 | UI-001 Brand system and reference reconciliation | 7 | IN_PROGRESS | INT-002 | Existing tokens remain authoritative; new boards are stored as source references and mapped to supported capabilities | New UI branch not created | `docs/design/tokens.md` maps prior boards and access deviations | Add the three supplied boards, extend mapping, audit real screens, avoid unsupported maps/calls/clinical copy |
 | UI-002 Family experience | 10 | IMPLEMENTED | UI-001 | Supported request, pending, confirmation, assignment, OTP, milestones, refresh and completion screens use real RPC data and accessible states | Existing merged UI plus PR #22 stack | Family widget/API and real-Supabase journey tests green in CI | Audit against new board, fix only verified UX gaps, capture actual screenshots |
 | UI-003 Patient-supported experience | 5 | IN_PROGRESS | UI-001 | Deliver the elderly-friendly view permitted by the existing role/access contract; no invented independent role | Existing family/unified app | Current family patient-view behavior exists; contract audit incomplete | Trace role routing and permissions, document supported mode, implement only proven gaps |
@@ -28,10 +28,10 @@ the task table, not estimated from chat activity.
 
 ## Progress calculation
 
-Current evidence-weighted state at 2026-11-06 15:57 IST:
+Current evidence-weighted state at 2026-11-06 16:05 IST:
 
-- Implemented: 56/100 (INT-001, INT-002, UI-002, UI-004, PWA-001, QA-001)
-- Verified: 18/100 (INT-001, QA-001)
+- Implemented: 61/100 (STATE-001, INT-001, INT-002, UI-002, UI-004, PWA-001, QA-001)
+- Verified: 23/100 (STATE-001, INT-001, QA-001)
 - Merged into current `main`: 0/100 for this mission's tasks
 - Deployed and verified on synthetic staging: 0/100 for this mission's target commit
 

@@ -5,7 +5,8 @@
 Authoritative atomic task status and fixed weights live in
 `docs/PROGRESS_LEDGER.md`; resume instructions live in `docs/RECOVERY.md`.
 
-- [~] `STATE-001`: establish and push durable execution/recovery records.
+- [x] `STATE-001`: durable execution/recovery records pushed at `7a06f1b`;
+      corrected full local Unlazy gate passes.
 - [x] `INT-001`: reconcile main, worktrees, PRs #21-#27, CI and migrations.
 - [~] `INT-002`: integrate the implemented/green #22-#27 stack into main in
       dependency order; not yet merged.
@@ -26,7 +27,7 @@ Authoritative atomic task status and fixed weights live in
 - [ ] `REL-002`: hosted identity/history/recovery verification, migrations,
       deployment and post-deploy journey not started.
 
-Current mission progress: implemented 56/100, verified 18/100, merged 0/100,
+Current mission progress: implemented 61/100, verified 23/100, merged 0/100,
 deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
 
 ## PR #27 CI fixture repair (2026-11-06) `[x]`

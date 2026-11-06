@@ -1,5 +1,14 @@
 # Handoff
 
+## Durable checkpoint validation (2026-11-06 16:05 IST)
+
+Recovery state commit `7a06f1b` is pushed on PR #27. The corrected ignored
+Unlazy G2 oracle reran the complete `scripts/check-all.sh` suite on that exact
+head and passed (exit 0, expected success marker matched). PR CI run
+`42203363529` is in progress; do not merge until all seven jobs pass. `STATE-001`
+is VERIFIED. Active task is `INT-002`: sequential #22-#27 integration after CI.
+No runtime file, hosted migration, deployment or synthetic record changed.
+
 ## Persistent mission recovery checkpoint (2026-11-06 15:57 IST)
 
 The autonomous integration/UI/synthetic-staging mission now has durable state in
