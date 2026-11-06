@@ -1,0 +1,73 @@
+{
+  "checkedAtUtc": "2026-11-04T14:12:37.642Z",
+  "auditBranch": "docs/production-readiness-2026-11-04",
+  "auditedSource": "fd6c8dc53b45c7bbca01609ed9ca64f28028a5e4",
+  "codeBearingSource": "335b58bdaf4eaa51210f9d124983cf61e409cc98",
+  "originMain": "21ae9bc2ad4ae4e5bb3befd8b4b27a8b3b1bd65c",
+  "pr20": {
+    "headRefOid": "5e2dfc2690c4d9b1107fa0655eec717ad2eb5bbb",
+    "mergeCommit": {
+      "oid": "ce90f7ca51506fc67cbf6a7dd9cbd52b7da9a978"
+    },
+    "mergedAt": "2026-11-02T15:15:22Z",
+    "number": 20,
+    "state": "MERGED"
+  },
+  "pr21": {
+    "merged": true,
+    "mergeCommit": "21ae9bc2ad4ae4e5bb3befd8b4b27a8b3b1bd65c",
+    "mergedAt": "2026-11-03T05:00:32Z",
+    "verification": "GitHub connector metadata"
+  },
+  "pr22": {
+    "baseRefOid": "21ae9bc2ad4ae4e5bb3befd8b4b27a8b3b1bd65c",
+    "headRefOid": "fd6c8dc53b45c7bbca01609ed9ca64f28028a5e4",
+    "mergedAt": null,
+    "number": 22,
+    "state": "OPEN",
+    "url": "https://github.com/iamnawin/anuga/pull/22"
+  },
+  "documentationHeadCi": {
+    "headSha": "fd6c8dc53b45c7bbca01609ed9ca64f28028a5e4",
+    "url": "https://github.com/iamnawin/anuga/actions/runs/41842285891",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "supabase-local",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "family-app",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "companion-app",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "anugacare-app",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "ops-console",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "shared-dart",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "db-tests",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  }
+}

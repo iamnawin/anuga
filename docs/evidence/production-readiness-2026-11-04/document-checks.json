@@ -1,0 +1,15 @@
+{
+  "result": "AUDIT_DOCUMENT_CHECKS_PASSED",
+  "localLinksChecked": 49,
+  "releaseRows": 31,
+  "statuses": {
+    "Blocked": 8,
+    "Pass": 10,
+    "Not Tested": 6,
+    "Fail": 7
+  },
+  "physicalCases": 14,
+  "languageMatrix": "D15",
+  "localeKeysPerLanguage": 380,
+  "notificationCases": 51
+}
