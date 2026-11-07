@@ -10,8 +10,8 @@ Authoritative atomic task status and fixed weights live in
 - [x] `INT-001`: reconcile main, worktrees, PRs #21-#27, CI and migrations.
 - [x] `INT-002`: #22-#27 merged into main in dependency order at merge commits
       `a8109ae`, `5b838b6`, `8d175b4`, `038fb67`, `88b0c0b`, `ea6d142`.
-- [~] `UI-001`: three new reference boards and supported/deferred mappings are
-      committed at `17b6021`; actual branch screenshots remain Task 4.
+- [x] `UI-001`: reference boards/mappings at `17b6021`; 17 actual PR #28
+      screenshots retained and inspected from CI `42342439646`.
 - [x] `UI-002`: Family progress at `0644dd9`; analyze clean, 61 pass / 6 skips.
 - [x] `UI-003`: authorized Patient view remains the Family app contract and gains
       the same progress; no independent Patient role or permissions added.
@@ -29,7 +29,7 @@ Authoritative atomic task status and fixed weights live in
 - [ ] `REL-002`: hosted identity/history/recovery verification, migrations,
       deployment and post-deploy journey not started.
 
-Current mission progress: implemented 73/100, verified 58/100, merged 23/100,
+Current mission progress: implemented 73/100, verified 65/100, merged 23/100,
 deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
 
 ## PR #27 CI fixture repair (2026-11-06) `[x]`

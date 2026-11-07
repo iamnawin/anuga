@@ -97,3 +97,35 @@ screenshots under repository `artifacts/care-request`, outside Playwright's
 cleaned output, and the Companion issue screenshot scrolls to its exact current
 status so the progress strip is visible. Runtime behavior is unchanged; a fresh
 CI run must verify the corrected evidence bundle.
+
+## Final branch CI and artifact review
+
+PR #28 head `1e956fc` passed all seven required jobs in run `42342439646`:
+database, shared Dart, Ops, Companion, Family, unified AnugaCare and real
+Supabase. The real-Supabase job passed SQL/Edge tests, Ops browser E2E, Companion
+and Family journeys, Request Care -> Ops -> Companion -> Family, private issue/
+explicit resume, the combined billing/notification journey and artifact upload.
+
+The corrected artifact contains all 12 care-request screenshots and all five
+issue-handling screenshots. Curated copies are under `docs/screenshots/g7/` with
+`pr28-care-` and `pr28-issue-` prefixes. Visual inspection found:
+
+- no clipped labels, horizontal overflow, hidden primary CTA, overlapping
+  controls, broken card boundary or logo distortion in captured screens;
+- Family request/review copy truthfully distinguishes submission from confirmed
+  availability;
+- Family assigned/at-centre/completed views show persisted data and the new
+  nine-stage progress without private incident text;
+- Companion assigned view shows restricted essentials, exact status and the
+  new progress strip; no vault/diagnosis/DOB or fictional map/ETA appears;
+- Ops pending/assigned/completed and exception views remain readable and expose
+  internal issue context only to Ops.
+
+CI Android debug APK:
+
+- size: 159,679,563 bytes
+- SHA-256:
+  `206BFB44BCBA7881C3C3D02E338A8AFA66C2E635ACCC16D8A2279FC881660A0C`
+
+This proves automated buildability, not physical installation. Real Android
+Chrome/installed-PWA behavior and human Telugu/Hindi meaning remain NOT TESTED.

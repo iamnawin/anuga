@@ -1,6 +1,6 @@
 # AnugaCare execution state
 
-Last reconciled: 2026-11-07 10:39:10 IST (Asia/Kolkata)
+Last reconciled: 2026-11-07 11:02:46 IST (Asia/Kolkata)
 
 ## Mission
 
@@ -14,7 +14,7 @@ out of scope.
 
 - Repository: `D:\AI-Workspace\Repos\anuga-trips-fix`
 - Branch: `feat/g7-ui-staging`
-- HEAD: `d002ac05bf89071d251ef014319ed559049c7af8`
+- HEAD: `1e956fc518ccfec658f4e0cb1513dc8752cdcdee`
 - Remote branch: `origin/feat/g7-ui-staging` at the same SHA
 - Working tree: tracked files clean; `.unlazy/` is the only untracked local
   execution state and must remain uncommitted.
@@ -44,20 +44,21 @@ out of scope.
 
 ## Active task
 
-Plan Task 4: build unified web/PWA and Android artifacts, prepare actual visual/
-navigation/PWA evidence, then push the release branch for real-Supabase CI
-screenshots.
+Plan Task 5: finalize PR #28, obtain a fresh whole-branch review, merge only after
+the review/CI/doc state agrees, then verify synthetic hosted identity, migration
+history and recovery prerequisites before any migration or deployment.
 
 ## Next safe action
 
-1. Commit the Task 4 local evidence receipt and baseline CI screenshots.
-2. Open a draft release PR to trigger the disposable real-Supabase and Android
-   workflow; use its artifacts for updated authenticated screenshots and APK.
-3. Inspect updated screenshots and resolve any real visual defect with TDD.
-4. Mark the PR ready only after Task 4 evidence is complete, then use its
-   real-Supabase CI artifacts for updated authenticated screenshots.
-5. Wait for all seven required jobs and review screenshots before merge or any
-   hosted migration/deployment.
+1. Commit/push the Task 4 completion receipt and 17 updated screenshots.
+2. Run the plan's final whole-branch review; fix any Critical/Important finding
+   with a failing test first.
+3. Mark PR #28 ready, wait for final documentation-head CI, review the full diff,
+   and merge normally if still clean.
+4. Verify the hosted target's synthetic identity, migration history and usable
+   recovery path. Stop before mutation if any prerequisite is inaccessible.
+5. Only then apply missing ordered migrations, deploy exact merged main and run
+   hosted smoke/journey. Physical Android and language approval stay manual.
 
 ## Current blockers and boundaries
 

@@ -1,5 +1,27 @@
 # Handoff
 
+## G7 UI Task 4 complete; Task 5 active (2026-11-07 11:02 IST)
+
+Task 4 is complete on draft PR #28 head `1e956fc`. Full local check-all passed,
+the unified release web/PWA built with `/app/`, four icons/two maskable icons and
+a generated service worker, and CI run `42342439646` passed all seven jobs. The
+real-Supabase job passed care request, private issue/explicit resume and combined
+journeys. The corrected artifact retains all 12 care-request and five issue
+screenshots; curated copies are in `docs/screenshots/g7/` and were visually
+inspected with no blocking clipping, overflow, hidden CTA, overlap or privacy
+defect. Family and Companion progress is visible on actual running screens.
+
+CI produced `app-debug.apk`, 159,679,563 bytes, SHA-256
+`206BFB44BCBA7881C3C3D02E338A8AFA66C2E635ACCC16D8A2279FC881660A0C`.
+This is automated build evidence, not physical-device installation. No map/ETA
+was added because no direct SDK/provider/authorized route data exists.
+
+Active Task 5: commit/push this receipt, run final whole-branch review, mark PR
+#28 ready only if clean, rerun final-head CI and merge. After merge, verify the
+hosted target's synthetic identity, migration history and recovery path before
+any hosted migration/deployment. Physical Android/PWA and human Telugu/Hindi
+approval remain NOT TESTED. Hosted staging is still unchanged.
+
 ## G7 UI Tasks 1-3 complete; Task 4 active (2026-11-07 10:35 IST)
 
 Task 1 is complete at `17b6021`: the three founder-supplied Family, Patient and
