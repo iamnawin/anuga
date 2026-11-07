@@ -4,6 +4,12 @@ Version: 4 November 2026. Related decision: [production release gate](PRODUCTION
 **Execution status: NOT TESTED on a physical Android device.** Available automation
 and prior desktop captures are linked below; blank results are not passes.
 
+7 November candidate update: #22-#27 are merged; #28 `7fa7cb2` has seven green
+CI jobs in `42343362420`. Hosted candidate rollout is still blocked pending
+Supabase migration-history/recovery attestation. The existing public alias must
+not be used to sign off the new candidate until its source/schema match is
+verified. Later entries referring to the November 4 audit are historical.
+
 ## Entry conditions and test record
 
 The test lead must complete this record for **each device and launch mode**.

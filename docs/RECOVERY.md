@@ -28,13 +28,13 @@ Do not rely on chat history as the source of truth.
 5. Preserve every unrelated dirty path. `.unlazy/` is expected local execution
    state and must not be committed.
 
-## Current recovery point
+## Current recovery point (2026-11-07)
 
-- Active branch: `fix/production-operations-hardening`
-- Expected HEAD/remote: `d14e55c6244d51743f110b3f4cd2bbfd4aaebea0`
-- Expected main: `21ae9bc2ad4ae4e5bb3befd8b4b27a8b3b1bd65c`
-- Expected open stack: PR #22 -> #23 -> #24 -> #25 -> #26 -> #27
-- Expected latest green run: `42172886236`, seven successful jobs
+- Active branch: `feat/g7-ui-staging`; PR #28.
+- Verified checkpoint: `7fa7cb22bb806d90352630df945325f486eaddaa`.
+- Expected main: `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9` until PR #28 merges.
+- PRs #22-#27 are merged; do not repeat their integration.
+- Latest verified CI: `42343362420`, seven successful jobs on `7fa7cb2`.
 - Expected hosted state: no November 3/4 hardening rollout; public synthetic
   staging still corresponds to the merged PR #21 baseline.
 
@@ -42,19 +42,22 @@ If any expectation is false, stop the mutating step and reconcile it first.
 
 ## Resume the active work
 
-1. Finish `STATE-001` and push its documentation checkpoint to PR #27.
-2. Inspect `.unlazy/g7-synthetic-staging/GATES.md`; it is intentionally ignored.
-3. Rerun the corrected full local gate from the repository root:
+1. Read the current execution state and latest GitHub PR #28 metadata. Tasks 1-4
+   have implementation and CI evidence; resume Task 5.
+2. Inspect `.unlazy/g7-synthetic-staging/GATES.md`; it is local untracked state.
+3. If runtime changes require a new full check, use the reviewed gate command:
 
    ```powershell
    node C:\Users\Naveen\.agents\skills\unlazy\scripts\gate-check.mjs --approve --timeout 3600 --root D:\AI-Workspace\Repos\anuga-trips-fix --cwd D:\AI-Workspace\Repos\anuga-trips-fix .unlazy/g7-synthetic-staging/GATES.md
    ```
 
-4. Confirm the output records G2 as met. Do not treat earlier wrapper failures
-   (wrong cwd, WSL bash, extra expectation suffix) as product failures.
-5. Review PR #23's current docs, mark it ready, then merge/retarget PRs #22-#27
-   sequentially to `main`. Recheck CI after every base/head mutation.
-6. Start new UI/reference work from the resulting main on a separate branch.
+4. Finish current PR documentation, confirm seven green jobs, then merge #28
+   under the existing founder authorization after review.
+5. Supabase management access is missing (`projects list`: access token not
+   provided). Hosted migration history and backup/recovery remain unverified.
+   Vercel access works; do not deploy the new client until DB prerequisites pass.
+6. Obtain authenticated Supabase operator access outside chat, then read migration
+   history and backup coverage before applying only missing ordered migrations.
 
 ## Recovery safety rules
 

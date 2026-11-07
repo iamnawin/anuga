@@ -36,6 +36,7 @@ void main() {
     backend.trips['t1']!.status = TripStatus.completed;
     await tapVisible(tester, byKey('visit-refresh'));
     expect(find.text('Completed'), findsOneWidget);
+    expect(byKey('visit-progress-current-8'), findsOneWidget);
     expect(byKey('action-companion_en_route'), findsNothing);
     expect(calls.single['p_from'], pickup.subtract(const Duration(seconds: 1)).toIso8601String());
     expect(calls.single['p_to'], pickup.add(const Duration(seconds: 1)).toIso8601String());
@@ -48,6 +49,7 @@ void main() {
     expect(find.textContaining('Lakshmi Rao'), findsNothing);
     expect(find.textContaining('22 Sample Colony'), findsNothing);
     expect(byKey('action-companion_en_route'), findsNothing);
+    expect(byKey('visit-progress'), findsNothing);
     expect(find.text('Not allowed. This trip may have been reassigned.'), findsOneWidget);
   });
 
@@ -73,10 +75,12 @@ void main() {
     await tapVisible(tester, byKey('visit-refresh'));
     expect(find.textContaining('Lakshmi Rao'), findsNothing);
     expect(byKey('action-companion_en_route'), findsNothing);
+    expect(byKey('visit-progress'), findsNothing);
     expect(find.text('Something went wrong. Try again.'), findsOneWidget);
     fail = false;
     await tapVisible(tester, byKey('visit-refresh'));
     expect(find.text('Returning'), findsOneWidget);
+    expect(byKey('visit-progress-current-6'), findsOneWidget);
     expect(byKey('action-dropped_home'), findsOneWidget);
   });
 

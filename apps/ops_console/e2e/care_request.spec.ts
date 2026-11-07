@@ -6,7 +6,7 @@ import { randomUUID } from 'node:crypto';
 
 const enabled = Boolean(process.env.CARE_REQUEST_JOURNEY);
 test.skip(!enabled, 'CARE_REQUEST_JOURNEY=1 with Supabase local and built PWA');
-const shots = 'test-results/care-request';
+const shots = process.env.CARE_REQUEST_SCREENSHOT_DIR ?? 'test-results/care-request';
 const preview = process.env.CARE_PREVIEW_URL;
 const opsPath = (path: string) => preview ? `/ops${path}/` : path;
 // Auth and pickup codes are transient UI inputs, never diagnostic artifacts.

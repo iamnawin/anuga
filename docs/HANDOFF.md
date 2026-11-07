@@ -1,5 +1,89 @@
 # Handoff
 
+## Task 5 release review and hosted access checkpoint (2026-11-07 15:52 IST)
+
+Completed: independent review of `ea6d142..7fa7cb2` returned ready to merge,
+no Critical/Important findings. PR #28 documentation checkpoint `7fa7cb2` passed
+all seven jobs in `42343362420`. Minor evidence wording and stale recovery
+instructions are corrected in this receipt. Runtime source remains unchanged.
+
+Read-only Vercel access confirms project `anuga` and READY deployment
+`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`. Supabase management `projects list`
+fails with `Access token not provided`; hosted migration history and recovery
+coverage cannot be verified. No migration, deployment or hosted data mutation
+was attempted. Task 5 remains IN_PROGRESS for PR completion and BLOCKED for
+hosted rollout. Next: push this receipt, confirm CI, merge reviewed #28 under
+existing authorization; then obtain authenticated staging Supabase operator
+access outside chat and attest migration history/recovery before rollout.
+
+Physical Android and human Telugu/Hindi acceptance remain NOT TESTED.
+
+## G7 UI Task 4 complete; Task 5 active (2026-11-07 11:02 IST)
+
+Task 4 is complete on draft PR #28 head `1e956fc`. Full local check-all passed,
+the unified release web/PWA built with `/app/`, four icons/two maskable icons and
+a generated service worker, and CI run `42342439646` passed all seven jobs. The
+real-Supabase job passed care request, private issue/explicit resume and combined
+journeys. The corrected artifact retains all 12 care-request and five issue
+screenshots; curated copies are in `docs/screenshots/g7/` and were visually
+inspected with no blocking clipping, overflow, hidden CTA, overlap or privacy
+defect. Family and Companion progress is visible on actual running screens.
+
+CI produced `app-debug.apk`, 159,679,563 bytes, SHA-256
+`206BFB44BCBA7881C3C3D02E338A8AFA66C2E635ACCC16D8A2279FC881660A0C`.
+This is automated build evidence, not physical-device installation. No map/ETA
+was added because no direct SDK/provider/authorized route data exists.
+
+Active Task 5: commit/push this receipt, run final whole-branch review, mark PR
+#28 ready only if clean, rerun final-head CI and merge. After merge, verify the
+hosted target's synthetic identity, migration history and recovery path before
+any hosted migration/deployment. Physical Android/PWA and human Telugu/Hindi
+approval remain NOT TESTED. Hosted staging is still unchanged.
+
+## G7 UI Tasks 1-3 complete; Task 4 active (2026-11-07 10:35 IST)
+
+Task 1 is complete at `17b6021`: the three founder-supplied Family, Patient and
+Companion boards are preserved under `docs/design/`, hashed, and mapped as visual
+direction rather than functional authority. `PRODUCT.md`, `DESIGN.md`, the design
+brief and executable plan are committed. Maps/ETA, calls, clinical checklists,
+recurring controls and expanded Patient access remain explicitly unsupported.
+
+Task 2 is complete at `0644dd9`: Family and the existing authorized Patient view
+show a compact nine-segment strip derived from persisted status/events. During
+`issue_reported`, the strip uses the last persisted non-issue stage and never the
+private issue note; cancelled/no-show hide linear progress; denied refresh clears
+it. Tests were written RED first. Family analyze: clean. Family tests: 61 pass,
+6 environment-only skips.
+
+Task 3 is complete at `8eb152e`: Companion shows the same real nine-state visual
+progress without changing action keys, prerequisites, OTP, notes, API calls or
+RPCs. Issue/cancelled/no-show hide the strip; denied/reassigned/failed refresh
+removes stale progress. Tests were RED first. Companion analyze: clean. Companion
+tests: 66 pass, 3 environment-only skips.
+
+Task 4 is active. Full `scripts/check-all.sh` passes on `8eb152e`: database 209
+pass/11 environment skips; Ops 70 pass and production build with one pre-existing
+hooks warning; shared Dart 29 pass; Companion 66/3; Family 61/6; unified app 39
+pass. Local Docker and Supabase CLI are unavailable, so authenticated disposable-
+Supabase screenshots must come from branch CI after push. Next: build web/PWA and
+debug APK, record hashes/evidence, push/open PR, run seven-job CI, download and
+inspect actual updated screenshots. No hosted migration or deployment yet.
+
+## PR #22-#27 dependency stack merged (2026-11-06 16:20 IST)
+
+After corrected local check-all and final PR #27 CI `42203978157` passed all
+seven jobs, the authorized stack was merged to `main` in dependency order:
+#22 `a8109ae`, #23 `5b838b6`, #24 `8d175b4`, #25 `038fb67`, #26 `88b0c0b`,
+#27 `ea6d142`. Each next PR was retargeted to current main, rechecked as CLEAN/
+mergeable with seven green jobs, then merged normally. Source branches remain.
+Main run `42205624861` is queued on final commit `ea6d142`.
+
+No hosted migration, deployment, synthetic-data mutation, provider activation or
+production action occurred. New work continues on local branch
+`feat/g7-ui-staging` from exact main. Active task: `UI-001`, preserve and map the
+three supplied concept boards, audit actual screens and make only supported
+targeted UI changes. Staging still represents the earlier PR #21 baseline.
+
 ## Durable checkpoint validation (2026-11-06 16:05 IST)
 
 Recovery state commit `7a06f1b` is pushed on PR #27. The corrected ignored

@@ -39,6 +39,42 @@ bool enabled(WidgetTester tester, String key) => tester.widget<ButtonStyleButton
 Finder byKey(String key) => find.byKey(Key(key));
 
 void main() {
+  for (final entry in {TripStatus.scheduled: 0, TripStatus.handedOver: 4, TripStatus.completed: 8}.entries) {
+    testWidgets('${entry.key.dbValue} shows its exact nine-state progress position', (tester) async {
+      await pumpTrip(tester, entry.key);
+      expect(byKey('visit-progress'), findsOneWidget);
+      for (var index = 0; index < 9; index++) {
+        expect(byKey('visit-progress-stage-$index'), findsOneWidget);
+      }
+      expect(byKey('visit-progress-current-${entry.value}'), findsOneWidget);
+    });
+  }
+
+  for (final terminal in [TripStatus.issueReported, TripStatus.cancelled, TripStatus.noShow]) {
+    testWidgets('${terminal.dbValue} does not look like linear journey progress', (tester) async {
+      await pumpTrip(tester, terminal);
+      expect(byKey('visit-progress'), findsNothing);
+    });
+  }
+
+  for (final locale in const [Locale('en'), Locale('te'), Locale('hi')]) {
+    testWidgets('${locale.languageCode} progress fits a narrow phone at 200% text', (tester) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+      final backend = FakeBackend()..addTrip(FakeTrip(id: 't1', pickupAt: pickupAt, status: TripStatus.returning));
+      final trip = (await backend.api.myTrips()).single;
+      await pumpLocalized(
+        tester,
+        TripScreen(api: backend.api, trip: trip),
+        locale: locale,
+      );
+      tester.view.physicalSize = const Size(800, 2000);
+      await tester.pumpAndSettle();
+      expect(byKey('visit-progress-current-6'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+  }
+
   // The buttons a companion sees in each state (keys from the trip screen).
   final buttons = <TripStatus, List<String>>{
     TripStatus.scheduled: ['action-companion_en_route', 'action-noShow'],

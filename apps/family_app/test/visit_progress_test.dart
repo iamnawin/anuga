@@ -50,6 +50,41 @@ class _VisitBackend {
 }
 
 void main() {
+  testWidgets('progress strip follows the exact nine-state visit lifecycle', (tester) async {
+    final backend = _VisitBackend();
+    await backend.pump(tester);
+    expect(byKey('visit-progress'), findsOneWidget);
+    for (var index = 0; index < 9; index++) {
+      expect(byKey('visit-progress-stage-$index'), findsOneWidget);
+    }
+    expect(byKey('visit-progress-current-0'), findsOneWidget);
+
+    backend.fake.addEvent(backend.fake.visits['t1']!, TripStatus.handedOver, TransitionActor.companion, 'Front desk');
+    await tapVisible(tester, byKey('visit-refresh'));
+    expect(byKey('visit-progress-current-4'), findsOneWidget);
+    expect(byKey('visit-progress-current-0'), findsNothing);
+  });
+
+  testWidgets('service issue keeps the last persisted non-issue progress stage', (tester) async {
+    final backend = _VisitBackend();
+    final visit = backend.fake.visits['t1']!;
+    backend.fake.addEvent(visit, TripStatus.companionEnRoute, TransitionActor.companion, null);
+    backend.fake.addEvent(visit, TripStatus.pickedUp, TransitionActor.companion, 'pickup OTP verified');
+    backend.fake.addEvent(visit, TripStatus.issueReported, TransitionActor.companion, 'private marker');
+    await backend.pump(tester);
+    expect(byKey('visit-progress-current-2'), findsOneWidget);
+    expect(find.textContaining('private marker'), findsNothing);
+  });
+
+  for (final terminal in [TripStatus.cancelled, TripStatus.noShow]) {
+    testWidgets('${terminal.dbValue} does not look like linear journey progress', (tester) async {
+      final backend = _VisitBackend();
+      backend.fake.visits['t1']!.status = terminal;
+      await backend.pump(tester);
+      expect(byKey('visit-progress'), findsNothing);
+    });
+  }
+
   testWidgets('refresh reads historical visit status, assignment and persisted completion milestone', (tester) async {
     final backend = _VisitBackend();
     await backend.pump(tester);
@@ -77,6 +112,7 @@ void main() {
     backend.intercept = (fn, params) async => throw const RpcException('42501', 'not allowed');
     await tapVisible(tester, byKey('visit-refresh'));
     expect(byKey('status'), findsNothing);
+    expect(byKey('visit-progress'), findsNothing);
     expect(find.textContaining('Asha Companion'), findsNothing);
     expect(byKey('get-pickup-code'), findsNothing);
     expect(byKey('cancel-trip'), findsNothing);
@@ -142,6 +178,8 @@ void main() {
       );
       await backend.pump(tester, locale: locale, scale: 2);
       expect(byKey('visit-latest-update'), findsOneWidget);
+      expect(byKey('visit-progress'), findsOneWidget);
+      expect(byKey('visit-progress-current-8'), findsOneWidget);
       await tester.ensureVisible(byKey('event-1'));
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
