@@ -1,6 +1,6 @@
 # AnugaCare execution state
 
-Last reconciled: 2026-11-07 10:35:10 IST (Asia/Kolkata)
+Last reconciled: 2026-11-07 10:39:10 IST (Asia/Kolkata)
 
 ## Mission
 
@@ -14,8 +14,8 @@ out of scope.
 
 - Repository: `D:\AI-Workspace\Repos\anuga-trips-fix`
 - Branch: `feat/g7-ui-staging`
-- HEAD: `8eb152e61d9db83c350998aec090c876d9911924`
-- Remote branch: not pushed yet; branch is three commits ahead of `origin/main`
+- HEAD: `d002ac05bf89071d251ef014319ed559049c7af8`
+- Remote branch: `origin/feat/g7-ui-staging` at the same SHA
 - Working tree: tracked files clean; `.unlazy/` is the only untracked local
   execution state and must remain uncommitted.
 - `origin/main`: `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9`
@@ -50,12 +50,11 @@ screenshots.
 
 ## Next safe action
 
-1. Commit and push this Task 1-3 handoff checkpoint.
-2. Build unified release web/PWA and debug APK against the committed public
-   synthetic configuration; record artifact hashes without committing builds.
-3. Add the Task 4 evidence receipt and clearly record that local real-Supabase
-   screenshots are unavailable because Docker/Supabase CLI are absent.
-4. Push `feat/g7-ui-staging`, open the release PR, and use its disposable
+1. Commit the Task 4 local evidence receipt and baseline CI screenshots.
+2. Open a draft release PR to trigger the disposable real-Supabase and Android
+   workflow; use its artifacts for updated authenticated screenshots and APK.
+3. Inspect updated screenshots and resolve any real visual defect with TDD.
+4. Mark the PR ready only after Task 4 evidence is complete, then use its
    real-Supabase CI artifacts for updated authenticated screenshots.
 5. Wait for all seven required jobs and review screenshots before merge or any
    hosted migration/deployment.
