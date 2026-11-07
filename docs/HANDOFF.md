@@ -1,5 +1,34 @@
 # Handoff
 
+## G7 UI Tasks 1-3 complete; Task 4 active (2026-11-07 10:35 IST)
+
+Task 1 is complete at `17b6021`: the three founder-supplied Family, Patient and
+Companion boards are preserved under `docs/design/`, hashed, and mapped as visual
+direction rather than functional authority. `PRODUCT.md`, `DESIGN.md`, the design
+brief and executable plan are committed. Maps/ETA, calls, clinical checklists,
+recurring controls and expanded Patient access remain explicitly unsupported.
+
+Task 2 is complete at `0644dd9`: Family and the existing authorized Patient view
+show a compact nine-segment strip derived from persisted status/events. During
+`issue_reported`, the strip uses the last persisted non-issue stage and never the
+private issue note; cancelled/no-show hide linear progress; denied refresh clears
+it. Tests were written RED first. Family analyze: clean. Family tests: 61 pass,
+6 environment-only skips.
+
+Task 3 is complete at `8eb152e`: Companion shows the same real nine-state visual
+progress without changing action keys, prerequisites, OTP, notes, API calls or
+RPCs. Issue/cancelled/no-show hide the strip; denied/reassigned/failed refresh
+removes stale progress. Tests were RED first. Companion analyze: clean. Companion
+tests: 66 pass, 3 environment-only skips.
+
+Task 4 is active. Full `scripts/check-all.sh` passes on `8eb152e`: database 209
+pass/11 environment skips; Ops 70 pass and production build with one pre-existing
+hooks warning; shared Dart 29 pass; Companion 66/3; Family 61/6; unified app 39
+pass. Local Docker and Supabase CLI are unavailable, so authenticated disposable-
+Supabase screenshots must come from branch CI after push. Next: build web/PWA and
+debug APK, record hashes/evidence, push/open PR, run seven-job CI, download and
+inspect actual updated screenshots. No hosted migration or deployment yet.
+
 ## PR #22-#27 dependency stack merged (2026-11-06 16:20 IST)
 
 After corrected local check-all and final PR #27 CI `42203978157` passed all
