@@ -1,6 +1,15 @@
 # AnugaCare progress ledger
 
-Last reconciled: 2026-11-07 11:02:46 IST (Asia/Kolkata)
+Last reconciled: 2026-11-07 15:52:13 IST (Asia/Kolkata)
+
+Current Task 5 checkpoint: PR #28 `7fa7cb2`, CI `42343362420` seven successful
+jobs; independent review ready to merge, no Critical/Important findings.
+UI-002/UI-004 screenshot collection is complete; their next action is the
+candidate's hosted verification after migration prerequisites. REL-002 is
+BLOCKED: Supabase management access returned `Access token not provided`.
+Vercel access works and confirms the unchanged existing synthetic deployment.
+NAV-001 remains open because no configured map provider or navigation handoff
+has been delivered. PWA deployed cache/install/session checks remain open.
 
 Statuses are `NOT_STARTED`, `IN_PROGRESS`, `IMPLEMENTED`, `VERIFIED`, `MERGED`
 or `BLOCKED`. A higher state is never inferred from a lower one.

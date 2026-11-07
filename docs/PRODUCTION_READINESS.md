@@ -2,6 +2,15 @@
 
 Audit: **4 November 2026 (IST)**. Decision: **NO-GO for real patient onboarding**.
 
+Current mission update (7 November 2026, 15:52 IST): #22-#27 merged through
+`ea6d142`; #28 UI progress and evidence passed seven jobs at `7fa7cb2` in
+`42343362420`, with independent review finding no blocker. Existing synthetic
+Vercel deployment remains `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`.
+Supabase management access is unavailable (`Access token not provided`), so
+hosted migration history, recovery prerequisites and candidate parity remain
+unverified. The historical audit snapshot below is retained as dated evidence;
+current execution is tracked in `EXECUTION_STATE.md` and `PROGRESS_LEDGER.md`.
+
 This is an audit of existing functionality, not authorization to launch. Core
 Request Care, visit progress and issue handling are built and tested. A passing
 feature review or CI run does not close the production gates below. No deployment,

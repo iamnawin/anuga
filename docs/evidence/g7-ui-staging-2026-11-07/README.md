@@ -37,7 +37,7 @@ assignment behavior or session behavior changed.
 | Unified AnugaCare | format/analyze clean; 39 tests pass |
 
 Focused tests were written and observed failing before implementation, then pass.
-They cover all nine progress positions used by the UI, issue fallback, terminal
+They cover nine segments and representative progress positions, issue fallback, terminal
 hiding, denied/reassigned/failed refresh clearing, resumed persisted state and
 narrow 200% English/Telugu/Hindi layouts.
 
@@ -50,6 +50,8 @@ committed public synthetic project configuration.
 - Icons: four (192/512 plus two maskable)
 - Generated base href: `/app/`
 - Generated service worker and bootstrap: present
+- The generated worker unregisters itself and has no fetch handler. Its presence
+  does not prove offline launch or caching; those remain unverified on the target.
 - `main.dart.js` SHA-256:
   `9317FDE602C67200A9CBCF367D3F4B61C717951A9DB432DD98EFA11BB96E8CA1`
 - `flutter_service_worker.js` SHA-256:
@@ -97,6 +99,21 @@ screenshots under repository `artifacts/care-request`, outside Playwright's
 cleaned output, and the Companion issue screenshot scrolls to its exact current
 status so the progress strip is visible. Runtime behavior is unchanged; a fresh
 CI run must verify the corrected evidence bundle.
+
+## Release checkpoint: 2026-11-07 15:52 IST
+
+Documentation head `7fa7cb2` also passed all seven jobs in `42343362420`.
+Independent read-only review of `ea6d142..7fa7cb2` returned ready to merge with
+no Critical or Important findings. Minor documentation inaccuracies are corrected
+in the release receipt. The reviewer did not run tests or access hosted services.
+
+Read-only Vercel inspection confirms account `iamnawin`, project `anuga`, alias
+`anuga.vercel.app`, READY deployment `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`.
+Supabase `projects list` failed with `Access token not provided`. No management
+connection or hosted migration-history/backup access was available. Required
+next action: authenticate an authorized Supabase staging operator locally or
+provide an operator receipt for project identity, migration history and usable
+recovery coverage. Never paste credentials into chat. Hosted rollout is BLOCKED.
 
 ## Final branch CI and artifact review
 

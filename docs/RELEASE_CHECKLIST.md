@@ -8,12 +8,12 @@ does not replace `PRODUCTION_GATES.md`; real patient onboarding remains NO-GO.
 | Gate | Measurable acceptance | Current evidence | State |
 | --- | --- | --- | --- |
 | A Integration | All in-scope stack/UI commits reconciled and merged to main; no local-only intended work omitted | #22-#27 merged through `ea6d142`; UI release work pending | INCOMPLETE |
-| B UI | Approved branding/tokens and coherent supported Family, Patient-view, Companion and Ops interfaces are deployed | Boards mapped; Family/Patient-view `0644dd9` and Companion `8eb152e` verified locally; branch screenshots/deployment pending | INCOMPLETE |
+| B UI | Approved branding/tokens and coherent supported Family, Patient-view, Companion and Ops interfaces are deployed | Branch screenshots reviewed; runtime changes tested in CI; hosted deployment pending | INCOMPLETE |
 | C Functionality | Deployed synthetic Family -> Ops -> Companion -> Family journey persists through refresh and completion | CI journey passes at `d14e55c`; target is not deployed | INCOMPLETE |
 | D Security | RLS, consent withdrawal, private issue notes, OTP, session isolation and occupancy allowed/denied tests pass on release candidate | PR #28 real-Supabase CI `42342439646` passes all allowed/denied and journey checks | PASS |
 | E PWA | Deployed manifest/icons/scope/service worker/install/session/cache behavior pass desktop checks and physical install cases | Prior PWA implementation exists; target deployment and physical test pending | INCOMPLETE |
 | F Testing | Required CI, real browser visual inspection, functional/negative journeys and Android build checks pass | Local check-all and PR #28 CI `42342439646` pass; 17 actual screenshots and APK inspected/hashed | PASS |
-| G Deployment | Exact main commit plus migration versions are verified on existing synthetic staging, never production | No target merge/migration/deploy yet | INCOMPLETE |
+| G Deployment | Exact main commit plus migration versions are verified on existing synthetic staging, never production | Supabase management access missing; hosted history and recovery coverage unverified | BLOCKED |
 | H Handoff | URLs, safe accounts/roles, screenshots, CI/migration evidence, phone guide, limits and next actions are current | Durable recovery documents are being established | IN_PROGRESS |
 
 ## Human/external acceptance kept separate

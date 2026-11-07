@@ -25,9 +25,10 @@ Authoritative atomic task status and fixed weights live in
       main and deployed synthetic staging.
 - [!] `QA-002`: physical Android and human Telugu/Hindi/healthcare wording review
       require named people and remain NOT TESTED.
-- [~] `REL-001`: PR/CI completion in progress; no stack merge yet.
-- [ ] `REL-002`: hosted identity/history/recovery verification, migrations,
-      deployment and post-deploy journey not started.
+- [~] `REL-001`: #22-#27 merged; #28 reviewed with no blocking finding;
+      checkpoint `7fa7cb2` CI `42343362420` passes seven jobs.
+- [!] `REL-002`: Vercel identity inspected; Supabase management token unavailable;
+      hosted migration history/recovery and deployment remain blocked.
 
 Current mission progress: implemented 73/100, verified 65/100, merged 23/100,
 deployed-and-verified 0/100. See the ledger for evidence and calculation rules.

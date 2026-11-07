@@ -1,6 +1,6 @@
 # Production readiness completion dashboard
 
-Updated: 5 November 2026. Source of truth: [31-row release matrix](PRODUCTION_READINESS.md).
+Updated: 7 November 2026. Source of truth: [31-row release matrix](PRODUCTION_READINESS.md).
 This dashboard summarizes progress; only the matrix and linked evidence can close a gate.
 
 | Gate | Status | Completed technical work | Evidence still required to close |
@@ -16,7 +16,11 @@ This dashboard summarizes progress; only the matrix and linked evidence can clos
 
 **NO-GO for real patient onboarding.** Technical code fixes do not replace hosted,
 physical-device, human-language, recovery, legal/pilot or founder release approval.
-No deployment, merge, hosted migration, cleanup, real SMS or payment is authorized.
+The founder authorized validated repository merges and existing synthetic staging
+rollout for the current mission. #22-#27 are merged through `ea6d142`; #28 is
+reviewed and CI green at `7fa7cb2` (run `42343362420`). Hosted rollout remains
+blocked by missing Supabase management access, migration history and recovery
+evidence. No production rollout, deletion, real SMS or payment is authorized.
 
 The repaired PR #27 CI failure was a separate technical gate (G6), not evidence
 for or against G7 physical-device/language approval or G8 hosted/recovery/release

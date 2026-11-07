@@ -1,5 +1,23 @@
 # Handoff
 
+## Task 5 release review and hosted access checkpoint (2026-11-07 15:52 IST)
+
+Completed: independent review of `ea6d142..7fa7cb2` returned ready to merge,
+no Critical/Important findings. PR #28 documentation checkpoint `7fa7cb2` passed
+all seven jobs in `42343362420`. Minor evidence wording and stale recovery
+instructions are corrected in this receipt. Runtime source remains unchanged.
+
+Read-only Vercel access confirms project `anuga` and READY deployment
+`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`. Supabase management `projects list`
+fails with `Access token not provided`; hosted migration history and recovery
+coverage cannot be verified. No migration, deployment or hosted data mutation
+was attempted. Task 5 remains IN_PROGRESS for PR completion and BLOCKED for
+hosted rollout. Next: push this receipt, confirm CI, merge reviewed #28 under
+existing authorization; then obtain authenticated staging Supabase operator
+access outside chat and attest migration history/recovery before rollout.
+
+Physical Android and human Telugu/Hindi acceptance remain NOT TESTED.
+
 ## G7 UI Task 4 complete; Task 5 active (2026-11-07 11:02 IST)
 
 Task 4 is complete on draft PR #28 head `1e956fc`. Full local check-all passed,
