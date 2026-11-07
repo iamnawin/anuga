@@ -224,6 +224,7 @@ jobs:
         run: pnpm --filter @companion/ops_console exec playwright test e2e/care_request.spec.ts
         env:
           CARE_REQUEST_JOURNEY: 1
+          CARE_REQUEST_SCREENSHOT_DIR: ../../artifacts/care-request
           CI: true
       # Occupancy is enforced across every trip. Give the independent issue
       # journey a clean synthetic fixture instead of inheriting care assignments.
@@ -239,7 +240,7 @@ jobs:
           name: care-request-preview
           path: |
             apps/anugacare_app/build/web/
-            apps/ops_console/test-results/care-request/
+            artifacts/care-request/
             apps/ops_console/test-results/issue-handling/
           if-no-files-found: ignore
       # M7: the first journey across ops console (browser), companion + family API layers

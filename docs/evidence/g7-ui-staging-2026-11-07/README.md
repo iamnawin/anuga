@@ -89,3 +89,11 @@ missing at-a-glance lifecycle progress is the focused defect addressed by
 Updated authenticated screenshots, real-Supabase journeys and the debug APK are
 pending the branch CI run after the release PR is opened. Physical Android/PWA
 installation and human Telugu/Hindi meaning approval remain NOT TESTED.
+
+First PR run `42341585083` passed all seven jobs and produced the Android APK,
+but exposed an evidence-only defect: Playwright cleared the care-request output
+directory when the subsequent issue spec started. The workflow now places those
+screenshots under repository `artifacts/care-request`, outside Playwright's
+cleaned output, and the Companion issue screenshot scrolls to its exact current
+status so the progress strip is visible. Runtime behavior is unchanged; a fresh
+CI run must verify the corrected evidence bundle.
