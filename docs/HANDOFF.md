@@ -1,5 +1,74 @@
 # Handoff
 
+## Gemini Independent UX Review â€” Follow-up for Codex (2026-11-09 15:40 IST)
+
+- **Location of Full Audit & Plan:**
+  - Permanent UX & Accessibility Register: `docs/UX_AUDIT.md`
+  - Phased UI Modernization Plan: `docs/UX_IMPLEMENTATION_PLAN.md`
+- **Gemini Feature Branch & Worktree:**
+  - Branch: `feat/anugacare-ui-modernization` (branched from `origin/main` `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9`)
+  - Worktree: `D:\AI-Workspace\Ideas\Anuga` (isolated from Codex's `D:\AI-Workspace\Repos\anuga-trips-fix` worktree on `feat/g7-ui-staging` / PR #28)
+  - PR: Pending push of `feat/anugacare-ui-modernization`
+- **Findings Registered (`UX-01` through `UX-08`):**
+  - **Resolved:** None yet (Batch 0 registers the permanent audit and multi-agent handoff policy before UI code changes begin).
+  - **Outstanding (In Progress across Batches 1â€“6):**
+    - `UX-01`: Family `HomeScreen` nested `0.35` max-height scroll clipping and duplicate confirmed request vs. booking cards in `BookingsTab`.
+    - `UX-02`: Preserve authorized visit details (`_booking` / `_trip`) on transient action/OTP errors while still clearing immediately on refresh failure or access revocation.
+    - `UX-03`: Persist generated 6-digit Pickup OTP in active in-memory `TripScreen` state (`_activePickupCode`) while `scheduled` / `companionEnRoute` without writing to persistent storage or logs.
+    - `UX-04`: Separate Companion primary stage CTA from exception buttons (`Report an issue`, `Patient not available`) and disable `Patient not available` when `_tooEarlyToStart` is true.
+    - `UX-05`: Add accessible date/time picker triggers (including `ConsentScreen` DOB) and present registered dialysis centre as a read-only verified field on `CareRequestScreen`.
+    - `UX-06`: Replace customer-facing phonetic `"Ops"` (`à°†à°ªà±à°¸à±` / `à¤‘à¤ªà¥à¤¸`) with natural team phrasing (`à°®à°¾ à°¬à±ƒà°‚à°¦à°‚` / `à¤¹à¤®à¤¾à¤°à¥€ à¤Ÿà¥€à¤®`) and standardize Telugu `"Companion"` to gender-neutral respectful `à°¸à°¹à°šà°°à±à°²à±` (flagged for human native-speaker signoff `QA-002` / `F03`).
+    - `UX-07`: Clarify Ops `/schedules` Care Request confirmation vs. companion assignment sequence and `/exceptions` underway-reassignment guidance.
+    - `UX-08`: Enhance emergency `108` / contact presentation, human-readable IST timestamps, and `AccessLevel.patient` priority layout.
+- **Technical / Security Boundaries Preserved (Zero Backend Changes):**
+  - No edits to `supabase/migrations/`, RLS policies, SQL functions, `packages/shared_dart` RPC contracts, or `apps/ops_console/src/lib/**`.
+- **Integration Dependencies with Codex (PR #28):**
+  - Codex's PR #28 (`feat/g7-ui-staging`, head `7fa7cb2` / `e80ffd0`) adds `_VisitProgressStrip` (`Key('visit-progress')`) to Family and Companion `TripScreen`. Gemini's UI modernization preserves the exact same widget keys and 9-stage persisted status mapping so both branches reconcile cleanly once PR #28 merges to `main`.
+- **Remaining Acceptance Tests:**
+  - Per-batch Flutter `analyze --fatal-infos`, widget tests, Next.js `lint`/`typecheck`/`test`/`build`, full `scripts/check-all.sh`, real-Supabase CI journeys, and human physical Android / Telugu-Hindi signoff (`QA-002`).
+
+### Agent Session â€” 2026-11-09 15:40 IST
+
+**Agent:** Gemini (Antigravity â€” Lead UI/UX Engineer & Independent Product Analyst)
+**Task ID / Name:** `WP-0` / Permanent Multi-Agent Handoff Policy, UX Audit Register (`UX-01`â€“`UX-08`) & Modernization Plan
+**Repository / Worktree:** `D:\AI-Workspace\Ideas\Anuga`
+**Branch:** `feat/anugacare-ui-modernization`
+**Starting commit:** `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9` (`origin/main`)
+**Current commit:** Pending Batch 0 commit
+**PR:** Pending (will open on `feat/anugacare-ui-modernization` without touching PR #28)
+**Scope:** Establish permanent multi-agent handoff policy in `AGENTS.md`, record the complete independent UX audit (`docs/UX_AUDIT.md`) and phased implementation plan (`docs/UX_IMPLEMENTATION_PLAN.md`), preserve Codex's Task 5 / PR #28 state, and prepare isolated branch `feat/anugacare-ui-modernization`.
+**Completed work:** Created `docs/UX_AUDIT.md` and `docs/UX_IMPLEMENTATION_PLAN.md`; updated `AGENTS.md`, `README.md`, `docs/HANDOFF.md`, `docs/TASKS.md`, `docs/EXECUTION_STATE.md`, and `docs/PROGRESS_LEDGER.md` while preserving Codex's Task 5 checkpoint entries.
+**Files changed:** `AGENTS.md`, `README.md`, `docs/UX_AUDIT.md`, `docs/UX_IMPLEMENTATION_PLAN.md`, `docs/HANDOFF.md`, `docs/TASKS.md`, `docs/EXECUTION_STATE.md`, `docs/PROGRESS_LEDGER.md`
+**Tests and actual results:** `apps/ops_console`: `pnpm lint` passed (0 errors, 1 pre-existing warning in `exceptions/page.tsx`), `pnpm typecheck` passed, `pnpm test` passed (9 files, 70/70 tests). Flutter suites queued sequentially for Batch 1+.
+**CI evidence:** Base commit `ea6d142` (`origin/main`) passed CI run `42205624861`; Codex's PR #28 head `7fa7cb2` passed CI run `42343362420` (7/7 jobs).
+**Merge status:** Not merged (isolated feature branch `feat/anugacare-ui-modernization`).
+**Deployment and migration status:** Not deployed; no migrations added or modified. Hosted synthetic staging (`anuga.vercel.app`, `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`) remains on PR #21 (`21ae9bc`).
+**Decisions and assumptions:** All UI/UX modernization runs in `D:\AI-Workspace\Ideas\Anuga` on `feat/anugacare-ui-modernization`, leaving Codex's `D:\AI-Workspace\Repos\anuga-trips-fix` (`feat/g7-ui-staging`, PR #28) untouched.
+**Blockers:** Hosted staging migration/rollout remains blocked on `SUPABASE_ACCESS_TOKEN` (owned by Codex Task 5). Physical Android and human Telugu/Hindi review remain `NOT TESTED` (`QA-002`).
+**Uncommitted changes:** Only the Batch 0 documentation files listed above (to be committed immediately); untracked local `.swarm/` and `docs/logo/` source images remain untracked.
+**Exact next action:** Commit and push Batch 0 (`WP-0`) to `origin/feat/anugacare-ui-modernization`, then execute Batch 1 (`WP-1: Shared Visual System & Reusable UI Components`) and Batch 2 (`WP-2: Entry/Auth & Family Experience Modernization`).
+**Next responsible agent:** Gemini (for UI/UX Batches `WP-1`â€“`WP-6`); Codex (concurrently owns PR #28 / Task 5 staging release).
+
+## Task 5 release review and hosted access checkpoint (2026-11-07 15:52 IST â€” Codex in `anuga-trips-fix`)
+
+Completed on `feat/g7-ui-staging` (PR #28): independent review of `ea6d142..7fa7cb2`
+returned ready to merge, no Critical/Important findings. PR #28 documentation
+checkpoint `7fa7cb2` passed all seven jobs in `42343362420`. Read-only Vercel
+access confirms project `anuga` and READY deployment
+`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`. Supabase management `projects list` fails
+with `Access token not provided`; hosted migration history and recovery coverage
+cannot be verified. Task 5 remains IN_PROGRESS for PR completion and BLOCKED for
+hosted rollout on Codex's workstream. Physical Android and human Telugu/Hindi
+acceptance remain NOT TESTED.
+
+## PR #22-#27 dependency stack merged (2026-11-06 16:20 IST)
+
+After corrected local check-all and final PR #27 CI `42203978157` passed all
+seven jobs, the authorized stack was merged to `main` in dependency order:
+#22 `a8109ae`, #23 `5b838b6`, #24 `8d175b4`, #25 `038fb67`, #26 `88b0c0b`,
+#27 `ea6d142`. Main run `42205624861` ran on final commit `ea6d142`. No hosted
+migration or deployment occurred.
+
 ## Durable checkpoint validation (2026-11-06 16:05 IST)
 
 Recovery state commit `7a06f1b` is pushed on PR #27. The corrected ignored
@@ -317,7 +386,7 @@ bundle hash matches the existing staging artifact. No new deployment performed.
   delivered older empty result after newer populated result; populated cards
   stayed. Retry **injected-error test** PASS: error and visible Refresh recovery
   control, then successful reload. Temporary fetch hooks removed and page
-  reloaded. Family → Asha switching and Asha logout PASS.
+  reloaded. Family â†’ Asha switching and Asha logout PASS.
 - Asha protected reads: own trips 200/9 rows; family/ops RPCs 403/42501; direct
   patients read zero rows. Sanitized auth/access output in companion-access.json.
 - Full fast checks exit 0: PGlite 170 pass/8 skipped, ops 54, shared Dart 27,
@@ -406,9 +475,9 @@ return 200 and the console bundle calls `ops_create_schedule_trips`. 2026-10-28:
 migration `20261027000200` to the hosted synthetic project in the SQL editor (function present,
 `authenticated` can execute) and ran `demo_refresh.sql`: 7 upcoming trips, 4 today, 1 issued bill.
 
-- `supabase/seed/demo_refresh.sql` (SETUP → Hosted staging): makes every screen show current
+- `supabase/seed/demo_refresh.sql` (SETUP â†’ Hosted staging): makes every screen show current
   synthetic data; refuses to run on a database with non-synthetic patients or accounts.
-- Migration `20261027000200_ops_create_trips.sql` + ops console Schedules → **Create trips**:
+- Migration `20261027000200_ops_create_trips.sql` + ops console Schedules â†’ **Create trips**:
   shows each pickup date as created or already scheduled; repeat presses create nothing new.
 - `scripts/build-staging.sh` builds the unified app to `/app/` and links it from the root page.
 - Billing and no-show rules untouched; F01, F03, F07 and no-show billing remain founder decisions.
@@ -447,7 +516,7 @@ f9285b8). Draft PR, not merged, not deployed. Owner: iamnawin with Claude Code.
   `profiles.role`; ops accounts sent to the console, other roles refused; checking, retry and
   expired-session states. Family and companion screens mounted unchanged through new
   `lib/family_app.dart` / `lib/companion_app.dart`; both apps still build alone. No SQL, RPC, auth
-  provider or ops console change. `PRODUCT_SPEC` §5a updated.
+  provider or ops console change. `PRODUCT_SPEC` Â§5a updated.
 - `scripts/check-all.sh` and CI job `anugacare-app` added; both run `flutter pub get` in the family
   and companion apps first (their generated l10n is gitignored).
 - Evidence and reference-research ledger: `docs/evidence/unified-entry/README.md`.
@@ -495,7 +564,7 @@ Status, kept separate: implemented = yes; merged = no; hosted migration applied 
 deployed = no. F05 window (180 min) is a placeholder pending founder decision.
 
 - Brand: AnugaCare (ADR 0006). Only user-facing strings changed. Telugu/Hindi spellings
-  `అనుగాకేర్` / `अनुगाकेयर` need a native check. Trademark search open (M10).
+  `à°…à°¨à±à°—à°¾à°•à±‡à°°à±` / `à¤…à¤¨à¥à¤—à¤¾à¤•à¥‡à¤¯à¤°` need a native check. Trademark search open (M10).
 - Analysis: `docs/research/anugacare-mobile-analysis.md`. No APK exists (CI builds but does not
   upload; no Android SDK here). Hosted web bundles scanned: anon key only, no service key, no
   third-party SDKs, no source maps. REA ran on the family bundle but ran out of memory on dart2js
@@ -543,7 +612,7 @@ decision. Docs only; no code, migration or secret changed.
 - Founder chose to keep the built apps and Supabase as the system of record. Salesforce gets a
   one-way, minimum-field copy for ops, CRM and pilot reporting. Recorded in
   `docs/adr/0005-salesforce-ops-copy.md`; spec 5a and 7 updated; new milestone M9a in `docs/TASKS.md`.
-- Options turned down: Salesforce as the main database (a rewrite of M2–M9, with access checks
+- Options turned down: Salesforce as the main database (a rewrite of M2â€“M9, with access checks
   moving out of Postgres); Salesforce alone (throws away the apps).
 - Gated with M10: real data in Salesforce, a paid Hyperforce India org, a DPA and the
   privacy-notice update. A Developer Edition org with the synthetic seed is fine for building.
@@ -1014,7 +1083,7 @@ Last updated: 2026-10-11 (session 3, Claude Code local Windows, branch `staging-
 | `scripts/check-all.sh` (M9 final) | all passed: PGlite 140 pass / 8 skipped; ops console 52; shared_dart 27; companion 39 + 3 skipped; family 35 + 6 skipped |
 | `pnpm db:test:supabase` (incl. vault and payments functions) | **148/148** |
 | Ops console Playwright (standalone) | 7 pass (+4 journey tests skipped outside the journey) |
-| `scripts/e2e-journey.sh` with billing | **JOURNEY PASSED**: bill ₹550 (visit ₹400 + fare ₹150), owner notified, paid in test mode, ops sees paid; evidence `docs/evidence/m7/` |
+| `scripts/e2e-journey.sh` with billing | **JOURNEY PASSED**: bill â‚¹550 (visit â‚¹400 + fare â‚¹150), owner notified, paid in test mode, ops sees paid; evidence `docs/evidence/m7/` |
 | `flutter test test/supabase_local_test.dart` vs Supabase local | pass: ops assigns backup, viewer denied OTP, owner issues it, wrong then right code, return legs, completion note, 8 ordered family notifications |
 
 ## Checks NOT run yet

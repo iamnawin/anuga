@@ -8,8 +8,10 @@ Claude Code also reads `CLAUDE.md`, which has the same rules plus architecture n
 1. `docs/HANDOFF.md`: current state and the exact next task.
 2. `docs/PRODUCT_SPEC.md`: shared product requirements, scope limits, data model and access rules.
 3. `docs/TASKS.md`: milestones and acceptance criteria.
-4. `docs/SETUP.md`: verified tool versions and setup commands.
-5. `docs/ARCHITECTURE.md`: what is built, how the parts connect, flows, integration status, how to test.
+4. `docs/EXECUTION_STATE.md` and `docs/PROGRESS_LEDGER.md`: live multi-agent execution state and evidence-weighted task ledger.
+5. `docs/UX_AUDIT.md` and `docs/UX_IMPLEMENTATION_PLAN.md`: permanent UX/accessibility audit register (`UX-01`â€“`UX-08`) and UI modernization work packages.
+6. `docs/SETUP.md`: verified tool versions and setup commands.
+7. `docs/ARCHITECTURE.md`: what is built, how the parts connect, flows, integration status, how to test.
 
 ## Commands
 
@@ -78,3 +80,62 @@ Integration PR #8 is OPEN: https://github.com/iamnawin/anuga/pull/8. Local relea
 ## Publication authorization
 
 Founder explicitly approved merge of PR #8 and publishing all three synthetic apps at anuga.vercel.app. Necessary same-origin session isolation, combined build/config/workflow changes and follow-up PR merge are within this deployment task. Previous stream write limits apply to UI work; the coordinator owns these deployment integration fixes and shared receipts. No real-data or paid-provider launch.
+
+## Permanent Multi-Agent Handoff Policy (Mandatory for All Agents)
+
+This rule applies permanently to **every** AI agent working on AnugaCare (`Gemini CLI`, `Antigravity / Gemini`, `Codex`, `Claude Code`, `Cursor`, or any future agent). Every agent must leave the repository understandable to the next agent without relying on chat history.
+
+### 1. Mandatory Agent Identification
+Every work session must record:
+- **Agent name:** `Gemini` / `Codex` / `Claude Code` / `Cursor` / `Other`
+- **Agent role and responsibility**
+- **Task name and task ID**
+- **Session start date/time in IST (`Asia/Kolkata`)**
+- **Session completion or checkpoint date/time in IST**
+- **Repository / worktree path**
+- **Git branch and starting commit**
+- **Final commit and PR, if applicable**
+
+Never invent an agent identity, timestamp, commit SHA, or CI result.
+
+### 2. Read Before Work
+Before making changes, every agent must read `AGENTS.md`, `docs/HANDOFF.md`, `docs/TASKS.md`, `docs/EXECUTION_STATE.md`, `docs/PROGRESS_LEDGER.md`, `docs/UX_AUDIT.md`, and relevant task specifications/evidence. Inspect the actual Git working tree and `git worktree list`, identify other agents' active ownership, and avoid overlapping changes.
+
+### 3. Concurrent Agent Ownership & Worktree Isolation
+- **Codex** currently owns **PR #28** (`feat/g7-ui-staging` in `D:\AI-Workspace\Repos\anuga-trips-fix`), technical integration, Supabase migrations, and synthetic staging validation.
+- **Gemini** owns the **independent UI/UX modernization workstream** (`feat/anugacare-ui-modernization` in `D:\AI-Workspace\Ideas\Anuga`).
+- Never modify, reset, overwrite, force-push, or delete another agent's worktree or active branch.
+- Shared documentation (`HANDOFF.md`, `TASKS.md`, `EXECUTION_STATE.md`, `PROGRESS_LEDGER.md`, `UX_AUDIT.md`) is updated on the agent's own branch and reconciled during integration without discarding another agent's entries.
+
+### 4. Mandatory Documentation After Every Task & Before Context Exhaustion
+After every completed task, batch, or before context exhaustion / agent switching, update `docs/HANDOFF.md`, `docs/TASKS.md`, `docs/EXECUTION_STATE.md`, `docs/PROGRESS_LEDGER.md`, and task-specific registers (`docs/UX_AUDIT.md`, `docs/UX_IMPLEMENTATION_PLAN.md`). Never claim a task is merged, deployed, tested, approved, or production-ready without evidence.
+
+### 5. Required `HANDOFF.md` Entry Format
+Every checkpoint in `docs/HANDOFF.md` must include this structured block with real values (`Not tested`, `Not deployed`, `Unknown`, or `Not applicable` where appropriate):
+
+```markdown
+### Agent Session â€” [Actual IST date/time]
+
+**Agent:**
+**Task ID / Name:**
+**Repository / Worktree:**
+**Branch:**
+**Starting commit:**
+**Current commit:**
+**PR:**
+**Scope:**
+**Completed work:**
+**Files changed:**
+**Tests and actual results:**
+**CI evidence:**
+**Merge status:**
+**Deployment and migration status:**
+**Decisions and assumptions:**
+**Blockers:**
+**Uncommitted changes:**
+**Exact next action:**
+**Next responsible agent:**
+```
+
+### 6. Documentation Completion Gate & Historical Preservation
+A task is not handed off until implementation, executed/blocked checks, `HANDOFF.md`, `TASKS.md`, `EXECUTION_STATE.md`, `PROGRESS_LEDGER.md`, commit SHA, PR status, and exact next action are recorded. Preserve historical evidence under `docs/evidence/` and never erase previous agent contributions, timestamps, failed tests, or deployment history.
