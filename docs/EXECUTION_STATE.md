@@ -1,6 +1,6 @@
 # AnugaCare execution state
 
-Last reconciled: 2026-11-09 17:00:00 IST (Asia/Kolkata)
+Last reconciled: 2026-11-09 19:15:00 IST (Asia/Kolkata)
 
 ## Mission
 
@@ -12,11 +12,12 @@ publication remain out of scope.
 
 ## Concurrent Active Checkouts (Two Isolated Workstreams)
 
-### 1. Gemini Workstream (UI/UX Modernization)
-- **Agent:** Gemini (Antigravity — Lead UI/UX Engineer)
+### 1. Gemini CLI Workstream (UI/UX Modernization — PR #29)
+- **Agent:** Gemini CLI (Antigravity — Lead UI/UX Engineer)
 - **Repository / Worktree:** `D:\AI-Workspace\Ideas\Anuga`
 - **Branch:** `feat/anugacare-ui-modernization` (based on `origin/main` `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9`)
-- **Active Task:** `WP-0` (`71fb555`) through `WP-6` implemented and verified locally (`pnpm db:test` 209/209, `ops_console` 70/70 + build, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39); pushing and opening PR on `feat/anugacare-ui-modernization`.
+- **Pull Request:** **PR #29** (`https://github.com/iamnawin/anuga/pull/29`, OPEN, `MERGEABLE`)
+- **Active Task:** `WP-0` (`71fb555`), `WP-1`–`WP-6` (`d22c39d`), and CI fix (`c4ced74`) pushed and verified in **GitHub Actions CI run `42625907826` (`7/7` jobs `SUCCESS`)**. `UX-01` and `UX-02` verified resolved; `UX-03`–`UX-08` documented as `Partial` / `Requires Product Decision` where backend/test/dependency contracts apply.
 
 ### 2. Codex Workstream (PR #28 & Synthetic Staging Release)
 - **Agent:** Codex
@@ -27,16 +28,16 @@ publication remain out of scope.
 ## Latest verified checkpoint
 
 - PRs #22-#27 were merged to `main` in dependency order (`a8109ae`, `5b838b6`, `8d175b4`, `038fb67`, `88b0c0b`, `ea6d142`).
-- Codex's PR #28 (`feat/g7-ui-staging`, head `7fa7cb2`) passed all seven CI jobs in run `42343362420` and completed independent review with zero Critical/Important findings.
-- Gemini completed `WP-0` (`71fb555`) and `WP-1`–`WP-6` (`UX-01`–`UX-08` UI/UX modernization across `anugacare_app`, `family_app`, `companion_app`, and `ops_console`) on isolated branch `feat/anugacare-ui-modernization`, with all 463 automated tests passing locally.
-- No November migration (`20261104000100`–`20261104000300`) has been applied to hosted staging (`anuga.vercel.app`, deployment `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`), which still serves the PR #21 (`21ae9bc`) baseline.
+- Codex's PR #28 (`feat/g7-ui-staging`, head `7fa7cb2` / `e80ffd0`) passed all seven CI jobs in run `42343362420` and completed independent review with zero Critical/Important findings.
+- Gemini CLI's **PR #29** (`feat/anugacare-ui-modernization`, head `c4ced74`) passed **all seven CI jobs in run `42625907826`** (`db-tests`, `shared-dart`, `ops-console`, `companion-app`, `family-app`, `anugacare-app`, `supabase-local`), incorporates PR #28's exact 9-stage `_VisitProgressStrip` keys and state mapping, and preserves all backend RLS/OTP/consent/occupancy contracts.
+- No November migration (`20261104000100`–`20261104000300`) has been applied to hosted staging (`anuga.vercel.app`, deployment `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`), which still serves the PR #21 (`21ae9bc`) baseline because `SUPABASE_ACCESS_TOKEN` is missing in the CLI environment (`REL-002`).
 
 ## Active tasks by agent
 
-- **Gemini (`D:\AI-Workspace\Ideas\Anuga` on `feat/anugacare-ui-modernization`):**
-  1. Commit and push `WP-1`–`WP-6` to `origin/feat/anugacare-ui-modernization` and open the GitHub PR targeting `main` (without merging).
-- **Codex (`D:\AI-Workspace\Repos\anuga-trips-fix` on `feat/g7-ui-staging`):**
-  1. Complete PR #28 merge when ready, reconcile with `feat/anugacare-ui-modernization`, and verify hosted Supabase operator access before applying November migrations and deploying to synthetic staging.
+- **Gemini CLI (`D:\AI-Workspace\Ideas\Anuga` on `feat/anugacare-ui-modernization` / PR #29):**
+  1. PR #29 is green (`42625907826`, 7/7 jobs) and ready for founder/Codex integration review. Do not merge or deploy without `REL-002` hosted migration verification.
+- **Codex (`D:\AI-Workspace\Repos\anuga-trips-fix` on `feat/g7-ui-staging` / PR #28):**
+  1. Reconcile/merge PR #28 and PR #29, and verify hosted Supabase operator access (`SUPABASE_ACCESS_TOKEN`) before applying the three November 4 migrations and deploying to synthetic staging.
 
 ## Current blockers and boundaries
 
