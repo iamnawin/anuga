@@ -24,6 +24,7 @@ node -e 'const fs = require("node:fs"), p = require("node:path"); const root = p
 mkdir -p "$OUT/static"
 
 step "ops console -> /ops/"
+pnpm install --frozen-lockfile
 (cd apps/ops_console && OPS_STATIC_EXPORT=1 OPS_BASE_PATH=/ops NEXT_TELEMETRY_DISABLED=1 \
   NEXT_PUBLIC_SUPABASE_URL="$STAGING_SUPABASE_URL" NEXT_PUBLIC_SUPABASE_ANON_KEY="$STAGING_SUPABASE_ANON_KEY" \
   pnpm exec next build)
