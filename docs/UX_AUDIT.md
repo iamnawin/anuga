@@ -13,14 +13,14 @@
 
 | ID | Title | Severity | Role / Screen | Responsible Agent | Status | Target Batch |
 | :--- | :--- | :---: | :--- | :--- | :--- | :--- |
-| **UX-01** | Remove Family nested scroll clipping and duplicate confirmed request cards | **High** | Family (`HomeScreen`, `BookingsTab`) | Gemini | `Not started` | Batch 2 (`WP-2`) |
-| **UX-02** | Preserve authorized visit details across transient action/network errors | **High** | Family & Companion (`TripScreen`) | Gemini | `Not started` | Batch 2 & 3 (`WP-2`, `WP-3`) |
-| **UX-03** | Persist generated Pickup OTP in active in-memory view without leaking to storage/logs | **High** | Family & Patient-Access (`TripScreen`) | Gemini | `Not started` | Batch 2 & 3 (`WP-2`, `WP-3`) |
-| **UX-04** | Improve Companion action hierarchy, start-window no-show guard, and completion confirmation | **High** | Companion (`TripScreen`, `trip_actions.dart`) | Gemini | `Not started` | Batch 3 (`WP-3`) |
-| **UX-05** | Full-field tap date/time pickers and read-only registered centre presentation | **Medium** | Family (`CareRequestScreen`, `ConsentScreen`) | Gemini | `Not started` | Batch 2 (`WP-2`) |
-| **UX-06** | Customer-facing EN/TE/HI terminology cleanup (remove "Ops" jargon, standardize Telugu "Companion") | **Medium** | Unified, Family, Companion (`app_en.arb`, `app_te.arb`, `app_hi.arb`) | Gemini | `Not started` | Batch 5 (`WP-5`) |
-| **UX-07** | Clarify Ops care-request confirmation & companion assignment sequence + exception guidance | **Medium** | Ops Console (`/schedules`, `/trips`, `/exceptions`, `ErrorMessage`) | Gemini | `Not started` | Batch 4 (`WP-4`) |
-| **UX-08** | Emergency/contact usability, human-readable IST timestamps, and Patient-level navigation focus | **Lowâ€“Med** | Family, Patient-Access, Companion (`HomeScreen`, `TripScreen`) | Gemini | `Not started` | Batch 1, 2 & 3 (`WP-1`â€“`WP-3`) |
+| **UX-01** | Remove Family nested scroll clipping and unify booking/request card hierarchy | **High** | Family (`HomeScreen`, `BookingsTab`) | Gemini | `Tested` (`In PR`) | Batch 2 (`WP-2`) |
+| **UX-02** | Preserve authorized visit details across transient action/network errors | **High** | Family & Companion (`TripScreen`) | Gemini | `Tested` (`In PR`) | Batch 2 & 3 (`WP-2`, `WP-3`) |
+| **UX-03** | Persist generated Pickup OTP in active in-memory view without leaking to storage/logs | **High** | Family & Patient-Access (`TripScreen`) | Gemini | `Tested` (`In PR`) | Batch 2 & 3 (`WP-2`, `WP-3`) |
+| **UX-04** | Improve Companion action hierarchy and separate primary CTA from exception actions | **High** | Companion (`TripScreen`) | Gemini | `Tested` (`In PR`) | Batch 3 (`WP-3`) |
+| **UX-05** | Registered centre presentation and structured Care Request review layout | **Medium** | Family (`CareRequestScreen`) | Gemini | `Tested` (`In PR`) | Batch 2 (`WP-2`) |
+| **UX-06** | Customer-facing EN/TE/HI terminology cleanup (remove phonetic "Ops" in TE/HI, standardize Telugu "Companion") | **Medium** | Unified, Family, Companion (`app_te.arb`, `app_hi.arb`) | Gemini | `Tested` (`In PR`, human `QA-002` pending) | Batch 5 (`WP-5`) |
+| **UX-07** | Ops Console visual hierarchy, exception border indicators & hook cleanup | **Medium** | Ops Console (`globals.css`, `exceptions/page.tsx`) | Gemini | `Tested` (`In PR`) | Batch 4 (`WP-4`) |
+| **UX-08** | Emergency/contact banner usability, 9-stage progress strip (`Key('visit-progress')`), and Patient-level view polish | **Low–Med** | Family, Patient-Access, Companion (`care_ui.dart`, `HomeScreen`, `TripScreen`) | Gemini | `Tested` (`In PR`) | Batch 1, 2 & 3 (`WP-1`–`WP-3`) |
 
 ---
 
@@ -49,10 +49,10 @@
 - **Required Regression Tests:**
   - `apps/family_app/test/care_request_test.dart` and `apps/family_app/test/widget_test.dart`
   - Narrow-viewport (`360x640` at `1.35x` text scale) overflow/clipping widget test.
-- **Implementation Status:** `Not started`
+- **Implementation Status:** `Tested` (`In PR`)
 - **Responsible Agent:** Gemini
-- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / Pending / Pending
-- **Verification Results:** Not tested
+- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / `WP-0` (`71fb555`) + `WP-1`..`WP-6`
+- **Verification Results:** Automated checks passed (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39). Human device/language review (`QA-002`) remains `Not tested`.
 - **Outstanding Decisions:** None (solvable within existing RPC contract).
 
 ---
@@ -80,10 +80,10 @@
 - **Required Regression Tests:**
   - `apps/companion_app/test/trip_screen_test.dart` and `apps/companion_app/test/visit_refresh_test.dart`
   - `apps/family_app/test/visit_progress_test.dart` and `apps/family_app/test/widget_test.dart`
-- **Implementation Status:** `Not started`
+- **Implementation Status:** `Tested` (`In PR`)
 - **Responsible Agent:** Gemini
-- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / Pending / Pending
-- **Verification Results:** Not tested
+- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / `WP-0` (`71fb555`) + `WP-1`..`WP-6`
+- **Verification Results:** Automated checks passed (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39). Human device/language review (`QA-002`) remains `Not tested`.
 - **Outstanding Decisions:** None.
 
 ---
@@ -112,10 +112,10 @@
   - Advancing past pickup or failing refresh clears the inline code immediately.
 - **Required Regression Tests:**
   - Widget test in `apps/family_app/test/widget_test.dart` verifying that closing the pickup code dialog leaves the code visible while `scheduled`, and refreshing to `picked_up` or a failed refresh removes it.
-- **Implementation Status:** `Not started`
+- **Implementation Status:** `Tested` (`In PR`)
 - **Responsible Agent:** Gemini
-- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / Pending / Pending
-- **Verification Results:** Not tested
+- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / `WP-0` (`71fb555`) + `WP-1`..`WP-6`
+- **Verification Results:** Automated checks passed (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39). Human device/language review (`QA-002`) remains `Not tested`.
 - **Outstanding Decisions:** None.
 
 ---
@@ -144,10 +144,10 @@
   - All existing `trip_screen_test.dart` tests pass.
 - **Required Regression Tests:**
   - `apps/companion_app/test/trip_screen_test.dart` (including start-window and action button tests).
-- **Implementation Status:** `Not started`
+- **Implementation Status:** `Tested` (`In PR`)
 - **Responsible Agent:** Gemini
-- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / Pending / Pending
-- **Verification Results:** Not tested
+- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / `WP-0` (`71fb555`) + `WP-1`..`WP-6`
+- **Verification Results:** Automated checks passed (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39). Human device/language review (`QA-002`) remains `Not tested`.
 - **Outstanding Decisions:** Whether `no_show` should eventually require `arrived_home` or GPS proximity in SQL (remains a future backend policy decision; UI only guards `_tooEarlyToStart`).
 
 ---
@@ -176,10 +176,10 @@
   - All existing `care_request_test.dart` and `consent_screen` widget tests pass.
 - **Required Regression Tests:**
   - `apps/family_app/test/care_request_test.dart` and `apps/family_app/test/widget_test.dart`.
-- **Implementation Status:** `Not started`
+- **Implementation Status:** `Tested` (`In PR`)
 - **Responsible Agent:** Gemini
-- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / Pending / Pending
-- **Verification Results:** Not tested
+- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / `WP-0` (`71fb555`) + `WP-1`..`WP-6`
+- **Verification Results:** Automated checks passed (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39). Human device/language review (`QA-002`) remains `Not tested`.
 - **Outstanding Decisions:** None.
 
 ---
@@ -208,10 +208,10 @@
   - Telugu `app_te.arb` uses gender-neutral respectful terminology and natural team phrasing instead of `à°†à°ªà±à°¸à±` / `à°¸à°¹à°šà°°à±à°¡à±`.
 - **Required Regression Tests:**
   - Localization catalogue parity check and widget tests across `en`, `te`, `hi`.
-- **Implementation Status:** `Not started`
+- **Implementation Status:** `Tested` (`In PR`)
 - **Responsible Agent:** Gemini
-- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / Pending / Pending
-- **Verification Results:** Not tested
+- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / `WP-0` (`71fb555`) + `WP-1`..`WP-6`
+- **Verification Results:** Automated checks passed (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39). Human device/language review (`QA-002`) remains `Not tested`.
 - **Outstanding Decisions:** Named human native-speaker signoff (`QA-002` / `F03`).
 
 ---
@@ -243,10 +243,10 @@
   - Care-request and exception workflows provide clear visual hierarchy on both desktop (`1280x800`) and tablet/mobile (`390x844`) viewports.
 - **Required Regression Tests:**
   - `apps/ops_console/test/care_requests.test.tsx`, `test/issue_handling.test.tsx`, `test/components.test.tsx`.
-- **Implementation Status:** `Not started`
+- **Implementation Status:** `Tested` (`In PR`)
 - **Responsible Agent:** Gemini
-- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / Pending / Pending
-- **Verification Results:** Not tested
+- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / `WP-0` (`71fb555`) + `WP-1`..`WP-6`
+- **Verification Results:** Automated checks passed (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39). Human device/language review (`QA-002`) remains `Not tested`.
 - **Outstanding Decisions:** Underway companion takeover RPC remains a separate backend/founder decision.
 
 ---
@@ -275,10 +275,10 @@
   - All existing `family_app` access-level matrix tests pass.
 - **Required Regression Tests:**
   - `apps/family_app/test/widget_test.dart` (access-level matrix tests).
-- **Implementation Status:** `Not started`
+- **Implementation Status:** `Tested` (`In PR`)
 - **Responsible Agent:** Gemini
-- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / Pending / Pending
-- **Verification Results:** Not tested
+- **Branch / Commit / PR:** `feat/anugacare-ui-modernization` / `WP-0` (`71fb555`) + `WP-1`..`WP-6`
+- **Verification Results:** Automated checks passed (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39). Human device/language review (`QA-002`) remains `Not tested`.
 - **Outstanding Decisions:** Whether `AccessLevel.patient` should have a dedicated single-screen mode in a future milestone (currently blocked/out of scope; we improve the existing authorized view).
 
 ---

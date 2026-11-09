@@ -138,7 +138,10 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
     padding: const EdgeInsets.only(top: 16, bottom: 8),
-    child: Text(text, style: Theme.of(context).textTheme.titleLarge),
+    child: Text(
+      text,
+      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+    ),
   );
 }
 
@@ -152,9 +155,15 @@ class _TripTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).languageCode;
+    final scheme = Theme.of(context).colorScheme;
     return Card(
       key: Key('trip-${trip.tripId}'),
-      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      color: scheme.surfaceContainerLow,
+      margin: const EdgeInsets.only(bottom: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+        side: BorderSide(color: scheme.outlineVariant),
+      ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
@@ -165,10 +174,12 @@ class _TripTile extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  Icon(Icons.schedule, size: 22, color: scheme.primary),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       formatIstDateTime(trip.scheduledPickupAt, locale),
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                     ),
                   ),
                   const Icon(Icons.chevron_right, size: 32),
@@ -180,12 +191,15 @@ class _TripTile extends StatelessWidget {
                 child: Chip(label: Text(statusLabel(l10n, trip.status))),
               ),
               const SizedBox(height: 12),
-              Text(trip.patientName ?? l10n.detailsHidden, style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                trip.patientName ?? l10n.detailsHidden,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+              ),
               const SizedBox(height: 12),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.local_hospital_outlined, color: Theme.of(context).colorScheme.primary),
+                  Icon(Icons.local_hospital_outlined, color: scheme.primary),
                   const SizedBox(width: 12),
                   Expanded(child: Text(trip.centreName, style: Theme.of(context).textTheme.bodyLarge)),
                 ],

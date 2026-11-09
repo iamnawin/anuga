@@ -24,6 +24,7 @@ class TripScreen extends StatefulWidget {
 class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
   FamilyBoardRow? _booking;
   List<TripEvent>? _events;
+  String? _activePickupCode;
   int _request = 0;
   bool _busy = false;
   String? _error;
@@ -53,6 +54,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
     setState(() {
       _booking = null;
       _events = null;
+      _activePickupCode = null;
       _error = null;
       _info = null;
     });
@@ -103,8 +105,11 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
     } catch (e) {
       if (mounted) {
         ++_request;
-        _booking = null;
-        _events = null;
+        if (e is RpcException && e.isNotAllowed) {
+          _booking = null;
+          _events = null;
+          _activePickupCode = null;
+        }
         _error = describeError(AppLocalizations.of(context), e);
       }
     } finally {
@@ -136,6 +141,9 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
         actions: [FilledButton(onPressed: () => Navigator.pop(context), child: Text(l10n.close))],
       ),
     );
+    if (mounted) {
+      setState(() => _activePickupCode = code);
+    }
   });
 
   Future<void> _cancel() async {
@@ -191,6 +199,9 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                           maxLines: 4,
                         ),
                       ),
+                      const SizedBox(height: 12),
+                      _VisitProgressStrip(status: _progressStatus(b.status, events)),
+                      const SizedBox(height: 8),
                       _Fact(l10n.pickupAt(formatIstTime(b.scheduledPickupAt, locale))),
                       _Fact(l10n.returnAt(formatIstTime(b.scheduledReturnAt, locale))),
                       _Fact('${l10n.centre}: ${b.centreName}'),
@@ -211,6 +222,27 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: Text(l10n.serviceIssueHelp, key: const Key('visit-issue-help')),
+                  ),
+                if (_canIssueCode && _activePickupCode != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: CarePanel(
+                      key: const Key('active-pickup-code-card'),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(l10n.pickupCodeTitle, style: theme.textTheme.labelLarge),
+                          const SizedBox(height: 4),
+                          SelectableText(
+                            _activePickupCode!,
+                            key: const Key('inline-pickup-code'),
+                            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w700, letterSpacing: 2),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(l10n.pickupCodeHelp),
+                        ],
+                      ),
+                    ),
                   ),
                 if (_canIssueCode)
                   Padding(
@@ -257,18 +289,63 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                 ),
               if (_info != null) Text(_info!, key: const Key('info'), style: theme.textTheme.titleMedium),
               const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.errorContainer,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(l10n.emergencyNumber, style: TextStyle(color: theme.colorScheme.onErrorContainer)),
-              ),
+              CareEmergencyBanner(l10n.emergencyNumber),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+const _visitProgressStatuses = <TripStatus>[
+  TripStatus.scheduled,
+  TripStatus.companionEnRoute,
+  TripStatus.pickedUp,
+  TripStatus.atCentre,
+  TripStatus.handedOver,
+  TripStatus.sessionDone,
+  TripStatus.returning,
+  TripStatus.droppedHome,
+  TripStatus.completed,
+];
+
+TripStatus? _progressStatus(TripStatus status, List<TripEvent>? events) {
+  if (_visitProgressStatuses.contains(status)) return status;
+  if (status != TripStatus.issueReported || events == null) return null;
+  for (final event in events.reversed) {
+    if (_visitProgressStatuses.contains(event.toStatus)) return event.toStatus;
+  }
+  return null;
+}
+
+class _VisitProgressStrip extends StatelessWidget {
+  const _VisitProgressStrip({required this.status});
+
+  final TripStatus? status;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final currentStage = status == null ? -1 : _visitProgressStatuses.indexOf(status!);
+    return Row(
+      key: const Key('visit-progress'),
+      children: [
+        for (var i = 0; i < _visitProgressStatuses.length; i++) ...[
+          if (i > 0) const SizedBox(width: 4),
+          Expanded(
+            child: Container(
+              key: Key('visit-progress-stage-$i'),
+              height: i == currentStage ? 10 : 6,
+              decoration: BoxDecoration(
+                color: currentStage >= 0 && i <= currentStage ? scheme.primary : scheme.outlineVariant,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: i == currentStage ? SizedBox.expand(key: Key('visit-progress-current-$i')) : null,
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

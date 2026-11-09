@@ -29,6 +29,7 @@ class _VisitBackend {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(
       MaterialApp(
+        key: UniqueKey(),
         locale: Locale(locale),
         supportedLocales: AppLocalizations.supportedLocales,
         localizationsDelegates: const [
@@ -147,4 +148,33 @@ void main() {
       expect(tester.takeException(), isNull);
     });
   }
+
+  testWidgets('progress strip reflects persisted visit status and issue history', (tester) async {
+    const progressStatuses = <TripStatus>[
+      TripStatus.scheduled,
+      TripStatus.companionEnRoute,
+      TripStatus.pickedUp,
+      TripStatus.atCentre,
+      TripStatus.handedOver,
+      TripStatus.sessionDone,
+      TripStatus.returning,
+      TripStatus.droppedHome,
+      TripStatus.completed,
+    ];
+    for (var i = 0; i < progressStatuses.length; i++) {
+      final backend = _VisitBackend();
+      backend.fake.visits['t1']!.status = progressStatuses[i];
+      await backend.pump(tester);
+      expect(byKey('visit-progress'), findsOneWidget);
+      expect(byKey('visit-progress-current-$i'), findsOneWidget);
+    }
+
+    final issueBackend = _VisitBackend();
+    final visit = issueBackend.fake.visits['t1']!;
+    issueBackend.fake
+      ..addEvent(visit, TripStatus.atCentre, TransitionActor.companion, null)
+      ..addEvent(visit, TripStatus.issueReported, TransitionActor.companion, 'Traffic delay');
+    await issueBackend.pump(tester);
+    expect(byKey('visit-progress-current-3'), findsOneWidget);
+  });
 }

@@ -96,16 +96,24 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 Center(
-                  child: Image.asset(
-                    'assets/brand/anugacare-symbol.png',
-                    key: const Key('brand-symbol'),
-                    height: 88,
-                    semanticLabel: 'AnugaCare',
+                  child: Container(
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: scheme.surfaceContainerLow,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: scheme.outlineVariant),
+                    ),
+                    child: Image.asset(
+                      'assets/brand/anugacare-symbol.png',
+                      key: const Key('brand-symbol'),
+                      height: 80,
+                      semanticLabel: 'AnugaCare',
+                    ),
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
                 CareHeading(_sentTo == null ? l10n.loginTitle : l10n.codeLabel),
                 if (_sentTo == null) ...[
                   Text(l10n.loginIntro, style: Theme.of(context).textTheme.bodyLarge),
@@ -120,43 +128,61 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 32),
-                if (_sentTo == null) ...[
-                  TextField(
-                    key: const Key('phone'),
-                    controller: _phone,
-                    keyboardType: TextInputType.phone,
-                    autofillHints: const [AutofillHints.telephoneNumber],
-                    decoration: InputDecoration(
-                      labelText: l10n.phoneLabel,
-                      helperText: l10n.phoneHint,
-                      prefixIcon: const Icon(Icons.phone_outlined),
-                    ),
+                const SizedBox(height: 24),
+                CarePanel(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (_sentTo == null) ...[
+                        TextField(
+                          key: const Key('phone'),
+                          controller: _phone,
+                          keyboardType: TextInputType.phone,
+                          autofillHints: const [AutofillHints.telephoneNumber],
+                          decoration: InputDecoration(
+                            labelText: l10n.phoneLabel,
+                            helperText: l10n.phoneHint,
+                            prefixIcon: const Icon(Icons.phone_outlined),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        FilledButton(onPressed: _busy ? null : _sendCode, child: Text(l10n.sendCode)),
+                      ] else ...[
+                        Text(l10n.codeSentTo(_sentTo!), style: Theme.of(context).textTheme.titleMedium),
+                        const SizedBox(height: 16),
+                        TextField(
+                          key: const Key('code'),
+                          controller: _code,
+                          keyboardType: TextInputType.number,
+                          maxLength: 6,
+                          autofillHints: const [AutofillHints.oneTimeCode],
+                          decoration: InputDecoration(
+                            labelText: l10n.codeLabel,
+                            prefixIcon: const Icon(Icons.password_outlined),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        FilledButton(onPressed: _busy ? null : _verify, child: Text(l10n.signIn)),
+                        const SizedBox(height: 8),
+                        OutlinedButton(onPressed: _busy ? null : _changeNumber, child: Text(l10n.changeNumber)),
+                      ],
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  FilledButton(onPressed: _busy ? null : _sendCode, child: Text(l10n.sendCode)),
-                ] else ...[
-                  Text(l10n.codeSentTo(_sentTo!), style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 16),
-                  TextField(
-                    key: const Key('code'),
-                    controller: _code,
-                    keyboardType: TextInputType.number,
-                    maxLength: 6,
-                    autofillHints: const [AutofillHints.oneTimeCode],
-                    decoration: InputDecoration(labelText: l10n.codeLabel),
-                  ),
-                  const SizedBox(height: 8),
-                  FilledButton(onPressed: _busy ? null : _verify, child: Text(l10n.signIn)),
-                  const SizedBox(height: 8),
-                  OutlinedButton(onPressed: _busy ? null : _changeNumber, child: Text(l10n.changeNumber)),
-                ],
+                ),
                 if (_message != null) ...[
                   const SizedBox(height: 16),
-                  Text(
-                    _message!,
-                    key: const Key('loginMessage'),
-                    style: TextStyle(color: scheme.error, fontSize: 18),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: scheme.errorContainer.withValues(alpha: 0.45),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: scheme.error.withValues(alpha: 0.4)),
+                    ),
+                    child: Text(
+                      _message!,
+                      key: const Key('loginMessage'),
+                      style: TextStyle(color: scheme.error, fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ],
               ],

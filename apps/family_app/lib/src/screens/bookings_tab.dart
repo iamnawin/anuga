@@ -110,30 +110,76 @@ class _BookingsTabState extends State<BookingsTab> {
             Card(
               key: Key('care-request-${request.scheduleId}'),
               color: Theme.of(context).colorScheme.surfaceContainerLow,
+              margin: const EdgeInsets.only(bottom: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+                side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Text(formatIstDateTime(request.pickupAt, locale), style: Theme.of(context).textTheme.titleMedium),
-                    Text(_requestStatus(l10n, request), key: Key('care-state-${request.scheduleId}')),
-                    Text('${request.centreName}\n${request.packageName}'),
-                    if (request.companionName != null) Text(l10n.companionLabel(request.companionName!)),
-                    if (request.requestState == 'pending') Text(l10n.carePendingExplanation),
-                    if (request.tripId != null && rows != null && rows.any((r) => r.tripId == request.tripId))
-                      TextButton(
-                        key: Key('care-visit-${request.scheduleId}'),
-                        onPressed: () async {
-                          final row = rows.firstWhere((r) => r.tripId == request.tripId);
-                          await Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (_) => TripScreen(api: widget.api, patient: widget.patient, booking: row),
-                            ),
-                          );
-                          await _load();
-                        },
-                        child: Text(l10n.careOpenVisit),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Icons.event_note_outlined, color: Theme.of(context).colorScheme.primary, size: 24),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            formatIstDateTime(request.pickupAt, locale),
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Chip(
+                        visualDensity: VisualDensity.compact,
+                        label: Text(
+                          _requestStatus(l10n, request),
+                          key: Key('care-state-${request.scheduleId}'),
+                        ),
                       ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text('${request.centreName}\n${request.packageName}'),
+                    if (request.companionName != null) ...[
+                      const SizedBox(height: 6),
+                      Text(
+                        l10n.companionLabel(request.companionName!),
+                        style: const TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                    if (request.requestState == 'pending') ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        l10n.carePendingExplanation,
+                        style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                      ),
+                    ],
+                    if (request.tripId != null && rows != null && rows.any((r) => r.tripId == request.tripId)) ...[
+                      const SizedBox(height: 8),
+                      Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: TextButton.icon(
+                          key: Key('care-visit-${request.scheduleId}'),
+                          icon: const Icon(Icons.arrow_forward, size: 18),
+                          onPressed: () async {
+                            final row = rows.firstWhere((r) => r.tripId == request.tripId);
+                            await Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (_) => TripScreen(api: widget.api, patient: widget.patient, booking: row),
+                              ),
+                            );
+                            await _load();
+                          },
+                          label: Text(l10n.careOpenVisit),
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -142,16 +188,31 @@ class _BookingsTabState extends State<BookingsTab> {
             Card(
               key: Key('booking-${row.tripId}'),
               color: Theme.of(context).colorScheme.surfaceContainerLow,
+              margin: const EdgeInsets.only(bottom: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+                side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
+              ),
               child: ListTile(
                 minVerticalPadding: 16,
-                leading: const Icon(Icons.calendar_month_outlined, size: 28),
-                title: Text(formatIstDateTime(row.scheduledPickupAt, locale)),
-                subtitle: Text(
-                  [
-                    statusLabel(l10n, row.status),
-                    row.companionName == null ? l10n.companionNotAssigned : l10n.companionLabel(row.companionName!),
-                    if (row.isCoveredByBackup) l10n.backupCovering,
-                  ].join('\n'),
+                leading: Icon(
+                  Icons.calendar_month_outlined,
+                  size: 28,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                title: Text(
+                  formatIstDateTime(row.scheduledPickupAt, locale),
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.only(top: 6),
+                  child: Text(
+                    [
+                      statusLabel(l10n, row.status),
+                      row.companionName == null ? l10n.companionNotAssigned : l10n.companionLabel(row.companionName!),
+                      if (row.isCoveredByBackup) l10n.backupCovering,
+                    ].join('\n'),
+                  ),
                 ),
                 isThreeLine: true,
                 trailing: const Icon(Icons.chevron_right, size: 32),

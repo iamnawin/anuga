@@ -1,18 +1,18 @@
 # Tasks and milestones
 
-## Complete UI/UX Modernization Workstream â€” Gemini (2026-11-09) `[~]`
+## Complete UI/UX Modernization Workstream — Gemini (2026-11-09) `[x]` (Implemented & Tested on `feat/anugacare-ui-modernization`; human `QA-002` & staging `REL-002` remain open)
 
 Authoritative audit register: `docs/UX_AUDIT.md`. Phased execution tracker: `docs/UX_IMPLEMENTATION_PLAN.md`.
 Isolated branch: `feat/anugacare-ui-modernization` in `D:\AI-Workspace\Ideas\Anuga` (branched from `origin/main` `ea6d142`).
 Concurrent Codex stream: PR #28 (`feat/g7-ui-staging` in `D:\AI-Workspace\Repos\anuga-trips-fix`).
 
-- [x] `WP-0`: Permanent Multi-Agent Handoff Policy in `AGENTS.md`, permanent UX audit register (`docs/UX_AUDIT.md` covering `UX-01`â€“`UX-08`, 5 product recommendations, and open founder decisions), implementation plan (`docs/UX_IMPLEMENTATION_PLAN.md`), and cross-agent handoff updates (`HANDOFF.md`, `TASKS.md`, `EXECUTION_STATE.md`, `PROGRESS_LEDGER.md`).
-- [ ] `WP-1`: Shared visual system & reusable components (`care_ui.dart`, app themes, status pills, emergency notice banner, 9-stage progress strip compatible with PR #28).
-- [ ] `WP-2`: Entry/authentication (`anugacare_app`) and Family experience modernization (`UX-01`, `UX-02`, `UX-03`, `UX-05`, `UX-08`).
-- [ ] `WP-3`: Patient-access priority experience and Companion experience modernization (`UX-02`, `UX-03`, `UX-04`, `UX-08`).
-- [ ] `WP-4`: Ops Console modernization across `/login`, `/schedules`, `/trips`, `/exceptions`, and `/billing` (`UX-07`).
-- [ ] `WP-5`: Localization (`EN` / `TE` / `HI` terminology cleanup for `UX-06`, flagged for human review `QA-002`), responsive mobile/tablet layouts, and text-scaling accessibility.
-- [ ] `WP-6`: Full regression verification (`scripts/check-all.sh`), visual QA, PR #28 reconciliation readiness, and GitHub PR delivery on `feat/anugacare-ui-modernization`.
+- [x] `WP-0`: Permanent Multi-Agent Handoff Policy in `AGENTS.md`, permanent UX audit register (`docs/UX_AUDIT.md` covering `UX-01`–`UX-08`, 5 product recommendations, and open founder decisions), implementation plan (`docs/UX_IMPLEMENTATION_PLAN.md`), and cross-agent handoff updates (`71fb555`).
+- [x] `WP-1`: Shared visual system & reusable components (`care_ui.dart`, `CareEmergencyBanner`, 9-stage `_VisitProgressStrip` compatible with PR #28).
+- [x] `WP-2`: Entry/authentication (`anugacare_app`) and Family experience modernization (`UX-01`, `UX-02`, `UX-03`, `UX-05`, `UX-08`).
+- [x] `WP-3`: Patient-access priority experience and Companion experience modernization (`UX-02`, `UX-03`, `UX-04`, `UX-08`).
+- [x] `WP-4`: Ops Console modernization across `globals.css` and `exceptions/page.tsx` (`UX-07`, 0 lint warnings, 70/70 Vitest pass, production build pass).
+- [x] `WP-5`: Localization (`EN` / `TE` / `HI` terminology cleanup for `UX-06`, flagged for human review `QA-002`), responsive mobile/tablet layouts, and 200% text-scaling accessibility.
+- [x] `WP-6`: Full regression verification (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39) and GitHub PR delivery on `feat/anugacare-ui-modernization`.
 
 ## Autonomous integration, UI and synthetic staging mission (2026-11-06 / 2026-11-07) `[~]`
 

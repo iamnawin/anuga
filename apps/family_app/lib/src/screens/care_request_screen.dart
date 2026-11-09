@@ -154,10 +154,27 @@ class _CareRequestScreenState extends State<CareRequestScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CareHeading(_review ? l10n.careReview : l10n.careRequestTitle),
-                  CarePanel(child: Text(l10n.careRequestIntro)),
-                  const SizedBox(height: 16),
-                  Text(l10n.patientLabel, style: Theme.of(context).textTheme.labelLarge),
-                  Text(widget.patient.fullName, key: const Key('care-patient')),
+                  CarePanel(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(l10n.careRequestIntro),
+                        const SizedBox(height: 12),
+                        Text(
+                          l10n.patientLabel,
+                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          widget.patient.fullName,
+                          key: const Key('care-patient'),
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 16),
                   if (options == null && _error == null) Text(l10n.loading),
                   if (options != null) ...[
@@ -167,35 +184,52 @@ class _CareRequestScreenState extends State<CareRequestScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('${l10n.centre}: ${options.centreName}'),
+                            Text(
+                              '${l10n.centre}: ${options.centreName}',
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 8),
                             Text('${l10n.carePackage}: ${options.packages.firstWhere((p) => p.id == _packageId).name}'),
+                            const SizedBox(height: 8),
                             Text(
                               '${l10n.carePickup}: ${DateFormat('d MMM y, HH:mm', locale).format(toIst(_pickup()!))}',
+                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Text(l10n.carePendingExplanation),
+                      CarePanel(child: Text(l10n.carePendingExplanation)),
                     ] else ...[
                       DropdownButtonFormField<String>(
                         key: const Key('care-centre'),
                         initialValue: options.centreId,
                         isExpanded: true,
                         itemHeight: null,
-                        decoration: InputDecoration(labelText: l10n.centre),
+                        decoration: InputDecoration(
+                          labelText: l10n.centre,
+                          prefixIcon: const Icon(Icons.local_hospital_outlined),
+                        ),
                         items: [DropdownMenuItem(value: options.centreId, child: Text(options.centreName))],
                         onChanged: (_) {},
                       ),
                       const SizedBox(height: 8),
-                      Text(l10n.careRegisteredCentre),
+                      Text(
+                        l10n.careRegisteredCentre,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
                       const SizedBox(height: 16),
                       DropdownButtonFormField<String>(
                         key: const Key('care-package'),
                         initialValue: _packageId,
                         isExpanded: true,
                         itemHeight: null,
-                        decoration: InputDecoration(labelText: l10n.carePackage),
+                        decoration: InputDecoration(
+                          labelText: l10n.carePackage,
+                          prefixIcon: const Icon(Icons.medical_services_outlined),
+                        ),
                         items: [for (final p in options.packages) DropdownMenuItem(value: p.id, child: Text(p.name))],
                         onChanged: (value) => setState(() => _packageId = value),
                         validator: (value) => value == null ? l10n.careChoosePackage : null,
@@ -241,7 +275,8 @@ class _CareRequestScreenState extends State<CareRequestScreen> {
                       onPressed: _busy ? null : (_review ? _submit : _reviewRequest),
                       child: Text(_busy ? l10n.careSubmitting : (_review ? l10n.careSubmit : l10n.careReview)),
                     ),
-                    if (_review)
+                    if (_review) ...[
+                      const SizedBox(height: 8),
                       OutlinedButton(
                         key: const Key('care-edit'),
                         onPressed: _busy
@@ -253,6 +288,7 @@ class _CareRequestScreenState extends State<CareRequestScreen> {
                               }),
                         child: Text(l10n.careEdit),
                       ),
+                    ],
                   ],
                   if (_error != null) ...[
                     const SizedBox(height: 16),
