@@ -55,10 +55,7 @@ class AccountStatusScreen extends StatelessWidget {
                       alignment: AlignmentDirectional.centerStart,
                       child: Container(
                         padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: scheme.primaryContainer,
-                          shape: BoxShape.circle,
-                        ),
+                        decoration: BoxDecoration(color: scheme.primaryContainer, shape: BoxShape.circle),
                         child: Icon(icon, size: 36, color: scheme.primary),
                       ),
                     ),

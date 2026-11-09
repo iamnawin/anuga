@@ -136,11 +136,17 @@ class _BookingsTabState extends State<BookingsTab> {
                     const SizedBox(height: 10),
                     Align(
                       alignment: AlignmentDirectional.centerStart,
-                      child: Chip(
-                        visualDensity: VisualDensity.compact,
-                        label: Text(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+                        ),
+                        child: Text(
                           _requestStatus(l10n, request),
                           key: Key('care-state-${request.scheduleId}'),
+                          style: Theme.of(context).textTheme.labelLarge,
                         ),
                       ),
                     ),
@@ -164,9 +170,8 @@ class _BookingsTabState extends State<BookingsTab> {
                       const SizedBox(height: 8),
                       Align(
                         alignment: AlignmentDirectional.centerStart,
-                        child: TextButton.icon(
+                        child: TextButton(
                           key: Key('care-visit-${request.scheduleId}'),
-                          icon: const Icon(Icons.arrow_forward, size: 18),
                           onPressed: () async {
                             final row = rows.firstWhere((r) => r.tripId == request.tripId);
                             await Navigator.of(context).push(
@@ -176,7 +181,7 @@ class _BookingsTabState extends State<BookingsTab> {
                             );
                             await _load();
                           },
-                          label: Text(l10n.careOpenVisit),
+                          child: Text(l10n.careOpenVisit),
                         ),
                       ),
                     ],
@@ -195,11 +200,7 @@ class _BookingsTabState extends State<BookingsTab> {
               ),
               child: ListTile(
                 minVerticalPadding: 16,
-                leading: Icon(
-                  Icons.calendar_month_outlined,
-                  size: 28,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+                leading: Icon(Icons.calendar_month_outlined, size: 28, color: Theme.of(context).colorScheme.primary),
                 title: Text(
                   formatIstDateTime(row.scheduledPickupAt, locale),
                   style: const TextStyle(fontWeight: FontWeight.w700),

@@ -162,9 +162,8 @@ class _CareRequestScreenState extends State<CareRequestScreen> {
                         const SizedBox(height: 12),
                         Text(
                           l10n.patientLabel,
-                          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
-                          ),
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -216,9 +215,8 @@ class _CareRequestScreenState extends State<CareRequestScreen> {
                       const SizedBox(height: 8),
                       Text(
                         l10n.careRegisteredCentre,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall
+                            ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                       ),
                       const SizedBox(height: 16),
                       DropdownButtonFormField<String>(

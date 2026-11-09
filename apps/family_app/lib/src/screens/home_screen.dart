@@ -123,11 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Theme.of(context).colorScheme.primaryContainer,
                                 shape: BoxShape.circle,
                               ),
-                              child: Icon(
-                                Icons.person_outline,
-                                size: 24,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
+                              child: Icon(Icons.person_outline, size: 24, color: Theme.of(context).colorScheme.primary),
                             ),
                             const SizedBox(width: 12),
                             Expanded(
@@ -136,21 +132,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   Text(
                                     l10n.patientLabel,
-                                    style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
+                                    style: Theme.of(context).textTheme.labelMedium
+                                        ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                   ),
                                   Text(
                                     selected.fullName,
-                                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                    style: Theme.of(context).textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.w700),
                                   ),
                                   Text(
                                     selected.centreName,
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
+                                    style: Theme.of(context).textTheme.bodyMedium
+                                        ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
                                   ),
                                 ],
                               ),
