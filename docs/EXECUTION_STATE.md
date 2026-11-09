@@ -1,6 +1,6 @@
 # AnugaCare execution state
 
-Last reconciled: 2026-11-09 19:15:00 IST (Asia/Kolkata)
+Last reconciled: 2026-11-09 19:45:00 IST (Asia/Kolkata)
 
 ## Mission
 
@@ -17,20 +17,21 @@ publication remain out of scope.
 - **Repository / Worktree:** `D:\AI-Workspace\Ideas\Anuga`
 - **Branch:** `feat/anugacare-ui-modernization` (based on `origin/main` `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9`)
 - **Pull Request:** **PR #29** (`https://github.com/iamnawin/anuga/pull/29`, OPEN, `MERGEABLE`)
-- **Active Task:** `WP-0` (`71fb555`), `WP-1`–`WP-6` (`d22c39d`), and CI fix (`c4ced74`) pushed and verified in **GitHub Actions CI run `42625907826` (`7/7` jobs `SUCCESS`)**. `UX-01` and `UX-02` verified resolved; `UX-03`–`UX-08` documented as `Partial` / `Requires Product Decision` where backend/test/dependency contracts apply.
+- **Vercel Preview:** `https://anuga-ptkyex1az-iamnawins-projects.vercel.app` (`dpl_6673mDsp1iZULg4uPa4SD8HPz2kC`, `READY`, `target: null`, built from `631ac5d` / code `c4ced74`)
+- **Active Task:** `WP-0` (`71fb555`), `WP-1`–`WP-6` (`d22c39d`), CI fix (`c4ced74`), and docs (`631ac5d`) pushed and verified in **GitHub Actions CI runs `42625907826` and `42628795153` (`7/7` jobs `SUCCESS`)**. Synthetic Supabase (`vsvkllfgrnlbhdydysny`) identity, migration history, backup state, and RPC compatibility verified read-only; non-production Vercel preview deployed for Android phone testing.
 
 ### 2. Codex Workstream (PR #28 & Synthetic Staging Release)
 - **Agent:** Codex
 - **Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`
 - **Branch:** `feat/g7-ui-staging` (PR #28, checkpoint `7fa7cb2` / `e80ffd0`, CI `42343362420` 7/7 green)
-- **Active Task:** Task 5 release review and hosted staging verification (currently blocked on `SUPABASE_ACCESS_TOKEN` for hosted migration history verification).
+- **Active Task:** Task 5 release review and hosted staging verification (owns PR #28 integration and `REL-002` hosted migration application).
 
 ## Latest verified checkpoint
 
 - PRs #22-#27 were merged to `main` in dependency order (`a8109ae`, `5b838b6`, `8d175b4`, `038fb67`, `88b0c0b`, `ea6d142`).
 - Codex's PR #28 (`feat/g7-ui-staging`, head `7fa7cb2` / `e80ffd0`) passed all seven CI jobs in run `42343362420` and completed independent review with zero Critical/Important findings.
-- Gemini CLI's **PR #29** (`feat/anugacare-ui-modernization`, head `c4ced74`) passed **all seven CI jobs in run `42625907826`** (`db-tests`, `shared-dart`, `ops-console`, `companion-app`, `family-app`, `anugacare-app`, `supabase-local`), incorporates PR #28's exact 9-stage `_VisitProgressStrip` keys and state mapping, and preserves all backend RLS/OTP/consent/occupancy contracts.
-- No November migration (`20261104000100`–`20261104000300`) has been applied to hosted staging (`anuga.vercel.app`, deployment `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`), which still serves the PR #21 (`21ae9bc`) baseline because `SUPABASE_ACCESS_TOKEN` is missing in the CLI environment (`REL-002`).
+- Gemini CLI's **PR #29** (`feat/anugacare-ui-modernization`, code `c4ced74`, docs `631ac5d`) passed **all seven CI jobs in runs `42625907826` and `42628795153`**, verified read-only RPC compatibility against `https://vsvkllfgrnlbhdydysny.supabase.co` (`scripts/staging-smoke.ts` 10/10 pass), and deployed non-production Vercel preview `dpl_6673mDsp1iZULg4uPa4SD8HPz2kC` at `https://anuga-ptkyex1az-iamnawins-projects.vercel.app` (`/`, `/app/`, `/ops/`, `/family/`, `/companion/` all HTTP 200).
+- Hosted synthetic Supabase (`vsvkllfgrnlbhdydysny`, `ap-south-1`, Postgres `17.11.0.003`) was inspected via Supabase CLI without applying migrations: `supabase_migrations.schema_migrations` lists the 9 Oct 9 remote entries (`20261009154050`–`20261009160202`), Oct 22–Nov 3 migrations were applied via SQL Editor, and the three Nov 4 hardening migrations (`20261104000100`–`20261104000300`) remain unapplied on remote (`remote: ""`). `supabase backups list` reports `walg_enabled: true`, `pitr_enabled: false`, `backups: []`. Live production alias `https://anuga.vercel.app` (`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`) remains untouched on PR #21 (`21ae9bc`).
 
 ## Active tasks by agent
 

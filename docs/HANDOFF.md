@@ -1,5 +1,78 @@
 # Handoff
 
+## Gemini CLI Final Review, Synthetic Supabase Attestation & PR #29 Vercel Preview (2026-11-09 19:45 IST)
+
+- **Location of Full Audit & Plan:**
+  - Permanent UX & Accessibility Register: `docs/UX_AUDIT.md`
+  - Phased UI Modernization Plan: `docs/UX_IMPLEMENTATION_PLAN.md`
+- **Gemini Feature Branch, PR & CI:**
+  - Branch: `feat/anugacare-ui-modernization` (branched from `origin/main` `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9`)
+  - Worktree: `D:\AI-Workspace\Ideas\Anuga` (isolated from Codex's `D:\AI-Workspace\Repos\anuga-trips-fix` worktree on `feat/g7-ui-staging` / PR #28)
+  - Pull Request: **PR #29** (`https://github.com/iamnawin/anuga/pull/29`, OPEN, `MERGEABLE`)
+  - Commits on `feat/anugacare-ui-modernization`: `71fb555` (`WP-0`), `d22c39d` (`WP-1`–`WP-6`), `c4ced74` (BookingsTab card semantic merging fix + `dart format`), `631ac5d` (documentation receipt)
+  - **GitHub Actions CI Run `42628795153` on `631ac5d` (and `42625907826` on `c4ced74`) — ALL 7 JOBS PASSED (`SUCCESS`):**
+    1. `db-tests`: `SUCCESS` (`https://github.com/iamnawin/anuga/actions/runs/42628795153/job/129199387586`)
+    2. `shared-dart`: `SUCCESS` (`https://github.com/iamnawin/anuga/actions/runs/42628795153/job/129199387309`)
+    3. `ops-console`: `SUCCESS` (`https://github.com/iamnawin/anuga/actions/runs/42628795153/job/129199387371`)
+    4. `companion-app`: `SUCCESS` (`https://github.com/iamnawin/anuga/actions/runs/42628795153/job/129199387257`)
+    5. `family-app`: `SUCCESS` (`https://github.com/iamnawin/anuga/actions/runs/42628795153/job/129199387456`)
+    6. `anugacare-app`: `SUCCESS` (`https://github.com/iamnawin/anuga/actions/runs/42628795153/job/129199386939`)
+    7. `supabase-local`: `SUCCESS` (`https://github.com/iamnawin/anuga/actions/runs/42628795153/job/129199387510` — real Postgres 17 + Auth + RLS + Edge Functions + Playwright `care_request.spec.ts` + `issue_handling.spec.ts` + `scripts/e2e-journey.sh`)
+- **Synthetic Supabase Identity, Hosted Migration History & Recovery Path (`vsvkllfgrnlbhdydysny`):**
+  - **Project Identity (`npx supabase projects list`):** Project `anuga`, ref `vsvkllfgrnlbhdydysny`, org `dmujucbsijrezfsvgpno`, region `ap-south-1` (Mumbai), status `ACTIVE_HEALTHY`, Postgres `17.11.0.003` (`ga`), created `2026-10-09T14:15:37.430054Z`.
+  - **Hosted Migration History (`npx supabase migration list --project-ref vsvkllfgrnlbhdydysny`):** Remote `supabase_migrations.schema_migrations` records 9 initial remote timestamps (`20261009154050`, `20261009154129`, `20261009154301`, `20261009154343`, `20261009154419`, `20261009154511`, `20261009160002`, `20261009160126`, `20261009160202`) corresponding to `20261008000100`–`20261008000900`. Subsequent Oct 22–Nov 3 migrations (`20261022000100`–`20261103000100`) were applied via the dashboard SQL Editor without CLI migration-table tracking, and the three Nov 4 hardening migrations (`20261104000100`, `20261104000200`, `20261104000300`) remain unapplied on remote (`remote: ""`). Per explicit instruction, **no migrations were automatically applied**.
+  - **Available Recovery Path (`npx supabase backups list --project-ref vsvkllfgrnlbhdydysny`):** `{"region":"ap-south-1","walg_enabled":true,"pitr_enabled":false,"backups":[],"physical_backup_data":{}}`. Automated physical snapshots and PITR are not enabled on the current plan; synthetic staging recovery relies on the deterministic local migration chain (`supabase/migrations/20261008000100_core_schema.sql`..`20261104000300_companion_occupancy.sql`) + `supabase/seed/seed.sql` and the operator procedures in `docs/runbooks/environment-attestation.md` and `docs/runbooks/production-operations.md`.
+  - **Read-Only Backend Compatibility Verification:** `node scripts/staging-smoke.ts` passed all 10 allowed/denied role & Edge Function checks against `https://vsvkllfgrnlbhdydysny.supabase.co`, and read-only RPC verification confirmed HTTP 200 across `family_my_patients`, `family_trip_board` (18 trips), `family_care_requests` (13 requests), `companion_my_trips` (17 trips), `ops_trip_board` (18 trips), `ops_schedule_board` (14 schedules), and `ops_exception_queue` (6 items).
+- **PR #29 Vercel Preview Deployment (Non-Production, `https://anuga.vercel.app` Untouched):**
+  - Built prebuilt static bundle via `scripts/build-staging.sh` from commit `631ac5d` (code SHA `c4ced74`) and deployed as a **Preview** (`target: null`) to project `iamnawins-projects/anuga`:
+  - **Preview URL (Vercel team sign-in):** `https://anuga-ptkyex1az-iamnawins-projects.vercel.app` (routes: `/`, `/app/`, `/ops/`, `/family/`, `/companion/`)
+  - **Deployment ID:** `dpl_6673mDsp1iZULg4uPa4SD8HPz2kC` (`READY`)
+  - **Inspector URL:** `https://vercel.com/iamnawins-projects/anuga/6673mDsp1iZULg4uPa4SD8HPz2kC`
+  - **Live Synthetic Production Alias Untouched:** `https://anuga.vercel.app` remains on `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN` (PR #21 `21ae9bc`).
+
+### Agent Session — 2026-11-09 19:45 IST
+
+**Agent:** Gemini CLI (Antigravity — Lead UI/UX Engineer & Independent Product Analyst)
+**Task ID / Name:** Synthetic Supabase Attestation, PR #29 CI Confirmation & Vercel Preview Deployment (`dpl_6673mDsp1iZULg4uPa4SD8HPz2kC`)
+**Repository / Worktree:** `D:\AI-Workspace\Ideas\Anuga`
+**Branch:** `feat/anugacare-ui-modernization`
+**Starting commit:** `631ac5d` (code commit `c4ced74`)
+**Current commit:** `631ac5d` (plus this documentation receipt commit)
+**PR:** **PR #29** (`https://github.com/iamnawin/anuga/pull/29`)
+**Scope:**
+1. Verify synthetic Supabase project identity (`npx supabase projects list`), hosted migration history (`npx supabase migration list --project-ref vsvkllfgrnlbhdydysny`), and backup/recovery path (`npx supabase backups list --project-ref vsvkllfgrnlbhdydysny`) without applying migrations.
+2. Confirm PR #29's latest CI run (`42628795153` on `631ac5d`) is 7/7 green and preserve Codex PR #28's integration ownership.
+3. Verify read-only RPC compatibility against `https://vsvkllfgrnlbhdydysny.supabase.co` (`scripts/staging-smoke.ts` + role RPC probes).
+4. Build `scripts/build-staging.sh` and deploy a non-production Vercel preview (`dpl_6673mDsp1iZULg4uPa4SD8HPz2kC`) on `iamnawins-projects/anuga` without merging to `main` or altering `https://anuga.vercel.app`.
+**Completed work:**
+- Verified project `anuga` (`vsvkllfgrnlbhdydysny`, `ap-south-1`, `ACTIVE_HEALTHY`, Postgres `17.11.0.003`), migration table state, and backup state (`pitr_enabled: false`, `backups: []`).
+- Verified PR #29 CI run `42628795153` (`631ac5d`) passed all 7 jobs (`anugacare-app`, `companion-app`, `db-tests`, `family-app`, `ops-console`, `shared-dart`, `supabase-local`).
+- Ran `node scripts/staging-smoke.ts` (10/10 pass) and read-only RPC checks across Family, Companion, and Ops against `https://vsvkllfgrnlbhdydysny.supabase.co`.
+- Built `artifacts/staging/.vercel/output` via `scripts/build-staging.sh` and deployed Preview `dpl_6673mDsp1iZULg4uPa4SD8HPz2kC` at `https://anuga-ptkyex1az-iamnawins-projects.vercel.app`, confirming HTTP 200 across `/`, `/app/`, `/ops/login/`, `/family/`, and `/companion/` via `vercel curl`.
+**Files changed:** `docs/HANDOFF.md`, `docs/TASKS.md`, `docs/EXECUTION_STATE.md`, `docs/PROGRESS_LEDGER.md`
+**Tests and actual results:**
+- GitHub Actions CI run `42628795153` on `631ac5d`: **7/7 jobs PASSED (`SUCCESS`)**.
+- `node scripts/staging-smoke.ts` against `https://vsvkllfgrnlbhdydysny.supabase.co`: **10/10 checks PASSED**.
+- Read-only RPC compatibility check against `https://vsvkllfgrnlbhdydysny.supabase.co`: `family_my_patients` (200), `family_trip_board` (200, 18 trips), `family_care_requests` (200, 13 requests), `companion_my_trips` (200, 17 trips), `ops_trip_board` (200, 18 trips), `ops_schedule_board` (200, 14 schedules), `ops_exception_queue` (200, 6 items).
+- `scripts/build-staging.sh`: Built `/ops/`, `/family/`, `/companion/`, `/app/`, and `/` into `artifacts/staging/.vercel/output` (`exit 0`).
+- `vercel curl` route verification on `https://anuga-ptkyex1az-iamnawins-projects.vercel.app`: HTTP 200 verified.
+**CI evidence:** Run `42628795153` (`https://github.com/iamnawin/anuga/actions/runs/42628795153`) — 7/7 green on `631ac5d`; Run `42625907826` — 7/7 green on `c4ced74`.
+**Merge status:** Not merged (PR #29 open and `MERGEABLE` against `main`; Codex owns PR #28 integration).
+**Deployment and migration status:**
+- **Preview Deployed:** `https://anuga-ptkyex1az-iamnawins-projects.vercel.app` (`dpl_6673mDsp1iZULg4uPa4SD8HPz2kC`, `READY`, `target: null`, Vercel team sign-in).
+- **Production Alias Untouched:** `https://anuga.vercel.app` (`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`) was not modified.
+- **Migrations:** Zero migrations applied. The three Nov 4 SQL hardening migrations (`20261104000100`–`20261104000300`) remain unapplied on `vsvkllfgrnlbhdydysny` until Codex/founder reconciles the remote `schema_migrations` table and applies them for `REL-002`.
+**Decisions and assumptions:**
+- Deployed PR #29 as a non-production Vercel Preview (`target: null`) on `iamnawins-projects/anuga` (`https://anuga-ptkyex1az-iamnawins-projects.vercel.app`), matching the exact preview workflow used for PR #20, PR #21, and PR #22 without altering `https://anuga.vercel.app` or Codex's PR #28.
+**Blockers:**
+- `REL-002` (for promoting `main` to `https://anuga.vercel.app`): Hosted `vsvkllfgrnlbhdydysny` has `pitr_enabled: false` / `backups: []`, and `supabase_migrations.schema_migrations` only tracks the 9 Oct 9 timestamps while Oct 22–Nov 3 migrations were run in the SQL Editor and Nov 4 migrations (`20261104000100`–`20261104000300`) are not yet applied on remote.
+- `QA-002`: Physical Android phone testing by the founder on `https://anuga-ptkyex1az-iamnawins-projects.vercel.app/app/` and human Telugu/Hindi healthcare copy signoff remain `Not tested`.
+**Uncommitted changes:** None after committing this documentation receipt (built `artifacts/staging/` is gitignored).
+**Exact next action:**
+1. Founder opens `https://anuga-ptkyex1az-iamnawins-projects.vercel.app/app/` in Android Chrome (signed into Vercel team `iamnawins-projects`), signs in with synthetic Family owner `919000000101` / OTP `123456`, and runs the mobile walkthrough (`QA-002`).
+2. Codex/founder reconciles PR #28 and PR #29 on `main` and applies the three Nov 4 SQL migrations on `vsvkllfgrnlbhdydysny` when ready to promote to `https://anuga.vercel.app`.
+**Next responsible agent:** Founder (Android Chrome preview testing on `https://anuga-ptkyex1az-iamnawins-projects.vercel.app`) / Codex (PR #28 integration & `REL-002` staging promotion).
+
 ## Gemini CLI Final Review, CI Verification & Codex Integration Readiness (2026-11-09 19:15 IST)
 
 - **Location of Full Audit & Plan:**

@@ -1,9 +1,10 @@
 # Tasks and milestones
 
-## Complete UI/UX Modernization Workstream — Gemini CLI (2026-11-09) `[~]` (PR #29 7/7 CI green at `c4ced74`; product decisions `DEC-01`/`DEC-02`/`DEC-05`, human `QA-002` & staging `REL-002` remain open)
+## Complete UI/UX Modernization Workstream — Gemini CLI (2026-11-09) `[~]` (PR #29 7/7 CI green at `c4ced74`/`631ac5d` & Vercel Preview `dpl_6673mDsp1iZULg4uPa4SD8HPz2kC` READY; product decisions `DEC-01`/`DEC-02`/`DEC-05`, human `QA-002` & staging `REL-002` remain open)
 
 Authoritative audit register: `docs/UX_AUDIT.md`. Phased execution tracker: `docs/UX_IMPLEMENTATION_PLAN.md`.
 Isolated branch: `feat/anugacare-ui-modernization` in `D:\AI-Workspace\Ideas\Anuga` (branched from `origin/main` `ea6d142`, **PR #29** `https://github.com/iamnawin/anuga/pull/29`).
+Vercel Preview (team sign-in, non-prod): `https://anuga-ptkyex1az-iamnawins-projects.vercel.app` (`dpl_6673mDsp1iZULg4uPa4SD8HPz2kC`, built from `631ac5d` / code `c4ced74`).
 Concurrent Codex stream: PR #28 (`feat/g7-ui-staging` in `D:\AI-Workspace\Repos\anuga-trips-fix`).
 
 - [x] `WP-0`: Permanent Multi-Agent Handoff Policy in `AGENTS.md`, permanent UX audit register (`docs/UX_AUDIT.md` covering `UX-01`–`UX-08`, 5 product recommendations, and open founder decisions), implementation plan (`docs/UX_IMPLEMENTATION_PLAN.md`), and cross-agent handoff updates (`71fb555`).
