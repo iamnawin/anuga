@@ -30,6 +30,14 @@ Do not rely on chat history as the source of truth.
 
 ## Current recovery point (2026-11-11)
 
+Latest approved task ATTEST-001 is complete; receipt at
+`evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`.
+Source `8646f56`, CI `43030310112` SUCCESS seven jobs. Supabase management access
+now works. Live definitions confirm missing Nov 4 pickup/consent/occupancy fixes,
+divergent history and no proven usable backup. Publish receipt then STOP for
+review. Do not follow the historical missing-token or auto-rollout steps below.
+Proposed next single task is backup/recovery readiness under new approval.
+
 - Active branch: `feat/g7-ui-staging`; PR #28.
 - Verified checkpoint: `e80ffd028614a93ef20d1657001144fef755dfcd`.
 - Expected main: `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9` until PR #28 merges.

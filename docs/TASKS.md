@@ -1,5 +1,20 @@
 # Tasks and milestones
 
+## ATTEST-001 Read-only synthetic Supabase attestation (2026-11-11) `[x]`
+
+- [x] CI `43030310112` finished SUCCESS on `8646f56`, all seven jobs; no rerun.
+- [x] Existing CLI access verified exact synthetic project/ref/region/status.
+- [x] Hosted history reconciled against 17 local files and live function bodies:
+      nine legacy records, five later manual implementation groups inspected,
+      all three Nov 4 hardening effects confirmed missing.
+- [x] RPC signatures, app-role grants, RLS and private-note/storage boundaries
+      inspected read-only; no unsafe app-RPC mutation probe used.
+- [x] Backup API inspected: WAL-G true, PITR false, no listed restore points;
+      usable recovery and restore drill remain unverified.
+- Receipt: `docs/evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`.
+- [!] Release remains blocked. No migrations, data/role/RLS changes, deploy or
+      merge. Stop for review; proposed next task is usable synthetic recovery.
+
 ## Task 4 recovery delivery (2026-11-11) `[x]`
 
 - [x] Codex recovered branch `feat/g7-ui-staging` at `e80ffd0`; tracked tree clean,

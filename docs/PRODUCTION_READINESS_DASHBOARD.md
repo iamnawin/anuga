@@ -3,6 +3,13 @@
 Updated: 7 November 2026. Source of truth: [31-row release matrix](PRODUCTION_READINESS.md).
 This dashboard summarizes progress; only the matrix and linked evidence can close a gate.
 
+11 November read-only attestation: [hosted receipt](evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md).
+CLI access now works. Project identity is confirmed, but live definitions prove
+three Nov 4 hardening effects absent and migration history diverges. No usable
+backup/restore point is demonstrated; PITR false. Hosted parity FAIL, recovery
+NOT READY, real patients NO-GO. CI `43030310112` passes seven jobs on `8646f56`;
+that disposable CI success does not close hosted parity. No migration/deploy/merge.
+
 | Gate | Status | Completed technical work | Evidence still required to close |
 |---|---|---|---|
 | Technical candidate CI | Pass | Run `42167845149` isolated a care-request test-fixture collision; occupancy correctly refused overlapping Asha assignment. Corrected head `4a05c29` uses unoccupied Ravi and asserts the assignment RPC response; run `42170840666` passes all seven jobs | Preserve the deterministic fixture and response assertion; this does not close G7/G8 |

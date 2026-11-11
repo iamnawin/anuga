@@ -2,6 +2,14 @@
 
 Audit: **4 November 2026 (IST)**. Decision: **NO-GO for real patient onboarding**.
 
+11 November 2026, 19:17 IST: completed [read-only hosted attestation](evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md).
+Exact synthetic project identity confirmed. Nine legacy migration records and
+live function/trigger/RLS checks prove missing Nov 4 pickup preservation, consent
+enforcement and occupancy effects. No listed backup/restore point; PITR disabled;
+recovery not ready. CLI access is no longer a blocker. Schema drift and recovery
+remain release blockers. CI `43030310112` passed seven jobs on `8646f56`.
+No migrations, role/data/RLS changes, deployment or merge performed.
+
 Current mission update (7 November 2026, 15:52 IST): #22-#27 merged through
 `ea6d142`; #28 UI progress and evidence passed seven jobs at `7fa7cb2` in
 `42343362420`, with independent review finding no blocker. Existing synthetic

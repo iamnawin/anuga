@@ -1,5 +1,52 @@
 # Handoff
 
+### Agent Session - 2026-11-11 19:20:15 IST
+
+**Agent:** Codex.
+**Role / responsibility:** PR #28 owner, read-only staging attestation.
+**Session start (IST):** First captured attestation clock 2026-11-11 19:13:01.
+**Task ID / Name:** ATTEST-001 / synthetic Supabase identity, parity and recovery.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`.
+**Branch:** `feat/g7-ui-staging`.
+**Starting commit:** `8646f569a58a9b1508af23c6e0aa19c672bc93a6`.
+**Current commit:** Verified source `8646f56`; ending documentation SHA is the
+commit containing this receipt, discoverable from Git/PR #28.
+**PR:** #28 OPEN/unmerged. #29/V2 and #30 untouched.
+**Scope:** Read-only hosted metadata attestation; no application RPC execution.
+**Completed work:** Supabase access now succeeds; exact synthetic project `anuga`
+`vsvkllfgrnlbhdydysny`, Mumbai, ACTIVE_HEALTHY, Postgres 17.11.0.003 confirmed.
+Nine legacy migration records compared with 17 local migrations and live bodies.
+Twelve of 16 inspected functions match latest source; four match older source.
+All three Nov 4 hardening effects are genuinely missing, corroborating Gemini
+without relying on history alone. RPC/grant/RLS/private-note/bucket boundaries
+inspected; backup listing has no restore points and PITR false.
+**Files changed:** `docs/evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`,
+its `README.md`, `docs/HANDOFF.md`, `docs/EXECUTION_STATE.md`,
+`docs/PROGRESS_LEDGER.md`, `docs/TASKS.md`, `docs/RECOVERY.md`, and production
+readiness/dashboard/checklist updates reflecting the attested blockers.
+**Tests and actual results:** No build/test/job reruns. Existing catalogue SQL
+wrapper rejected by CLI read-only parser before SQL execution; retained read-only
+mode and used SELECT-only adapter. Four metadata queries executed with
+`transaction_read_only=on`. Local body comparison and result inspection complete.
+No patient/Auth rows or secrets requested. Whitespace/diff validation before push.
+**CI evidence:** `43030310112` completed SUCCESS, seven jobs on `8646f56`.
+**Merge status:** #28 not merged; no PR or branch integration performed.
+**Deployment and migration status:** No migrations/history repairs, deployment,
+restore, data/user/app-role/RLS changes performed. Missing live effects:
+`20261104000100`, `20261104000200`, `20261104000300`.
+**Decisions and assumptions:** Migration names/timestamps are not schema parity;
+function bodies, missing helpers/triggers and old RLS predicate provide direct
+evidence. Listed WAL-G flag/seed scripts do not prove recovery of current state.
+**Blockers:** Hosted pickup/consent/occupancy drift; divergent ledger/manual
+changes; no demonstrated backup/restore coverage; candidate hosted journey,
+physical Android/PWA and human TE/HI acceptance remain open. Real patients NO-GO.
+**Uncommitted changes:** Receipt/tracking files before commit; ignored local
+catalogue adapters/results retained in `artifacts/`; `.unlazy/` untracked/excluded.
+**Exact next action:** Push only this receipt/tracking checkpoint to #28, then
+STOP for review. Recommended next single task: authorized protected synthetic
+backup/recovery artifact plus isolated restore validation before any migration.
+**Next responsible agent:** Founder reviews; Codex performs only the next approved task.
+
 ### Agent Session - 2026-11-11 19:03:20 IST
 
 **Agent:** Codex.

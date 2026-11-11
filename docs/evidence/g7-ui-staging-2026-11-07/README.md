@@ -1,5 +1,11 @@
 # G7 UI staging evidence
 
+Latest approved read-only task (11 November): see
+[synthetic staging attestation](STAGING_ATTESTATION.md). CI `43030310112` passed
+seven jobs on `8646f56`. Current live definitions prove all three Nov 4 hardening
+effects are missing; recovery is not ready. CLI access now works; earlier access
+failure entries below are historical. No hosted changes or merges occurred.
+
 ## Task 4 recovery and delivery review (2026-11-11)
 
 Recovered by Codex from `e80ffd028614a93ef20d1657001144fef755dfcd` on

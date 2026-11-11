@@ -1,6 +1,17 @@
 # AnugaCare progress ledger
 
-Last reconciled: 2026-11-11 19:01:39 IST (Asia/Kolkata)
+Last reconciled: 2026-11-11 19:20:15 IST (Asia/Kolkata)
+
+ATTEST-001 (Codex, approved read-only follow-up): observation complete on source
+`8646f56`; CI `43030310112` finished SUCCESS, seven jobs, no reruns. Live project
+identity confirmed; nine legacy history rows and 16 function-body comparisons
+prove three Nov 4 hardening effects absent, while five later manual application
+groups have inspected code present. Backup listing has no usable restore point;
+PITR false. Detailed receipt: `evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`.
+REL-002 remains BLOCKED by confirmed drift/recovery gaps, no longer missing CLI
+access. This is a completed attestation, not a completed rollout: weights do not
+change. Publish receipt on #28 then STOP. Proposed next task: synthetic backup/
+recovery readiness, subject to founder review. Earlier dated records follow.
 
 TASK4-RECOVERY (Codex): recovered `e80ffd0`, verified completed seven-job CI
 `42363763847`, counted 17 retained screenshots and rechecked the retained APK
@@ -42,7 +53,7 @@ the task table, not estimated from chat activity.
 | QA-001 Complete synthetic journey | 10 | VERIFIED | INT-002, UI-002, UI-004 | Family -> Ops -> Companion -> Family persists with OTP, handover, return, issue privacy and denial controls | PR #28 head `1e956fc` | CI `42342439646` 7/7: care, issue and combined real-Supabase journeys pass; 17 screenshots retained | Re-run against deployed synthetic staging |
 | QA-002 Physical mobile and language acceptance | 6 | BLOCKED | PWA-001, REL-002 | Android Chrome/PWA, small-screen/200% text and human Telugu/Hindi wording are signed with real evidence | Not applicable | No physical device or human language approval supplied | Founder runs device plan; named TE/HI and healthcare reviewers sign results |
 | REL-001 Main PR/CI completion | 7 | IN_PROGRESS | INT-002 | In-scope stack and later UI release PRs are merged with required CI and exact SHAs recorded | #22-#27 merged; draft PR #28 head `1e956fc` | PR #28 CI `42342439646` 7/7; APK and screenshots reviewed | Complete final review/docs, mark ready, final CI, then merge normally |
-| REL-002 Synthetic staging deployment | 8 | NOT_STARTED | REL-001, PWA-001, QA-001 | Exact main commit and compatible migrations deploy only to positively identified synthetic staging; URLs and role workflows are verified | Current staging remains PR #21/main | No November hosted migration or deployment | Verify project identity/history/recovery, migrate, deploy, smoke, then run hosted journey |
+| REL-002 Synthetic staging deployment | 8 | BLOCKED | REL-001, PWA-001, QA-001 | Exact main commit and compatible migrations deploy only to positively identified synthetic staging; URLs and role workflows are verified | ATTEST-001 on PR #28 source `8646f56` | Identity verified; three Nov 4 effects missing; history diverges; no usable backup/PITR/restore proof | Founder reviews attestation, then authorizes one backup/recovery task; no rollout yet |
 
 ## Progress calculation
 

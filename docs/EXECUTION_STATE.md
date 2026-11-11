@@ -1,12 +1,10 @@
 # AnugaCare execution state
 
-Last reconciled: 2026-11-11 19:01:39 IST (Asia/Kolkata)
+Last reconciled: 2026-11-11 19:20:15 IST (Asia/Kolkata)
 
-Current assignment: recover and deliver Task 4 only, then STOP for founder
-review. The earlier Task 5 merge/deploy sequence is superseded for this session.
-Task 4 automation/evidence is verified; physical-device and hosted acceptance
-remain blocked/unverified. No runtime implementation or expensive build is
-required for this documentation checkpoint.
+Current assignment: ATTEST-001 read-only synthetic Supabase attestation, approved
+after Task 4 review. Observation complete; publish receipt then STOP for review.
+No migration, role/RLS/data change, deployment or PR merge is authorized.
 
 ## Mission
 
@@ -20,7 +18,7 @@ out of scope.
 
 - Repository: `D:\AI-Workspace\Repos\anuga-trips-fix`
 - Branch: `feat/g7-ui-staging`
-- Latest verified checkpoint: `e80ffd028614a93ef20d1657001144fef755dfcd`.
+- Latest verified source checkpoint: `8646f569a58a9b1508af23c6e0aa19c672bc93a6`.
 - Remote branch: `origin/feat/g7-ui-staging`; obtain current HEAD using Git.
 - Working tree: tracked files clean; `.unlazy/` is the only untracked local
   execution state and must remain uncommitted.
@@ -52,28 +50,34 @@ out of scope.
 
 ## Active task
 
-TASK4-RECOVERY: finish the documentation delivery and user review checkpoint.
-CI `42363763847` is completed/success, all seven jobs on `e80ffd0`.
-The 17 retained PR screenshots and APK hash match the Task 4 receipt.
+ATTEST-001: current hosted catalog corroborates all three Nov 4 hardening
+migrations' effects are missing. Nine legacy history rows omit five later
+partially verified manual applications. Backup listing has no restore points and
+PITR is disabled. Supabase access is now available. Full sanitized receipt:
+`docs/evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`.
+CI `43030310112` completed SUCCESS: seven jobs on source `8646f56`.
 
 ## Next safe action
 
-1. Commit/push this Task 4 recovery receipt to PR #28.
-2. Record the new documentation commit and any CI status without inferring pass.
-3. STOP for founder review; do not merge or start Task 5 automatically.
-4. Proposed next single task after review: read-only synthetic Supabase identity,
-   migration-history and recovery attestation, once operator access is available.
+1. Commit/push the completed ATTEST-001 receipt and tracking updates to PR #28.
+2. STOP for founder review; do not merge, apply migrations or deploy.
+3. Proposed next single task after review: establish a usable synthetic backup/
+   recovery artifact and isolated restore validation under explicit authorization.
+4. Migration-history repair and three-migration rollout require later review.
 5. Gemini PR #29/V2 and security PR #30 remain independent and untouched.
 
 ## Current blockers and boundaries
 
 - Physical Android Chrome/PWA testing requires the founder's real device.
 - Telugu and Hindi healthcare/service wording requires named human reviewers.
-- Hosted migration/deployment is blocked until synthetic project identity,
-  migration history and a usable recovery path are positively verified.
-- Supabase CLI management access fails with `Access token not provided`.
-  Vercel authenticated inspection works; current deployment is still
-  `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`. No hosted mutation was attempted.
+- Supabase management access now works and positively identifies synthetic
+  `anuga` / `vsvkllfgrnlbhdydysny`, Mumbai, ACTIVE_HEALTHY.
+- Hosted parity FAIL: missing pickup preservation, consent/OTP/read denial and
+  occupancy enforcement. Migration-history timestamps diverge from all 17 local
+  files; manual applications must be reconciled before any push.
+- Recovery NOT READY: no listed backup, PITR false, no verified restore artifact.
+- Last public deployment observation remains
+  `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`; not re-deployed in this task.
 - Independent Patient sign-in is not assumed; current role contracts decide the
   supported patient experience.
 - Embedded navigation, live GPS/ETA, real calls, payments and medical checklists
