@@ -1,5 +1,10 @@
 # G7 UI staging evidence
 
+BACKUP-001 follow-up: [backup/recovery coverage and blocker receipt](BACKUP_001.md).
+Supported backup route reviewed, but existing tooling/direct credentials and an
+authorized isolated target are insufficient. No backup/restore artifact created;
+recovery BLOCKED. ATTEST-001 was reused without repeating hosted observations.
+
 Latest approved read-only task (11 November): see
 [synthetic staging attestation](STAGING_ATTESTATION.md). CI `43030310112` passed
 seven jobs on `8646f56`. Current live definitions prove all three Nov 4 hardening

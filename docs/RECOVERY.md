@@ -30,6 +30,15 @@ Do not rely on chat history as the source of truth.
 
 ## Current recovery point (2026-11-11)
 
+BACKUP-001 supersedes the active-task pointer below: method/coverage receipt
+`evidence/g7-ui-staging-2026-11-07/BACKUP_001.md` documents BLOCKED export/restore.
+Starting source `7d94feb`, PR #28. No backup created; do not look for a dump or
+claim readiness. No Docker/pg_dump/psql or discovered protected direct connection.
+Do not invoke passwordless `db dump --remote`, including dry-run, because it can
+create a hosted login role. No ATTEST-001 repeat, migrations, deploy or merge.
+Publish the sanitized receipt and STOP. Next proposed task is BACKUP-ACCESS-001
+after founder review, not automatic migration-history reconciliation.
+
 Latest approved task ATTEST-001 is complete; receipt at
 `evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`.
 Source `8646f56`, CI `43030310112` SUCCESS seven jobs. Supabase management access

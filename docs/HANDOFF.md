@@ -1,5 +1,53 @@
 # Handoff
 
+### Agent Session - 2026-11-11 19:32:58 IST
+
+**Agent:** Codex.
+**Role / responsibility:** PR #28 staging recovery owner.
+**Session start (IST):** 2026-11-11 19:29:10 (first captured task clock).
+**Task ID / Name:** BACKUP-001 / synthetic backup and isolated recovery.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`.
+**Branch:** `feat/g7-ui-staging`.
+**Starting commit:** `7d94feb1358e48bf40ca8c23ed216ed8c94041be`.
+**Current commit:** Source `7d94feb`; ending documentation commit contains this receipt.
+**PR:** #28 OPEN/unmerged. Other workstreams preserved.
+**Scope:** Supported backup-method review, coverage inventory, prerequisite checks;
+source remains unchanged. Restore conditional on safe explicit target authority.
+**Completed work:** Reviewed existing runbooks and current Supabase primary docs/
+CLI 3.1.0 help/source. Prepared database/Auth/Storage/configuration coverage matrix,
+backup/reconstruction distinctions, protection requirements and exact blockers.
+**Files changed:** `docs/evidence/g7-ui-staging-2026-11-07/BACKUP_001.md`, its
+`README.md`, `docs/HANDOFF.md`, `docs/TASKS.md`, `docs/EXECUTION_STATE.md`,
+`docs/PROGRESS_LEDGER.md`, `docs/RECOVERY.md`.
+**Tests and actual results:** No test/build/CI reruns. Local command/path checks:
+Docker, pg_dump and psql unavailable; standard PG17/18/Docker Desktop paths absent;
+usual libpq service/password files and relevant DB-credential env names absent.
+No credentials printed. CLI help and official source confirm passwordless remote
+dump initializes a hosted login role; that path was not invoked. Recovery matrix
+and whitespace/diff checks used for documentation delivery.
+**CI evidence:** Existing `43030310112` SUCCESS on `8646f56` reused. Starting
+documentation head `7d94feb` run `43032867873` is IN_PROGRESS at this checkpoint;
+no result inferred. BACKUP-001 itself has no runtime change requiring rebuild.
+**Merge status:** No merge; #28 remains open.
+**Deployment and migration status:** Not deployed. No migration application/repair,
+source schema/data/role/user/RLS change, credential reset, backup restore, local
+stack or hosted target provisioning performed. ATTEST-001 not repeated.
+**Decisions and assumptions:** Supported logical backup requires real tooling
+and safe direct credentials; management read access or a JSON row export does
+not establish a supported backup. Exact billing-plan label remains unverified;
+no paid backup/clone resource enabled. Reused prior backup capability evidence.
+**Blockers:** Missing dump toolchain and discovered protected direct connection;
+passwordless route would violate no-role-change scope. No approved isolated
+target/runtime. Artifact NONE; checksums N/A; recovery verdict BLOCKED.
+**Uncommitted changes:** Sanitized receipt/tracking files before commit;
+`.unlazy/` remains untracked/excluded; no backup contents or secrets in Git.
+**Exact next action:** Push only sanitized receipt to #28 then STOP for review.
+Proposed next single task BACKUP-ACCESS-001: staging owner supplies a protected
+existing direct/session-pooler connection outside Git and compatible dump tooling,
+with a specific safe restore-target decision. Do not ask for secrets in chat.
+**Next responsible agent:** Founder/staging owner reviews prerequisites; Codex
+resumes only the next approved task. No automatic migration reconciliation.
+
 ### Agent Session - 2026-11-11 19:20:15 IST
 
 **Agent:** Codex.

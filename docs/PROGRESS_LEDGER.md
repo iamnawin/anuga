@@ -1,6 +1,15 @@
 # AnugaCare progress ledger
 
-Last reconciled: 2026-11-11 19:20:15 IST (Asia/Kolkata)
+Last reconciled: 2026-11-11 19:32:58 IST (Asia/Kolkata)
+
+BACKUP-001 (Codex, approved follow-up; starting `7d94feb`, PR #28): BLOCKED for
+backup/restore. Official supported method, local prerequisites and complete
+coverage matrix reviewed. No Docker/pg_dump/psql or discovered protected direct
+DB connection. Passwordless CLI remote dump creates a temporary login role, which
+current authority prohibits; not attempted. No protected backup artifact/checksum
+or isolated restore evidence exists. Receipt: `evidence/g7-ui-staging-2026-11-07/BACKUP_001.md`.
+No ATTEST-001 repeat or test/build rerun. Stop for review. Proposed next task:
+BACKUP-ACCESS-001 prerequisites. REL-002 remains BLOCKED; weights unchanged.
 
 ATTEST-001 (Codex, approved read-only follow-up): observation complete on source
 `8646f56`; CI `43030310112` finished SUCCESS, seven jobs, no reruns. Live project

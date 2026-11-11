@@ -1,10 +1,11 @@
 # AnugaCare execution state
 
-Last reconciled: 2026-11-11 19:20:15 IST (Asia/Kolkata)
+Last reconciled: 2026-11-11 19:32:58 IST (Asia/Kolkata)
 
-Current assignment: ATTEST-001 read-only synthetic Supabase attestation, approved
-after Task 4 review. Observation complete; publish receipt then STOP for review.
-No migration, role/RLS/data change, deployment or PR merge is authorized.
+Current assignment: BACKUP-001, approved after ATTEST-001. Method/coverage review
+complete; export and isolated restore BLOCKED by toolchain/direct-credential/
+target prerequisites. No backup artifact created. Publish sanitized blocker
+receipt then STOP for review. No source role/data/schema change or rollout.
 
 ## Mission
 
@@ -50,20 +51,23 @@ out of scope.
 
 ## Active task
 
-ATTEST-001: current hosted catalog corroborates all three Nov 4 hardening
-migrations' effects are missing. Nine legacy history rows omit five later
-partially verified manual applications. Backup listing has no restore points and
-PITR is disabled. Supabase access is now available. Full sanitized receipt:
-`docs/evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`.
-CI `43030310112` completed SUCCESS: seven jobs on source `8646f56`.
+BACKUP-001: documented supported method and full DB/Auth/Storage/configuration
+coverage. Docker/pg_dump/psql unavailable; no discovered protected direct libpq
+connection. Passwordless CLI dump can create a temporary hosted role, forbidden
+under current scope. No backup/target/restore created. Receipt:
+`docs/evidence/g7-ui-staging-2026-11-07/BACKUP_001.md`.
+Starting receipt commit `7d94feb`; its CI `43032867873` is IN_PROGRESS, not a pass.
+Prior verified CI `43030310112` succeeded; no jobs/builds rerun by BACKUP-001.
 
 ## Next safe action
 
-1. Commit/push the completed ATTEST-001 receipt and tracking updates to PR #28.
-2. STOP for founder review; do not merge, apply migrations or deploy.
-3. Proposed next single task after review: establish a usable synthetic backup/
-   recovery artifact and isolated restore validation under explicit authorization.
-4. Migration-history repair and three-migration rollout require later review.
+1. Commit/push the BACKUP-001 blocker/coverage receipt and tracking updates to #28.
+2. STOP for founder review; do not merge, export through a role-changing path,
+   apply migrations, restore to source or deploy.
+3. Proposed next single task: BACKUP-ACCESS-001, owner-provided protected direct
+   database connection and compatible dump tooling, plus restore-target decision.
+4. Do not reset credentials/create roles or provision paid resources to unblock
+   this without separate authorization. Migration repair/application stays gated.
 5. Gemini PR #29/V2 and security PR #30 remain independent and untouched.
 
 ## Current blockers and boundaries

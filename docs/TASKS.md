@@ -1,5 +1,19 @@
 # Tasks and milestones
 
+## BACKUP-001 Synthetic backup and isolated recovery (2026-11-11) `[!]`
+
+- [x] Codex recovered #28 at `7d94feb` and reviewed existing recovery runbooks.
+- [x] Official logical backup capabilities, managed-schema/Auth/Storage/config
+      coverage and restore limitations documented in `BACKUP_001.md` evidence.
+- [x] Checked tooling/credential prerequisites without exposing credentials.
+- [!] Export BLOCKED: no Docker/native pg_dump/psql, no discovered protected
+      direct DB credential. Passwordless CLI would create a hosted role; not run.
+- [!] Restore NOT TESTED: no approved existing isolated target/runtime;
+      no project or billable infrastructure provisioned.
+- [!] No backup artifacts created; backup SHA-256 checksums N/A. Recovery verdict
+      BLOCKED. No source change, migrations, merge, deploy or ATTEST-001 repeat.
+- Stop for review. Proposed next single task: BACKUP-ACCESS-001 prerequisites.
+
 ## ATTEST-001 Read-only synthetic Supabase attestation (2026-11-11) `[x]`
 
 - [x] CI `43030310112` finished SUCCESS on `8646f56`, all seven jobs; no rerun.
