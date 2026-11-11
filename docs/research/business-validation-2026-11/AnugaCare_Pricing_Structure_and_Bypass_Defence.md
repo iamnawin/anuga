@@ -129,3 +129,22 @@ Stop criteria for this design: if fewer than 3 of 12 families accept ₹917 per 
 - Legal points rest on commentary. A lawyer must review the agreement, the introduction fee, the exclusivity wording and the engagement form.
 - Search covered Section 27 commentary and press reports on Urban Company. I did not find any dialysis or hospital-companion platform that publishes its anti-bypass policy.
 - Nobody was contacted and nothing was spent.
+
+## 8. Addendum: effect of a ₹2,500 to ₹6,000 dialysis session price (founder input)
+
+Source: founder, 2026-11-11, `[founder input, not independently verified]`. It is higher than the ₹1,100 to ₹5,500 range I found earlier (Bajaj Finserv Health; one Hyderabad centre advertised ₹1,400 `[V]`) and matches corporate-hospital pricing. It also excludes medicines, injections, tests and doctor visits, so total monthly spend is higher still.
+
+Escort cost as a share of the dialysis bill (12 sessions a month; escort = plan price + about ₹4,700 fare):
+
+| Price per session | Dialysis per month | Plan ₹9,999 | Plan ₹10,999 | Plan ₹11,999 |
+|---|---|---|---|---|
+| ₹2,500 | ₹30,000 | 49% | 52% | 56% |
+| ₹4,000 | ₹48,000 | 31% | 33% | 35% |
+| ₹6,000 | ₹72,000 | 20% | 22% | 23% |
+
+What it changes:
+- **At ₹4,000 and above per session, the escort adds roughly 20% to 35% to an existing bill.** That is a plausible add-on for families already paying corporate-hospital prices, so ₹10,999 is more defensible than I assumed.
+- **At ₹2,500 it adds about 50%.** That is a stretch. The cheapest centres are not the target.
+- **Target segment tightens:** families paying about ₹3,500 or more per session, usually at corporate-hospital centres. Choose pilot centres by price tier, not only by distance.
+- **Add a screening question to interviews and the pre-sale:** "What do you pay per dialysis session?" Record it next to each price-cell response. If acceptance of ₹10,999 appears only above a certain session price, that is the segment.
+- This shows affordability, not willingness to pay. Only the deposit test shows that. It also does not change companion cost or the bypass economics.
