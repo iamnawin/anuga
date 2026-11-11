@@ -1,5 +1,7 @@
 # Mobility cost, the 4 to 5 hour wait, and segment-adjusted projection (v4)
 
+> **Scope: dialysis scenario D1 only.** Prices, margins, scheduling limits and companion numbers in this file are for recurring dialysis visits and must not be applied to other service categories. Business-wide strategy is in `AnugaCare_Strategy_v2_Long_Term_Vision.md`; see `README_scope_and_index.md`.
+
 Date: 2026-11-11. Follows `AnugaCare_Pricing_Structure_and_Bypass_Defence.md`. Calculations: `model_v4_mobility_and_segments.py` → `model_v4_results.md`.
 Labels: `[V]` found in a source, `[E]` my estimate, `[U]` unverified, `[I]` needs interviews, quotes or a centre.
 Nothing was sent or spent. Not legal or tax advice.

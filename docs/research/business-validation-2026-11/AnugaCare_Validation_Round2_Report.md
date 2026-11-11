@@ -1,5 +1,7 @@
 # AnugaCare business model validation, round 2
 
+> **Scope: dialysis scenario D1 only.** Prices, margins, scheduling limits and companion numbers in this file are for recurring dialysis visits and must not be applied to other service categories. Business-wide strategy is in `AnugaCare_Strategy_v2_Long_Term_Vision.md`; see `README_scope_and_index.md`.
+
 Date: 2026-11-11. Builds on `v1-original/AnugaCare_Business_Report_v1.md` and `v1-original/model_v1b_750_original.py` (both preserved unchanged, SHA-256 in `CHECKSUMS.txt`).
 Calculations: `model_v2_sensitivity.py` → `model_v2_results.md` (re-run to reproduce).
 

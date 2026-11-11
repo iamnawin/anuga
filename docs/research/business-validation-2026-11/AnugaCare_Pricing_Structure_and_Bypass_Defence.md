@@ -1,5 +1,7 @@
 # AnugaCare pricing structure and bypass defence (v3)
 
+> **Scope: dialysis scenario D1 only.** Prices, margins, scheduling limits and companion numbers in this file are for recurring dialysis visits and must not be applied to other service categories. Business-wide strategy is in `AnugaCare_Strategy_v2_Long_Term_Vision.md`; see `README_scope_and_index.md`.
+
 Date: 2026-11-11. Follows `AnugaCare_Validation_Round2_Report.md`. Calculations: `model_v3_pricing_structure.py` → `model_v3_pricing_structure_results.md`.
 Labels: `[V]` found in a source, `[E]` my estimate, `[U]` unverified, `[I]` needs interviews, a lawyer or a centre to settle.
 Nothing here has been sent, signed or tested with anyone. Not legal advice.

@@ -1,5 +1,7 @@
 # AnugaCare: final pricing, how it can succeed, and founder decision memo
 
+> **Scope: dialysis scenario D1 only.** Prices, margins, scheduling limits and companion numbers in this file are for recurring dialysis visits and must not be applied to other service categories. Business-wide strategy is in `AnugaCare_Strategy_v2_Long_Term_Vision.md`; see `README_scope_and_index.md`.
+
 Date: 2026-11-11. Supersedes the memo in `AnugaCare_Validation_Round2_Report.md` section 6 and the price proposals in earlier files. Earlier files stay as the working trail.
 Inputs from the founder this round (not independently verified): dialysis costs ₹2,500 to ₹6,000 per session; most patients dialyse three times a week (12 per 4 weeks); the real pain is the 4 to 5 hours of waiting; some patients come and go alone; the idea should later extend beyond dialysis.
 Labels: `[V]` found in a source, `[E]` my estimate, `[U]` unverified, `[I]` needs interviews, a centre, a CA, a lawyer or quotes.

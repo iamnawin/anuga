@@ -1,5 +1,7 @@
 # Companion model: who, how selected, how paid (deep research)
 
+> **Scope: dialysis scenario D1 only.** Prices, margins, scheduling limits and companion numbers in this file are for recurring dialysis visits and must not be applied to other service categories. Business-wide strategy is in `AnugaCare_Strategy_v2_Long_Term_Vision.md`; see `README_scope_and_index.md`.
+
 Date: 2026-11-11. Calculations: `model_v9_companion_pay_and_funnel.py` → `model_v9_results.md`. Interview scripts for companions are in `AnugaCare_Interview_Script_and_Deposit_Offer.md`.
 Labels: `[V]` found in a source, `[E]` my estimate, `[U]` not found or conflicting, `[I]` needs interviews, a vendor quote, an insurer, a CA or a lawyer.
 Nobody was contacted and nothing was spent. Not legal advice.

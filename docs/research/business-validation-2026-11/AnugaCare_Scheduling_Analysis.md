@@ -1,5 +1,7 @@
 # Scheduling analysis: can a companion's day actually work?
 
+> **Scope: dialysis scenario D1 only.** Prices, margins, scheduling limits and companion numbers in this file are for recurring dialysis visits and must not be applied to other service categories. Business-wide strategy is in `AnugaCare_Strategy_v2_Long_Term_Vision.md`; see `README_scope_and_index.md`.
+
 Date: 2026-11-11. Model: `model_v10_scheduling.py` → `model_v10_results.md` (4,000 simulated days per case, three delay scenarios).
 Labels: `[V]` found in a source, `[E]` my estimate, `[I]` needs a centre, interviews or a shadow run to settle.
 Real inputs from you: a session is 4 to 5 hours; door to door is 6 to 7 hours. Everything else (centre shifts, delay sizes, travel times) is my assumption and must be replaced by shadow-run and centre data. Nothing was contacted or spent.

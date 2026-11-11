@@ -1,5 +1,7 @@
 # Interview scripts and deposit offer page (drafts for your review)
 
+> **Scope: dialysis scenario D1 only.** Prices, margins, scheduling limits and companion numbers in this file are for recurring dialysis visits and must not be applied to other service categories. Business-wide strategy is in `AnugaCare_Strategy_v2_Long_Term_Vision.md`; see `README_scope_and_index.md`.
+
 Date: 2026-11-11. These are **drafts**. Nothing has been sent, published, built or posted, and no one has been contacted. The deposit page is copy and layout only (no code, no deployment). Using any of this needs your explicit approval and, for the page, a lawyer and CA check first.
 Plans and prices come from `AnugaCare_Final_Pricing_and_Decision_Memo.md`. Companion pay and selection are in `AnugaCare_Companion_Model_Recruitment_and_Pay.md`.
 
