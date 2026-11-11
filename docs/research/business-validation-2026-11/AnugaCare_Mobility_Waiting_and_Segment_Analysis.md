@@ -125,3 +125,26 @@ What it changes:
 - **Sell a 4-week plan, not a calendar-month plan.** Option A, 12 trips for ₹10,999 (₹917 per trip), renews every 28 days. A flat ₹10,999 for 13 trips would give away about ₹70 per trip (contribution ₹264 vs ₹335). If you bill monthly, price 13 trips at about ₹11,899.
 - **The family's bill rises with frequency.** At 13 trips: about ₹11,900 fee plus about ₹5,000 cab fare, roughly ₹16,900. It stays about 33% of dialysis spend at ₹4,000 per session and about 52% at ₹2,500.
 - **Interview question to add:** "How many sessions a week, and does that ever change (extra sessions, missed sessions, hospital stays)?" Missed or reduced sessions are a churn driver and are not in the model.
+
+---
+
+## 10. Addendum: what if the companion owns a vehicle
+
+Calculations: `model_v7_companion_vehicle.py` → `model_v7_results.md`. Running costs are `[E]`.
+
+| Vehicle | Carries the patient? | Effect on cost per trip | Contribution per trip (S1, 40 families) |
+|---|---|---|---|
+| None (aggregator cab, baseline) | n/a | cab ₹388 + pay ₹430 | ₹334 |
+| **Two-wheeler** | No. Not safe for a patient after dialysis | Companion's own legs only: pay ₹430 → about ₹390 | **₹376** (+₹42) |
+| **Hatchback with commercial permit** | Yes | Saves about ₹50: only 16 of about 40 km per trip are patient km, so deadhead eats the saving | about the same |
+| **CNG auto with commercial permit** | Yes, basic comfort | Patient pays meter fare ₹239 instead of ₹388 | **₹440**, family saves about ₹1,800 a month |
+
+Findings:
+1. **Recruit companions with a two-wheeler where you can.** It is the cheapest gain (+₹40 per trip), improves punctuality and cuts commute stress. Require a valid licence, helmet and insurance. Never carry patients on it.
+2. **Do not run patients in companions' private cars.** Section 66 of the Motor Vehicles Act bars using a vehicle as a transport vehicle without a permit, and commentary says private-car insurance does not cover commercial use, so a claim after an accident could be denied `[V]` secondary sources (law4u, news). Telangana RTA reportedly found private white-board cars used for paid rides (Nov 2024) `[V]`. Exact penalties and Telangana-specific insurance rules `[U]`. Bike taxis are allowed under the 2025 aggregator guidelines only where a state approves `[V]` news, so do not use bike taxis for patients.
+3. **Driver and escort are two different jobs.** A companion who is also the driver cannot watch a weak patient in the vehicle. For ambulatory patients on short trips it may be acceptable; for others it is not.
+4. **Bypass risk rises.** A companion with a vehicle already looks like a private driver plus attendant. The direct-hire temptation is stronger, so keep the controls in the bypass document.
+5. **Liability sits with you.** If the companion's vehicle crashes with your patient, claims land on AnugaCare and the companion. Check insurance cover with a broker before anything on four wheels.
+6. **The practical route for vehicles** is a licensed operator (commercial permits, driver police verification, passenger insurance) on a monthly contract, with the companion as escort. That also sets up the shared-ride tier.
+7. **A CNG auto driver who is also a trained companion** is an interesting low-cost variant for short trips, but it needs a commercial permit and badge and depends on patient comfort. Test it only after centres and families confirm the basic model.
+8. **Ask in interviews:** do candidate companions own a bike, auto or car, and would patients accept an auto?
