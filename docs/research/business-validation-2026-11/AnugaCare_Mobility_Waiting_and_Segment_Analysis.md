@@ -105,3 +105,23 @@ Sweep of ramp multiplier for the solo plan: ×0.2 never; ×0.4 month 24; ×0.5 m
 - The ambulance and attendant figures are vendor pages.
 - The projection uses v1's overhead curve and ramp, which are assumptions, and the family count in the ₹2,500 row is a judgement, not a forecast.
 - Sources: [RED.Health ambulance costs](https://red.health/blogs/cost-of-ambulance-services-in-hyderabad), [Trivenicabs monthly rental](https://www.trivenicabs.in/monthly-car-rental), [Deccan Chronicle auto fares](https://www.deccanchronicle.com/amp/southern-states/telangana/telangana-govt-increases-auto-rickshaw-fares-1992525), [Telangana Today cab fares](https://telanganatoday.com/cab-aggregators-can-charge-up-to-2-times-the-base-fare-during-peak-hours), [Telangana free bus pass](https://www.siasat.com/hyderabad-kidney-patients-get-free-rtc-bus-pass-1468155/), [HCAH](https://www.hcah.in/caregiver/hyderabad/).
+
+---
+
+## 9. Addendum: dialysis frequency (founder input: 12 is the base, mostly three times a week)
+
+Calculations: `model_v5_visit_frequency.py` → `model_v5_results.md`. Frequency is founder input `[I]`, not independently verified. Earlier models assumed 10 escorted trips per family per month, which understates a 3-a-week patient (12 per 4 weeks, about 13 per calendar month).
+
+| Trips per family per month | Break-even month, ₹4,000+ families (ramp ×1.0) | Cash at month 24 ₹ L | Break-even month, ₹2,500 families (ramp ×0.5) | Cash at month 24 ₹ L |
+|---|---|---|---|---|
+| 8 (twice a week) | never | −16.9 | never | −20.2 |
+| 10 (earlier assumption) | 13 | +5.2 | 20 | −9.4 |
+| **12** | **10** | **+27.3** | **14** | **+1.4** |
+| **13** | **7** | **+38.3** | **11** | **+6.8** |
+
+What it changes:
+- **Trips per family is the second-biggest lever after price.** Contribution per trip barely moves (about ₹326 to ₹338). Each family simply brings more trips to cover the same overhead. Families needed to cover ₹112k overhead drop from 34 (at 10 trips) to 26 to 28 (at 12 to 13).
+- **It rescues the ₹2,500-session case.** At 12 to 13 trips the ₹2,500 segment breaks even in months 11 to 14 instead of month 20. It also shows the risk: a twice-a-week patient (8 trips) never pays back, so **qualify patients by frequency**, not only by session fee.
+- **Sell a 4-week plan, not a calendar-month plan.** Option A, 12 trips for ₹10,999 (₹917 per trip), renews every 28 days. A flat ₹10,999 for 13 trips would give away about ₹70 per trip (contribution ₹264 vs ₹335). If you bill monthly, price 13 trips at about ₹11,899.
+- **The family's bill rises with frequency.** At 13 trips: about ₹11,900 fee plus about ₹5,000 cab fare, roughly ₹16,900. It stays about 33% of dialysis spend at ₹4,000 per session and about 52% at ₹2,500.
+- **Interview question to add:** "How many sessions a week, and does that ever change (extra sessions, missed sessions, hospital stays)?" Missed or reduced sessions are a churn driver and are not in the model.
