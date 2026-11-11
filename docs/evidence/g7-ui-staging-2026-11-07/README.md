@@ -1,5 +1,11 @@
 # G7 UI staging evidence
 
+BACKUP-ACCESS-001: [client/access prerequisite receipt](BACKUP_ACCESS_001.md).
+Native PG17.11 clients now pass version checks; restricted libpq scaffolding
+prepared outside Git. Existing password, CA, endpoint confirmation, encryption/
+custody and target approvals remain pending. No dump/restore; recovery BLOCKED.
+Owner checklist must precede separately approved BACKUP-002. Stop for review.
+
 BACKUP-001 follow-up: [backup/recovery coverage and blocker receipt](BACKUP_001.md).
 Supported backup route reviewed, but existing tooling/direct credentials and an
 authorized isolated target are insufficient. No backup/restore artifact created;

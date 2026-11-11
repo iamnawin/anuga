@@ -1,11 +1,12 @@
 # AnugaCare execution state
 
-Last reconciled: 2026-11-11 19:32:58 IST (Asia/Kolkata)
+Last reconciled: 2026-11-11 19:41:54 IST (Asia/Kolkata)
 
-Current assignment: BACKUP-001, approved after ATTEST-001. Method/coverage review
-complete; export and isolated restore BLOCKED by toolchain/direct-credential/
-target prerequisites. No backup artifact created. Publish sanitized blocker
-receipt then STOP for review. No source role/data/schema change or rollout.
+Current assignment: BACKUP-ACCESS-001, approved from ad85d34. Native PostgreSQL
+17.11 clients verified; protected service/password-file scaffolding prepared
+outside Git. Prerequisites PARTIAL: owner endpoint/password/CA, encryption/custody,
+scope and target approvals pending. No backup/restore. Publish sanitized receipt
+and STOP for review. No source role/data/schema change or rollout.
 
 ## Mission
 
@@ -51,6 +52,15 @@ out of scope.
 
 ## Active task
 
+Current checkpoint supersedes the historical task pointer below:
+BACKUP-ACCESS-001 receipt `evidence/g7-ui-staging-2026-11-07/BACKUP_ACCESS_001.md`.
+Starting ad85d34, #28 OPEN. Windows native 17.11 clients pass version checks;
+protected source service template/password file outside Git contains no password.
+WSL Docker CLI exists, no daemon socket; no Docker Desktop installed. Hosted
+connection/CA/password unavailable; no recovery target provisioned. Recovery NOT
+READY. CI 43032867873 failed in runner DNS/Playwright dependency installation;
+43034985288/ad85d34 in progress; no reruns or assumed success.
+
 BACKUP-001: documented supported method and full DB/Auth/Storage/configuration
 coverage. Docker/pg_dump/psql unavailable; no discovered protected direct libpq
 connection. Passwordless CLI dump can create a temporary hosted role, forbidden
@@ -60,6 +70,10 @@ Starting receipt commit `7d94feb`; its CI `43032867873` is IN_PROGRESS, not a pa
 Prior verified CI `43030310112` succeeded; no jobs/builds rerun by BACKUP-001.
 
 ## Next safe action
+
+BACKUP-ACCESS-001 overrides the older numbered steps: push this receipt then STOP.
+Founder completes its owner checklist; propose BACKUP-002 with exact export scope
+and separate target approval. No dump/restore/migration starts automatically.
 
 1. Commit/push the BACKUP-001 blocker/coverage receipt and tracking updates to #28.
 2. STOP for founder review; do not merge, export through a role-changing path,

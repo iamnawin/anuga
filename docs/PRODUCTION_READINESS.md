@@ -2,6 +2,14 @@
 
 Audit: **4 November 2026 (IST)**. Decision: **NO-GO for real patient onboarding**.
 
+11 November 2026, 19:41:54 IST: [BACKUP-ACCESS-001](evidence/g7-ui-staging-2026-11-07/BACKUP_ACCESS_001.md)
+prepared verified PG17.11 clients and protected libpq scaffolding outside Git.
+Source credentials/CA/endpoint confirmation and recovery target remain pending;
+no backup/restore exists. Recovery gate unchanged: BLOCKED. CI 43032867873 failed
+in runner DNS/Playwright dependency setup; 43034985288 still in progress at this
+checkpoint. This infrastructure failure is distinct from hosted migration drift
+and the physical Android/human TE/HI gates. No automatic next task.
+
 11 November 2026, 19:17 IST: completed [read-only hosted attestation](evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md).
 Exact synthetic project identity confirmed. Nine legacy migration records and
 live function/trigger/RLS checks prove missing Nov 4 pickup preservation, consent

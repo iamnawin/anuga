@@ -1,6 +1,18 @@
 # AnugaCare progress ledger
 
-Last reconciled: 2026-11-11 19:32:58 IST (Asia/Kolkata)
+Last reconciled: 2026-11-11 19:41:54 IST (Asia/Kolkata)
+
+BACKUP-ACCESS-001 (Codex; start 19:36:44 IST, source ad85d34, #28 OPEN):
+prerequisites PARTIAL, BACKUP-002 BLOCKED. Native portable PG17.11 clients
+installed outside Git; four version checks pass and hashes recorded. Restricted
+libpq service template/comment-only password file prepared. Owner must confirm
+official endpoint, privately supply existing password/project CA, encryption/key
+custody, export scope and isolated target approval. Hosted connectivity/restore
+NOT TESTED. WSL Docker CLI exists but no daemon socket; no Desktop install.
+Receipt: `evidence/g7-ui-staging-2026-11-07/BACKUP_ACCESS_001.md`.
+CI 43032867873 failed in runner DNS/Playwright dependency install; 43034985288
+in progress at checkpoint. No rerun, source mutation, backup, restore, merge or
+deploy. REL-002 remains BLOCKED; weights unchanged. STOP for review.
 
 BACKUP-001 (Codex, approved follow-up; starting `7d94feb`, PR #28): BLOCKED for
 backup/restore. Official supported method, local prerequisites and complete

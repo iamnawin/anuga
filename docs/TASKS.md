@@ -1,5 +1,21 @@
 # Tasks and milestones
 
+## BACKUP-ACCESS-001 Prerequisites (2026-11-11) `[!]`
+
+- [x] Reconciled #28/ad85d34; preserved other agent worktrees.
+- [x] Inspected Windows 11 and existing Ubuntu WSL2/Docker CLI; daemon absent.
+- [x] Prepared portable PostgreSQL 17.11 pg_dump/pg_dumpall/pg_restore/psql,
+      version checks and SHA-256 evidence; no Docker Desktop/server installed.
+- [x] Restricted outside-Git libpq directory, read-only verify-full service
+      template and comment-only password file prepared.
+- [!] Dashboard connection settings unavailable; owner must confirm endpoint,
+      supply existing password privately and trusted project CA. No reset/new role.
+- [!] Native hosted connectivity NOT TESTED; isolated target only investigated.
+- [!] Encryption/custody, full export scope and target authorization pending.
+- Receipt: `evidence/g7-ui-staging-2026-11-07/BACKUP_ACCESS_001.md`.
+- Prerequisites PARTIAL; recovery still BLOCKED. No dump/restore/migration/merge/
+  deploy. STOP for review; BACKUP-002 requires the receipt's owner checklist.
+
 ## BACKUP-001 Synthetic backup and isolated recovery (2026-11-11) `[!]`
 
 - [x] Codex recovered #28 at `7d94feb` and reviewed existing recovery runbooks.

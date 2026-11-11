@@ -30,6 +30,15 @@ Do not rely on chat history as the source of truth.
 
 ## Current recovery point (2026-11-11)
 
+LATEST: BACKUP-ACCESS-001 supersedes the pointers below. Starting ad85d34,
+sanitized receipt `evidence/g7-ui-staging-2026-11-07/BACKUP_ACCESS_001.md`.
+Native PG17.11 clients now available under D:\AI-Workspace\Tools, so the earlier
+no-tooling observation is historical. Restricted outside-Git source libpq files
+are scaffolding only: password absent, CA absent, official endpoint confirmation
+pending. WSL Docker CLI exists; daemon socket absent. No backup/restore exists.
+Founder must complete the receipt's six-item checklist and approve BACKUP-002
+scope. STOP; do not dump/restore, repair history, apply migrations, merge or deploy.
+
 BACKUP-001 supersedes the active-task pointer below: method/coverage receipt
 `evidence/g7-ui-staging-2026-11-07/BACKUP_001.md` documents BLOCKED export/restore.
 Starting source `7d94feb`, PR #28. No backup created; do not look for a dump or

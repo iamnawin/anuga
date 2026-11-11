@@ -1,5 +1,51 @@
 # Handoff
 
+### Agent Session - 2026-11-11 19:41:54 IST
+
+**Agent:** Codex.
+**Role / responsibility:** PR #28 backup access/recovery prerequisites owner.
+**Session start (IST):** 2026-11-11 19:36:44.
+**Task ID / Name:** BACKUP-ACCESS-001 / client and protected connection preparation.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`.
+**Branch:** `feat/g7-ui-staging`.
+**Starting commit:** `ad85d34db0111665a93f1262a6f04c52db66fc7c`.
+**Current commit:** Starting ad85d34; ending receipt is the commit containing this
+entry (resolve with Git). No application-code change.
+**PR:** #28 OPEN/unmerged; #29/V2 and #30 preserved.
+**Scope:** Approved client tooling/config scaffolding and local target investigation;
+no dump or restore. ATTEST-001 reused.
+**Completed work:** Inspected Windows/WSL/Docker; prepared portable PostgreSQL
+17.11 clients (four executables, nine DLLs) outside Git, no server/service install.
+Restricted access directory/service template/comment-only password file prepared
+outside Git. Exact owner actions and isolated target constraints documented.
+**Files changed:** BACKUP_ACCESS_001.md evidence, evidence README, HANDOFF, TASKS,
+EXECUTION_STATE, PROGRESS_LEDGER, RECOVERY and PRODUCTION_READINESS. Local-only
+client archive/binaries and access scaffolding remain outside the repository.
+**Tests and actual results:** Four --version checks PASS (17.11); SHA-256 recorded.
+ACL checks PASS (current user/SYSTEM only; directory inheritance disabled).
+PasswordConfigured=false. Local psql service probe parses and reaches loopback
+port-1 refusal; initial invalid servicefile option corrected to PGSERVICEFILE.
+Hosted auth/TLS NOT TESTED. WSL Docker CLI exists but daemon socket absent.
+Browser host unavailable. No builds/tests/job reruns; docs diff check required.
+**CI evidence:** 43032867873/7d94feb FAILURE in Ubuntu DNS/Playwright dependency
+installation, six other jobs successful. 43034985288/ad85d34 IN_PROGRESS at this
+checkpoint. Prior full SUCCESS 43030310112/8646f56 retained; no pass inferred.
+**Merge status:** No merge; #28 open.
+**Deployment and migration status:** Not deployed; no hosted database, role,
+password, users, data, RLS or migration change; no export/restore/provisioning.
+**Decisions and assumptions:** Native clients avoid Docker Desktop; candidate
+direct service uses verify-full and read-only default. Endpoint selection needs
+owner confirmation in project settings; existing password and CA absent.
+**Blockers:** Source connectivity unverified; encryption/key custody and full
+export scope pending; isolated runtime/provision/restore approval pending.
+Prerequisites PARTIAL; BACKUP-002 BLOCKED; production remains NO-GO.
+**Uncommitted changes:** Receipt/tracking before commit; .unlazy/ remains local
+untracked state. No secrets/backups enter Git.
+**Exact next action:** Push sanitized receipt to #28 then STOP. Founder completes
+six-item owner checklist in BACKUP_ACCESS_001.md and approves exact BACKUP-002
+scope; no automatic export, restore or migration reconciliation.
+**Next responsible agent:** Founder/staging owner, then Codex on approval only.
+
 ### Agent Session - 2026-11-11 19:32:58 IST
 
 **Agent:** Codex.
