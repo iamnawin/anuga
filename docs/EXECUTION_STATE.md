@@ -1,6 +1,12 @@
 # AnugaCare execution state
 
-Last reconciled: 2026-11-07 15:52:13 IST (Asia/Kolkata)
+Last reconciled: 2026-11-11 19:01:39 IST (Asia/Kolkata)
+
+Current assignment: recover and deliver Task 4 only, then STOP for founder
+review. The earlier Task 5 merge/deploy sequence is superseded for this session.
+Task 4 automation/evidence is verified; physical-device and hosted acceptance
+remain blocked/unverified. No runtime implementation or expensive build is
+required for this documentation checkpoint.
 
 ## Mission
 
@@ -14,7 +20,7 @@ out of scope.
 
 - Repository: `D:\AI-Workspace\Repos\anuga-trips-fix`
 - Branch: `feat/g7-ui-staging`
-- Latest verified checkpoint: `7fa7cb22bb806d90352630df945325f486eaddaa`.
+- Latest verified checkpoint: `e80ffd028614a93ef20d1657001144fef755dfcd`.
 - Remote branch: `origin/feat/g7-ui-staging`; obtain current HEAD using Git.
 - Working tree: tracked files clean; `.unlazy/` is the only untracked local
   execution state and must remain uncommitted.
@@ -46,20 +52,18 @@ out of scope.
 
 ## Active task
 
-Plan Task 5: finalize PR #28, obtain a fresh whole-branch review, merge only after
-the review/CI/doc state agrees, then verify synthetic hosted identity, migration
-history and recovery prerequisites before any migration or deployment.
+TASK4-RECOVERY: finish the documentation delivery and user review checkpoint.
+CI `42363763847` is completed/success, all seven jobs on `e80ffd0`.
+The 17 retained PR screenshots and APK hash match the Task 4 receipt.
 
 ## Next safe action
 
-1. Commit/push the reviewed release and recovery documentation corrections.
-2. Confirm CI on the resulting documentation commit.
-3. Mark PR #28 ready, review the full diff,
-   and merge normally if still clean.
-4. Verify the hosted target's synthetic identity, migration history and usable
-   recovery path. Stop before mutation if any prerequisite is inaccessible.
-5. Only then apply missing ordered migrations, deploy exact merged main and run
-   hosted smoke/journey. Physical Android and language approval stay manual.
+1. Commit/push this Task 4 recovery receipt to PR #28.
+2. Record the new documentation commit and any CI status without inferring pass.
+3. STOP for founder review; do not merge or start Task 5 automatically.
+4. Proposed next single task after review: read-only synthetic Supabase identity,
+   migration-history and recovery attestation, once operator access is available.
+5. Gemini PR #29/V2 and security PR #30 remain independent and untouched.
 
 ## Current blockers and boundaries
 

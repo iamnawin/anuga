@@ -1,5 +1,33 @@
 # G7 UI staging evidence
 
+## Task 4 recovery and delivery review (2026-11-11)
+
+Recovered by Codex from `e80ffd028614a93ef20d1657001144fef755dfcd` on
+`feat/g7-ui-staging`, PR #28 OPEN, ready for review, unmerged. GitHub run
+`42363763847` is completed/success and has all seven required jobs successful
+on that exact SHA. Existing artifacts and checks were reused; no application
+build or runtime test was repeated during this recovery.
+
+| Recovery category | Actual state / evidence |
+| --- | --- |
+| Completed and verified | Tasks 1-3 implementation; Task 4 automated app/DB checks, real-Supabase journeys, web build and CI APK; 17 retained journey screenshots. CI `42363763847` on recovered head; artifact run `42342439646` retained. |
+| Implemented but not verified | Candidate behavior on the existing hosted staging project; source implementation exists but has not been deployed/attested there. |
+| Partially completed | Broader PWA acceptance: manifest/base/icons and build are verified; current candidate browser install/cache/offline and physical-phone acceptance remain incomplete. |
+| Not started | New work in this session beyond this receipt; no new feature, integration, merge or deployment. |
+| Blocked | Physical Android Chrome/PWA, human TE/HI meaning approval, hosted migration-history/recovery attestation. Supabase access failure is the last observed Nov 7 result and was not re-probed on Nov 11. |
+
+Local retained screenshot count was checked: 17 `pr28-*.png` files. Retained APK
+SHA-256 was rechecked and matches
+`206BFB44BCBA7881C3C3D02E338A8AFA66C2E635ACCC16D8A2279FC881660A0C`.
+These are CI/disposable-environment captures, not a hosted preview or phone test.
+The prior Task 4 complete entry means its automated evidence package, not all G7
+or deployed-PWA acceptance. No new staging URL/deployment is claimed.
+
+The current branch lacks UX_AUDIT/UX_IMPLEMENTATION_PLAN; both were read from
+Gemini's remote workstream at `d75cf071ef5e54d5b47415aac612a11b8b08545f`
+using `git show`. Their registers were not copied or changed. PR #29/V2 and
+PR #30 remain separate. Stop for founder review after this documentation push.
+
 Checkpoint: 2026-11-07 10:39 IST
 
 ## Scope and source

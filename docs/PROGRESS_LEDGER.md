@@ -1,6 +1,15 @@
 # AnugaCare progress ledger
 
-Last reconciled: 2026-11-07 15:52:13 IST (Asia/Kolkata)
+Last reconciled: 2026-11-11 19:01:39 IST (Asia/Kolkata)
+
+TASK4-RECOVERY (Codex): recovered `e80ffd0`, verified completed seven-job CI
+`42363763847`, counted 17 retained screenshots and rechecked the retained APK
+hash. Automated Task 4 evidence package is complete. Hosted/physical PWA,
+device and human-language acceptance remain blocked/unverified, not completed.
+Current action is documentation delivery on PR #28, then STOP for founder review.
+Do not automatically merge or resume Task 5. Proposed next task after review:
+read-only hosted identity/migration/recovery attestation. No progress weights
+change from recovery or documentation alone. Historical records below remain.
 
 Current Task 5 checkpoint: PR #28 `7fa7cb2`, CI `42343362420` seven successful
 jobs; independent review ready to merge, no Critical/Important findings.

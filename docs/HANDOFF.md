@@ -1,5 +1,51 @@
 # Handoff
 
+### Agent Session - 2026-11-11 19:03:20 IST
+
+**Agent:** Codex.
+**Role / responsibility:** PR #28 recovery and Task 4 verification delivery.
+**Session start (IST):** 2026-11-11 19:01:39 (first captured recovery clock).
+**Task ID / Name:** TASK4-RECOVERY / restore verified Task 4 evidence and review checkpoint.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`.
+**Branch:** `feat/g7-ui-staging`.
+**Starting commit:** `e80ffd028614a93ef20d1657001144fef755dfcd`.
+**Current commit:** Verified source/base `e80ffd0`; this documentation receipt's
+ending SHA is the commit containing this entry (retrieve with `git log -1`).
+**PR:** #28 OPEN, not draft, unmerged at inspection. #29 and #30 remain independent.
+**Scope:** Task 4 recovery/evidence documentation only; user review checkpoint.
+**Completed work:** Reconciled Git/worktrees/remote PR/CI against prior receipts;
+confirmed Task 4 automated package already complete; checked 17 retained journey
+screenshots and APK hash; recorded recovery table and permanent incremental policy.
+Read Gemini UX registers from remote `d75cf071` via Git; imported no other work.
+**Files changed:** `AGENTS.md`, `docs/HANDOFF.md`, `docs/TASKS.md`,
+`docs/EXECUTION_STATE.md`, `docs/PROGRESS_LEDGER.md`, `docs/RECOVERY.md`,
+`docs/evidence/g7-ui-staging-2026-11-07/README.md`.
+**Tests and actual results:** No runtime tests/builds rerun; existing full-suite
+receipt reused (DB 209/11 skips, Ops 70, shared Dart 29, Family 61/6 skips,
+Companion 66/3 skips, unified 39). Recovery checked GitHub run conclusion/SHA,
+screenshot count 17 and APK SHA-256
+`206BFB44BCBA7881C3C3D02E338A8AFA66C2E635ACCC16D8A2279FC881660A0C`.
+Documentation whitespace/diff checks are the local delivery validation.
+**CI evidence:** `42363763847`, completed SUCCESS, seven successful jobs on
+`e80ffd0`. Artifact run `42342439646` retains journey, care-request-preview,
+Android and Ops E2E bundles. New documentation commit CI must be reported separately.
+**Merge status:** #28 not merged. #22-#27 already merged through main `ea6d142`.
+**Deployment and migration status:** No deployment/migration in this session;
+last verified public synthetic deployment is the Nov 7 observation of
+`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`. Current hosted parity is unverified.
+**Decisions and assumptions:** Latest incremental policy supersedes automatic
+Task 5 continuation. Task 4 complete refers to automated evidence, not physical
+phone, human wording, target offline/cache/install behavior or production approval.
+**Blockers:** Last observed Supabase management access failure (Nov 7) prevents
+history/recovery attestation; access not re-probed today. Physical Android and
+Telugu/Hindi human review remain NOT TESTED. No new preview was published.
+**Uncommitted changes:** Only documentation in this receipt before commit;
+local `.unlazy/` remains untracked and excluded. Other worktrees untouched.
+**Exact next action:** Push this receipt to #28, report actual doc CI state,
+then STOP for founder review. Proposed next single task after review: read-only
+synthetic Supabase project/migration/recovery attestation once access is available.
+**Next responsible agent:** Founder reviews; Codex resumes only that agreed task.
+
 ## Task 5 release review and hosted access checkpoint (2026-11-07 15:52 IST)
 
 Completed: independent review of `ea6d142..7fa7cb2` returned ready to merge,

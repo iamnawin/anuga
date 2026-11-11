@@ -28,13 +28,13 @@ Do not rely on chat history as the source of truth.
 5. Preserve every unrelated dirty path. `.unlazy/` is expected local execution
    state and must not be committed.
 
-## Current recovery point (2026-11-07)
+## Current recovery point (2026-11-11)
 
 - Active branch: `feat/g7-ui-staging`; PR #28.
-- Verified checkpoint: `7fa7cb22bb806d90352630df945325f486eaddaa`.
+- Verified checkpoint: `e80ffd028614a93ef20d1657001144fef755dfcd`.
 - Expected main: `ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9` until PR #28 merges.
 - PRs #22-#27 are merged; do not repeat their integration.
-- Latest verified CI: `42343362420`, seven successful jobs on `7fa7cb2`.
+- Latest verified CI: `42363763847`, seven successful jobs on `e80ffd0`.
 - Expected hosted state: no November 3/4 hardening rollout; public synthetic
   staging still corresponds to the merged PR #21 baseline.
 
@@ -42,8 +42,8 @@ If any expectation is false, stop the mutating step and reconcile it first.
 
 ## Resume the active work
 
-1. Read the current execution state and latest GitHub PR #28 metadata. Tasks 1-4
-   have implementation and CI evidence; resume Task 5.
+1. Read current state and PR #28 metadata. Task 4 automated verification is
+   complete. The founder requires a review checkpoint before the next feature.
 2. Inspect `.unlazy/g7-synthetic-staging/GATES.md`; it is local untracked state.
 3. If runtime changes require a new full check, use the reviewed gate command:
 
@@ -51,8 +51,8 @@ If any expectation is false, stop the mutating step and reconcile it first.
    node C:\Users\Naveen\.agents\skills\unlazy\scripts\gate-check.mjs --approve --timeout 3600 --root D:\AI-Workspace\Repos\anuga-trips-fix --cwd D:\AI-Workspace\Repos\anuga-trips-fix .unlazy/g7-synthetic-staging/GATES.md
    ```
 
-4. Finish current PR documentation, confirm seven green jobs, then merge #28
-   under the existing founder authorization after review.
+4. Finish Task 4 documentation, push it to #28, and STOP for user review. Do not
+   merge #28 or resume Task 5 without the checkpoint being reviewed.
 5. Supabase management access is missing (`projects list`: access token not
    provided). Hosted migration history and backup/recovery remain unverified.
    Vercel access works; do not deploy the new client until DB prerequisites pass.

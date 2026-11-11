@@ -1,5 +1,73 @@
 # AGENTS.md
 
+## Permanent incremental delivery and agent handoff (2026-11-11)
+
+The founder's current checkpoint policy governs delivery: complete ONE feature
+at a time, inspect existing implementation, implement only missing scope, run
+focused checks plus necessary regression/security checks, review evidence,
+commit separately, push/create or update its PR, update the records below, then
+STOP for user review. Do not begin the next unrelated feature or perform a merge
+or deployment past that review checkpoint. Reuse successful expensive checks
+when their commit and environment match; never infer deployment from a push.
+
+Ownership is isolated:
+
+- Codex: PR #28, `feat/g7-ui-staging`,
+  `D:\AI-Workspace\Repos\anuga-trips-fix`; technical integration, migrations
+  and synthetic staging validation.
+- Gemini: PR #29 and independent UI Redesign V2 in
+  `D:\AI-Workspace\Ideas\Anuga`. Do not change or merge this workstream without
+  an explicit integration decision.
+- PR #30 is the independent Next.js security workstream.
+
+Before changes, read HANDOFF, TASKS, EXECUTION_STATE, PROGRESS_LEDGER and relevant
+specifications/evidence. Read UX_AUDIT and UX_IMPLEMENTATION_PLAN where present;
+if they exist only on another workstream, read via Git without importing or
+rewriting that agent's register. Inspect Git status, branch, worktrees and active
+ownership; never reset, overwrite, force-push or delete another agent's work.
+
+After every task/batch and before a long operation or interruption, update
+`docs/HANDOFF.md`, `docs/TASKS.md`, `docs/EXECUTION_STATE.md` and
+`docs/PROGRESS_LEDGER.md` on the agent's own branch. Update task-specific UX
+registers only for owned scope. Preserve prior entries. Record actual IST start
+and checkpoint times, real agent identity/role, task ID, worktree, starting and
+verified ending commit, PR state, changed files, actual executed/skipped/blocked
+checks, CI/artifact references, merge/deployment/migration states, blockers,
+uncommitted paths, review status, exact next action and next responsible agent.
+Use Unknown / Not tested / Not deployed where appropriate. A task is handed off
+only when those records agree with Git and external evidence.
+
+Use this HANDOFF block for each new checkpoint:
+
+```markdown
+### Agent Session - [Actual IST checkpoint date/time]
+
+**Agent:**
+**Role / responsibility:**
+**Session start (IST):**
+**Task ID / Name:**
+**Repository / Worktree:**
+**Branch:**
+**Starting commit:**
+**Current commit:**
+**PR:**
+**Scope:**
+**Completed work:**
+**Files changed:**
+**Tests and actual results:**
+**CI evidence:**
+**Merge status:**
+**Deployment and migration status:**
+**Decisions and assumptions:**
+**Blockers:**
+**Uncommitted changes:**
+**Exact next action:**
+**Next responsible agent:**
+```
+
+This supplements the historical policies below without erasing ownership,
+privacy, synthetic-data or production safety boundaries.
+
 Instructions for any coding agent (Codex, Gemini, Claude Code, others) working in this repository.
 Claude Code also reads `CLAUDE.md`, which has the same rules plus architecture notes.
 

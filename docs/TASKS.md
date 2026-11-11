@@ -1,5 +1,19 @@
 # Tasks and milestones
 
+## Task 4 recovery delivery (2026-11-11) `[x]`
+
+- [x] Codex recovered branch `feat/g7-ui-staging` at `e80ffd0`; tracked tree clean,
+      only local `.unlazy/` untracked. Other agent worktrees preserved.
+- [x] CI `42363763847` on that SHA completed successfully: seven jobs.
+- [x] Existing Task 4 screenshot package (17 files) and retained APK hash checked;
+      no expensive build repeated and no runtime code changed.
+- [x] Permanent one-feature-at-a-time policy added to AGENTS; recovery receipt,
+      HANDOFF, EXECUTION_STATE and PROGRESS_LEDGER reconciled.
+- [ ] Founder review of this delivery checkpoint. STOP before another feature,
+      Task 5, merge or deployment. PR #28 remains open/unmerged.
+- [!] Hosted migration/recovery, physical Android and native-language acceptance
+      remain blocked/unverified. Proposed next single task: hosted attestation.
+
 ## Autonomous integration, UI and synthetic staging mission (2026-11-06) `[~]`
 
 Authoritative atomic task status and fixed weights live in
