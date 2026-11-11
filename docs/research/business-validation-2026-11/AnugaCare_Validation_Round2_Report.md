@@ -157,7 +157,7 @@ Problems found:
 | 949 | 111 | ₹3.9 L |
 | 999 | 78 | ₹3.1 L |
 
-**Consequence:** v1's "break-even in month 15" in the base case does not survive v2 costs at ₹799 unless overhead is held well below v1's curve. I have not re-run the 24-month ramp in v2. I can, on request.
+**Consequence:** v1's "break-even in month 15" in the base case does not survive v2 costs at ₹799 unless overhead is held well below v1's curve. The 24-month ramp is re-run in section 9.
 
 ### Pilot cash (rough, `[E]`)
 
@@ -265,7 +265,7 @@ Time-sensitive: the v1 report noted a startup challenge (TISC 2026) with a repor
 | ₹6 L lean pilot | about ₹7 L (₹8.8 L with a stipend) |
 | ₹8,499 monthly plan | Discount too deep; keep ≤5% |
 | Buddy Mobility Care "closest competitor" | Operates in Hyderabad (GMR airport partnership, later articles list the city) but looks airport and wheelchair focused; dialysis escort overlap unproven. Soften the claim |
-| Base case break-even month 15 | Not re-run in v2; unlikely to hold at ₹799 without lean overhead |
+| Base case break-even month 15 | Re-run (section 9): **never** at ₹799 on v1's overhead curve; month 20 with leaner overhead; month 18 at ₹899; month 11 at ₹999 |
 
 ## 8. Sources and limits
 
@@ -275,6 +275,30 @@ Limits:
 - About 15 searches; many results are vendor or news summaries, some with unreliable dates.
 - The NHSRC PMNDP guideline was not readable; the network host did not resolve. Treat it as unread.
 - All v2 inputs are `[E]`. The Monte Carlo ranges are my judgement.
-- The 24-month projection was not re-run in v2.
+- The 24-month projection is re-run in section 9 using v1's ramps, which are themselves assumptions.
 - Not legal, tax, medical or insurance advice. GST, employment form, insurance and DPDP need professionals.
 - No customer, centre or companion was contacted.
+
+## 9. 24-month projection re-run with v2 costs
+
+Script `model_v2_projection.py`, full tables in `model_v2_projection_results.md`. Same family ramps and ₹3.5 L setup as v1; ₹ lakh; all `[E]`.
+
+| Case (base scenario) | Break-even month | Peak cash need | Y1 net | Y2 net | Cash at month 24 |
+|---|---|---|---|---|---|
+| v1 published (₹750, v1 costs) | 15 | 9.3 | −5.5 | +6.8 | about +1 |
+| **₹799, v2 costs, v1 overhead curve** | **never** | **35.6** | −11.1 | −21.0 | −35.6 |
+| ₹799, v2 costs, leaner overhead curve (assumption) | 20 | 13.5 | −8.1 | −0.6 | −12.2 |
+| ₹899, v2 costs, v1 overhead curve | 18 | 11.3 | −6.6 | +2.3 | −7.8 |
+| **₹999, v2 costs, v1 overhead curve** | **11** | **5.9** | −2.0 | +25.5 | +20.0 |
+| ₹799, 18% GST absorbed | never | 69.5 | −16.7 | −49.3 | −69.5 |
+| ₹899, 18% GST absorbed | never | 45.9 | −12.8 | −29.6 | −45.9 |
+
+Other scenarios at ₹799 on v1's overhead curve: conservative never breaks even (peak need ₹45.7 L); optimistic breaks even in month 10 (peak need ₹5.9 L).
+
+What this means:
+- **At ₹799 the v1 growth plan loses money every month** because contribution (about ₹210 per visit) cannot carry overhead that grows to ₹8.5 L a month by month 24. Volume does not fix it.
+- **Overhead discipline is worth about as much as ₹100 of price.** Holding overhead to the leaner curve rescues the base case to a month-20 break-even at ₹799, but still leaves about ₹12 L of cumulative cash gap.
+- **₹999 is the only tested price where the base case pays back inside 24 months** (cash +₹20 L at month 24). ₹899 gets close to break-even but not to payback.
+- **GST is the largest single risk.** If 18% applies and the quoted price is tax-inclusive, even ₹899 never breaks even in the base case.
+- **Pilot cash through month 6, base ramp, founders unpaid, ₹799:** about ₹7.4 L including setup, consistent with the ₹7 L estimate in section 2.
+- These results make the price test in section 5 more important, not less: the case for the business depends on families accepting about ₹900 to ₹1,000 per trip, which only the deposit pre-sale can show.
