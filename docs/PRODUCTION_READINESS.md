@@ -2,6 +2,31 @@
 
 Audit: **4 November 2026 (IST)**. Decision: **NO-GO for real patient onboarding**.
 
+11 November 2026, 19:41:54 IST: [BACKUP-ACCESS-001](evidence/g7-ui-staging-2026-11-07/BACKUP_ACCESS_001.md)
+prepared verified PG17.11 clients and protected libpq scaffolding outside Git.
+Source credentials/CA/endpoint confirmation and recovery target remain pending;
+no backup/restore exists. Recovery gate unchanged: BLOCKED. CI 43032867873 failed
+in runner DNS/Playwright dependency setup; 43034985288 still in progress at this
+checkpoint. This infrastructure failure is distinct from hosted migration drift
+and the physical Android/human TE/HI gates. No automatic next task.
+
+11 November 2026, 19:17 IST: completed [read-only hosted attestation](evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md).
+Exact synthetic project identity confirmed. Nine legacy migration records and
+live function/trigger/RLS checks prove missing Nov 4 pickup preservation, consent
+enforcement and occupancy effects. No listed backup/restore point; PITR disabled;
+recovery not ready. CLI access is no longer a blocker. Schema drift and recovery
+remain release blockers. CI `43030310112` passed seven jobs on `8646f56`.
+No migrations, role/data/RLS changes, deployment or merge performed.
+
+Current mission update (7 November 2026, 15:52 IST): #22-#27 merged through
+`ea6d142`; #28 UI progress and evidence passed seven jobs at `7fa7cb2` in
+`42343362420`, with independent review finding no blocker. Existing synthetic
+Vercel deployment remains `dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`.
+Supabase management access is unavailable (`Access token not provided`), so
+hosted migration history, recovery prerequisites and candidate parity remain
+unverified. The historical audit snapshot below is retained as dated evidence;
+current execution is tracked in `EXECUTION_STATE.md` and `PROGRESS_LEDGER.md`.
+
 This is an audit of existing functionality, not authorization to launch. Core
 Request Care, visit progress and issue handling are built and tested. A passing
 feature review or CI run does not close the production gates below. No deployment,

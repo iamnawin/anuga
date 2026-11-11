@@ -1,5 +1,276 @@
 # Handoff
 
+### Agent Session - 2026-11-11 19:41:54 IST
+
+**Agent:** Codex.
+**Role / responsibility:** PR #28 backup access/recovery prerequisites owner.
+**Session start (IST):** 2026-11-11 19:36:44.
+**Task ID / Name:** BACKUP-ACCESS-001 / client and protected connection preparation.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`.
+**Branch:** `feat/g7-ui-staging`.
+**Starting commit:** `ad85d34db0111665a93f1262a6f04c52db66fc7c`.
+**Current commit:** Starting ad85d34; ending receipt is the commit containing this
+entry (resolve with Git). No application-code change.
+**PR:** #28 OPEN/unmerged; #29/V2 and #30 preserved.
+**Scope:** Approved client tooling/config scaffolding and local target investigation;
+no dump or restore. ATTEST-001 reused.
+**Completed work:** Inspected Windows/WSL/Docker; prepared portable PostgreSQL
+17.11 clients (four executables, nine DLLs) outside Git, no server/service install.
+Restricted access directory/service template/comment-only password file prepared
+outside Git. Exact owner actions and isolated target constraints documented.
+**Files changed:** BACKUP_ACCESS_001.md evidence, evidence README, HANDOFF, TASKS,
+EXECUTION_STATE, PROGRESS_LEDGER, RECOVERY and PRODUCTION_READINESS. Local-only
+client archive/binaries and access scaffolding remain outside the repository.
+**Tests and actual results:** Four --version checks PASS (17.11); SHA-256 recorded.
+ACL checks PASS (current user/SYSTEM only; directory inheritance disabled).
+PasswordConfigured=false. Local psql service probe parses and reaches loopback
+port-1 refusal; initial invalid servicefile option corrected to PGSERVICEFILE.
+Hosted auth/TLS NOT TESTED. WSL Docker CLI exists but daemon socket absent.
+Browser host unavailable. No builds/tests/job reruns; docs diff check required.
+**CI evidence:** 43032867873/7d94feb FAILURE in Ubuntu DNS/Playwright dependency
+installation, six other jobs successful. 43034985288/ad85d34 IN_PROGRESS at this
+checkpoint. Prior full SUCCESS 43030310112/8646f56 retained; no pass inferred.
+**Merge status:** No merge; #28 open.
+**Deployment and migration status:** Not deployed; no hosted database, role,
+password, users, data, RLS or migration change; no export/restore/provisioning.
+**Decisions and assumptions:** Native clients avoid Docker Desktop; candidate
+direct service uses verify-full and read-only default. Endpoint selection needs
+owner confirmation in project settings; existing password and CA absent.
+**Blockers:** Source connectivity unverified; encryption/key custody and full
+export scope pending; isolated runtime/provision/restore approval pending.
+Prerequisites PARTIAL; BACKUP-002 BLOCKED; production remains NO-GO.
+**Uncommitted changes:** Receipt/tracking before commit; .unlazy/ remains local
+untracked state. No secrets/backups enter Git.
+**Exact next action:** Push sanitized receipt to #28 then STOP. Founder completes
+six-item owner checklist in BACKUP_ACCESS_001.md and approves exact BACKUP-002
+scope; no automatic export, restore or migration reconciliation.
+**Next responsible agent:** Founder/staging owner, then Codex on approval only.
+
+### Agent Session - 2026-11-11 19:32:58 IST
+
+**Agent:** Codex.
+**Role / responsibility:** PR #28 staging recovery owner.
+**Session start (IST):** 2026-11-11 19:29:10 (first captured task clock).
+**Task ID / Name:** BACKUP-001 / synthetic backup and isolated recovery.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`.
+**Branch:** `feat/g7-ui-staging`.
+**Starting commit:** `7d94feb1358e48bf40ca8c23ed216ed8c94041be`.
+**Current commit:** Source `7d94feb`; ending documentation commit contains this receipt.
+**PR:** #28 OPEN/unmerged. Other workstreams preserved.
+**Scope:** Supported backup-method review, coverage inventory, prerequisite checks;
+source remains unchanged. Restore conditional on safe explicit target authority.
+**Completed work:** Reviewed existing runbooks and current Supabase primary docs/
+CLI 3.1.0 help/source. Prepared database/Auth/Storage/configuration coverage matrix,
+backup/reconstruction distinctions, protection requirements and exact blockers.
+**Files changed:** `docs/evidence/g7-ui-staging-2026-11-07/BACKUP_001.md`, its
+`README.md`, `docs/HANDOFF.md`, `docs/TASKS.md`, `docs/EXECUTION_STATE.md`,
+`docs/PROGRESS_LEDGER.md`, `docs/RECOVERY.md`.
+**Tests and actual results:** No test/build/CI reruns. Local command/path checks:
+Docker, pg_dump and psql unavailable; standard PG17/18/Docker Desktop paths absent;
+usual libpq service/password files and relevant DB-credential env names absent.
+No credentials printed. CLI help and official source confirm passwordless remote
+dump initializes a hosted login role; that path was not invoked. Recovery matrix
+and whitespace/diff checks used for documentation delivery.
+**CI evidence:** Existing `43030310112` SUCCESS on `8646f56` reused. Starting
+documentation head `7d94feb` run `43032867873` is IN_PROGRESS at this checkpoint;
+no result inferred. BACKUP-001 itself has no runtime change requiring rebuild.
+**Merge status:** No merge; #28 remains open.
+**Deployment and migration status:** Not deployed. No migration application/repair,
+source schema/data/role/user/RLS change, credential reset, backup restore, local
+stack or hosted target provisioning performed. ATTEST-001 not repeated.
+**Decisions and assumptions:** Supported logical backup requires real tooling
+and safe direct credentials; management read access or a JSON row export does
+not establish a supported backup. Exact billing-plan label remains unverified;
+no paid backup/clone resource enabled. Reused prior backup capability evidence.
+**Blockers:** Missing dump toolchain and discovered protected direct connection;
+passwordless route would violate no-role-change scope. No approved isolated
+target/runtime. Artifact NONE; checksums N/A; recovery verdict BLOCKED.
+**Uncommitted changes:** Sanitized receipt/tracking files before commit;
+`.unlazy/` remains untracked/excluded; no backup contents or secrets in Git.
+**Exact next action:** Push only sanitized receipt to #28 then STOP for review.
+Proposed next single task BACKUP-ACCESS-001: staging owner supplies a protected
+existing direct/session-pooler connection outside Git and compatible dump tooling,
+with a specific safe restore-target decision. Do not ask for secrets in chat.
+**Next responsible agent:** Founder/staging owner reviews prerequisites; Codex
+resumes only the next approved task. No automatic migration reconciliation.
+
+### Agent Session - 2026-11-11 19:20:15 IST
+
+**Agent:** Codex.
+**Role / responsibility:** PR #28 owner, read-only staging attestation.
+**Session start (IST):** First captured attestation clock 2026-11-11 19:13:01.
+**Task ID / Name:** ATTEST-001 / synthetic Supabase identity, parity and recovery.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`.
+**Branch:** `feat/g7-ui-staging`.
+**Starting commit:** `8646f569a58a9b1508af23c6e0aa19c672bc93a6`.
+**Current commit:** Verified source `8646f56`; ending documentation SHA is the
+commit containing this receipt, discoverable from Git/PR #28.
+**PR:** #28 OPEN/unmerged. #29/V2 and #30 untouched.
+**Scope:** Read-only hosted metadata attestation; no application RPC execution.
+**Completed work:** Supabase access now succeeds; exact synthetic project `anuga`
+`vsvkllfgrnlbhdydysny`, Mumbai, ACTIVE_HEALTHY, Postgres 17.11.0.003 confirmed.
+Nine legacy migration records compared with 17 local migrations and live bodies.
+Twelve of 16 inspected functions match latest source; four match older source.
+All three Nov 4 hardening effects are genuinely missing, corroborating Gemini
+without relying on history alone. RPC/grant/RLS/private-note/bucket boundaries
+inspected; backup listing has no restore points and PITR false.
+**Files changed:** `docs/evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`,
+its `README.md`, `docs/HANDOFF.md`, `docs/EXECUTION_STATE.md`,
+`docs/PROGRESS_LEDGER.md`, `docs/TASKS.md`, `docs/RECOVERY.md`, and production
+readiness/dashboard/checklist updates reflecting the attested blockers.
+**Tests and actual results:** No build/test/job reruns. Existing catalogue SQL
+wrapper rejected by CLI read-only parser before SQL execution; retained read-only
+mode and used SELECT-only adapter. Four metadata queries executed with
+`transaction_read_only=on`. Local body comparison and result inspection complete.
+No patient/Auth rows or secrets requested. Whitespace/diff validation before push.
+**CI evidence:** `43030310112` completed SUCCESS, seven jobs on `8646f56`.
+**Merge status:** #28 not merged; no PR or branch integration performed.
+**Deployment and migration status:** No migrations/history repairs, deployment,
+restore, data/user/app-role/RLS changes performed. Missing live effects:
+`20261104000100`, `20261104000200`, `20261104000300`.
+**Decisions and assumptions:** Migration names/timestamps are not schema parity;
+function bodies, missing helpers/triggers and old RLS predicate provide direct
+evidence. Listed WAL-G flag/seed scripts do not prove recovery of current state.
+**Blockers:** Hosted pickup/consent/occupancy drift; divergent ledger/manual
+changes; no demonstrated backup/restore coverage; candidate hosted journey,
+physical Android/PWA and human TE/HI acceptance remain open. Real patients NO-GO.
+**Uncommitted changes:** Receipt/tracking files before commit; ignored local
+catalogue adapters/results retained in `artifacts/`; `.unlazy/` untracked/excluded.
+**Exact next action:** Push only this receipt/tracking checkpoint to #28, then
+STOP for review. Recommended next single task: authorized protected synthetic
+backup/recovery artifact plus isolated restore validation before any migration.
+**Next responsible agent:** Founder reviews; Codex performs only the next approved task.
+
+### Agent Session - 2026-11-11 19:03:20 IST
+
+**Agent:** Codex.
+**Role / responsibility:** PR #28 recovery and Task 4 verification delivery.
+**Session start (IST):** 2026-11-11 19:01:39 (first captured recovery clock).
+**Task ID / Name:** TASK4-RECOVERY / restore verified Task 4 evidence and review checkpoint.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-trips-fix`.
+**Branch:** `feat/g7-ui-staging`.
+**Starting commit:** `e80ffd028614a93ef20d1657001144fef755dfcd`.
+**Current commit:** Verified source/base `e80ffd0`; this documentation receipt's
+ending SHA is the commit containing this entry (retrieve with `git log -1`).
+**PR:** #28 OPEN, not draft, unmerged at inspection. #29 and #30 remain independent.
+**Scope:** Task 4 recovery/evidence documentation only; user review checkpoint.
+**Completed work:** Reconciled Git/worktrees/remote PR/CI against prior receipts;
+confirmed Task 4 automated package already complete; checked 17 retained journey
+screenshots and APK hash; recorded recovery table and permanent incremental policy.
+Read Gemini UX registers from remote `d75cf071` via Git; imported no other work.
+**Files changed:** `AGENTS.md`, `docs/HANDOFF.md`, `docs/TASKS.md`,
+`docs/EXECUTION_STATE.md`, `docs/PROGRESS_LEDGER.md`, `docs/RECOVERY.md`,
+`docs/evidence/g7-ui-staging-2026-11-07/README.md`.
+**Tests and actual results:** No runtime tests/builds rerun; existing full-suite
+receipt reused (DB 209/11 skips, Ops 70, shared Dart 29, Family 61/6 skips,
+Companion 66/3 skips, unified 39). Recovery checked GitHub run conclusion/SHA,
+screenshot count 17 and APK SHA-256
+`206BFB44BCBA7881C3C3D02E338A8AFA66C2E635ACCC16D8A2279FC881660A0C`.
+Documentation whitespace/diff checks are the local delivery validation.
+**CI evidence:** `42363763847`, completed SUCCESS, seven successful jobs on
+`e80ffd0`. Artifact run `42342439646` retains journey, care-request-preview,
+Android and Ops E2E bundles. New documentation commit CI must be reported separately.
+**Merge status:** #28 not merged. #22-#27 already merged through main `ea6d142`.
+**Deployment and migration status:** No deployment/migration in this session;
+last verified public synthetic deployment is the Nov 7 observation of
+`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`. Current hosted parity is unverified.
+**Decisions and assumptions:** Latest incremental policy supersedes automatic
+Task 5 continuation. Task 4 complete refers to automated evidence, not physical
+phone, human wording, target offline/cache/install behavior or production approval.
+**Blockers:** Last observed Supabase management access failure (Nov 7) prevents
+history/recovery attestation; access not re-probed today. Physical Android and
+Telugu/Hindi human review remain NOT TESTED. No new preview was published.
+**Uncommitted changes:** Only documentation in this receipt before commit;
+local `.unlazy/` remains untracked and excluded. Other worktrees untouched.
+**Exact next action:** Push this receipt to #28, report actual doc CI state,
+then STOP for founder review. Proposed next single task after review: read-only
+synthetic Supabase project/migration/recovery attestation once access is available.
+**Next responsible agent:** Founder reviews; Codex resumes only that agreed task.
+
+## Task 5 release review and hosted access checkpoint (2026-11-07 15:52 IST)
+
+Completed: independent review of `ea6d142..7fa7cb2` returned ready to merge,
+no Critical/Important findings. PR #28 documentation checkpoint `7fa7cb2` passed
+all seven jobs in `42343362420`. Minor evidence wording and stale recovery
+instructions are corrected in this receipt. Runtime source remains unchanged.
+
+Read-only Vercel access confirms project `anuga` and READY deployment
+`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`. Supabase management `projects list`
+fails with `Access token not provided`; hosted migration history and recovery
+coverage cannot be verified. No migration, deployment or hosted data mutation
+was attempted. Task 5 remains IN_PROGRESS for PR completion and BLOCKED for
+hosted rollout. Next: push this receipt, confirm CI, merge reviewed #28 under
+existing authorization; then obtain authenticated staging Supabase operator
+access outside chat and attest migration history/recovery before rollout.
+
+Physical Android and human Telugu/Hindi acceptance remain NOT TESTED.
+
+## G7 UI Task 4 complete; Task 5 active (2026-11-07 11:02 IST)
+
+Task 4 is complete on draft PR #28 head `1e956fc`. Full local check-all passed,
+the unified release web/PWA built with `/app/`, four icons/two maskable icons and
+a generated service worker, and CI run `42342439646` passed all seven jobs. The
+real-Supabase job passed care request, private issue/explicit resume and combined
+journeys. The corrected artifact retains all 12 care-request and five issue
+screenshots; curated copies are in `docs/screenshots/g7/` and were visually
+inspected with no blocking clipping, overflow, hidden CTA, overlap or privacy
+defect. Family and Companion progress is visible on actual running screens.
+
+CI produced `app-debug.apk`, 159,679,563 bytes, SHA-256
+`206BFB44BCBA7881C3C3D02E338A8AFA66C2E635ACCC16D8A2279FC881660A0C`.
+This is automated build evidence, not physical-device installation. No map/ETA
+was added because no direct SDK/provider/authorized route data exists.
+
+Active Task 5: commit/push this receipt, run final whole-branch review, mark PR
+#28 ready only if clean, rerun final-head CI and merge. After merge, verify the
+hosted target's synthetic identity, migration history and recovery path before
+any hosted migration/deployment. Physical Android/PWA and human Telugu/Hindi
+approval remain NOT TESTED. Hosted staging is still unchanged.
+
+## G7 UI Tasks 1-3 complete; Task 4 active (2026-11-07 10:35 IST)
+
+Task 1 is complete at `17b6021`: the three founder-supplied Family, Patient and
+Companion boards are preserved under `docs/design/`, hashed, and mapped as visual
+direction rather than functional authority. `PRODUCT.md`, `DESIGN.md`, the design
+brief and executable plan are committed. Maps/ETA, calls, clinical checklists,
+recurring controls and expanded Patient access remain explicitly unsupported.
+
+Task 2 is complete at `0644dd9`: Family and the existing authorized Patient view
+show a compact nine-segment strip derived from persisted status/events. During
+`issue_reported`, the strip uses the last persisted non-issue stage and never the
+private issue note; cancelled/no-show hide linear progress; denied refresh clears
+it. Tests were written RED first. Family analyze: clean. Family tests: 61 pass,
+6 environment-only skips.
+
+Task 3 is complete at `8eb152e`: Companion shows the same real nine-state visual
+progress without changing action keys, prerequisites, OTP, notes, API calls or
+RPCs. Issue/cancelled/no-show hide the strip; denied/reassigned/failed refresh
+removes stale progress. Tests were RED first. Companion analyze: clean. Companion
+tests: 66 pass, 3 environment-only skips.
+
+Task 4 is active. Full `scripts/check-all.sh` passes on `8eb152e`: database 209
+pass/11 environment skips; Ops 70 pass and production build with one pre-existing
+hooks warning; shared Dart 29 pass; Companion 66/3; Family 61/6; unified app 39
+pass. Local Docker and Supabase CLI are unavailable, so authenticated disposable-
+Supabase screenshots must come from branch CI after push. Next: build web/PWA and
+debug APK, record hashes/evidence, push/open PR, run seven-job CI, download and
+inspect actual updated screenshots. No hosted migration or deployment yet.
+
+## PR #22-#27 dependency stack merged (2026-11-06 16:20 IST)
+
+After corrected local check-all and final PR #27 CI `42203978157` passed all
+seven jobs, the authorized stack was merged to `main` in dependency order:
+#22 `a8109ae`, #23 `5b838b6`, #24 `8d175b4`, #25 `038fb67`, #26 `88b0c0b`,
+#27 `ea6d142`. Each next PR was retargeted to current main, rechecked as CLEAN/
+mergeable with seven green jobs, then merged normally. Source branches remain.
+Main run `42205624861` is queued on final commit `ea6d142`.
+
+No hosted migration, deployment, synthetic-data mutation, provider activation or
+production action occurred. New work continues on local branch
+`feat/g7-ui-staging` from exact main. Active task: `UI-001`, preserve and map the
+three supplied concept boards, audit actual screens and make only supported
+targeted UI changes. Staging still represents the earlier PR #21 baseline.
+
 ## Durable checkpoint validation (2026-11-06 16:05 IST)
 
 Recovery state commit `7a06f1b` is pushed on PR #27. The corrected ignored

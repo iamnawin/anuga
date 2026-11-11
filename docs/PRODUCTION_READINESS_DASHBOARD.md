@@ -1,7 +1,14 @@
 # Production readiness completion dashboard
 
-Updated: 5 November 2026. Source of truth: [31-row release matrix](PRODUCTION_READINESS.md).
+Updated: 7 November 2026. Source of truth: [31-row release matrix](PRODUCTION_READINESS.md).
 This dashboard summarizes progress; only the matrix and linked evidence can close a gate.
+
+11 November read-only attestation: [hosted receipt](evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md).
+CLI access now works. Project identity is confirmed, but live definitions prove
+three Nov 4 hardening effects absent and migration history diverges. No usable
+backup/restore point is demonstrated; PITR false. Hosted parity FAIL, recovery
+NOT READY, real patients NO-GO. CI `43030310112` passes seven jobs on `8646f56`;
+that disposable CI success does not close hosted parity. No migration/deploy/merge.
 
 | Gate | Status | Completed technical work | Evidence still required to close |
 |---|---|---|---|
@@ -16,7 +23,11 @@ This dashboard summarizes progress; only the matrix and linked evidence can clos
 
 **NO-GO for real patient onboarding.** Technical code fixes do not replace hosted,
 physical-device, human-language, recovery, legal/pilot or founder release approval.
-No deployment, merge, hosted migration, cleanup, real SMS or payment is authorized.
+The founder authorized validated repository merges and existing synthetic staging
+rollout for the current mission. #22-#27 are merged through `ea6d142`; #28 is
+reviewed and CI green at `7fa7cb2` (run `42343362420`). Hosted rollout remains
+blocked by missing Supabase management access, migration history and recovery
+evidence. No production rollout, deletion, real SMS or payment is authorized.
 
 The repaired PR #27 CI failure was a separate technical gate (G6), not evidence
 for or against G7 physical-device/language approval or G8 hosted/recovery/release

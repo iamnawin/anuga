@@ -193,6 +193,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     const [originalPickup] = await pickupRead.json() as { picked_up_at: string }[];
     expect(originalPickup.picked_up_at).toBeTruthy();
     await refreshFamily('picked_up', 'Picked up');
+    await companion.getByText('Picked up', { exact: true }).scrollIntoViewIfNeeded();
     await companion.screenshot({ path: `${shots}/01-companion-underway.png` });
 
     await advance('Report an issue', 'issue_reported', issueMarker);

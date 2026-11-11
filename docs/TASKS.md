@@ -1,5 +1,64 @@
 # Tasks and milestones
 
+## BACKUP-ACCESS-001 Prerequisites (2026-11-11) `[!]`
+
+- [x] Reconciled #28/ad85d34; preserved other agent worktrees.
+- [x] Inspected Windows 11 and existing Ubuntu WSL2/Docker CLI; daemon absent.
+- [x] Prepared portable PostgreSQL 17.11 pg_dump/pg_dumpall/pg_restore/psql,
+      version checks and SHA-256 evidence; no Docker Desktop/server installed.
+- [x] Restricted outside-Git libpq directory, read-only verify-full service
+      template and comment-only password file prepared.
+- [!] Dashboard connection settings unavailable; owner must confirm endpoint,
+      supply existing password privately and trusted project CA. No reset/new role.
+- [!] Native hosted connectivity NOT TESTED; isolated target only investigated.
+- [!] Encryption/custody, full export scope and target authorization pending.
+- Receipt: `evidence/g7-ui-staging-2026-11-07/BACKUP_ACCESS_001.md`.
+- Prerequisites PARTIAL; recovery still BLOCKED. No dump/restore/migration/merge/
+  deploy. STOP for review; BACKUP-002 requires the receipt's owner checklist.
+
+## BACKUP-001 Synthetic backup and isolated recovery (2026-11-11) `[!]`
+
+- [x] Codex recovered #28 at `7d94feb` and reviewed existing recovery runbooks.
+- [x] Official logical backup capabilities, managed-schema/Auth/Storage/config
+      coverage and restore limitations documented in `BACKUP_001.md` evidence.
+- [x] Checked tooling/credential prerequisites without exposing credentials.
+- [!] Export BLOCKED: no Docker/native pg_dump/psql, no discovered protected
+      direct DB credential. Passwordless CLI would create a hosted role; not run.
+- [!] Restore NOT TESTED: no approved existing isolated target/runtime;
+      no project or billable infrastructure provisioned.
+- [!] No backup artifacts created; backup SHA-256 checksums N/A. Recovery verdict
+      BLOCKED. No source change, migrations, merge, deploy or ATTEST-001 repeat.
+- Stop for review. Proposed next single task: BACKUP-ACCESS-001 prerequisites.
+
+## ATTEST-001 Read-only synthetic Supabase attestation (2026-11-11) `[x]`
+
+- [x] CI `43030310112` finished SUCCESS on `8646f56`, all seven jobs; no rerun.
+- [x] Existing CLI access verified exact synthetic project/ref/region/status.
+- [x] Hosted history reconciled against 17 local files and live function bodies:
+      nine legacy records, five later manual implementation groups inspected,
+      all three Nov 4 hardening effects confirmed missing.
+- [x] RPC signatures, app-role grants, RLS and private-note/storage boundaries
+      inspected read-only; no unsafe app-RPC mutation probe used.
+- [x] Backup API inspected: WAL-G true, PITR false, no listed restore points;
+      usable recovery and restore drill remain unverified.
+- Receipt: `docs/evidence/g7-ui-staging-2026-11-07/STAGING_ATTESTATION.md`.
+- [!] Release remains blocked. No migrations, data/role/RLS changes, deploy or
+      merge. Stop for review; proposed next task is usable synthetic recovery.
+
+## Task 4 recovery delivery (2026-11-11) `[x]`
+
+- [x] Codex recovered branch `feat/g7-ui-staging` at `e80ffd0`; tracked tree clean,
+      only local `.unlazy/` untracked. Other agent worktrees preserved.
+- [x] CI `42363763847` on that SHA completed successfully: seven jobs.
+- [x] Existing Task 4 screenshot package (17 files) and retained APK hash checked;
+      no expensive build repeated and no runtime code changed.
+- [x] Permanent one-feature-at-a-time policy added to AGENTS; recovery receipt,
+      HANDOFF, EXECUTION_STATE and PROGRESS_LEDGER reconciled.
+- [ ] Founder review of this delivery checkpoint. STOP before another feature,
+      Task 5, merge or deployment. PR #28 remains open/unmerged.
+- [!] Hosted migration/recovery, physical Android and native-language acceptance
+      remain blocked/unverified. Proposed next single task: hosted attestation.
+
 ## Autonomous integration, UI and synthetic staging mission (2026-11-06) `[~]`
 
 Authoritative atomic task status and fixed weights live in
@@ -8,13 +67,15 @@ Authoritative atomic task status and fixed weights live in
 - [x] `STATE-001`: durable execution/recovery records pushed at `7a06f1b`;
       corrected full local Unlazy gate passes.
 - [x] `INT-001`: reconcile main, worktrees, PRs #21-#27, CI and migrations.
-- [~] `INT-002`: integrate the implemented/green #22-#27 stack into main in
-      dependency order; not yet merged.
-- [~] `UI-001`: reconcile the three new reference boards with approved tokens and
-      supported functionality; boards are not runtime evidence.
-- [~] `UI-002` / `UI-003` / `UI-004`: preserve existing implemented Family and
-      Companion flows; audit supported Patient view and make only evidence-backed
-      targeted UI changes after stack integration.
+- [x] `INT-002`: #22-#27 merged into main in dependency order at merge commits
+      `a8109ae`, `5b838b6`, `8d175b4`, `038fb67`, `88b0c0b`, `ea6d142`.
+- [x] `UI-001`: reference boards/mappings at `17b6021`; 17 actual PR #28
+      screenshots retained and inspected from CI `42342439646`.
+- [x] `UI-002`: Family progress at `0644dd9`; analyze clean, 61 pass / 6 skips.
+- [x] `UI-003`: authorized Patient view remains the Family app contract and gains
+      the same progress; no independent Patient role or permissions added.
+- [x] `UI-004`: Companion nine-state progress at `8eb152e`; analyze clean,
+      66 pass / 3 skips; actions and RPCs unchanged.
 - [ ] `NAV-001`: verify configured navigation capability; prefer a truthful
       external handoff over fabricated map/ETA UI.
 - [~] `PWA-001`: prior implementation exists; target deployed install/session/
@@ -23,11 +84,12 @@ Authoritative atomic task status and fixed weights live in
       main and deployed synthetic staging.
 - [!] `QA-002`: physical Android and human Telugu/Hindi/healthcare wording review
       require named people and remain NOT TESTED.
-- [~] `REL-001`: PR/CI completion in progress; no stack merge yet.
-- [ ] `REL-002`: hosted identity/history/recovery verification, migrations,
-      deployment and post-deploy journey not started.
+- [~] `REL-001`: #22-#27 merged; #28 reviewed with no blocking finding;
+      checkpoint `7fa7cb2` CI `42343362420` passes seven jobs.
+- [!] `REL-002`: Vercel identity inspected; Supabase management token unavailable;
+      hosted migration history/recovery and deployment remain blocked.
 
-Current mission progress: implemented 61/100, verified 23/100, merged 0/100,
+Current mission progress: implemented 73/100, verified 65/100, merged 23/100,
 deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
 
 ## PR #27 CI fixture repair (2026-11-06) `[x]`
