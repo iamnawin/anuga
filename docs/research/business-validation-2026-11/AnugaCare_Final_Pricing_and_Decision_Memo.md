@@ -216,3 +216,15 @@ Numbers behind this (S1, 12 trips, ₹10,999, v1 overhead curve and ramp): break
 - Visit patterns beyond dialysis are general knowledge, not sourced.
 - Sources this round: [missed sessions and transport (PMC)](https://pmc.ncbi.nlm.nih.gov/articles/PMC7380335), [why patients miss dialysis](https://www.hcplive.com/view/why-patients-miss-dialysis-treatments-with-steven-brunelli-md), [caregiver burden, Sikkim](https://pubmed.ncbi.nlm.nih.gov/35496347/), [NIDDK post-dialysis fatigue](https://www.niddk.nih.gov/-/media/Files/News/Meetings/NIDDK-2023-Post-Dialysis-Fatigue-Executive-Summary_508.pdf), plus the sources in earlier files.
 - Nobody was contacted and nothing was spent.
+
+---
+
+## 13. Addendum: scheduling analysis (see `AnugaCare_Scheduling_Analysis.md`)
+
+A day-level simulation with delayed sessions, overlapping windows, commute gaps and delay cascade changes the operating picture, not the price:
+- **Reliable load per companion per day:** about 1.0 solo round trip, 1.5 on a morning swap crew (95% of days clean), up to 2.0 on a long split day. Not 2 to 3.
+- **Adjacent shifts collide;** same-shift batching fails on pickup waits; the evening shift ends after 21:00. Pilot window: shifts 1 and 2.
+- **Swap runs work:** one trip drops the next-shift patient and collects the one who finished. Needs clustering by centre, shift and area.
+- **Contribution per visit** is about ₹296 solo to ₹408 on swap crews versus ₹334 modelled, so ₹10,999 still holds.
+- **Companions needed:** 7 to 9 part-time for 15 families (not 4 to 5), earning about ₹9,000 to ₹13,000 a month each. Recruitment budget rises by about ₹15,000.
+- **New success condition:** families clustered so swap pairs exist. **New gate:** a shadow run proves a real route day fits the windows and the centre confirms shift structure and a discharge heads-up.
