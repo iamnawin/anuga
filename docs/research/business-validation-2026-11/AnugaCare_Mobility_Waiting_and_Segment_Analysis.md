@@ -14,12 +14,12 @@ Nothing was sent or spent. Not legal or tax advice.
 
 ## 2. What the customer is really buying: the 4 to 5 hour wait
 
-Today someone, usually a working adult child or spouse, has to take the patient and stay. A session is about 4 to 5 hours plus travel, roughly 7 to 8 hours of someone's day, 12 times a month `[E]`.
+Today someone, usually a working adult child or spouse, has to take the patient and stay. A session is about 4 to 5 hours plus travel, about 6 to 7 hours of someone's day (founder input: 4 to 5 hour session plus travel both ways), 12 times a month `[E]`.
 
 | Offer | Price | Family hours freed per trip | Price per hour freed |
 |---|---|---|---|
-| Solo plan, drop-and-return | ₹917 per trip + fare | about 7 | about ₹130 |
-| Stay tier, companion stays | ₹1,499 per session + fare | about 7.8 | about ₹190 |
+| Solo plan, drop-and-return | ₹917 per trip + fare | about 6.5 | about ₹140 |
+| Stay tier, companion stays | ₹1,499 per session + fare | about 6.5 | about ₹230 |
 | Informal attendant `[V]` HCAH | ₹1,000+ per day | about 8 to 12 | about ₹83 to 125 |
 
 The informal attendant is the real comparator. AnugaCare's case is verified identity, backup, handover record and no one needing to stay.

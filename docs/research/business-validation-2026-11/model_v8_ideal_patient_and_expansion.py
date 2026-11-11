@@ -9,15 +9,15 @@ S1 = dict(m3.S1, vpf=12)
 print("# v8: ideal patient, Safe Return tier, expansion hypotheses\n")
 
 print("## 1. Is the service worth it for the family? Time value of the escort\n")
-print("Family member's time freed per trip: 7 hours (about 3 travel/handover + 4 waiting) `[E]`; 12 trips = 84 hours. "
+print("Family member's time freed per trip: 6.5 hours (founder input: 6 to 7 hours door to door, of which the session is 4 to 5 hours) `[E]`; 12 trips = 78 hours. "
       "The cab or fuel cost is paid either way, so the **incremental** cost of AnugaCare is the service fee, not the fare. "
       "Value only counts if the time is real (unpaid leave, lost work, or a family member who would otherwise be free).\n")
-print("| Family member's annual income | Value per hour ₹ (2,000 h/year) | Value of 84 hours ₹ | Plan fee ₹ | Value ÷ fee |")
+print("| Family member's annual income | Value per hour ₹ (2,000 h/year) | Value of 78 hours ₹ | Plan fee ₹ | Value ÷ fee |")
 print("|---|---|---|---|---|")
 for inc in (3e5, 6e5, 12e5, 24e5):
     h = inc / 2000
-    print(f"| ₹{inc / 1e5:.0f} L | {h:,.0f} | {84 * h:,.0f} | 10,999 | {84 * h / 10999:.1f}× |")
-be_h = 10999 / 84
+    print(f"| ₹{inc / 1e5:.0f} L | {h:,.0f} | {78 * h:,.0f} | 10,999 | {78 * h / 10999:.1f}× |")
+be_h = 10999 / 78
 print(f"\nBreak-even: the plan pays for itself in time value if the family member's time is worth more than about ₹{be_h:,.0f} per hour, roughly ₹{be_h * 2000 / 1e5:.1f} L a year.\n")
 
 print("## 2. Ideal patient scorecard (for screening interviews and the deposit test)\n")

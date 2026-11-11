@@ -9,7 +9,7 @@ Calculations: `model_v2` to `model_v8` scripts and their results files in this f
 
 ## 1. The answer in one page
 
-**Position:** AnugaCare gives the family back the 7 to 8 hours they lose every dialysis day, and gives the patient a safe door-to-chair trip. It does not sit with the patient. It is not a nurse and does not give clinical care.
+**Position:** AnugaCare gives the family back the 6 to 7 hours they lose every dialysis day (a 4 to 5 hour session plus travel both ways), and gives the patient a safe door-to-chair trip. It does not sit with the patient. It is not a nurse and does not give clinical care.
 
 **Ideal customer:** a working adult child (or an out-of-city or overseas child) of a 60+ patient who dialyses three times a week at a private or corporate centre, lives within about 8 km, and is tired or unsteady after sessions. Not the patient who travels alone happily, not the free-scheme patient.
 
@@ -33,7 +33,7 @@ Calculations: `model_v2` to `model_v8` scripts and their results files in this f
 ## 2. What the pain really is, and who it is for
 
 - **The patient mostly settles during the session.** You are right: once dialysis starts the patient rests, and many patients come alone, dialyse and leave. So the pain is **not** that the patient is lonely or unsupervised for 4 hours.
-- **The pain is the family's:** one person gives up 7 to 8 hours (about 3 for travel and handover, 4 to 5 for the wait), 12 times a month. Indian studies of dialysis caregivers report mild to severe caregiver burden in a large share of caregivers (about 61% to 69% mild or worse in two studies) `[V]`, but they do not measure hours lost, so the time figure is `[E]`.
+- **The pain is the family's:** one person gives up 6 to 7 hours (the 4 to 5 hour session plus about 2 for travel and handover both ways, founder input), 12 times a month. Indian studies of dialysis caregivers report mild to severe caregiver burden in a large share of caregivers (about 61% to 69% mild or worse in two studies) `[V]`, but they do not measure hours lost, so the time figure is the founder's `[E]`.
 - **And the risky moment is the trip home.** After a session patients can be tired and light-headed. One study reports a median recovery time of about 4 hours and low blood pressure prolonging it `[V]` (abstract-level; clinical teams give individual advice). That is the reason a person should receive the patient at the door or the centre.
 - **Therefore sell by need, not by diagnosis.** Dialysis is the entry because it is predictable, frequent and has a fixed schedule. The product is "door to chair, and back, with someone accountable".
 
@@ -52,16 +52,16 @@ Calculations: `model_v2` to `model_v8` scripts and their results files in this f
 
 The cab or fuel is paid either way, so the **extra** cost of AnugaCare is the service fee, not the fare.
 
-Time freed: 12 trips × about 7 hours = **84 hours a month**. Plan fee ₹10,999 means about **₹131 per hour freed**.
+Time freed: 12 trips × about 6.5 hours (6 to 7, founder input) = **78 hours a month**. Plan fee ₹10,999 means about **₹141 per hour freed**.
 
-| Escorting family member's annual income | Value of 84 hours | Value ÷ fee |
+| Escorting family member's annual income | Value of 78 hours | Value ÷ fee |
 |---|---|---|
-| ₹3 L | ₹12,600 | 1.1× |
-| ₹6 L | ₹25,200 | 2.3× |
-| ₹12 L | ₹50,400 | 4.6× |
-| ₹24 L | ₹100,800 | 9.2× |
+| ₹3 L | ₹11,700 | 1.1× |
+| ₹6 L | ₹23,400 | 2.1× |
+| ₹12 L | ₹46,800 | 4.3× |
+| ₹24 L | ₹93,600 | 8.5× |
 
-It pays for itself if the family member's time is worth more than about ₹131 per hour (about ₹2.6 L a year). It only counts if the time is real: unpaid leave, lost work, or a child who lives elsewhere. Retired relatives with free time are poor targets.
+It pays for itself if the family member's time is worth more than about ₹141 per hour (about ₹2.8 L a year). It only counts if the time is real: unpaid leave, lost work, or a child who lives elsewhere. Retired relatives with free time are poor targets.
 
 **The ideal patient's monthly picture** (3 a week, 8 km, ₹4,000 per session, private centre):
 
@@ -79,7 +79,7 @@ At ₹2,500 per session the same escort is about 52% on top, a hard sell. At 13 
 
 ## 4. How to convince customers
 
-**Message, in order:** (1) "Get your 7 hours back, 12 days a month." (2) "A trained, ID-verified person brings your parent to the centre and home, with an OTP handover and a message to you." (3) "If she is ill, a replacement arrives within about an hour." (4) "One monthly plan, one wallet for the fare." (5) "Not a nurse; no medical care."
+**Message, in order:** (1) "Get your 6 to 7 hours back, 12 days a month." (2) "A trained, ID-verified person brings your parent to the centre and home, with an OTP handover and a message to you." (3) "If she is ill, a replacement arrives within about an hour." (4) "One monthly plan, one wallet for the fare." (5) "Not a nurse; no medical care."
 
 | Objection | Answer |
 |---|---|

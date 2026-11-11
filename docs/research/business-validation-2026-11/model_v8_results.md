@@ -2,16 +2,16 @@
 
 ## 1. Is the service worth it for the family? Time value of the escort
 
-Family member's time freed per trip: 7 hours (about 3 travel/handover + 4 waiting) `[E]`; 12 trips = 84 hours. The cab or fuel cost is paid either way, so the **incremental** cost of AnugaCare is the service fee, not the fare. Value only counts if the time is real (unpaid leave, lost work, or a family member who would otherwise be free).
+Family member's time freed per trip: 6.5 hours (founder input: 6 to 7 hours door to door, of which the session is 4 to 5 hours) `[E]`; 12 trips = 78 hours. The cab or fuel cost is paid either way, so the **incremental** cost of AnugaCare is the service fee, not the fare. Value only counts if the time is real (unpaid leave, lost work, or a family member who would otherwise be free).
 
-| Family member's annual income | Value per hour ₹ (2,000 h/year) | Value of 84 hours ₹ | Plan fee ₹ | Value ÷ fee |
+| Family member's annual income | Value per hour ₹ (2,000 h/year) | Value of 78 hours ₹ | Plan fee ₹ | Value ÷ fee |
 |---|---|---|---|---|
-| ₹3 L | 150 | 12,600 | 10,999 | 1.1× |
-| ₹6 L | 300 | 25,200 | 10,999 | 2.3× |
-| ₹12 L | 600 | 50,400 | 10,999 | 4.6× |
-| ₹24 L | 1,200 | 100,800 | 10,999 | 9.2× |
+| ₹3 L | 150 | 11,700 | 10,999 | 1.1× |
+| ₹6 L | 300 | 23,400 | 10,999 | 2.1× |
+| ₹12 L | 600 | 46,800 | 10,999 | 4.3× |
+| ₹24 L | 1,200 | 93,600 | 10,999 | 8.5× |
 
-Break-even: the plan pays for itself in time value if the family member's time is worth more than about ₹131 per hour, roughly ₹2.6 L a year.
+Break-even: the plan pays for itself in time value if the family member's time is worth more than about ₹141 per hour, roughly ₹2.8 L a year.
 
 ## 2. Ideal patient scorecard (for screening interviews and the deposit test)
 
