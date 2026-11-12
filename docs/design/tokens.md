@@ -1,5 +1,16 @@
 # ANUGA UI reference contract
 
+## Screen 04 / 01 founder references — 2026-11-12
+
+Original mockups and clean teal crew-neck companion illustration are retained
+unaltered under `docs/design/screens-01-04/`. They direct visual composition, not
+consent defaults, support permission scope or a new role choice. Consent keeps
+the existing Home patient selector, actual patient context, owner-only RPC and
+explicit Save diffs. Support permission is standing; no approved policy URL was
+found. Welcome will use only the clean illustration as a runtime asset, with real
+Flutter copy/controls. Both themes and accessible scrolling/large text retained.
+
+
 Pixel feedback update, 2026-11-12 17:11:22 IST: unified login uses the original
 transparent lockup at 224px, no opaque backing, 24px clear space above/below.
 Dark presentation lightens only original wordmark/tagline pixels; original teal

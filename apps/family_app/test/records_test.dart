@@ -143,16 +143,22 @@ void main() {
       }
       await tapVisible(tester, byKey('switch-vault'));
       expect(find.textContaining('Records already saved are kept'), findsOneWidget);
-      await tapVisible(tester, find.text('Keep visit'));
+      await tapVisible(tester, find.text('Keep this choice'));
       expect(backend.consentState[ConsentPurpose.vault], isTrue);
 
       await tapVisible(tester, byKey('switch-vault'));
       await tapVisible(tester, find.text('Turn off'));
+      expect(backend.consentState[ConsentPurpose.vault], isTrue, reason: 'withdrawal is a draft until Save');
+      await tapVisible(tester, byKey('save-consents'));
       expect(backend.consentState[ConsentPurpose.vault], isFalse);
       expect(tester.widget<Switch>(byKey('switch-vault')).value, isFalse);
 
-      // Giving consent needs no confirmation: one tap, as easy as withdrawing.
+      // New support access requires vault on, and Save sends only explicit edits.
+      expect(tester.widget<Switch>(byKey('switch-ops_vault_access')).onChanged, isNull);
+      await tapVisible(tester, byKey('switch-vault'));
       await tapVisible(tester, byKey('switch-ops_vault_access'));
+      expect(backend.consentState[ConsentPurpose.opsVaultAccess], isFalse);
+      await tapVisible(tester, byKey('save-consents'));
       expect(backend.consentState[ConsentPurpose.opsVaultAccess], isTrue);
     });
 
