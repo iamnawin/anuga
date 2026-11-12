@@ -241,7 +241,7 @@ Bottom navigation with five labelled items: Home (selected), Visits, Records, Bi
 Screen: Visit detail. Top bar with back arrow and title "Wed, 12 Nov".
 Segmented progress bar of 9 steps, text "Step 4 of 9 · At the centre".
 Status card: "Handed to centre staff soon", companion first name "Suresh", chip "At the centre".
-Card "Pickup code" showing "4 8 2 9" in large digits with a note "Share this only with your companion."
+Card "Pickup code" showing "4 8 2 9 1 3" (six digits) in large digits with a note "Share this only with your companion."
 Vertical timeline list: "Booked", "Companion on the way 6:20 am", "Picked up 6:45 am", "At the centre 7:25 am".
 No map, no ETA. Secondary outline button "Help".
 ```
@@ -346,3 +346,44 @@ Negative prompt: `photorealistic faces, stock photos, hospital crosses, stethosc
 - This is design only. No code, no branch changes, nothing built or run.
 - Mockup prompts produce direction images; AI image tools garble text, so retype copy in Figma or Canva.
 - Telugu and Hindi copy needs native review.
+
+
+---
+
+## 11. Addendum (2026-11-12): review of the companion mockups (boards 08 to 10, screens 29 to 40)
+
+Correction first: the database issues a **6-digit** pickup code (`issue_pickup_otp`), not 4. The prompts above now say six.
+
+### 11.1 Screen by screen
+
+| Screen | Verdict | Why and what to change |
+|---|---|---|
+| 29 Companion profile setup ("Become a companion") | **Change** | A public self-sign-up conflicts with the curated, invite-only intake recommended for the pilot. Make it an invite-code or application form, not an open "Become a companion". Replace "Morning 6 to 12 / Evening 12 to 9" with availability by centre shift and days, because the scheduling analysis found the evening shift impractical |
+| 30 Verification | **Keep, extend** | Shows ID, background check and training. Our funnel also has medical fitness, two paid shadow runs and a 20-trip probation. Show each as plain status text. Do not display "No issues found" for the background check; show "Complete" only (sensitive, lawyer to confirm). Status must come from the database, not a decorative badge |
+| 31 Today | **Keep, adjust** | Remove the red notification dot unless it reflects a real count. Tabs: Today, Visits, Help, Profile now; add Earnings only when a payout model exists |
+| 32 Trip essentials | **Change** | Keep pickup, drop, mobility needs and trip details. The emergency contact is in the spec, but show the name and a "Call via AnugaCare" action, not the raw number (see 11.2). "Get directions" is a map capability; defer. "Start journey" must stay disabled until the start window opens (existing rule) |
+| 33 En route with map, ETA and calls | **Change** | Live map and ETA are not authorised (design contract: no map, no ETA). Keep the status, the "I have arrived" step and the address. Calls through a masked line only |
+| 34 Pickup OTP (6 digits) | **Keep** | Matches the database. Add the remaining attempts message (5 attempts then lock) and a "Code not working? Contact support" link |
+| 35 At the centre | **Change** | Remove the live map and "Arriving in 8 min". Keep "Report an issue". Add "Patient not available" |
+| 36 Handover checklist | **Keep, strengthen** | Matches the verified-handover protocol. Auto-stamp the time; keep the staff name optional at first (staff may decline) but record it when given |
+| 37 Return journey with map | **Change** | Remove the map and "Est. travel time 25 min". Show a pickup window, not a false-precision time |
+| 38 Home arrival | **Keep** | Good completion checklist. Replace the call button with the masked action |
+| 39 Post-visit note with fare and receipt | **Split** | The note is required and exists. **Fare entry and receipt photo are new** (the contract says not built). Defer until fares come from a controlled source, because companion-entered fares invite error and fraud |
+| 40 Completed and earnings | **Defer** | Earnings are in the spec but not built, and sample amounts (₹250) do not match the pay model (₹430 effective per round trip, plus bonus). Build only after the payout model is decided |
+
+### 11.2 Four conflicts to resolve
+
+1. **Maps and ETA.** Screens 33, 35 and 37 show live maps and arrival times. The design contract forbids fake ETA and maps, and a live location feature needs its own consent, cost and ADR. Phase 2 at the earliest. A tap-to-open-in-maps link with the address is a simpler first step.
+2. **Phone numbers and bypass.** Screens 32, 33 and 38 expose the family's number to the companion. That makes direct dealing easy, which the pricing and bypass analysis warns against. Use a masked relay or a coordinator line.
+3. **Patient photos.** The mockups show avatar photos. The contract says no avatar photo. Use initials.
+4. **Brand.** The boards say "Companion". The product is AnugaCare.
+
+### 11.3 Two platform findings that matter for the build
+
+1. **Arrival timestamps.** We promised centres reliability numbers (on-time drop, pickup wait). The current states give a drop time (`at_centre`) but **no "arrived for pickup" event**, so pickup wait cannot be measured. Adding one needs an ADR.
+2. **One companion per trip.** The database assigns a single `companion_id` to a trip, covering both legs. The scheduling analysis found that the efficient design, a swap run (drop the next patient and collect the one who has just finished), needs **leg-level assignment**, which the current model does not support. Without it, a companion does one solo round trip a day, and a 15-family pilot needs about 9 part-time companions instead of 7. Decide whether the pilot starts solo (no change) or you fund the ADR for legs.
+
+### 11.4 What I would give the colleague for these screens
+- **Stream A scope for the companion app:** Today, Upcoming, trip essentials, trip run with the 8-step bar, pickup code, handover checklist, completion note.
+- **Out of Stream A:** live maps and ETA, earnings, fare and receipt entry, public "Become a companion", masked calling (needs a provider decision and ADR), leg-level assignment.
+- **Companion onboarding screens (29, 30)** come with the intake funnel, later, behind an invite.

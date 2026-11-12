@@ -98,3 +98,7 @@ Which base branch; confirm the target app; whether #32 has merged; my definition
 - Ask the colleague to keep each PR small so you can review quickly.
 - If your colleague uses an AI assistant, tell them to give it `CLAUDE.md` and this prompt in the same session.
 - File ownership rule that avoids conflicts: Stream A owns `apps/anugacare_app/lib/**`; Stream B owns new migrations, functions and the payment RPCs; Stream C owns `apps/ops_console` and role changes. If two streams need the same file, they coordinate through you.
+
+## Addendum (2026-11-12): companion mockups
+
+The companion boards (screens 29 to 40) are direction only. Stream A includes Today, Upcoming, trip essentials, trip run, pickup code (6 digits), handover checklist and the completion note. It excludes live maps and ETA, earnings, fare and receipt entry, a public "Become a companion" sign-up, masked calling, and leg-level assignment. See section 11 of `AnugaCare_App_Navigation_and_Screen_Map.md`.
