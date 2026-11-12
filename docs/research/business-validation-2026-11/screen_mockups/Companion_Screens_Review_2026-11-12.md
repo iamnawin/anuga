@@ -57,3 +57,17 @@ The set is good and covers every companion screen in my list (C1 to C20). The fl
 1. A full-length export of the cut screens (C1, C4, C5, C7 to C11, C15 to C17) so I can check the buttons and lower sections.
 2. A choice on #5: masked calling, or an "I have arrived" action, or neither in the pilot.
 3. Whether the "AnugaCare" t-shirt on the companion illustration is intended.
+
+## 6. Addendum: full-length checks (5 screens, same day)
+
+Images are in the folders `C5_trip_essentials`, `C1_become_a_companion`, `C7_confirm_pickup`, `C17_help_and_emergency`, and `C19_availability/mockup_v2_unchanged.webp`.
+
+| Screen | What the full length shows | Still to change |
+|---|---|---|
+| **C5 Trip essentials** | "Start journey" button is present. Photo is a realistic face. | No Navigate button and no centre address. The realistic photo breaks the no-photo rule and looks like a real person: use the illustrated avatar or initials. No way to reach the family (finding #5). |
+| **C1 Become a companion** | Name, mobile, neighbourhood, Continue. Nothing below. | Mobile should be read-only. Missing: consent tick, contractor wording, language, vehicle type (none, bike, auto), emergency contact. T-shirt question stands. |
+| **C7 Confirm pickup** | Button reads "Verify and confirm pickup". Code boxes filled. | Draw the empty state with a number keypad. Add wrong-code, attempts-left, locked and expired states. |
+| **C17 Help and emergency** | Only two cards: Call 108, and Report an issue. The lower half is empty. | **Add "Call AnugaCare support"** and 112. Add three short guides (patient feels unwell, cannot find family, centre not ready) and the line "You are a companion, not a medical professional." Keep "AnugaCare does not send emergency help": it is honest. |
+| **C19 Availability** | Same as before. | Redesign still needed (finding #7). |
+
+Cut screens still to check: C4, C8 to C11, C15, C16.
