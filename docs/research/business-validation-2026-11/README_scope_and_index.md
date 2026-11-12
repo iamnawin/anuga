@@ -15,6 +15,7 @@ AnugaCare is a trusted companionship and assisted-mobility service. **Dialysis r
 | `AnugaCare_Hospital_and_Centre_Partnership_Strategy.md` | Whole business (dialysis first) | No assumed permission or endorsement; verified handover |
 | `AnugaCare_Payment_Screens_Design.md` | Family app, plan purchase (D1 prices) | Payment screen flow, mockup prompts, review of YouPI-PG and Awwwards-mcp |
 | `AnugaCare_App_Navigation_and_Screen_Map.md` | Family and companion apps (design) | Navigation, progress bars, role screens, mockup prompts; marks EXISTS, SPEC and NEW |
+| `AnugaCare_Developer_Handoff_Prompt.md` | Engineering handoff | Prompt and checklist for a colleague: three streams (screens, plans and payment, ops and manager) |
 | `AnugaCare_Final_Pricing_and_Decision_Memo.md` | **D1 dialysis** | Pricing, success conditions, decision memo for the dialysis launch |
 | `AnugaCare_Pricing_Structure_and_Bypass_Defence.md` | **D1 dialysis** | Pricing structure and bypass defence (bypass principles are general) |
 | `AnugaCare_Mobility_Waiting_and_Segment_Analysis.md` | **D1 dialysis** | Vehicle costs, wait time, segments, frequency, companion vehicles |
