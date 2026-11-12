@@ -24,7 +24,7 @@ void main() {
     await pumpApp(tester, FakeAccountAuth());
     await useNarrowPhone(tester);
     await tester.enterText(find.byKey(const Key('phone')), familyPhone.substring(3));
-    await tapVisible(tester, find.widgetWithText(FilledButton, 'Send code'));
+    await tapVisible(tester, find.widgetWithText(FilledButton, 'Send verification code'));
     expect(find.byKey(const Key('code')), findsOneWidget);
 
     // No keyboard inset: this is route back, after Android has dismissed the IME.

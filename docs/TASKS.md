@@ -1,5 +1,26 @@
 # Tasks and milestones
 
+## LOGIN-001 — isolated unified phone/OTP rebuild (2026-11-12)
+
+- [x] Compared origin/main with PR #29; separate `feat/unified-login-review`
+      worktree based on #29 `d75cf07`. PR #28/#29/#30 preserved.
+- [x] Founder reference and approved original logo provenance recorded in
+      `screenshots/login-review/README.md`; historical board 1 panels 02–03 retained.
+- [x] Phone/OTP presentation, exact-key language preference and keyboard Verify
+      footer implemented. Auth handlers, validation, role/RPC/RLS contracts reused.
+- [x] Full fast check-all suite passed (DB 209 pass/11 skip, Ops 70, shared 29,
+      Companion 58/3 skip, Family 58/6 skip, unified 43). Extra pending-verify
+      regression subsequently passed: unified 44 total.
+- [x] EN/TE/HI 360px real-font captures and explicit TE/HI selection→reload checks.
+- [x] Final comparison/overlay, hosted verification receipt and independent review.
+      Unified final count 45, including scrolled phone→OTP regression.
+- [ ] Founder phone/keyboard, logo/layout and native-language approval.
+- Login review only. No merge/deploy/migrations or readiness gate promotion.
+- Evidence/manual phone plan: `screenshots/login-review/README.md`. Current source
+  CI pending creation; E2E discovery is not journey execution. Review URL
+  http://192.168.31.252:3113/app/ (phone access/IME not yet tested).
+
+
 ## Complete UI/UX Modernization Workstream — Gemini CLI (2026-11-09) `[~]` (PR #29 7/7 CI green at `c4ced74`/`631ac5d` & Vercel Preview `dpl_6673mDsp1iZULg4uPa4SD8HPz2kC` READY; product decisions `DEC-01`/`DEC-02`/`DEC-05`, human `QA-002` & staging `REL-002` remain open)
 
 Authoritative audit register: `docs/UX_AUDIT.md`. Phased execution tracker: `docs/UX_IMPLEMENTATION_PLAN.md`.

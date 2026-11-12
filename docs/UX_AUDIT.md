@@ -1,5 +1,16 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+## LOGIN-001 follow-up — Codex, 2026-11-12 16:50:49 IST
+
+Isolated phone/OTP rebuild from #29/d75cf07, without changing UX-01–UX-08 or
+Gemini's branch. Latest founder phone image and written compact OTP direction
+recorded in `screenshots/login-review/README.md`. Layout, locale persistence,
+keyboard action visibility and step scroll reset implemented; final 45 unified
+tests and scoped browser evidence pass. Real-font captures/overlay retained.
+Awaiting isolated PR/CI and founder phone/native-language acceptance; not merged,
+deployed or human-approved. Historical findings below remain intact.
+
+
 **Created:** 2026-11-09 15:12 IST (Asia/Kolkata)
 **Last Updated:** 2026-11-09 19:10 IST (Asia/Kolkata)
 **Author / Responsible Agent:** Gemini CLI (Lead UI/UX Engineer & Independent Product Analyst)

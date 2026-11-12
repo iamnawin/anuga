@@ -1,5 +1,28 @@
 # AnugaCare progress ledger
 
+## LOGIN-001 — 2026-11-12 16:50:49 IST (Codex review stop)
+
+IMPLEMENTED and locally VERIFIED; unified final 45 pass, analyze pass, full-fast
+suite pass before last two regressions, Ops selector lint/typecheck/discovery pass.
+Host verification/role/reload pass for three synthetic roles, final send stubbed.
+EN/TE/HI real-font and 2× captures + reference comparison/overlay retained.
+Independent review has no remaining material finding. Isolated PR push/CI receipt
+pending; not merged, deployed or human-approved. Weights/release gates unchanged.
+Next: founder login/physical-keyboard/native-language acceptance, then STOP.
+
+
+## LOGIN-001 — 2026-11-12 16:31:44 IST (Codex)
+
+IMPLEMENTED; focused/full-fast verification and visual review in progress on
+isolated `feat/unified-login-review` from PR #29/d75cf07. Before/after app captures
+retained; 44 unified widget tests pass, including newly reproduced keyboard
+visibility regression and pending verification across keyboard changes. Full
+check-all passed before that final test addition. Auth/RLS/routing unchanged.
+Do not count this as merged, deployed, human-approved or production-ready.
+PR #28 backup/hosted-hardening gates and PR #29/#30 remain separate. Final receipt
+and exact next action will be recorded at the login review stop.
+
+
 Last reconciled: 2026-11-09 19:45:00 IST (Asia/Kolkata)
 
 Current multi-agent checkpoint:

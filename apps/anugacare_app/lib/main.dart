@@ -2,6 +2,7 @@ import 'package:family_app/family_app.dart' show DevicePhotoSource, SupabasePaym
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'src/app.dart';
@@ -15,6 +16,13 @@ const _publishableKey = String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final preferences = SharedPreferencesAsync();
+  String? language;
+  try {
+    language = await preferences.getString('anuga-language');
+  } catch (_) {
+    // Storage may be unavailable; English still works for this session.
+  }
   if (_url.isEmpty || _publishableKey.isEmpty) {
     throw StateError('Pass --dart-define=SUPABASE_URL=... and --dart-define=SUPABASE_PUBLISHABLE_KEY=...');
   }
@@ -29,6 +37,14 @@ Future<void> main() async {
   final rpc = supabaseRpc(client);
   runApp(
     AnugaCareApp(
+      initialLocale: Locale(const ['en', 'te', 'hi'].contains(language) ? language! : 'en'),
+      onLocaleChanged: (locale) async {
+        try {
+          await preferences.setString('anuga-language', locale.languageCode);
+        } catch (_) {
+          // A blocked preference store must not prevent sign-in.
+        }
+      },
       auth: SupabaseAccountAuth(client),
       familyApi: FamilyApi(rpc),
       companionApi: CompanionApi(rpc),

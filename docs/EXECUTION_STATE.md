@@ -1,5 +1,28 @@
 # AnugaCare execution state
 
+## LOGIN-001 review checkpoint — 2026-11-12 16:50:49 IST
+
+Implementation and local verification complete: final unified 45 tests, analyze,
+full fast suite (before final two regressions), real 1.15×/2× en/te/hi captures,
+language persistence and hosted synthetic verify/role/reload evidence. Final
+OTP sends stubbed; earlier query-string stub miss/rate-limit is documented.
+Independent review clear. Deliver isolated PR then STOP for founder phone/login
+and native-language review. GitHub CI not yet created; no merge/deploy or gate
+promotion. Phone URL and full limitations: screenshots/login-review/README.md.
+
+
+## LOGIN-001 active checkpoint — 2026-11-12 16:31:44 IST
+
+Codex owns `D:\AI-Workspace\Repos\anuga-login-review`, branch
+`feat/unified-login-review`, based on PR #29/d75cf07. Login-only changes are
+isolated; PR #28 stays at 6b8e63c and #29/#30 are untouched. Full fast suite passed;
+unified 44 after the additional pending-verify regression. EN/TE/HI browser
+captures and explicit locale persistence verified. Final hosted verification and
+comparison receipt in progress. Do not infer a deploy, merge or patient approval.
+PR #28 remains authoritative for later BACKUP-ACCESS-001/ATTEST-001 evidence;
+the inherited November 9 recovery entries below are historical.
+
+
 Last reconciled: 2026-11-09 19:45:00 IST (Asia/Kolkata)
 
 ## Mission

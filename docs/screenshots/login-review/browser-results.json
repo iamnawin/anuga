@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-12T11:18:28.358Z",
+  "hostedObservationAt": "2026-11-12T11:18:28.358Z",
+  "results": [
+    {
+      "check": "en phone/OTP layout + explicit language reload",
+      "result": "PASS",
+      "surface": "Chromium 360x780; OTP send stubbed"
+    },
+    {
+      "check": "te phone/OTP layout + explicit language reload",
+      "result": "PASS",
+      "surface": "Chromium 360x780; OTP send stubbed"
+    },
+    {
+      "check": "hi phone/OTP layout + explicit language reload",
+      "result": "PASS",
+      "surface": "Chromium 360x780; OTP send stubbed"
+    },
+    {
+      "check": "hosted family verification",
+      "result": "PASS",
+      "http": 200
+    },
+    {
+      "check": "hosted family verification, routing and refresh",
+      "result": "PASS",
+      "surface": "real Supabase Auth verify + role lookup; OTP-send stubbed; no business writes"
+    },
+    {
+      "check": "hosted companion verification",
+      "result": "PASS",
+      "http": 200
+    },
+    {
+      "check": "hosted companion verification, routing and refresh",
+      "result": "PASS",
+      "surface": "real Supabase Auth verify + role lookup; OTP-send stubbed; no business writes"
+    },
+    {
+      "check": "hosted ops verification",
+      "result": "PASS",
+      "http": 200
+    },
+    {
+      "check": "hosted ops verification, routing and refresh",
+      "result": "PASS",
+      "surface": "real Supabase Auth verify + role lookup; OTP-send stubbed; no business writes"
+    }
+  ]
+}

@@ -1,5 +1,59 @@
 # Handoff
 
+### Agent Session - 2026-11-12 16:50:49 IST
+
+**Agent:** Codex.
+**Role / responsibility:** Isolated unified login implementation and verification.
+**Session start (IST):** 2026-11-12 16:11:55.
+**Task ID / Name:** LOGIN-001 / approved phone-entry and SMS verification rebuild.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-login-review`.
+**Branch:** `feat/unified-login-review` (stacked on PR #29).
+**Starting commit:** `d75cf071ef5e54d5b47415aac612a11b8b08545f`.
+**Current commit:** Ending implementation commit contains this entry; resolve via
+Git. PR number/push receipt to be appended after creation, never guessed.
+**PR:** Isolated review PR pending creation against feat/anugacare-ui-modernization;
+#28 stays 6b8e63c, #29 stays d75cf07, #30/V2 preserved. None merged.
+**Scope:** Unified phone/OTP only, explicit locale persistence, focused regression
+tests, selector compatibility, real before/after/reference captures and phone URL.
+**Completed work:** Reused #29 baseline, approved PNGs and existing theme. White
+card, full phone lockup/compact OTP symbol, new action copy, language menu, exact
+anuga-language preference. Single Verify footer above IME and step scroll reset.
+Auth validation/handlers and database-role routing/RPC/RLS unchanged.
+**Files changed:** Unified login/main/root callback, three ARBs, direct existing
+shared_preferences dependency/lock classification, unmodified logo asset, tests;
+two existing Ops E2E mobile selector helpers; design contract; screenshot evidence;
+HANDOFF/TASKS/EXECUTION_STATE/PROGRESS_LEDGER/readiness matrix/dashboard.
+**Tests and actual results:** check-all PASS (DB 209/11 skip; Ops 70 + build;
+shared 29; Companion 58/3 skip; Family 58/6 skip; unified 43 then final 45).
+Final unified analyze PASS. Ops lint/typecheck + two E2E test discovery PASS
+after selectors; business journeys not locally executed. Regression RED→GREEN for
+keyboard visibility and scroll reset; busy verify/IME expiry regression PASS.
+EN/TE/HI 360px and 2× real-font captures, explicit language→reload PASS.
+**CI evidence:** Current branch CI not yet created; local results above only.
+No GitHub success inferred. Final hosted synthetic verify/role/reload observation
+2026-11-12 16:48:28 IST passed for Family/Companion/Ops. Final sends stubbed;
+no business writes. See screenshots/login-review/browser-results.json.
+**Merge status:** Not merged; source PRs preserved.
+**Deployment and migration status:** Not deployed; no migrations or hosted
+business data/roles/users/RLS/provider configuration changes. Synthetic Auth
+sessions exercised. Local hidden server PID 35976; LAN/loopback HTTP 200.
+**Decisions and assumptions:** Current founder image supersedes historical board
+1 panel 02; OTP follows panel 03 plus written compact-card direction. Original
+logo proportions/platform font retained; no new font/provider dependencies.
+Earlier query-bearing capture OTP URLs escaped the initial stub and reached
+staging Auth for synthetic numbers (rate-limit error). Final matcher/header
+assertion correct this. Actual SMS delivery is unverified; no code/token artifacts.
+**Blockers:** Founder login acceptance, physical Android/IME and native TE/HI
+wording remain unverified. Current CI pending. PR #28's hosted hardening/recovery
+gates remain blocked; inherited November 9 attestation below is historical.
+**Uncommitted changes:** Intended implementation/docs/evidence before commit;
+ignored artifacts/builds/public build config remain outside Git.
+**Exact next action:** Push isolated login review PR, append factual PR/commit/CI
+receipt, then STOP for founder review at http://192.168.31.252:3113/app/ (same
+Wi-Fi; phone reachability untested). No next feature, merge/deploy or BACKUP-002.
+**Next responsible agent:** Founder login reviewer; Codex only after feedback.
+
+
 ## Gemini CLI Final Review, Synthetic Supabase Attestation & PR #29 Vercel Preview (2026-11-09 19:45 IST)
 
 - **Location of Full Audit & Plan:**

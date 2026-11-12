@@ -20,6 +20,7 @@ dependencies:
   intl: ^0.20.3
   shared_dart:
     path: ../../packages/shared_dart
+  shared_preferences: ^2.5.6
   supabase_flutter: ^2.18.0
 
 dev_dependencies:
@@ -32,3 +33,4 @@ flutter:
   generate: true
   assets:
     - assets/brand/anugacare-symbol.png
+    - assets/brand/anugacare-lockup.png

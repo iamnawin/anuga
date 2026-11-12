@@ -1,5 +1,18 @@
 # ANUGA UI reference contract
 
+## Unified login reference update — founder instruction, 2026-11-12
+
+LOGIN-001 uses `docs/screenshots/login-review/reference-phone.png` as the latest
+phone-entry approval, superseding the historical board 1 panel 02 layout only.
+The founder confirmed mist #F7FBFA, white #FFFFFF, mint #EAF7F4, teal #00666B,
+navy #10243A, and the existing logo's small marigold accent. Use the approved
+original logo PNGs under docs/logo; no logo redraw or new font dependency.
+OTP retains panel 03's intent and the founder's written same-card/palette plus
+smaller-logo direction; no new OTP mockup was supplied. Platform typography,
+minimum text scale, accessible targets, translations, scrolling and a synthetic
+build notice can differ from the image. Scope is unified login only; this does
+not authorize changes to the rest of the role screens.
+
 Date: 2026-10-11. S2 baseline for S3, S4 and S5. Brand approval comes from the founder's current instruction; older product documents still call the brand undecided. Use ANUGA as the wordmark, Anuga in prose, and companion for the person's role. Keep package identifiers unchanged.
 
 ## Sources and corrected versions

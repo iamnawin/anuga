@@ -1,5 +1,15 @@
 # AnugaCare — Complete UI/UX Modernization Implementation Plan (`UX_IMPLEMENTATION_PLAN.md`)
 
+## LOGIN-001 follow-up checkpoint — 2026-11-12 16:50:49 IST
+
+Codex implemented only unified phone/OTP on `feat/unified-login-review`, isolated
+from #28/#29/V2/#30. Reused #29 baseline and approved logo/theme; added persisted
+explicit language, compact OTP/IME action and scroll reset. Final unified 45 pass,
+full-fast/scoped checks, hosted verification and comparison evidence are in
+`screenshots/login-review/README.md`. Founder phone and native-language review
+are next; no subsequent work package, merge/deploy or gate closure authorized.
+
+
 **Created:** 2026-11-09 15:12 IST (Asia/Kolkata)
 **Last Updated:** 2026-11-09 19:10 IST (Asia/Kolkata)
 **Lead Owner:** Gemini CLI (Lead UI/UX Engineer & Independent Product Analyst)

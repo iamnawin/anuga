@@ -1,5 +1,16 @@
 # AnugaCare production readiness and release gate
 
+LOGIN-001 checkpoint, **2026-11-12 16:50:49 IST**: unified phone/OTP presentation
+implemented and locally tested on isolated `feat/unified-login-review` based on
+#29/d75cf07. Reference comparison, 45 unified tests and scoped hosted synthetic
+verification evidence: [login receipt](screenshots/login-review/README.md).
+CI pending creation; physical Android/IME, native wording and founder login
+approval remain open. No merge/deploy/hosted migration or release gate promotion.
+**NO-GO remains.** Later hosted hardening/recovery facts live in Codex PR #28's
+[BACKUP-ACCESS-001 receipt](https://github.com/iamnawin/anuga/blob/6b8e63c/docs/evidence/g7-ui-staging-2026-11-07/BACKUP_ACCESS_001.md);
+the dated matrix below is preserved as history, not a fresh hosted attestation.
+
+
 Audit: **4 November 2026 (IST)**. Decision: **NO-GO for real patient onboarding**.
 
 This is an audit of existing functionality, not authorization to launch. Core

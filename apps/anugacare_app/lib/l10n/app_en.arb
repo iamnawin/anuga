@@ -4,10 +4,10 @@
   "syntheticBanner": "Development build · synthetic data only",
   "language": "Language",
   "loginTitle": "Sign in",
-  "loginIntro": "Families, patients and companions sign in here. We open the screens that belong to your account.",
+  "loginIntro": "Enter your mobile number to receive a verification code.",
   "phoneLabel": "Mobile number",
   "phoneHint": "10-digit mobile number",
-  "sendCode": "Send code",
+  "sendCode": "Send verification code",
   "codeLabel": "6-digit code",
   "codeSentTo": "Code sent to {phone}",
   "@codeSentTo": {
@@ -17,7 +17,7 @@
       }
     }
   },
-  "signIn": "Sign in",
+  "signIn": "Verify code",
   "changeNumber": "Use another number",
   "invalidPhone": "Enter a valid 10-digit mobile number.",
   "invalidCode": "Enter the 6-digit code.",
