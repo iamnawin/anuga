@@ -1,5 +1,74 @@
 # LOGIN-001 — unified phone and SMS verification review
 
+## Pixel follow-up — 2026-11-12 17:11:22 IST
+
+Founder reported the dark-mode layout failure on a real Pixel and supplied the
+mockup and Pixel screenshot in chat. Source `20206f46a1520404dfeb97595fd271fa7c2a5f07`,
+same branch/PR #32. This follow-up supersedes the earlier mist-backed dark logo
+decision and long placeholder; historical captures below remain unchanged.
+
+**Root cause:** the original approved PNG already has alpha, but login's
+frameBuilder wrapped it in an opaque mist ColoredBox. Phone width 284 with zero
+adjacent gaps crowded the header. The long hint had insufficient room beside +91.
+
+**Fix:** remove the backing; use the same unmodified transparent PNG at 224px,
+centered with 24px before/after. In dark mode only the original wordmark/tagline
+pixels become onSurface via a hard-edge srcATop mask; the upper teal symbol,
+marigold and transparent pixels remain unchanged. Its 70% boundary is specific
+to the current 1178×1151 approved PNG, not a general image-processing helper.
+The selector remains in its own top row, right edge at the same 16px card gutter,
+minimum target 48px. Card field/button share padding. External Mobile number
+label remains; hints are shortened to `10 digits`, `10 అంకెలు`, `10 अंक`.
+Light and dark follow phone/browser appearance; no new theme setting or auth flow.
+
+| Running release web check | Phone | OTP | Menu opens/all choices | Transparency |
+|---|---|---|---|---|
+| 360px light | PASS | PASS | PASS | PASS |
+| 360px dark | PASS | PASS | PASS | PASS |
+| 390px light | PASS | PASS | PASS | PASS |
+| 390px dark | PASS | PASS | PASS | PASS |
+
+Actual evidence, **desktop Chromium Pixel 7 emulation, not a physical retest**:
+
+- [Mockup / reproduced old defect / updated dark / updated light](pixel-fix/reference-before-after.png)
+- [All four phone entries](pixel-fix/phone-matrix.png)
+- [All four OTP screens](pixel-fix/otp-matrix.png)
+- `pixel-fix/after-*-language.png`: fully opened English/Telugu/Hindi menu.
+- `pixel-fix/after-results.json`: final capture completed 17:09:42 IST.
+- `pixel-fix/transparency-check.json`: original PNG alpha 0–255 and logo-corner
+  pixels equal each rendered canvas (all four combinations); no opaque backing.
+
+The actual Pixel attachment was visually reviewed in this chat. No local path
+for it was provided, so the comparison explicitly uses a **labelled reproduction**
+from the old running build at 376×844, not a copied or reconstructed founder image.
+Reference/before/after images preserve their own proportions; no dark mockup was
+invented. Review the original Pixel image in chat beside this evidence as needed.
+
+**Checks:** four new layout/menu tests failed against old layout, then passed;
+final unified `flutter test` **49 PASS** (includes existing keyboard, scroll,
+validation, expiry and role-routing regressions), `flutter analyze --fatal-infos`
+PASS, scoped format/diff checks PASS, release web build PASS. Independent
+read-only review found no material issue; all final renders visually inspected.
+Full prior baseline CI [43208909014](https://github.com/iamnawin/anuga/actions/runs/43208909014)
+on 20206f4 completed SUCCESS, all seven jobs, observed 17:06:51 IST; not rerun.
+This follow-up needs its own automatic PR checks; a baseline pass is not a pass
+on the new commit. Auth/routing unchanged; no new hosted sign-in was needed.
+
+All Supabase requests were intercepted in these visual checks; only OTP-path
+requests were locally fulfilled, with an asserted stub header. Other hosted
+requests would be aborted; observed count zero. **No hosted requests were forwarded,
+no SMS sent, and no hosted data/session/migration/configuration change in this
+follow-up.** No merge or deployment.
+
+**Retest:** refresh `http://192.168.31.252:3113/app/` on the same Wi-Fi. Server
+PID 35976 remains running; loopback/LAN HTTP 200 observed 17:09:36 IST. Test both
+normal/light and dark phone appearance, phone-entry/OTP, selector, hint, keyboard
+and change-number. A person's submissions from this real preview call staging
+Auth normally; use only authorized synthetic accounts. Founder Pixel retest and
+native wording approval remain pending. Stop at login review; no other feature.
+
+---
+
 Delivery: [PR #32](https://github.com/iamnawin/anuga/pull/32), implementation
 `30b49bb72b60aadd32ba3f7426a766536e276f38`, stacked on PR #29. Source CI
 [43208610616](https://github.com/iamnawin/anuga/actions/runs/43208610616) observed

@@ -1,5 +1,16 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+## LOGIN-001 Pixel regression — 2026-11-12 17:11:22 IST
+
+Founder reported dark logo background/size/gaps and truncated hint. Source
+20206f4: widget incorrectly painted mist behind already-transparent PNG. Removed
+backing, compacted/spaced original asset, lightened dark wordmark without changing
+symbol/accent, shortened three locale hints. 49 tests and 360/390 light/dark real
+web evidence PASS; final physical Pixel approval pending on same PR #32.
+Source images/proof/comparisons: `screenshots/login-review/README.md` follow-up.
+No UX-01–UX-08 closure, source PR change or production gate promotion.
+
+
 ## LOGIN-001 follow-up — Codex, 2026-11-12 16:50:49 IST
 
 Isolated phone/OTP rebuild from #29/d75cf07, without changing UX-01–UX-08 or

@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-12T11:36:01.380Z",
+  "results": [
+    {
+      "width": 376,
+      "colorScheme": "dark",
+      "screens": [
+        "phone",
+        "otp"
+      ],
+      "languageMenu": "PASS",
+      "hostedRequestsBlocked": 0,
+      "otp": "STUB HEADER VERIFIED",
+      "surface": "Desktop Chromium Pixel 7 emulation, not a physical phone"
+    }
+  ]
+}

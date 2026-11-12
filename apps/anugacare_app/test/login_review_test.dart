@@ -21,6 +21,35 @@ class SlowVerifyAuth extends FakeAccountAuth {
 }
 
 void main() {
+  for (final width in [360.0, 390.0]) {
+    for (final brightness in Brightness.values) {
+      testWidgets('$width ${brightness.name}: compact logo, spaced selector and aligned form', (tester) async {
+        tester.platformDispatcher.platformBrightnessTestValue = brightness;
+        addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
+        await pumpApp(tester, FakeAccountAuth());
+        tester.view.physicalSize = Size(width, 844);
+        tester.view.devicePixelRatio = 1;
+        await tester.pumpAndSettle();
+        final logo = find.byKey(const Key('brand-lockup'));
+        expect(tester.getSize(logo).width, lessThanOrEqualTo(224));
+        expect(find.text('10 digits'), findsOneWidget);
+        final menu = find.byTooltip('Language');
+        expect(tester.getSize(menu).height, greaterThanOrEqualTo(48));
+        expect(tester.getTopRight(menu).dx, width - 16);
+        expect(tester.getTopLeft(logo).dy - tester.getBottomLeft(menu).dy, greaterThanOrEqualTo(24));
+        await tester.tap(menu);
+        await tester.pumpAndSettle();
+        expect(find.text('हिन्दी'), findsOneWidget);
+        await tester.tap(find.text('English').last);
+        await tester.pumpAndSettle();
+        final field = tester.getRect(find.byKey(const Key('phone')));
+        final button = tester.getRect(find.byKey(const Key('send-code')));
+        expect(field.left, button.left);
+        expect(field.right, button.right);
+        expect(tester.takeException(), isNull);
+      });
+    }
+  }
   testWidgets('sending from a scrolled phone form opens OTP at the top', (tester) async {
     await pumpApp(tester, FakeAccountAuth());
     tester.view.devicePixelRatio = 1;

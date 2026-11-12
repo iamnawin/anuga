@@ -6,7 +6,7 @@
   "loginTitle": "సైన్ ఇన్",
   "loginIntro": "ధృవీకరణ కోడ్ పొందడానికి మీ మొబైల్ నంబర్ ఇవ్వండి.",
   "phoneLabel": "మొబైల్ నంబర్",
-  "phoneHint": "10 అంకెల మొబైల్ నంబర్",
+  "phoneHint": "10 అంకెలు",
   "sendCode": "కోడ్ పంపండి",
   "codeLabel": "6 అంకెల కోడ్",
   "codeSentTo": "{phone} కు కోడ్ పంపబడింది",

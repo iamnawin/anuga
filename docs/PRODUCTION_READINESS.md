@@ -1,5 +1,12 @@
 # AnugaCare production readiness and release gate
 
+2026-11-12 17:11:22 IST: founder-reported Pixel dark login failure corrected on
+PR #32, 49 unified tests/analyze/web build and 360/390 light/dark browser evidence
+PASS. Prior CI 43208909014 seven SUCCESS applies to 20206f4 baseline; new commit's
+checks remain separate. Physical Pixel retest/approval still pending; production
+NO-GO and all hosted recovery/language/device gates unchanged. No hosted writes.
+
+
 LOGIN-001 delivery at 2026-11-12 16:53:06 IST: [PR #32](https://github.com/iamnawin/anuga/pull/32)
 OPEN, source 30b49bb, stacked on #29. CI source run 43208610616 observed IN_PROGRESS;
 current result available from the PR. Phone/native-language approval still open;

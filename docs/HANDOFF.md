@@ -1,5 +1,54 @@
 # Handoff
 
+### Agent Session - 2026-11-12 17:11:22 IST — LOGIN-001 Pixel correction
+
+**Agent:** Codex.
+**Role / responsibility:** PR #32 isolated login layout correction.
+**Session start (IST):** 2026-11-12 16:59:53.
+**Task ID / Name:** LOGIN-001-Pixel / light and dark phone/OTP layout.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-login-review`.
+**Branch:** `feat/unified-login-review`.
+**Starting commit:** `20206f46a1520404dfeb97595fd271fa7c2a5f07`.
+**Current commit:** Starting 20206f4; ending implementation/documentation commit
+contains this entry (exact SHA is Git metadata of this receipt).
+**PR:** #32 OPEN, same base #29 branch; #28/#29/#30/V2 unchanged.
+**Scope:** Founder-reported Pixel dark layout defect; 360/390 light/dark renders.
+**Completed work:** Removed erroneous opaque logo wrapper; transparent original
+logo reduced to 224px with 24px gaps. Dark wordmark/tagline use readable light
+ink; upper teal/marigold retained. Right-aligned selector row/card gutter and
+48px tap target checked; same field/button padding; short en/te/hi hints.
+**Files changed:** Unified login screen, three ARBs, login_review_test.dart;
+pixel-fix screenshots/results/comparison/transparency evidence; HANDOFF/TASKS/
+EXECUTION_STATE/PROGRESS_LEDGER, UX registers, design tokens and readiness notes.
+No asset bytes, theme system, auth adapter, role routing, RLS or migration edits.
+**Tests and actual results:** Four new cases RED on old UI, then final unified
+49 PASS; analyze PASS; release web build PASS; scoped format/diff PASS.
+Real release Chromium Pixel emulation: phone/OTP and opened menu at both widths
+and both themes PASS. Four logo-corner alpha/render checks PASS. Independent
+review clear and final screenshots visually inspected. Not a physical retest.
+**CI evidence:** Prior 20206f4 run 43208909014 completed SUCCESS (seven jobs),
+observed 17:06:51 IST; no successful job rerun. New commit requires its automatic
+PR check rollup; no new CI pass inferred. Focused checks used for this UI-only fix.
+**Merge status:** #32 unmerged; source PRs preserved.
+**Deployment and migration status:** No deployment/migrations/hosted mutations.
+All hosted traffic blocked/intercepted in visual tests; OTP stub header asserted,
+no SMS or real Auth calls. Local preview PID 35976 unchanged, LAN HTTP 200.
+**Decisions and assumptions:** Both normal/light and dark follow OS/browser.
+Original transparent PNG unchanged; mask's 70% boundary tied to that approved
+asset. Founder Pixel image reviewed in chat, no local file path supplied; the
+comparison labels the old running-build reproduction rather than claiming it
+is the actual Pixel screenshot. No invented dark mockup.
+**Blockers:** Prior Pixel acceptance FAILED by founder report; corrected build
+awaits Pixel retest and approval. Native TE/HI wording and existing production
+gates remain open. New PR CI result not yet available before push.
+**Uncommitted changes:** Intended code/docs/evidence before commit only; ignored
+tools/builds/public config remain local, no secrets/backups staged.
+**Exact next action:** Push correction to #32 then STOP. Founder refreshes
+http://192.168.31.252:3113/app/ on same Wi-Fi and retests both themes/phone/OTP/
+language selector/keyboard. No merge/deploy or next feature.
+**Next responsible agent:** Founder reviewer; Codex on feedback.
+
+
 ### Agent Session - 2026-11-12 16:53:06 IST — LOGIN-001 delivery
 
 **Agent:** Codex.

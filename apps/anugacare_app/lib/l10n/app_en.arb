@@ -6,7 +6,7 @@
   "loginTitle": "Sign in",
   "loginIntro": "Enter your mobile number to receive a verification code.",
   "phoneLabel": "Mobile number",
-  "phoneHint": "10-digit mobile number",
+  "phoneHint": "10 digits",
   "sendCode": "Send verification code",
   "codeLabel": "6-digit code",
   "codeSentTo": "Code sent to {phone}",

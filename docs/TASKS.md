@@ -1,5 +1,21 @@
 # Tasks and milestones
 
+## LOGIN-001 Pixel follow-up (2026-11-12 17:11:22 IST)
+
+- [x] Reproduced founder dark-mode logo block; original PNG itself transparent.
+- [x] Removed backing, reduced/centered lockup with gaps; dark wordmark readable.
+- [x] Selector row/card right edge and 48px target verified; field/button aligned;
+      short hints in en/te/hi, visible Mobile number label retained.
+- [x] Final unified 49 tests, analyze, release web build, scoped format/diff PASS.
+- [x] Running phone/OTP/menu at 360/390 light/dark captured and visually checked;
+      comparison includes labelled old-build reproduction, not the actual Pixel file.
+- [x] Prior baseline CI 43208909014/20206f4 SUCCESS, all seven; no manual reruns.
+- [ ] New correction commit's automatic PR checks (PR #32 rollup).
+- [ ] Founder Pixel retest of both normal/light and dark modes; approval pending.
+- Evidence: `screenshots/login-review/README.md` Pixel follow-up; same Wi-Fi URL
+  http://192.168.31.252:3113/app/. STOP at login; no other feature or gate promotion.
+
+
 ## LOGIN-001 — isolated unified phone/OTP rebuild (2026-11-12)
 
 - [x] Implementation 30b49bb pushed to [PR #32](https://github.com/iamnawin/anuga/pull/32),

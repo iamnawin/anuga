@@ -1,5 +1,14 @@
 # ANUGA UI reference contract
 
+Pixel feedback update, 2026-11-12 17:11:22 IST: unified login uses the original
+transparent lockup at 224px, no opaque backing, 24px clear space above/below.
+Dark presentation lightens only original wordmark/tagline pixels; original teal
+symbol/marigold remain. Right-aligned selector shares card's 16px outer gutter.
+Mobile number remains labelled; hints shortened per locale. Both OS/browser light
+and dark modes retained. This supersedes the initial mist-backed dark treatment;
+updated real-render comparisons and physical retest status are in login evidence.
+
+
 ## Unified login reference update — founder instruction, 2026-11-12
 
 LOGIN-001 uses `docs/screenshots/login-review/reference-phone.png` as the latest

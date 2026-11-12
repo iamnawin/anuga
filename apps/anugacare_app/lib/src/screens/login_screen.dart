@@ -77,6 +77,16 @@ class _LoginScreenState extends State<LoginScreen> {
     final l10n = AppLocalizations.of(context);
     final scheme = Theme.of(context).colorScheme;
     final keyboardOtp = _sentTo != null && MediaQuery.viewInsetsOf(context).bottom > 0;
+    final logo = Image.asset(
+      _sentTo == null ? 'assets/brand/anugacare-lockup.png' : 'assets/brand/anugacare-symbol.png',
+      key: Key(_sentTo == null ? 'brand-lockup' : 'brand-symbol'),
+      width: _sentTo == null
+          ? 224
+          : keyboardOtp
+          ? 32
+          : 64,
+      semanticLabel: 'AnugaCare',
+    );
     return PopScope(
       canPop: _sentTo == null,
       onPopInvokedWithResult: (didPop, _) {
@@ -93,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Expanded(
                     child: SingleChildScrollView(
                       key: ValueKey(_sentTo == null),
-                      padding: const EdgeInsets.fromLTRB(16, 38, 16, 24),
+                      padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
@@ -131,25 +141,29 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: _sentTo == null ? 0 : 8),
+                          SizedBox(height: _sentTo == null ? 24 : 8),
                           Center(
-                            child: Image.asset(
-                              _sentTo == null
-                                  ? 'assets/brand/anugacare-lockup.png'
-                                  : 'assets/brand/anugacare-symbol.png',
-                              key: Key(_sentTo == null ? 'brand-lockup' : 'brand-symbol'),
-                              width: _sentTo == null
-                                  ? 284
-                                  : keyboardOtp
-                                  ? 32
-                                  : 64,
-                              // The light-only lockup sits on its approved mist backing in dark mode.
-                              semanticLabel: 'AnugaCare',
-                              frameBuilder: (context, child, frame, synchronous) =>
-                                  ColoredBox(color: const Color(0xFFF7FBFA), child: child),
-                            ),
+                            child: _sentTo == null && scheme.brightness == Brightness.dark
+                                ? ShaderMask(
+                                    // Only the wordmark/tagline below 70% of this approved PNG
+                                    // become light. Preserve the symbol, marigold and transparency.
+                                    blendMode: BlendMode.srcATop,
+                                    shaderCallback: (bounds) => LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Colors.transparent,
+                                        scheme.onSurface,
+                                        scheme.onSurface,
+                                      ],
+                                      stops: const [0, .70, .70, 1],
+                                    ).createShader(bounds),
+                                    child: logo,
+                                  )
+                                : logo,
                           ),
-                          SizedBox(height: _sentTo == null ? 0 : 16),
+                          SizedBox(height: _sentTo == null ? 24 : 16),
                           Container(
                             padding: const EdgeInsets.fromLTRB(18, 24, 18, 24),
                             decoration: BoxDecoration(

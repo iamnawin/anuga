@@ -1,5 +1,16 @@
 # AnugaCare progress ledger
 
+## LOGIN-001 Pixel follow-up — 2026-11-12 17:11:22 IST
+
+Founder dark-mode test reported FAIL on old layout. Correction implemented and
+locally verified on same PR #32: transparent compact logo, gaps, readable dark
+wordmark, short hints; 49 unified PASS/analyze/web build, four width/theme
+combinations and both auth screens/menu verified in Chromium. Baseline CI
+43208909014 seven SUCCESS; automatic checks on correction pending. Pixel physical
+retest/native review still open, not human-approved/merged/deployed. Gates/weights
+unchanged; STOP for founder review, same LAN URL.
+
+
 ## LOGIN-001 PR receipt — 2026-11-12 16:53:06 IST
 
 IN PR #32, source 30b49bb72b60aadd32ba3f7426a766536e276f38, stacked on #29.

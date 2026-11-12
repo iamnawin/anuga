@@ -1,5 +1,16 @@
 # AnugaCare execution state
 
+## LOGIN-001 Pixel correction — 2026-11-12 17:11:22 IST
+
+Same PR #32/branch/worktree, starting 20206f4. Founder reported Pixel dark failure;
+opaque widget backing removed, smaller spaced transparent lockup, readable dark
+wordmark, compact hints and aligned controls verified. Unified 49/analyze/web
+build PASS; real Chromium 360/390 light/dark phone/OTP/menu captures PASS. Baseline
+CI 43208909014/20206f4 seven SUCCESS; new correction's PR checks not yet known.
+No hosted calls/SMS/migrations/deploy/merge. Evidence in screenshots/login-review.
+Push then STOP for founder Pixel retest at http://192.168.31.252:3113/app/.
+
+
 ## LOGIN-001 delivered for review — 2026-11-12 16:53:06 IST
 
 Source `30b49bb72b60aadd32ba3f7426a766536e276f38` pushed to isolated [PR #32](https://github.com/iamnawin/anuga/pull/32),

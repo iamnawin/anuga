@@ -1,5 +1,14 @@
 # AnugaCare — Complete UI/UX Modernization Implementation Plan (`UX_IMPLEMENTATION_PLAN.md`)
 
+## LOGIN-001 Pixel correction checkpoint — 2026-11-12 17:11:22 IST
+
+Same PR #32; founder-reported dark layout fixed and locally checked (49 tests,
+analyze/web build, phone/OTP/menu 360/390 light/dark screenshots). Evidence and
+actual Pixel-file limitation recorded in `screenshots/login-review/README.md`.
+Next: founder refreshes existing Wi-Fi preview and retests both themes; STOP.
+No other work package, merge/deploy or release gate is authorized by this fix.
+
+
 ## LOGIN-001 follow-up checkpoint — 2026-11-12 16:50:49 IST
 
 Codex implemented only unified phone/OTP on `feat/unified-login-review`, isolated

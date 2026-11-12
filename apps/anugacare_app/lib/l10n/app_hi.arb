@@ -6,7 +6,7 @@
   "loginTitle": "साइन इन",
   "loginIntro": "सत्यापन कोड पाने के लिए अपना मोबाइल नंबर डालें।",
   "phoneLabel": "मोबाइल नंबर",
-  "phoneHint": "10 अंकों का मोबाइल नंबर",
+  "phoneHint": "10 अंक",
   "sendCode": "कोड भेजें",
   "codeLabel": "6 अंकों का कोड",
   "codeSentTo": "{phone} पर कोड भेजा गया",
