@@ -100,20 +100,22 @@ Companion to `AnugaCare_App_Navigation_and_Screen_Map.md`. Status sources: `docs
 
 ### Companion app
 
+Final spec for C1 to C20 (approved 2026-11-12): `screen_mockups/Companion_Screens_FINAL_Spec_v1.md`. Where this table and the spec differ, the spec wins.
+
 | ID | Screen | Status | Priority | Mockup | What to change or add |
 |---|---|---|---|---|---|
 | C1 | Become a companion / invite application | CHANGE | P1 | Provided (29) | Make invite-only; availability by shift, not Morning/Evening |
-| C2 | Verification status | CHANGE | P1 | Provided (30) | Add medical fitness, shadow runs, probation; 'Complete' only for background check |
-| C3 | Today | CHANGE | P0 | Provided (31) | Remove fake notification dot; tabs Today, Visits, Help, Profile |
+| C2 | Verification status | CHANGE | P1 | Provided (30) | ID document and Training only; no background-check row until it exists (D6) |
+| C3 | Today | CHANGE | P0 | Provided (31) | No notification count; tabs Today, Visits, Me (D4) |
 | C4 | Upcoming / Visits | KEEP | P0 | None | Exists |
-| C5 | Trip essentials | CHANGE | P0 | Provided (32) | Masked call, no map or directions, start button follows the start window |
-| C6 | On the way (en route) | CHANGE | P0 | Provided (33) | Remove map and ETA; add 'I have arrived' (screen only) |
+| C5 | Trip essentials | CHANGE | P0 | Provided (32) | Illustrated avatars; drawn route card; Navigate opens phone maps; Call AnugaCare support; start button follows the start window |
+| C6 | On the way (en route) | CHANGE | P0 | Provided (33) | Remove live map and ETA; drawn route card + Navigate; 'I have arrived' later (ADR) |
 | C7 | Pickup code | KEEP | P0 | Provided (34) | 6 digits; add attempts message |
-| C8 | At the centre | CHANGE | P0 | Provided (35) | Remove map and ETA; add 'Patient not available' |
+| C8 | At the centre | CHANGE | P0 | Provided (35) | Remove live map and ETA; route card, timeline with real times, Navigate |
 | C9 | Handover checklist | CHANGE | P0 | Provided (36) | Auto time stamp; staff name optional |
 | C10 | Session in progress (waiting) | NEW | P0 | None | Missing from the mockups: between handover and 'session finished' |
-| C11 | Return journey | CHANGE | P0 | Provided (37) | Remove map and ETA; show pickup window |
-| C12 | Home arrival | CHANGE | P0 | Provided (38) | Masked call |
+| C11 | Return journey | CHANGE | P0 | Provided (37) | Remove live map and ETA; timeline, route card, Navigate |
+| C12 | Home arrival | CHANGE | P0 | Provided (38) | 'Handed to' choice; no phone numbers (D1) |
 | C13 | Visit note | CHANGE | P0 | Provided (39) | Note required; fare and receipt deferred |
 | C14 | Visit completed | CHANGE | P0 | Provided (40) | Without earnings |
 | C15 | Report an issue | KEEP | P0 | None | Exists |
@@ -124,7 +126,7 @@ Companion to `AnugaCare_App_Navigation_and_Screen_Map.md`. Status sources: `docs
 | C20 | Document upload for onboarding | NEW | P2 | None | ID capture |
 | C21 | Earnings | DEFER | P2 | Provided (40) | Needs a payout model |
 | C22 | Fare and receipt entry | DEFER | P2 | Provided (39) | Needs a controlled fare source |
-| C23 | Live map, ETA and directions | DEFER | P2 | Provided (33,35,37) | Needs consent, cost, ADR |
+| C23 | Live map, ETA and directions | DEFER | P2 | Provided (33,35,37) | Needs consent, cost, ADR. Static two-pin map (M1) also needs an ADR |
 
 ### Ops console (web)
 

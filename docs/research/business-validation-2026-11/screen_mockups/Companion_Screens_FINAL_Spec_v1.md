@@ -4,7 +4,7 @@ Date: 2026-11-12. Draft for founder approval. Not code. Built from the 20 mockup
 How to use: (1) accept or change the 7 decisions, (2) generate the 5 boards in section 5 so the whole set matches, (3) give the developer this file plus the 5 boards. Images are direction only; this file is the specification.
 Update 2026-11-12 (evening): founder feedback says the October boards (`docs/design/*-8.png`, `*-9.png`, `*-10.png`) looked richer: illustrated avatars, route maps, timelines with times. Section 7 compares them and says what comes back. D2, D5 and the board prompts are revised to match.
 
-## 1. Decisions (recommended default first; change any you disagree with)
+## 1. Decisions (approved by the founder 2026-11-12: all defaults; D5 = M0, M1 map variant kept in the prompts for comparison only)
 
 | # | Decision | Recommended default | Why |
 |---|---|---|---|
