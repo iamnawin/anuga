@@ -1,5 +1,15 @@
 # Handoff
 
+Pixel correction delivery observation, **2026-11-12 17:14:24 IST**: implementation
+`e5a5b95d7805e6a598389822255d621ca2857327` pushed to the existing PR #32.
+Run [43211668116](https://github.com/iamnawin/anuga/actions/runs/43211668116)
+observed seven jobs IN_PROGRESS; no new pass inferred. A staged check flagged
+Windows CRLF in the generated transparency JSON; this later evidence-only receipt
+normalizes it to LF, after which diff check passes. No application change after
+e5a5b95, no build/test rerun for formatting. Latest PR checks may refer to this
+receipt commit. Same Wi-Fi server remains available; STOP for Pixel retest.
+
+
 ### Agent Session - 2026-11-12 17:11:22 IST — LOGIN-001 Pixel correction
 
 **Agent:** Codex.

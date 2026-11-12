@@ -1,5 +1,11 @@
 # AnugaCare execution state
 
+Pixel correction pushed as e5a5b95 to #32, observed 2026-11-12 17:14:24 IST;
+CI 43211668116 IN_PROGRESS. Later receipt only normalizes evidence JSON CRLF and
+records the source SHA; no app change. PR rollup is authoritative for later CI.
+49 local tests/analyze/web/capture evidence complete; STOP for founder retest.
+
+
 ## LOGIN-001 Pixel correction — 2026-11-12 17:11:22 IST
 
 Same PR #32/branch/worktree, starting 20206f4. Founder reported Pixel dark failure;

@@ -2,6 +2,11 @@
 
 ## Pixel follow-up — 2026-11-12 17:11:22 IST
 
+Correction pushed as `e5a5b95d7805e6a598389822255d621ca2857327` to the same PR #32.
+CI [43211668116](https://github.com/iamnawin/anuga/actions/runs/43211668116) observed
+IN_PROGRESS at 17:14:24 IST; no new pass inferred. Later receipt normalizes only
+generated JSON line endings and records this SHA. Use latest PR check rollup.
+
 Founder reported the dark-mode layout failure on a real Pixel and supplied the
 mockup and Pixel screenshot in chat. Source `20206f46a1520404dfeb97595fd271fa7c2a5f07`,
 same branch/PR #32. This follow-up supersedes the earlier mist-backed dark logo

@@ -1,5 +1,11 @@
 # AnugaCare progress ledger
 
+2026-11-12 17:14:24 IST: Pixel correction e5a5b95 pushed, same #32. CI 43211668116
+observed IN_PROGRESS. Evidence JSON CRLF normalized in documentation-only receipt;
+final diff check passes. No new runtime change or repeated build. Physical retest
+and human approval pending; STOP; no gate/weight promotion.
+
+
 ## LOGIN-001 Pixel follow-up — 2026-11-12 17:11:22 IST
 
 Founder dark-mode test reported FAIL on old layout. Correction implemented and

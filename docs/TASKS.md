@@ -2,6 +2,9 @@
 
 ## LOGIN-001 Pixel follow-up (2026-11-12 17:11:22 IST)
 
+- [x] Correction e5a5b95 pushed to #32; CI 43211668116 IN_PROGRESS at 17:14:24 IST.
+      Later evidence-only receipt normalizes JSON line endings; no app change.
+
 - [x] Reproduced founder dark-mode logo block; original PNG itself transparent.
 - [x] Removed backing, reduced/centered lockup with gaps; dark wordmark readable.
 - [x] Selector row/card right edge and 48px target verified; field/button aligned;
