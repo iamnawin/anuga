@@ -1,5 +1,11 @@
 # LOGIN-001 — unified phone and SMS verification review
 
+Delivery: [PR #32](https://github.com/iamnawin/anuga/pull/32), implementation
+`30b49bb72b60aadd32ba3f7426a766536e276f38`, stacked on PR #29. Source CI
+[43208610616](https://github.com/iamnawin/anuga/actions/runs/43208610616) observed
+IN_PROGRESS at 2026-11-12 16:53:06 IST; check the PR for later receipt runs/results.
+Not merged/deployed or founder-approved. Current phone review URL below.
+
 Codex session started 2026-11-12 16:11:55 IST. Isolated worktree
 `D:\AI-Workspace\Repos\anuga-login-review`, branch `feat/unified-login-review`,
 starting at PR #29 head `d75cf071ef5e54d5b47415aac612a11b8b08545f`.

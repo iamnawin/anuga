@@ -1,5 +1,14 @@
 # AnugaCare progress ledger
 
+## LOGIN-001 PR receipt — 2026-11-12 16:53:06 IST
+
+IN PR #32, source 30b49bb72b60aadd32ba3f7426a766536e276f38, stacked on #29.
+Local verification complete (45 unified tests plus documented checks/browser
+evidence). CI run 43208610616 observed IN_PROGRESS; current result belongs to
+GitHub, not an assumed pass. No weights/gates promoted. #28/#29 heads unchanged.
+Await founder login/physical keyboard/native-language review; STOP.
+
+
 ## LOGIN-001 — 2026-11-12 16:50:49 IST (Codex review stop)
 
 IMPLEMENTED and locally VERIFIED; unified final 45 pass, analyze pass, full-fast

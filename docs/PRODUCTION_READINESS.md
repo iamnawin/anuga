@@ -1,5 +1,11 @@
 # AnugaCare production readiness and release gate
 
+LOGIN-001 delivery at 2026-11-12 16:53:06 IST: [PR #32](https://github.com/iamnawin/anuga/pull/32)
+OPEN, source 30b49bb, stacked on #29. CI source run 43208610616 observed IN_PROGRESS;
+current result available from the PR. Phone/native-language approval still open;
+no readiness gate closed and NO-GO unchanged. Earlier pending-creation notes
+below are historical checkpoint observations.
+
 LOGIN-001 checkpoint, **2026-11-12 16:50:49 IST**: unified phone/OTP presentation
 implemented and locally tested on isolated `feat/unified-login-review` based on
 #29/d75cf07. Reference comparison, 45 unified tests and scoped hosted synthetic

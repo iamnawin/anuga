@@ -1,5 +1,10 @@
 # Production readiness completion dashboard
 
+LOGIN-001 delivery: [PR #32](https://github.com/iamnawin/anuga/pull/32), code
+30b49bb, stacked on #29. Source CI 43208610616 IN_PROGRESS as observed
+2026-11-12 16:53:06 IST; use latest PR checks. Login human review is open;
+NO-GO unchanged. Prior pending-creation notes below are dated history.
+
 2026-11-12 16:50:49 IST — LOGIN-001 is locally implemented/tested and awaiting
 isolated PR delivery plus founder review. [Comparisons/test receipt/phone plan](screenshots/login-review/README.md).
 45 unified tests pass; current GitHub CI not yet created. This login evidence

@@ -1,5 +1,50 @@
 # Handoff
 
+### Agent Session - 2026-11-12 16:53:06 IST — LOGIN-001 delivery
+
+**Agent:** Codex.
+**Role / responsibility:** Isolated login owner; final evidence/handoff.
+**Session start (IST):** 2026-11-12 16:11:55.
+**Task ID / Name:** LOGIN-001 / unified phone and SMS verification review.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-login-review`.
+**Branch:** `feat/unified-login-review`.
+**Starting commit:** `d75cf071ef5e54d5b47415aac612a11b8b08545f` (#29 baseline).
+**Current commit:** Implementation `30b49bb72b60aadd32ba3f7426a766536e276f38`
+pushed; this later documentation-only receipt records its delivery.
+**PR:** [#32 OPEN](https://github.com/iamnawin/anuga/pull/32), base
+`feat/anugacare-ui-modernization`. Not main. #28 6b8e63c and #29 d75cf07 confirmed
+unchanged/open; #30 and V2 preserved.
+**Scope:** Login-only delivery described in the detailed session below.
+**Completed work:** Phone/OTP rebuild, explicit locale persistence, keyboard and
+scroll recovery, regression tests, original-logo/reference/before/after/overlay
+and 12 locale/scale captures, independent review, local phone server and PR.
+**Files changed:** 46 implementation/evidence/doc paths in 30b49bb; this receipt
+updates tracking only. No auth adapters, RLS, roles or migrations changed.
+**Tests and actual results:** Full fast suite PASS; final unified 45 and analyze
+PASS; Ops lint/typecheck/two E2E discoveries PASS. Local business E2E not run.
+Final hosted verify/role/reload PASS, send stubbed; exact limits/error history in
+`screenshots/login-review/README.md` and `browser-results.json`.
+**CI evidence:** [43208610616](https://github.com/iamnawin/anuga/actions/runs/43208610616)
+on 30b49bb observed seven jobs IN_PROGRESS at 16:53:06 IST. Supabase Preview
+integration SKIPPED. No successful result inferred and no job rerun requested.
+Documentation pushes may create a newer run; the PR check rollup is authoritative.
+**Merge status:** #32 OPEN/unmerged, source PRs unchanged.
+**Deployment and migration status:** No agent deployment or migration. Local
+server PID 35976, loopback/LAN HTTP 200; physical-phone access not tested.
+**Decisions and assumptions:** Current founder image/compact OTP wording approved
+the implementation direction; final appearance/native language/device acceptance
+still require review. Earlier OTP matcher miss and unverified SMS delivery are
+explicitly disclosed, rather than treated as a successful stubbed run.
+**Blockers:** Founder phone/IME and native TE/HI signoff; CI result not yet known
+at this observation. PR #28 hosted hardening/recovery gates remain blocked.
+**Uncommitted changes:** Only this sanitized documentation receipt before commit;
+ignored build/capture tools/public configuration remain local. No secrets staged.
+**Exact next action:** Push this receipt to #32, STOP for founder login review at
+http://192.168.31.252:3113/app/ on same Wi-Fi. Do not begin another feature or
+BACKUP-002; do not merge/deploy.
+**Next responsible agent:** Founder reviewer; Codex on specific feedback.
+
+
 ### Agent Session - 2026-11-12 16:50:49 IST
 
 **Agent:** Codex.

@@ -2,6 +2,10 @@
 
 ## LOGIN-001 — isolated unified phone/OTP rebuild (2026-11-12)
 
+- [x] Implementation 30b49bb pushed to [PR #32](https://github.com/iamnawin/anuga/pull/32),
+      stacked on #29; source CI 43208610616 IN_PROGRESS at 16:53:06 IST.
+      Latest PR check rollup remains authoritative; no pass/merge/deploy inferred.
+
 - [x] Compared origin/main with PR #29; separate `feat/unified-login-review`
       worktree based on #29 `d75cf07`. PR #28/#29/#30 preserved.
 - [x] Founder reference and approved original logo provenance recorded in

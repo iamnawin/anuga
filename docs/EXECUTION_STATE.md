@@ -1,5 +1,14 @@
 # AnugaCare execution state
 
+## LOGIN-001 delivered for review — 2026-11-12 16:53:06 IST
+
+Source `30b49bb72b60aadd32ba3f7426a766536e276f38` pushed to isolated [PR #32](https://github.com/iamnawin/anuga/pull/32),
+base #29 branch. #28/#29 verified unchanged/open. CI source run 43208610616 was
+IN_PROGRESS (seven jobs) at this observation; use PR checks for newer receipt
+commits/results. No job rerun, merge/deploy or success inference. Implementation,
+local tests and screenshots ready; human approval is still open. STOP at login.
+
+
 ## LOGIN-001 review checkpoint — 2026-11-12 16:50:49 IST
 
 Implementation and local verification complete: final unified 45 tests, analyze,
