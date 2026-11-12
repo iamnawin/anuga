@@ -35,3 +35,4 @@ AnugaCare is a trusted companionship and assisted-mobility service. **Dialysis r
 ## Reproducing results
 
 All scripts are standalone Python 3 with numpy: `python3 model_vN_....py > model_vN_results.md`. Later scripts import earlier ones, so keep them in the same folder.
+- `AnugaCare_Mockup_Image_Prompts_Remaining_48.md`: 12 image-generation prompts (4 screens per board) for the 48 screens without mockups.
