@@ -37,7 +37,7 @@ Companion to `AnugaCare_App_Navigation_and_Screen_Map.md`. Status sources: `docs
 
 **For the pilot (P0): 46 screens, 15 already fine, so 31 to change or build** (19 to change, 11 new, 1 in the spec but not built: withdraw consent and delete data).
 
-**Mockups:** 17 of the 66 screens that need work already have an image (you provided 17 of them counting 3 deferred; 1 generated for consent). **48 still need a mockup image:** P0 19, P1 18, P2 11. Prompts are already written for 14 of them (F3 to F8, F12, F14, F15, F19, F22, F24, F27, F34, C17, C18).
+**Mockups:** 17 of the 66 screens that need work already have an image (16 you provided, counting 3 deferred screens, plus 1 generated for consent). One more provided image, the pickup code screen, is for a screen that is already fine. **48 still need a mockup image:** P0 19, P1 18, P2 11. Prompts are already written for 16 of them (F3 to F8, F12, F14, F15, F19, F22, F24, F27, F34, C17, C18).
 
 ## 2. The list
 
@@ -174,12 +174,12 @@ Companion to `AnugaCare_App_Navigation_and_Screen_Map.md`. Status sources: `docs
 | Arrival-at-pickup event and leg-level assignment (platform) | Needed to measure pickup wait for centres and to run swap routes. Needs ADRs. |
 | Centre-facing view | A partner view for centres is in the spec as 'later'; not planned here. |
 
-## 4. Order of work for the pilot (P0, 31 screens to change or build)
+## 4. Order of work for the pilot (P0, 31 screens to change or build: 5 + 9 + 7 + 10)
 
 - **Batch 1: sign-in and consent (5):** A2, A3, A4, A5 plus F29 (withdraw and delete). Needed before any real data.
-- **Batch 2: family set-up (11):** F1, F2, F3, F4, F5, F6, F7, F8, F9 (P0 wizard and payment in test mode), then F10, F11 later.
-- **Batch 3: family main (8):** F12, F14, F15, F19, F22, F24, F28, plus pickup code card inside F15.
-- **Batch 4: companion trip (10):** C3, C5, C6, C7 (keep), C8, C9, C10, C11, C12, C13, C14.
+- **Batch 2: family set-up (9):** F1, F2, F3, F4, F5, F6, F7, F8, F9 (P0 wizard and payment in test mode); F10 and F11 come later.
+- **Batch 3: family main (7):** F12, F14, F15, F19, F22, F24, F28. The pickup code card is part of F15.
+- **Batch 4: companion trip (10):** C3, C5, C6, C8, C9, C10, C11, C12, C13, C14. C7 (pickup code) is already fine.
 - **Batch 5: P1 follow-ups:** Help, More, receipts, refunds, invite family, reschedule, companion onboarding, availability, Ops plan sales and reports.
 
 ## 5. Decisions that change the count
