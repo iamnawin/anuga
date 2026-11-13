@@ -1,5 +1,13 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+2026-11-12 19:40:46 IST — Screen04 follow-up: explicit Save/partial recovery,
+truthful consent hierarchy and accessible labels implemented on isolated branch
+from #32. Family94/full suite and nine real-render configs PASS; physical/native
+review pending. Support remains standing, policy URL absent; no unsupported link
+or per-request promise. Does not close broader UX-05/production gates. Evidence
+and mockup comparison: screenshots/consent-welcome/README.md. Welcome not started.
+
+
 ## LOGIN-001 Pixel regression — 2026-11-12 17:11:22 IST
 
 Founder reported dark logo background/size/gaps and truncated hint. Source

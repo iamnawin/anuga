@@ -1,5 +1,53 @@
 # Handoff
 
+### Agent Session - 2026-11-12 19:40:46 IST — Screen 04 Consent
+
+**Agent:** Codex.
+**Role / responsibility:** Consent-first owner; separate Welcome follows verification.
+**Session start (IST):** 2026-11-12 19:08:40.
+**Task ID / Name:** SCREEN-04-CONSENT / patient-specific consent UI and explicit Save.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-consent-welcome`.
+**Branch:** `feat/consent-review` (isolated from #32).
+**Starting commit:** `ca22a5d463d23eabffe8662b1de5b730959b7bc1`.
+**Current commit:** This entry is included in the Consent implementation commit;
+exact ending SHA is its Git metadata. Welcome not implemented in this commit.
+**PR:** New Consent PR pending creation, base `feat/unified-login-review` (#32).
+#32 remains OPEN/unmerged at ca22a5d; CI 43211837626 seven SUCCESS. Others preserved.
+**Scope:** Existing Family ConsentScreen, shared in unified app; retained Home
+patient selector and selected-patient ownership. Mockups retained under docs/design.
+**Completed work:** Server-driven active/can_change; explicit On/Off and hierarchy,
+optional vault + indented standing support grant, explicit draft/Save RPC diffs,
+withdrawal confirmation accurate on Save, owner/read-only UI, loading/retry,
+bool acknowledgements, dependent grant order and partial-save reconciliation.
+**Files changed:** Family consent screen, three ARBs, records consent tests and
+two new test files; supplied 3 images; Consent screenshots/results/comparisons;
+HANDOFF/TASKS/EXECUTION_STATE/PROGRESS_LEDGER, UX/design/readiness registers.
+**Tests and actual results:** check-all PASS: DB 209/11 skip, Ops 70 + build,
+shared29, Companion58/3 skip, Family94/6 skip, unified49. Focused DB permissions6
+PASS; analyzers/format PASS; release web build PASS. 24 layout cases included.
+Nine running-app capture configurations, 29 PNGs including comparisons, zero
+initial writes and patient ID verified. Independent findings corrected/rechecked.
+**CI evidence:** Baseline #32 run 43211837626 seven SUCCESS; new source has only
+local evidence before push. New Consent PR checks must be observed separately.
+**Merge status:** No merges; new screen awaits human review.
+**Deployment and migration status:** Not deployed; no migrations/hosted mutations,
+SMS or real Auth calls. Captures intercept all hosted calls as fixtures. Local
+preview server PID37772, loopback HTTP200; physical access not yet retested.
+**Decisions and assumptions:** Source support consent is standing per patient,
+not per request; vault Off does not revoke an existing support grant. UI blocks
+new grants when vault off and permits explicit withdrawal. No approved Privacy
+Policy destination exists, so no invented link. Home patient picker unchanged.
+**Blockers:** Founder Pixel/native-language review; approved policy URL and any
+future request-scoped support contract. Hosted hardening/recovery gates remain
+separate/NO-GO. These gaps do not authorize backend expansion or migration.
+**Uncommitted changes:** Intended implementation/docs/evidence before commit;
+ignored tooling/public config/builds remain local. No secrets or patient data.
+**Exact next action:** Commit/push isolated Consent PR, record its SHA/PR, then
+implement Welcome as a separate reviewable branch/commit per current user request.
+After both screens, STOP for Pixel review at http://192.168.31.252:3114/app/.
+**Next responsible agent:** Codex for approved Welcome phase, then founder reviewer.
+
+
 Pixel correction delivery observation, **2026-11-12 17:14:24 IST**: implementation
 `e5a5b95d7805e6a598389822255d621ca2857327` pushed to the existing PR #32.
 Run [43211668116](https://github.com/iamnawin/anuga/actions/runs/43211668116)

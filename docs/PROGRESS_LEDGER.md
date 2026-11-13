@@ -1,5 +1,13 @@
 # AnugaCare progress ledger
 
+2026-11-12 19:40:46 IST — SCREEN-04-CONSENT implemented and locally VERIFIED on
+isolated branch from PR32/ca22a5d. Full fast suite PASS (Family94, unified49;
+documented skips), targeted DB6 PASS, nine capture configs/24 layout tests.
+Consent commit/PR pending; Welcome NOT STARTED until that checkpoint. Standing
+support/no policy URL constraints reported. Physical/native review not complete,
+no merge/deploy or readiness weight changes. Evidence: screenshots/consent-welcome.
+
+
 2026-11-12 17:14:24 IST: Pixel correction e5a5b95 pushed, same #32. CI 43211668116
 observed IN_PROGRESS. Evidence JSON CRLF normalized in documentation-only receipt;
 final diff check passes. No new runtime change or repeated build. Physical retest

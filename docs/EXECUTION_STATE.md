@@ -1,5 +1,16 @@
 # AnugaCare execution state
 
+## Screen 04 checkpoint — 2026-11-12 19:40:46 IST
+
+Codex isolated `feat/consent-review` at D:\AI-Workspace\Repos\anuga-consent-welcome,
+base #32/ca22a5d (seven-job CI SUCCESS). Consent implemented/locally verified;
+full check-all PASS, Family94/6 skip, unified49, focused DB6, real render evidence.
+Source support is standing patient access and policy URL absent: documented,
+not invented. Commit/push Consent PR before starting Welcome. Current user
+explicitly authorizes Welcome next; after both screens STOP for Pixel review.
+No merge/deploy/hosted mutation. New local port3114; old3113 untouched.
+
+
 Pixel correction pushed as e5a5b95 to #32, observed 2026-11-12 17:14:24 IST;
 CI 43211668116 IN_PROGRESS. Later receipt only normalizes evidence JSON CRLF and
 records the source SHA; no app change. PR rollup is authoritative for later CI.

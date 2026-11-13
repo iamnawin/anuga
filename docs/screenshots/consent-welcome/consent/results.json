@@ -1,0 +1,140 @@
+{
+  "at": "2026-11-12T14:06:35.227Z",
+  "results": [
+    {
+      "width": 360,
+      "colorScheme": "light",
+      "lang": "en",
+      "scale": 1,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "en",
+      "scale": 1,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    },
+    {
+      "width": 390,
+      "colorScheme": "light",
+      "lang": "en",
+      "scale": 1,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    },
+    {
+      "width": 390,
+      "colorScheme": "dark",
+      "lang": "en",
+      "scale": 1,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "en",
+      "scale": 2,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "te",
+      "scale": 1,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "te",
+      "scale": 2,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "hi",
+      "scale": 1,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "hi",
+      "scale": 2,
+      "readPatient": "Synthetic Patient A",
+      "initial": {
+        "trips": true,
+        "vault": false,
+        "ops_vault_access": false
+      },
+      "writes": 0,
+      "unexpected": [],
+      "source": "All Auth/RPC responses intercepted synthetic fixtures; no hosted request forwarded"
+    }
+  ]
+}

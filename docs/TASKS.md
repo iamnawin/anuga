@@ -1,5 +1,22 @@
 # Tasks and milestones
 
+## Screens 04 Consent then 01 Welcome — 2026-11-12 19:40:46 IST
+
+- [x] PR #32 baseline ca22a5d checked, OPEN, CI43211837626 seven SUCCESS.
+- [x] Isolated feat/consent-review worktree, all three supplied images in docs/design.
+- [x] Consent server values/per-row permissions, explicit diff-only Save, standing
+      support hierarchy, conditional new grant/withdrawal and partial-error recovery.
+- [x] Family94/6 skip, unified49, full fast suite/analyzers/build and DB6 allowed/
+      denied checks PASS; 24 layout cases, nine browser capture configs verified.
+- [x] Gaps reported: no approved Privacy Policy destination; no per-request support
+      permission; parent vault Off does not implicitly revoke existing support.
+- [ ] Consent commit/push/new PR before Welcome implementation.
+- [ ] Welcome signed-out entry, supplied illustration, same phone route for both
+      actions, existing sessions/OTP/locale/role contracts preserved and verified.
+- [ ] Welcome screenshots/comparisons, final handoff and same-Wi-Fi Pixel review.
+- Evidence and gates: `screenshots/consent-welcome/README.md`. No merge/deploy.
+
+
 ## LOGIN-001 Pixel follow-up (2026-11-12 17:11:22 IST)
 
 - [x] Correction e5a5b95 pushed to #32; CI 43211668116 IN_PROGRESS at 17:14:24 IST.

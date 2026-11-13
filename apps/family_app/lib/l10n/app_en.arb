@@ -124,18 +124,18 @@
   "openConsent": "Privacy and consent",
   "pdfNotViewable": "This file is a PDF. Viewing PDFs in the app is coming later.",
   "viewFailed": "Could not open this report. Try again.",
-  "consentTitle": "Privacy and consent",
-  "consentIntro": "Each choice is separate. You can turn any of them off at any time.",
-  "consentTripsTitle": "Visits and companions",
-  "consentTripsBody": "We use the patient's name, address, mobility notes and family contacts to plan visits. Companions see these only around each visit.",
-  "consentVaultTitle": "Health records",
-  "consentVaultBody": "Keep reports, prescriptions and readings in a private record. Only family members you add can see them; companions never can.",
-  "consentOpsTitle": "Our team may view records",
-  "consentOpsBody": "Lets our support team open the health records to help you. Every view is logged and you can see the log.",
+  "consentTitle": "Choose what you share",
+  "consentIntro": "You're in control. You can change or withdraw these choices here at any time.",
+  "consentTripsTitle": "Trip coordination",
+  "consentTripsBody": "Share visit schedule, pickup and drop-off locations, and trip details with your assigned companion. Your health documents are not shared.",
+  "consentVaultTitle": "Private health vault",
+  "consentVaultBody": "Store health documents in your family vault. Private; never visible to your companion.",
+  "consentOpsTitle": "Let AnugaCare support see my vault",
+  "consentOpsBody": "This permission applies to this patient until you withdraw it. Support views are logged.",
   "consentOn": "On",
   "consentOff": "Off",
   "consentOwnerOnly": "Only the owner can change these choices.",
-  "confirmWithdraw": "Turn this off? It stops at once. Records already saved are kept until you ask us to delete them.",
+  "confirmWithdraw": "Turn this off when you save? Access changes after you tap Save choices. Records already saved are kept until you ask us to delete them.",
   "turnOff": "Turn off",
   "tabBills": "Bills",
   "billsNotAllowed": "Only the owner and editors can see bills.",
@@ -206,8 +206,22 @@
   "@visitLatestUpdate": {
     "description": "Time of the latest persisted visit milestone, not assignment or refresh time",
     "placeholders": {
-      "dateTime": { "type": "String" }
+      "dateTime": {
+        "type": "String"
+      }
     }
   },
-  "serviceIssueHelp": "This visit needs ops attention. Refresh to see the latest recorded service status."
+  "serviceIssueHelp": "This visit needs ops attention. Refresh to see the latest recorded service status.",
+  "consentTripsRequired": "Needed to book trips",
+  "consentTripsOff": "If you turn this off, you can't book visits.",
+  "consentOptional": "Optional",
+  "consentSupportUnavailable": "Turn on the vault to grant new support access.",
+  "consentSupportStillOn": "Support permission is still on for existing documents. Withdraw it separately to stop access.",
+  "consentSave": "Save choices",
+  "consentUnsaved": "Unsaved changes",
+  "consentSaved": "Your choices were saved.",
+  "consentPartial": "Some choices were saved. Review the remaining changes and try again.",
+  "consentReloadRequired": "Reload the saved choices before making more changes.",
+  "consentReload": "Reload choices",
+  "consentKeep": "Keep this choice"
 }

@@ -1,5 +1,12 @@
 # AnugaCare production readiness and release gate
 
+Screen04 checkpoint 2026-11-12 19:40:46 IST: Consent UI locally verified on new
+branch from #32; tests/source permissions and synthetic intercepted renders do
+not attest hosted enforcement. Support is standing, not per support request;
+approved Privacy Policy URL absent. No policy invention, hosted changes or new
+release approval. Production remains NO-GO; physical/native review still pending.
+
+
 2026-11-12 17:11:22 IST: founder-reported Pixel dark login failure corrected on
 PR #32, 49 unified tests/analyze/web build and 360/390 light/dark browser evidence
 PASS. Prior CI 43208909014 seven SUCCESS applies to 20206f4 baseline; new commit's

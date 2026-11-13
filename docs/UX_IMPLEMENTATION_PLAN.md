@@ -1,5 +1,11 @@
 # AnugaCare — Complete UI/UX Modernization Implementation Plan (`UX_IMPLEMENTATION_PLAN.md`)
 
+2026-11-12 19:40:46 IST: founder authorized separate Screen04 then Screen01.
+Consent implemented/verified with full fast checks, explicit RPC Save and source
+permission tests; code/evidence commit before Welcome. Welcome next on a separate
+reviewable change; no merge/deploy. See screenshots/consent-welcome/README.md.
+
+
 ## LOGIN-001 Pixel correction checkpoint — 2026-11-12 17:11:22 IST
 
 Same PR #32; founder-reported dark layout fixed and locally checked (49 tests,
