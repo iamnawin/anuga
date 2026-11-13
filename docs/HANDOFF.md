@@ -1,5 +1,28 @@
 # Handoff
 
+### Agent Session - 2026-11-13 19:31:13 IST - FAMILY-V2 group1-CI-navigation-fix
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / group1-CI-navigation-fix.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** 5283415bac05ddac8ae5faf001ba46ef2b4efbce; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** Group1 source5283415 pushed to draftPR37 byiamnawin. CI43437185702: sixSUCCESS, supabase-localFAILED on obsolete Request care landing selector. Adapted only two existing Ops browser-test files for Home->Visits after sign-in/reload and More confirmed signout; retained backend assertions. Playwright discovery2 PASS (not execution), Docker unavailable locally. Repeated scripts/check-all.sh ALL CHECKS PASSED: Family109/6skip, unified91 and unchanged broad counts. Replacement CI pending; do not startGroup2 until corrected.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
 ### Agent Session - 2026-11-13 19:20:13 IST - FAMILY-V2 group1
 
 **Agent:** Codex; Family/Patient UI implementation and verification.

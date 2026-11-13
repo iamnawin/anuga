@@ -8,6 +8,22 @@ Branch: `feat/family-screens-v2`; baseline `b834b53fbc19952e86161d3bdb049354dfb7
 Push account verified by `gh auth status`: **iamnawin**; commit identity
 `iamnawin <naveen.naidu21@gmail.com>`.
 
+Draft PR: https://github.com/iamnawin/anuga/pull/37. Group1 source commit:
+`5283415bac05ddac8ae5faf001ba46ef2b4efbce`, pushed by iamnawin.
+Automatic CI run43437185702 is being observed; no CI pass inferred yet.
+
+CI run43437185702 subsequently finished: **six jobs SUCCESS, supabase-local FAILED**.
+The browser care-request journey timed out on its old Request care-on-landing
+selector (line82), because Family now lands on Home. Updated the existing two
+browser journeys to open Visits after sign-in/reload and use More plus sign-out
+confirmation. Patient identity is still asserted through its merged card button.
+All RPC/idempotency/status/note-privacy assertions retained. Ops application code
+unchanged. `pnpm --filter @companion/ops_console exec playwright test
+e2e/care_request.spec.ts e2e/issue_handling.spec.ts --list` discovers both tests;
+this is discovery, not an execution pass. Local browser/Supabase execution is
+unavailable: `docker` is not installed (`docker info` could not run). Replacement
+CI must prove the navigation correction before Group2 begins.
+
 Binding specification: `origin/ccr-d6e3aaf3-jvijtn:docs/research/business-validation-2026-11/screen_mockups/Family_Screens_FINAL_Spec_v1.md`.
 Founder approved the plan, six sequential groups, and `url_launcher ^6.3.3`
 for dialer handoff only (112/108/configured support). No other new packages.
@@ -64,7 +80,7 @@ No FAM-1 through FAM-5 boards found on main. Images never authorize capabilities
 
 | Group | Screens | State | Actual checks / delivery |
 | --- | --- | --- | --- |
-| 1 | F12 F13 F34 F35 | Locally complete; first push pending | Final check-all PASS: Family109/6 existing skips, unified91; 9 readable PNGs; review clear. |
+| 1 | F12 F13 F34 F35 | Pushed to draft PR37; CI pending | Final check-all PASS: Family109/6 existing skips, unified91; 9 readable PNGs; review clear. |
 | 2 | F14 F15 F16 | Pending | Not run |
 | 3 | F38 F18 | Pending | Not run |
 | 4 | F19 F20 F21 | Pending | Not run |
