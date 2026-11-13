@@ -1,5 +1,29 @@
 # Handoff
 
+### Agent Session - 2026-11-13 19:55 IST - legal documents draft preview
+
+**Agent:** Claude Code.
+**Role / responsibility:** Build the legal-document screens as one reviewable feature; keep acceptance gated until lawyer sign-off.
+**Session start (IST):** 2026-11-13 19:32.
+**Task ID / Name:** LEGAL-DOCS-1 / legal documents and consent integration (draft preview).
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-legal-documents.
+**Branch:** feat/legal-documents.
+**Starting commit:** b834b53 (origin/main).
+**Current commit:** See the pull request head.
+**PR:** See GitHub, branch feat/legal-documents (draft).
+**Scope:** Versioned privacy notice and terms of service as read-only DRAFT screens in the Family app, linked from the existing Consent screen. Documentation of acceptance evidence requirements and gaps.
+**Completed work:** Document model with an approval gate; English draft texts (version 0.1-draft) from docs/legal/lawyer-review-pack.md; read-only screen with pinned draft banner; two reading links on the Consent screen; seven labels in en/te/hi; docs/legal/acceptance-evidence.md; screenshots.
+**Files changed:** apps/family_app/lib/src/legal/*, apps/family_app/lib/src/screens/legal_document_screen.dart, apps/family_app/lib/src/screens/consent_screen.dart (imports and one inserted block), apps/family_app/lib/l10n/app_{en,te,hi}.arb, apps/family_app/test/legal_documents_test.dart, apps/family_app/test/support/capture_legal.dart, docs/legal/*, docs/evidence/legal-documents/*, shared handoff documents.
+**Tests and actual results:** Family app: analyze clean; flutter test 126 passed, 6 existing skips. Unified app: analyze clean; flutter test 87 passed. Capture harness 1 passed. Not run: pnpm db:test, scripts/check-all.sh, ops console, companion app tests (no such source changed).
+**CI evidence:** Not available at time of writing; see the pull request checks.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed. No migrations. No hosted changes.
+**Decisions and assumptions:** No lawyer sign-off is recorded, so both documents are drafts and cannot be accepted. Founder decision in chat (2026-11-13): build the screens now, keep the acceptance requirement gated until sign-off. Legal text is English only until translations are legally reviewed. Blanks are kept as "[To be confirmed: ...]"; nothing was invented.
+**Blockers:** Lawyer review; founder to fill Part H of the lawyer pack. Backend gaps G1 to G9 in docs/legal/acceptance-evidence.md, including G4: create_patient() records a trips consent automatically.
+**Uncommitted changes:** None after the task commit.
+**Exact next action:** STOP for founder review of the draft pull request. Do not add an acceptance step or link these screens elsewhere until the founder decides.
+**Next responsible agent:** Founder. Then whoever owns PR #37 reconciles the Consent screen and ARB files at integration.
+
 ### Agent Session - 2026-11-13 14:09:07 IST — authorized UI stack merge
 
 **Agent:** Codex.

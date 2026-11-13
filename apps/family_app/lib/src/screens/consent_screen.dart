@@ -4,6 +4,8 @@ import 'package:shared_dart/shared_dart.dart';
 import '../../l10n/generated/app_localizations.dart';
 import '../format.dart';
 import '../labels.dart';
+import '../legal/legal_documents_en.dart';
+import 'legal_document_screen.dart';
 
 /// Explicit patient-specific edits over the existing owner-only consent RPC.
 class ConsentScreen extends StatefulWidget {
@@ -282,7 +284,24 @@ class _ConsentScreenState extends State<ConsentScreen> {
                   Semantics(header: true, child: Text(l10n.consentTitle, style: theme.textTheme.headlineSmall)),
                   const SizedBox(height: 12),
                   Text(l10n.consentIntro, style: theme.textTheme.bodyLarge),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 8),
+                  // Reading only: accepting terms is never part of these consent choices.
+                  Wrap(
+                    children: [
+                      for (final (key, label, document) in [
+                        ('open-privacy-notice', l10n.legalPrivacyTitle, privacyNoticeEn),
+                        ('open-terms', l10n.legalTermsTitle, termsOfServiceEn),
+                      ])
+                        TextButton.icon(
+                          key: Key(key),
+                          icon: const Icon(Icons.description_outlined),
+                          label: Text(label),
+                          onPressed: () => Navigator.of(context)
+                              .push(MaterialPageRoute<void>(builder: (_) => LegalDocumentScreen(document: document))),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
                   Text('${l10n.patientLabel}: ${widget.patient.fullName}', key: const Key('consent-patient')),
                   const SizedBox(height: 24),
                   if (rows != null && !canChange)

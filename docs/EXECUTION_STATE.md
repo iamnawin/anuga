@@ -1,5 +1,12 @@
 # AnugaCare execution state
 
+IN DRAFT PR - 2026-11-13 19:55 IST: LEGAL-DOCS-1 (Claude Code) on feat/legal-documents
+from b834b53, worktree D:\AI-Workspace\Reposnuga-legal-documents. Read-only DRAFT privacy
+notice and terms screens in the Family app, linked from the Consent screen. No acceptance
+flow, no migration, no deployment. Family 126 passed/6 existing skips; unified app 87 passed.
+Overlaps PR #37 only in Family ARB files and one inserted block in consent_screen.dart.
+STOP for founder review; lawyer sign-off pending.
+
 MERGED TO MAIN — 2026-11-13 14:09:07 IST: founder authorized current UI stack;
 #29→#32→#33→#34 all merged, main source d22dc2738d4ff962d22d0eb776213f812a8c9b85.
 Exact tree equals tested1cac74a, all seven source checks per PR passed. Original

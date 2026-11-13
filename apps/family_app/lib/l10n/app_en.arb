@@ -126,6 +126,27 @@
   "viewFailed": "Could not open this report. Try again.",
   "consentTitle": "Choose what you share",
   "consentIntro": "You're in control. You can change or withdraw these choices here at any time.",
+  "legalPrivacyTitle": "Privacy notice",
+  "legalTermsTitle": "Terms of service",
+  "legalDraftBanner": "Draft. Not approved. Not in force.",
+  "legalDraftBody": "This text is waiting for legal review and is shown for preview only. Reading it or using this test app does not make any agreement.",
+  "legalVersion": "Version {version}",
+  "@legalVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "legalEffective": "In force from {date}",
+  "@legalEffective": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "legalEnglishOnly": "This document stays in English until its translation has been legally reviewed.",
   "consentTripsTitle": "Trip coordination",
   "consentTripsBody": "Share visit schedule, pickup and drop-off locations, and trip details with your assigned companion. Your health documents are not shared.",
   "consentVaultTitle": "Private health vault",
