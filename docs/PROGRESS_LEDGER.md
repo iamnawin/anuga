@@ -1,5 +1,54 @@
 # AnugaCare progress ledger
 
+2026-11-12 17:14:24 IST: Pixel correction e5a5b95 pushed, same #32. CI 43211668116
+observed IN_PROGRESS. Evidence JSON CRLF normalized in documentation-only receipt;
+final diff check passes. No new runtime change or repeated build. Physical retest
+and human approval pending; STOP; no gate/weight promotion.
+
+
+## LOGIN-001 Pixel follow-up — 2026-11-12 17:11:22 IST
+
+Founder dark-mode test reported FAIL on old layout. Correction implemented and
+locally verified on same PR #32: transparent compact logo, gaps, readable dark
+wordmark, short hints; 49 unified PASS/analyze/web build, four width/theme
+combinations and both auth screens/menu verified in Chromium. Baseline CI
+43208909014 seven SUCCESS; automatic checks on correction pending. Pixel physical
+retest/native review still open, not human-approved/merged/deployed. Gates/weights
+unchanged; STOP for founder review, same LAN URL.
+
+
+## LOGIN-001 PR receipt — 2026-11-12 16:53:06 IST
+
+IN PR #32, source 30b49bb72b60aadd32ba3f7426a766536e276f38, stacked on #29.
+Local verification complete (45 unified tests plus documented checks/browser
+evidence). CI run 43208610616 observed IN_PROGRESS; current result belongs to
+GitHub, not an assumed pass. No weights/gates promoted. #28/#29 heads unchanged.
+Await founder login/physical keyboard/native-language review; STOP.
+
+
+## LOGIN-001 — 2026-11-12 16:50:49 IST (Codex review stop)
+
+IMPLEMENTED and locally VERIFIED; unified final 45 pass, analyze pass, full-fast
+suite pass before last two regressions, Ops selector lint/typecheck/discovery pass.
+Host verification/role/reload pass for three synthetic roles, final send stubbed.
+EN/TE/HI real-font and 2× captures + reference comparison/overlay retained.
+Independent review has no remaining material finding. Isolated PR push/CI receipt
+pending; not merged, deployed or human-approved. Weights/release gates unchanged.
+Next: founder login/physical-keyboard/native-language acceptance, then STOP.
+
+
+## LOGIN-001 — 2026-11-12 16:31:44 IST (Codex)
+
+IMPLEMENTED; focused/full-fast verification and visual review in progress on
+isolated `feat/unified-login-review` from PR #29/d75cf07. Before/after app captures
+retained; 44 unified widget tests pass, including newly reproduced keyboard
+visibility regression and pending verification across keyboard changes. Full
+check-all passed before that final test addition. Auth/RLS/routing unchanged.
+Do not count this as merged, deployed, human-approved or production-ready.
+PR #28 backup/hosted-hardening gates and PR #29/#30 remain separate. Final receipt
+and exact next action will be recorded at the login review stop.
+
+
 Last reconciled: 2026-11-09 19:45:00 IST (Asia/Kolkata)
 
 Current multi-agent checkpoint:

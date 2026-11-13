@@ -26,7 +26,7 @@ async function revealFlutter(page: Page, locator: Locator) {
 }
 
 async function enterFlutter(page: Page, name: string, value: string) {
-  await page.getByRole('textbox', { name, exact: true }).click();
+  await page.getByRole('textbox', { name: name === 'Mobile number' ? /^Mobile number\b/ : name, exact: true }).click();
   await page.waitForTimeout(350);
   await page.keyboard.press('ArrowLeft');
   await page.waitForTimeout(150);
@@ -34,9 +34,9 @@ async function enterFlutter(page: Page, name: string, value: string) {
   await page.keyboard.insertText(value);
 }
 
-async function identity(page: Page, phone: string) {
+async function identity(page: Page, phone: string, action = 'Sign in') {
   const verified = page.waitForResponse((r) => new URL(r.url()).pathname === '/auth/v1/verify');
-  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await page.getByRole('button', { name: action, exact: true }).click();
   const response = await verified;
   expect(response.status()).toBe(200);
   const { user } = await response.json() as { user: { id: string; phone: string } };
@@ -67,9 +67,9 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     await family.goto(pwa);
     await enableFlutter(family);
     await enterFlutter(family, 'Mobile number', '9000000101');
-    await family.getByRole('button', { name: 'Send code', exact: true }).click();
+    await family.getByRole('button', { name: 'Send verification code', exact: true }).click();
     await enterFlutter(family, '6-digit code', otp);
-    const familyIdentity = await identity(family, '9000000101');
+    const familyIdentity = await identity(family, '9000000101', 'Verify code');
     receipt.family_identity = familyIdentity;
     await family.getByRole('button', { name: 'Request care', exact: true }).click();
     await family.getByText('Package', { exact: true }).click();
@@ -136,10 +136,10 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     await companion.goto(pwa);
     await enableFlutter(companion);
     await enterFlutter(companion, 'Mobile number', '9000000201');
-    await companion.getByRole('button', { name: 'Send code', exact: true }).click();
+    await companion.getByRole('button', { name: 'Send verification code', exact: true }).click();
     await enterFlutter(companion, '6-digit code', otp);
     const companionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_my_trips'));
-    const companionIdentity = await identity(companion, '9000000201');
+    const companionIdentity = await identity(companion, '9000000201', 'Verify code');
     receipt.companion_identity = companionIdentity;
     expect(companionIdentity.user_id).toBe(asha);
     const companionTrips = await (await companionRead).json() as { trip_id: string; status: string; details_visible: boolean }[];

@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-12T11:39:42.150Z",
+  "results": [
+    {
+      "width": 360,
+      "colorScheme": "light",
+      "screens": [
+        "phone",
+        "otp"
+      ],
+      "languageMenu": "PASS",
+      "hostedRequestsBlocked": 0,
+      "otp": "STUB HEADER VERIFIED",
+      "surface": "Desktop Chromium Pixel 7 emulation, not a physical phone"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "screens": [
+        "phone",
+        "otp"
+      ],
+      "languageMenu": "PASS",
+      "hostedRequestsBlocked": 0,
+      "otp": "STUB HEADER VERIFIED",
+      "surface": "Desktop Chromium Pixel 7 emulation, not a physical phone"
+    },
+    {
+      "width": 390,
+      "colorScheme": "light",
+      "screens": [
+        "phone",
+        "otp"
+      ],
+      "languageMenu": "PASS",
+      "hostedRequestsBlocked": 0,
+      "otp": "STUB HEADER VERIFIED",
+      "surface": "Desktop Chromium Pixel 7 emulation, not a physical phone"
+    },
+    {
+      "width": 390,
+      "colorScheme": "dark",
+      "screens": [
+        "phone",
+        "otp"
+      ],
+      "languageMenu": "PASS",
+      "hostedRequestsBlocked": 0,
+      "otp": "STUB HEADER VERIFIED",
+      "surface": "Desktop Chromium Pixel 7 emulation, not a physical phone"
+    }
+  ]
+}

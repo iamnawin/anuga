@@ -1,5 +1,163 @@
 # Handoff
 
+Pixel correction delivery observation, **2026-11-12 17:14:24 IST**: implementation
+`e5a5b95d7805e6a598389822255d621ca2857327` pushed to the existing PR #32.
+Run [43211668116](https://github.com/iamnawin/anuga/actions/runs/43211668116)
+observed seven jobs IN_PROGRESS; no new pass inferred. A staged check flagged
+Windows CRLF in the generated transparency JSON; this later evidence-only receipt
+normalizes it to LF, after which diff check passes. No application change after
+e5a5b95, no build/test rerun for formatting. Latest PR checks may refer to this
+receipt commit. Same Wi-Fi server remains available; STOP for Pixel retest.
+
+
+### Agent Session - 2026-11-12 17:11:22 IST — LOGIN-001 Pixel correction
+
+**Agent:** Codex.
+**Role / responsibility:** PR #32 isolated login layout correction.
+**Session start (IST):** 2026-11-12 16:59:53.
+**Task ID / Name:** LOGIN-001-Pixel / light and dark phone/OTP layout.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-login-review`.
+**Branch:** `feat/unified-login-review`.
+**Starting commit:** `20206f46a1520404dfeb97595fd271fa7c2a5f07`.
+**Current commit:** Starting 20206f4; ending implementation/documentation commit
+contains this entry (exact SHA is Git metadata of this receipt).
+**PR:** #32 OPEN, same base #29 branch; #28/#29/#30/V2 unchanged.
+**Scope:** Founder-reported Pixel dark layout defect; 360/390 light/dark renders.
+**Completed work:** Removed erroneous opaque logo wrapper; transparent original
+logo reduced to 224px with 24px gaps. Dark wordmark/tagline use readable light
+ink; upper teal/marigold retained. Right-aligned selector row/card gutter and
+48px tap target checked; same field/button padding; short en/te/hi hints.
+**Files changed:** Unified login screen, three ARBs, login_review_test.dart;
+pixel-fix screenshots/results/comparison/transparency evidence; HANDOFF/TASKS/
+EXECUTION_STATE/PROGRESS_LEDGER, UX registers, design tokens and readiness notes.
+No asset bytes, theme system, auth adapter, role routing, RLS or migration edits.
+**Tests and actual results:** Four new cases RED on old UI, then final unified
+49 PASS; analyze PASS; release web build PASS; scoped format/diff PASS.
+Real release Chromium Pixel emulation: phone/OTP and opened menu at both widths
+and both themes PASS. Four logo-corner alpha/render checks PASS. Independent
+review clear and final screenshots visually inspected. Not a physical retest.
+**CI evidence:** Prior 20206f4 run 43208909014 completed SUCCESS (seven jobs),
+observed 17:06:51 IST; no successful job rerun. New commit requires its automatic
+PR check rollup; no new CI pass inferred. Focused checks used for this UI-only fix.
+**Merge status:** #32 unmerged; source PRs preserved.
+**Deployment and migration status:** No deployment/migrations/hosted mutations.
+All hosted traffic blocked/intercepted in visual tests; OTP stub header asserted,
+no SMS or real Auth calls. Local preview PID 35976 unchanged, LAN HTTP 200.
+**Decisions and assumptions:** Both normal/light and dark follow OS/browser.
+Original transparent PNG unchanged; mask's 70% boundary tied to that approved
+asset. Founder Pixel image reviewed in chat, no local file path supplied; the
+comparison labels the old running-build reproduction rather than claiming it
+is the actual Pixel screenshot. No invented dark mockup.
+**Blockers:** Prior Pixel acceptance FAILED by founder report; corrected build
+awaits Pixel retest and approval. Native TE/HI wording and existing production
+gates remain open. New PR CI result not yet available before push.
+**Uncommitted changes:** Intended code/docs/evidence before commit only; ignored
+tools/builds/public config remain local, no secrets/backups staged.
+**Exact next action:** Push correction to #32 then STOP. Founder refreshes
+http://192.168.31.252:3113/app/ on same Wi-Fi and retests both themes/phone/OTP/
+language selector/keyboard. No merge/deploy or next feature.
+**Next responsible agent:** Founder reviewer; Codex on feedback.
+
+
+### Agent Session - 2026-11-12 16:53:06 IST — LOGIN-001 delivery
+
+**Agent:** Codex.
+**Role / responsibility:** Isolated login owner; final evidence/handoff.
+**Session start (IST):** 2026-11-12 16:11:55.
+**Task ID / Name:** LOGIN-001 / unified phone and SMS verification review.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-login-review`.
+**Branch:** `feat/unified-login-review`.
+**Starting commit:** `d75cf071ef5e54d5b47415aac612a11b8b08545f` (#29 baseline).
+**Current commit:** Implementation `30b49bb72b60aadd32ba3f7426a766536e276f38`
+pushed; this later documentation-only receipt records its delivery.
+**PR:** [#32 OPEN](https://github.com/iamnawin/anuga/pull/32), base
+`feat/anugacare-ui-modernization`. Not main. #28 6b8e63c and #29 d75cf07 confirmed
+unchanged/open; #30 and V2 preserved.
+**Scope:** Login-only delivery described in the detailed session below.
+**Completed work:** Phone/OTP rebuild, explicit locale persistence, keyboard and
+scroll recovery, regression tests, original-logo/reference/before/after/overlay
+and 12 locale/scale captures, independent review, local phone server and PR.
+**Files changed:** 46 implementation/evidence/doc paths in 30b49bb; this receipt
+updates tracking only. No auth adapters, RLS, roles or migrations changed.
+**Tests and actual results:** Full fast suite PASS; final unified 45 and analyze
+PASS; Ops lint/typecheck/two E2E discoveries PASS. Local business E2E not run.
+Final hosted verify/role/reload PASS, send stubbed; exact limits/error history in
+`screenshots/login-review/README.md` and `browser-results.json`.
+**CI evidence:** [43208610616](https://github.com/iamnawin/anuga/actions/runs/43208610616)
+on 30b49bb observed seven jobs IN_PROGRESS at 16:53:06 IST. Supabase Preview
+integration SKIPPED. No successful result inferred and no job rerun requested.
+Documentation pushes may create a newer run; the PR check rollup is authoritative.
+**Merge status:** #32 OPEN/unmerged, source PRs unchanged.
+**Deployment and migration status:** No agent deployment or migration. Local
+server PID 35976, loopback/LAN HTTP 200; physical-phone access not tested.
+**Decisions and assumptions:** Current founder image/compact OTP wording approved
+the implementation direction; final appearance/native language/device acceptance
+still require review. Earlier OTP matcher miss and unverified SMS delivery are
+explicitly disclosed, rather than treated as a successful stubbed run.
+**Blockers:** Founder phone/IME and native TE/HI signoff; CI result not yet known
+at this observation. PR #28 hosted hardening/recovery gates remain blocked.
+**Uncommitted changes:** Only this sanitized documentation receipt before commit;
+ignored build/capture tools/public configuration remain local. No secrets staged.
+**Exact next action:** Push this receipt to #32, STOP for founder login review at
+http://192.168.31.252:3113/app/ on same Wi-Fi. Do not begin another feature or
+BACKUP-002; do not merge/deploy.
+**Next responsible agent:** Founder reviewer; Codex on specific feedback.
+
+
+### Agent Session - 2026-11-12 16:50:49 IST
+
+**Agent:** Codex.
+**Role / responsibility:** Isolated unified login implementation and verification.
+**Session start (IST):** 2026-11-12 16:11:55.
+**Task ID / Name:** LOGIN-001 / approved phone-entry and SMS verification rebuild.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-login-review`.
+**Branch:** `feat/unified-login-review` (stacked on PR #29).
+**Starting commit:** `d75cf071ef5e54d5b47415aac612a11b8b08545f`.
+**Current commit:** Ending implementation commit contains this entry; resolve via
+Git. PR number/push receipt to be appended after creation, never guessed.
+**PR:** Isolated review PR pending creation against feat/anugacare-ui-modernization;
+#28 stays 6b8e63c, #29 stays d75cf07, #30/V2 preserved. None merged.
+**Scope:** Unified phone/OTP only, explicit locale persistence, focused regression
+tests, selector compatibility, real before/after/reference captures and phone URL.
+**Completed work:** Reused #29 baseline, approved PNGs and existing theme. White
+card, full phone lockup/compact OTP symbol, new action copy, language menu, exact
+anuga-language preference. Single Verify footer above IME and step scroll reset.
+Auth validation/handlers and database-role routing/RPC/RLS unchanged.
+**Files changed:** Unified login/main/root callback, three ARBs, direct existing
+shared_preferences dependency/lock classification, unmodified logo asset, tests;
+two existing Ops E2E mobile selector helpers; design contract; screenshot evidence;
+HANDOFF/TASKS/EXECUTION_STATE/PROGRESS_LEDGER/readiness matrix/dashboard.
+**Tests and actual results:** check-all PASS (DB 209/11 skip; Ops 70 + build;
+shared 29; Companion 58/3 skip; Family 58/6 skip; unified 43 then final 45).
+Final unified analyze PASS. Ops lint/typecheck + two E2E test discovery PASS
+after selectors; business journeys not locally executed. Regression RED→GREEN for
+keyboard visibility and scroll reset; busy verify/IME expiry regression PASS.
+EN/TE/HI 360px and 2× real-font captures, explicit language→reload PASS.
+**CI evidence:** Current branch CI not yet created; local results above only.
+No GitHub success inferred. Final hosted synthetic verify/role/reload observation
+2026-11-12 16:48:28 IST passed for Family/Companion/Ops. Final sends stubbed;
+no business writes. See screenshots/login-review/browser-results.json.
+**Merge status:** Not merged; source PRs preserved.
+**Deployment and migration status:** Not deployed; no migrations or hosted
+business data/roles/users/RLS/provider configuration changes. Synthetic Auth
+sessions exercised. Local hidden server PID 35976; LAN/loopback HTTP 200.
+**Decisions and assumptions:** Current founder image supersedes historical board
+1 panel 02; OTP follows panel 03 plus written compact-card direction. Original
+logo proportions/platform font retained; no new font/provider dependencies.
+Earlier query-bearing capture OTP URLs escaped the initial stub and reached
+staging Auth for synthetic numbers (rate-limit error). Final matcher/header
+assertion correct this. Actual SMS delivery is unverified; no code/token artifacts.
+**Blockers:** Founder login acceptance, physical Android/IME and native TE/HI
+wording remain unverified. Current CI pending. PR #28's hosted hardening/recovery
+gates remain blocked; inherited November 9 attestation below is historical.
+**Uncommitted changes:** Intended implementation/docs/evidence before commit;
+ignored artifacts/builds/public build config remain outside Git.
+**Exact next action:** Push isolated login review PR, append factual PR/commit/CI
+receipt, then STOP for founder review at http://192.168.31.252:3113/app/ (same
+Wi-Fi; phone reachability untested). No next feature, merge/deploy or BACKUP-002.
+**Next responsible agent:** Founder login reviewer; Codex only after feedback.
+
+
 ## Gemini CLI Final Review, Synthetic Supabase Attestation & PR #29 Vercel Preview (2026-11-09 19:45 IST)
 
 - **Location of Full Audit & Plan:**

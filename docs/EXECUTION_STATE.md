@@ -1,5 +1,54 @@
 # AnugaCare execution state
 
+Pixel correction pushed as e5a5b95 to #32, observed 2026-11-12 17:14:24 IST;
+CI 43211668116 IN_PROGRESS. Later receipt only normalizes evidence JSON CRLF and
+records the source SHA; no app change. PR rollup is authoritative for later CI.
+49 local tests/analyze/web/capture evidence complete; STOP for founder retest.
+
+
+## LOGIN-001 Pixel correction — 2026-11-12 17:11:22 IST
+
+Same PR #32/branch/worktree, starting 20206f4. Founder reported Pixel dark failure;
+opaque widget backing removed, smaller spaced transparent lockup, readable dark
+wordmark, compact hints and aligned controls verified. Unified 49/analyze/web
+build PASS; real Chromium 360/390 light/dark phone/OTP/menu captures PASS. Baseline
+CI 43208909014/20206f4 seven SUCCESS; new correction's PR checks not yet known.
+No hosted calls/SMS/migrations/deploy/merge. Evidence in screenshots/login-review.
+Push then STOP for founder Pixel retest at http://192.168.31.252:3113/app/.
+
+
+## LOGIN-001 delivered for review — 2026-11-12 16:53:06 IST
+
+Source `30b49bb72b60aadd32ba3f7426a766536e276f38` pushed to isolated [PR #32](https://github.com/iamnawin/anuga/pull/32),
+base #29 branch. #28/#29 verified unchanged/open. CI source run 43208610616 was
+IN_PROGRESS (seven jobs) at this observation; use PR checks for newer receipt
+commits/results. No job rerun, merge/deploy or success inference. Implementation,
+local tests and screenshots ready; human approval is still open. STOP at login.
+
+
+## LOGIN-001 review checkpoint — 2026-11-12 16:50:49 IST
+
+Implementation and local verification complete: final unified 45 tests, analyze,
+full fast suite (before final two regressions), real 1.15×/2× en/te/hi captures,
+language persistence and hosted synthetic verify/role/reload evidence. Final
+OTP sends stubbed; earlier query-string stub miss/rate-limit is documented.
+Independent review clear. Deliver isolated PR then STOP for founder phone/login
+and native-language review. GitHub CI not yet created; no merge/deploy or gate
+promotion. Phone URL and full limitations: screenshots/login-review/README.md.
+
+
+## LOGIN-001 active checkpoint — 2026-11-12 16:31:44 IST
+
+Codex owns `D:\AI-Workspace\Repos\anuga-login-review`, branch
+`feat/unified-login-review`, based on PR #29/d75cf07. Login-only changes are
+isolated; PR #28 stays at 6b8e63c and #29/#30 are untouched. Full fast suite passed;
+unified 44 after the additional pending-verify regression. EN/TE/HI browser
+captures and explicit locale persistence verified. Final hosted verification and
+comparison receipt in progress. Do not infer a deploy, merge or patient approval.
+PR #28 remains authoritative for later BACKUP-ACCESS-001/ATTEST-001 evidence;
+the inherited November 9 recovery entries below are historical.
+
+
 Last reconciled: 2026-11-09 19:45:00 IST (Asia/Kolkata)
 
 ## Mission

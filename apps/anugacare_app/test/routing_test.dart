@@ -93,7 +93,7 @@ void main() {
       }
       expect(find.byType(Radio<Object>), findsNothing);
       expect(find.byType(SegmentedButton<Object>), findsNothing);
-      expect(find.byKey(const Key('brand-symbol')), findsOneWidget);
+      expect(find.byKey(const Key('brand-lockup')), findsOneWidget);
     });
 
     testWidgets('a stored session is checked against the database before any home opens', (tester) async {
@@ -182,7 +182,7 @@ void main() {
       await pumpApp(tester, FakeAccountAuth());
 
       await tester.enterText(find.byKey(const Key('phone')), '9123456789');
-      await tester.tap(find.text('Send code'));
+      await tester.tap(find.text('Send verification code'));
       await tester.pumpAndSettle();
 
       expect(find.text('Signups not allowed for otp'), findsOneWidget);
@@ -196,7 +196,7 @@ void main() {
       await pumpApp(tester, auth);
 
       await tester.enterText(find.byKey(const Key('phone')), '12345');
-      await tester.tap(find.text('Send code'));
+      await tester.tap(find.text('Send verification code'));
       await tester.pumpAndSettle();
       expect(find.text('Enter a valid 10-digit mobile number.'), findsOneWidget);
 
@@ -273,7 +273,7 @@ void main() {
       await tester.tap(find.text('కోడ్ పంపండి'));
       await tester.pumpAndSettle();
       await tester.enterText(find.byKey(const Key('code')), '123456');
-      await tester.tap(find.text('సైన్ ఇన్'));
+      await tester.tap(find.widgetWithText(FilledButton, 'కోడ్ ధృవీకరించండి'));
       await tester.pumpAndSettle();
 
       expect(find.text('Sign out'), findsNothing);
@@ -292,7 +292,7 @@ void main() {
       await tester.tap(find.text('कोड भेजें'));
       await tester.pumpAndSettle();
       await tester.enterText(find.byKey(const Key('code')), '123456');
-      await tester.tap(find.text('साइन इन'));
+      await tester.tap(find.widgetWithText(FilledButton, 'कोड सत्यापित करें'));
       await tester.pumpAndSettle();
 
       expect(

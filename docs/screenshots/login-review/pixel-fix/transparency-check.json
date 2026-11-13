@@ -1,0 +1,68 @@
+{
+  "originalPngAlphaRange": [
+    0,
+    255
+  ],
+  "checks": [
+    {
+      "width": 360,
+      "theme": "light",
+      "logoCorner": [
+        247,
+        251,
+        250
+      ],
+      "canvas": [
+        247,
+        251,
+        250
+      ],
+      "opaqueBackingAbsent": true
+    },
+    {
+      "width": 360,
+      "theme": "dark",
+      "logoCorner": [
+        16,
+        36,
+        38
+      ],
+      "canvas": [
+        16,
+        36,
+        38
+      ],
+      "opaqueBackingAbsent": true
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "logoCorner": [
+        247,
+        251,
+        250
+      ],
+      "canvas": [
+        247,
+        251,
+        250
+      ],
+      "opaqueBackingAbsent": true
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "logoCorner": [
+        16,
+        36,
+        38
+      ],
+      "canvas": [
+        16,
+        36,
+        38
+      ],
+      "opaqueBackingAbsent": true
+    }
+  ]
+}

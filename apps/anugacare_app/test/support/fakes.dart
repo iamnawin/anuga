@@ -133,9 +133,10 @@ Future<FakeRpc> pumpApp(
 
 Future<void> signIn(WidgetTester tester, String phone, {String code = '123456'}) async {
   await tester.enterText(find.byKey(const Key('phone')), phone.substring(3));
-  await tester.tap(find.text('Send code'));
+  await tester.ensureVisible(find.byKey(const Key('send-code')));
+  await tester.tap(find.byKey(const Key('send-code')));
   await tester.pumpAndSettle();
   await tester.enterText(find.byKey(const Key('code')), code);
-  await tester.tap(find.text('Sign in'));
+  await tester.tap(find.byKey(const Key('verify-code')));
   await tester.pumpAndSettle();
 }

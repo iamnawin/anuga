@@ -31,6 +31,7 @@ class AnugaCareApp extends StatefulWidget {
     required this.photos,
     required this.payments,
     this.initialLocale = const Locale('en'),
+    this.onLocaleChanged,
   });
 
   final AccountAuth auth;
@@ -40,6 +41,7 @@ class AnugaCareApp extends StatefulWidget {
   final PhotoSource photos;
   final Payments payments;
   final Locale initialLocale;
+  final ValueChanged<Locale>? onLocaleChanged;
 
   @override
   State<AnugaCareApp> createState() => _AnugaCareAppState();
@@ -120,7 +122,10 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
     setState(() => _stage = stage);
   }
 
-  void _setLocale(Locale locale) => setState(() => _locale = locale);
+  void _setLocale(Locale locale) {
+    setState(() => _locale = locale);
+    widget.onLocaleChanged?.call(locale);
+  }
 
   @override
   Widget build(BuildContext context) {

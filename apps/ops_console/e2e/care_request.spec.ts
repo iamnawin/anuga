@@ -15,9 +15,9 @@ test.use({ trace: 'off', screenshot: 'off', video: 'off' });
 type CareRow = { schedule_id: string; request_state: string; trip_id: string | null };
 type EventRow = { to_status: string; created_at: string; note: string | null };
 
-async function signedInIdentity(page: Page, expectedPhone: string) {
+async function signedInIdentity(page: Page, expectedPhone: string, action = 'Sign in') {
   const verified = page.waitForResponse((r) => new URL(r.url()).pathname === '/auth/v1/verify');
-  await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+  await page.getByRole('button', { name: action, exact: true }).click();
   const response = await verified;
   expect(response.status()).toBe(200);
   const { user } = await response.json() as { user: { id: string; phone: string } };
@@ -49,7 +49,7 @@ async function revealFlutter(page: Page, locator: Locator) {
 // Flutter replaces its semantic editing node on focus. Use real keyboard input
 // after the editing connection settles; never put credentials in screenshots.
 async function enterFlutter(page: Page, name: string, value: string) {
-  await page.getByRole('textbox', { name, exact: true }).click();
+  await page.getByRole('textbox', { name: name === 'Mobile number' ? /^Mobile number\b/ : name, exact: true }).click();
   await page.waitForTimeout(350);
   await page.keyboard.press('ArrowLeft');
   await page.waitForTimeout(150);
@@ -75,9 +75,9 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await family.goto(preview ? `${preview}/app/` : 'http://127.0.0.1:3103/app/');
     await enableFlutter(family);
     await enterFlutter(family, 'Mobile number', '9000000101');
-    await family.getByRole('button', { name: 'Send code', exact: true }).click();
+    await family.getByRole('button', { name: 'Send verification code', exact: true }).click();
     await enterFlutter(family, '6-digit code', otp);
-    receipt.family_identity = await signedInIdentity(family, '919000000101');
+    receipt.family_identity = await signedInIdentity(family, '919000000101', 'Verify code');
     await family.getByRole('button', { name: 'Request care', exact: true }).waitFor();
     await expect(family.getByText('Lakshmi Rao (synthetic)', { exact: true })).toBeVisible();
     await family.getByRole('button', { name: 'Request care', exact: true }).click();
@@ -191,10 +191,10 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await companion.goto(pwa);
     await enableFlutter(companion);
     await enterFlutter(companion, 'Mobile number', '9000000202');
-    await companion.getByRole('button', { name: 'Send code', exact: true }).click();
+    await companion.getByRole('button', { name: 'Send verification code', exact: true }).click();
     await enterFlutter(companion, '6-digit code', otp);
     const companionRead = companion.waitForResponse((r) => r.url().endsWith('/rpc/companion_my_trips'));
-    receipt.companion_identity = await signedInIdentity(companion, '919000000202');
+    receipt.companion_identity = await signedInIdentity(companion, '919000000202', 'Verify code');
     const companionTrips = await (await companionRead).json() as { trip_id: string; status: string; details_visible: boolean }[];
     const companionTrip = companionTrips.find((row) => row.trip_id === tripId);
     expect(companionTrip?.status).toBe('scheduled');

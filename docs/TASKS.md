@@ -1,5 +1,49 @@
 # Tasks and milestones
 
+## LOGIN-001 Pixel follow-up (2026-11-12 17:11:22 IST)
+
+- [x] Correction e5a5b95 pushed to #32; CI 43211668116 IN_PROGRESS at 17:14:24 IST.
+      Later evidence-only receipt normalizes JSON line endings; no app change.
+
+- [x] Reproduced founder dark-mode logo block; original PNG itself transparent.
+- [x] Removed backing, reduced/centered lockup with gaps; dark wordmark readable.
+- [x] Selector row/card right edge and 48px target verified; field/button aligned;
+      short hints in en/te/hi, visible Mobile number label retained.
+- [x] Final unified 49 tests, analyze, release web build, scoped format/diff PASS.
+- [x] Running phone/OTP/menu at 360/390 light/dark captured and visually checked;
+      comparison includes labelled old-build reproduction, not the actual Pixel file.
+- [x] Prior baseline CI 43208909014/20206f4 SUCCESS, all seven; no manual reruns.
+- [ ] New correction commit's automatic PR checks (PR #32 rollup).
+- [ ] Founder Pixel retest of both normal/light and dark modes; approval pending.
+- Evidence: `screenshots/login-review/README.md` Pixel follow-up; same Wi-Fi URL
+  http://192.168.31.252:3113/app/. STOP at login; no other feature or gate promotion.
+
+
+## LOGIN-001 — isolated unified phone/OTP rebuild (2026-11-12)
+
+- [x] Implementation 30b49bb pushed to [PR #32](https://github.com/iamnawin/anuga/pull/32),
+      stacked on #29; source CI 43208610616 IN_PROGRESS at 16:53:06 IST.
+      Latest PR check rollup remains authoritative; no pass/merge/deploy inferred.
+
+- [x] Compared origin/main with PR #29; separate `feat/unified-login-review`
+      worktree based on #29 `d75cf07`. PR #28/#29/#30 preserved.
+- [x] Founder reference and approved original logo provenance recorded in
+      `screenshots/login-review/README.md`; historical board 1 panels 02–03 retained.
+- [x] Phone/OTP presentation, exact-key language preference and keyboard Verify
+      footer implemented. Auth handlers, validation, role/RPC/RLS contracts reused.
+- [x] Full fast check-all suite passed (DB 209 pass/11 skip, Ops 70, shared 29,
+      Companion 58/3 skip, Family 58/6 skip, unified 43). Extra pending-verify
+      regression subsequently passed: unified 44 total.
+- [x] EN/TE/HI 360px real-font captures and explicit TE/HI selection→reload checks.
+- [x] Final comparison/overlay, hosted verification receipt and independent review.
+      Unified final count 45, including scrolled phone→OTP regression.
+- [ ] Founder phone/keyboard, logo/layout and native-language approval.
+- Login review only. No merge/deploy/migrations or readiness gate promotion.
+- Evidence/manual phone plan: `screenshots/login-review/README.md`. Current source
+  CI pending creation; E2E discovery is not journey execution. Review URL
+  http://192.168.31.252:3113/app/ (phone access/IME not yet tested).
+
+
 ## Complete UI/UX Modernization Workstream — Gemini CLI (2026-11-09) `[~]` (PR #29 7/7 CI green at `c4ced74`/`631ac5d` & Vercel Preview `dpl_6673mDsp1iZULg4uPa4SD8HPz2kC` READY; product decisions `DEC-01`/`DEC-02`/`DEC-05`, human `QA-002` & staging `REL-002` remain open)
 
 Authoritative audit register: `docs/UX_AUDIT.md`. Phased execution tracker: `docs/UX_IMPLEMENTATION_PLAN.md`.
