@@ -1,5 +1,36 @@
 # Handoff
 
+### Agent Session - 2026-11-13 15:16 IST - COMP-V2 planning checkpoint
+
+**Agent:** Codex, Flutter implementation coordinator.
+**Task ID / Name:** COMP-V2 / unified Companion C1-C20 supported screen contracts.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291 (latest fetched main).
+**Current commit:** Baseline; implementation uncommitted during this checkpoint.
+**PR:** Not created yet; draft only authorized.
+**Scope:** Unified Companion screens only, required tracking documents.
+**Completed work:** Read approved research spec, audited contracts, opened references,
+recorded C1-C20 mapping/plan and missing-contract proposals in
+docs/evidence/companion-screens-v2/README.md. Supported UI written; validation in progress.
+**Files changed:** Unified Companion screens, ARBs, app mount, direct declarations
+of already-transitive launcher/web dependencies, widget tests; tracking docs.
+**Tests and actual results:** Focused new screens 43 PASS, updated routing/mobile39
+PASS; broader checks running. Initial analyzer had four lint infos, being corrected.
+**CI evidence:** Not run for this branch.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no hosted mutations/migrations.
+**Decisions and assumptions:** Founder instruction authorizes this next task after
+prior historical STOP. Final spec controls; D5=M0. Missing profile/verification/
+availability/document/support/timeline/settings contracts remain deferred.
+**Blockers:** No supported-screen blocker; complete C1/C2/C19/C20 and several
+requested fields need separate backend contracts. Native/language approval pending.
+**Uncommitted changes:** Implementation/tests currently uncommitted in this worktree.
+**Exact next action:** Finish review corrections, execute full checks, commit with
+receipt, push this branch and open DRAFT PR only. No merge or deploy.
+**Next responsible agent:** Codex for implementation/validation; founder for review.
+
+
 ### Agent Session - 2026-11-13 14:09:07 IST — authorized UI stack merge
 
 **Agent:** Codex.

@@ -1,5 +1,13 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+COMP-V2 checkpoint (2026-11-13 15:16 IST): Codex owns isolated
+`feat/companion-screens-v2` from main `b834b53` for founder-requested unified
+Companion screens. Supported UI in progress; C1/C2/C19/C20 and missing-contract
+portions deferred. Plan, reference mapping and actual checks:
+[COMP-V2 receipt](evidence/companion-screens-v2/README.md). Draft PR only; no merge,
+deploy, hosted migration or production gate closure. Historical entries preserved.
+
+
 2026-11-13 14:09:07 IST integration receipt: #29 modernization baseline, #32
 unified login, #33 Consent and #34 Welcome are MERGED into main d22dc27 under
 founder authorization. Historical implementation entries marked IN PR now have

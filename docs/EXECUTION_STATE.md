@@ -1,5 +1,13 @@
 # AnugaCare execution state
 
+COMP-V2 checkpoint (2026-11-13 15:16 IST): Codex owns isolated
+`feat/companion-screens-v2` from main `b834b53` for founder-requested unified
+Companion screens. Supported UI in progress; C1/C2/C19/C20 and missing-contract
+portions deferred. Plan, reference mapping and actual checks:
+[COMP-V2 receipt](evidence/companion-screens-v2/README.md). Draft PR only; no merge,
+deploy, hosted migration or production gate closure. Historical entries preserved.
+
+
 MERGED TO MAIN — 2026-11-13 14:09:07 IST: founder authorized current UI stack;
 #29→#32→#33→#34 all merged, main source d22dc2738d4ff962d22d0eb776213f812a8c9b85.
 Exact tree equals tested1cac74a, all seven source checks per PR passed. Original
