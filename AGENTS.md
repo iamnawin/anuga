@@ -1,5 +1,17 @@
 # AGENTS.md
 
+## Source merge receipt — 2026-11-13
+
+Founder explicitly authorized pushing/merging the current UI stack. PRs #29,
+#32, #33 and #34 are now merged into main, ending source merge d22dc27. Branches
+and unrelated #28/#30/#31 work remain intact. This authorization was specific
+to this merge task, not standing permission for future merges or deployment.
+Source CI passed all seven jobs per PR; main automatic checks remain separate.
+No deployment/migrations/hosted changes or production approval. Read the latest
+HANDOFF; older unmerged/review-stop entries are historical. Physical/native-language,
+policy and hosted recovery/hardening gates remain open; production is NO-GO.
+
+
 Instructions for any coding agent (Codex, Gemini, Claude Code, others) working in this repository.
 Claude Code also reads `CLAUDE.md`, which has the same rules plus architecture notes.
 

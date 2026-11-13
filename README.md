@@ -12,6 +12,12 @@
   <a href="docs/TASKS.md">Roadmap</a>
 </div>
 
+Source update (2026-11-13): the approved UI baseline, unified login, patient
+Consent and Welcome entry are merged through PRs #29/#32/#33/#34. This is a
+source merge, not a new deployment of the linked synthetic site. See
+[handoff](docs/HANDOFF.md) and [screen evidence](docs/screenshots/consent-welcome/README.md).
+
+
 <br />
 
 > **Synthetic staging only.** People, visits and bills in the test environment are invented.

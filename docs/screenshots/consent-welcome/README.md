@@ -1,5 +1,35 @@
 # Screens 04 Consent and 01 Welcome — delivery ledger
 
+## Authorized merge completed — 2026-11-13 14:09:07 IST
+
+Founder explicitly requested push/approve/merge of the current UI changes.
+All source heads were already pushed and each had seven passing CI jobs; final
+independent review found no blocker. Merged into main without rewriting source
+branches, deleting worktrees, overriding protection or inventing self-reviews:
+
+| PR | Scope | Verified source head | Actual main merge | Actual merge time IST | Source CI SUCCESS |
+|---|---|---|---|---|---|
+| [29](https://github.com/iamnawin/anuga/pull/29) | Required UI baseline | d75cf071ef5e54d5b47415aac612a11b8b08545f | fe024324cf10c73436feb25d99f8366beecdb433 | 2026-11-13 14:04:47 | 42633518434 |
+| [32](https://github.com/iamnawin/anuga/pull/32) | Phone/OTP | ca22a5d463d23eabffe8662b1de5b730959b7bc1 | 8d373ce70b589e60a6a3dac11c5bcff0491c8871 | 2026-11-13 14:05:11 | 43211837626 |
+| [33](https://github.com/iamnawin/anuga/pull/33) | Consent | b5e9142838ccf04b58474cdf6257e5f05a9dea23 | a7e0b2e01daede6a246d405a215a587756aff122 | 2026-11-13 14:05:51 | 43234936451 |
+| [34](https://github.com/iamnawin/anuga/pull/34) | Welcome | 1cac74ae000a9f212751500319296e265e904b04 | d22dc2738d4ff962d22d0eb776213f812a8c9b85 | 2026-11-13 14:06:14 | 43392520421 |
+
+#32–#34 were retargeted to main after their parent merged, retaining separately
+reviewable source scopes. Main at source merge d22dc27 and the tested Welcome tree both resolve
+to `c61cc4ddf97736abbd76c9f2e176b867dc80e3e1`. No runtime tests need inventing
+or repeating to establish that exact-tree fact. Newly triggered main CI
+[43394513880](https://github.com/iamnawin/anuga/actions/runs/43394513880) observed
+IN_PROGRESS at14:07:31 IST, not recorded as a final pass. Later Markdown-only
+receipt checks/commits can be newer; current main check results live on GitHub.
+
+**Merged, not deployed.** The source merge changes no hosted schema/data/users/
+RLS/provider settings and starts no manual deployment workflow. #28 technical,
+#30 security and #31 research PRs remain open and separate. Founder authorized
+code integration, not an invented record of physical/native-language acceptance
+or production launch. Existing release gates/NO-GO remain. Historical OPEN/pending
+notes below are dated snapshots, superseded for source merge state only.
+
+
 **Delivered 2026-11-13 13:49:48 IST:** [Consent PR #33](https://github.com/iamnawin/anuga/pull/33)
 `b5e9142838ccf04b58474cdf6257e5f05a9dea23` (CI all7 SUCCESS), then
 [Welcome PR #34](https://github.com/iamnawin/anuga/pull/34)

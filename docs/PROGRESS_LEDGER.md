@@ -1,5 +1,13 @@
 # AnugaCare progress ledger
 
+2026-11-13 14:09:07 IST — current UI source is MERGED on main through #29/#32/
+#33/#34, ending d22dc27. Founder explicitly authorized this merge. All four exact
+heads seven-CI-success and independent review clear; final tree equals tested
+Welcome1cac74a. Main new checks running, no pass inferred. Not deployed or
+production-approved; manual/hosted gates and release weights unchanged. Other
+open workstreams preserved. Earlier IN PR/STOP entries are historical snapshots.
+
+
 2026-11-13 13:49:48 IST: Screen04 IN PR33/b5e9142 CI7 SUCCESS; Screen01 IN PR34/
 b464716 CI3 SUCCESS/4 IN_PROGRESS. Separate tested/pushed changes, no merge/deploy/
 human acceptance. Gate9 implementation/receipt published; physical/native review
