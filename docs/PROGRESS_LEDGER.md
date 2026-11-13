@@ -1,5 +1,12 @@
 # AnugaCare progress ledger
 
+COMP-V2 delivery checkpoint 2026-11-13 15:32:34 IST: foundation committed as
+`beddacb2b9a2b609cc35d70a768bfd60233232ff` after planning `2d619e2`.
+Final source unified146 tests/analyze PASS; release web rebuild PASS (exit0,
+50.1s; existing font warning). Journey source/tests and 21 synthetic PNGs are
+being committed next. Draft PR/push pending; no merge/deploy/hosted mutations.
+
+
 COMP-V2 (2026-11-13 15:31:56 IST): Supported C3-C18 IMPLEMENTED/locally TESTED in
 `feat/companion-screens-v2`; C1/C2/C19/C20 and documented missing-contract
 portions DEFERRED. Full check-all PASS; final unified146/analyze PASS. Privacy,
