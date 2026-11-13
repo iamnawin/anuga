@@ -85,16 +85,19 @@ class FamilyProgress extends StatelessWidget {
           label: l10n.fStep(index + 1, statusLabel(l10n, status)),
           child: ExcludeSemantics(
             child: Row(
+              key: const Key('visit-progress'),
               children: [
                 for (var i = 0; i < familyProgressStatuses.length; i++)
                   Expanded(
                     child: Container(
+                      key: Key('visit-progress-stage-$i'),
                       margin: const EdgeInsetsDirectional.only(end: 3),
                       height: 6,
                       decoration: BoxDecoration(
                         color: i <= index ? scheme.primary : scheme.outlineVariant,
                         borderRadius: BorderRadius.circular(8),
                       ),
+                      child: i == index ? SizedBox.expand(key: Key('visit-progress-current-$i')) : null,
                     ),
                   ),
               ],

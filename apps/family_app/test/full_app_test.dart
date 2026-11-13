@@ -54,10 +54,10 @@ void main() {
     expect(find.text('Lakshmi Rao (synthetic)'), findsOneWidget); // app bar
     await tapVisible(tester, byKey('nav-visits'));
     expect(byKey('booking-today'), findsOneWidget);
-    // Friday is covered by the backup companion, and the family can see that.
+    // Show the assigned companion only; never expose primary/backup labels.
     expect(
       find.descendant(of: byKey('booking-friday'), matching: find.textContaining('Backup companion')),
-      findsOneWidget,
+      findsNothing,
     );
 
     await tapVisible(tester, byKey('booking-today'));

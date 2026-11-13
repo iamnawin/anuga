@@ -33,6 +33,13 @@ corrected before this pass; production source was unchanged. No backend assertio
 timeouts, skips or workflow gates changed. Another automatic CI run will verify
 the browser path. This failure and its correction remain recorded.
 
+**Group1 CI gate complete:** source `4724e39`, run
+[43441169469](https://github.com/iamnawin/anuga/actions/runs/43441169469):
+**all seven jobs SUCCESS**, including local Supabase real SQL/Edge tests,
+Companion/Family API journeys, both browser journeys and final cross-app journey.
+Supabase Preview integration skipped. Observed 2026-11-13 19:56:51 IST.
+No hosted data or deployment was involved. Group2 started after this gate.
+
 Binding specification: `origin/ccr-d6e3aaf3-jvijtn:docs/research/business-validation-2026-11/screen_mockups/Family_Screens_FINAL_Spec_v1.md`.
 Founder approved the plan, six sequential groups, and `url_launcher ^6.3.3`
 for dialer handoff only (112/108/configured support). No other new packages.
@@ -89,8 +96,8 @@ No FAM-1 through FAM-5 boards found on main. Images never authorize capabilities
 
 | Group | Screens | State | Actual checks / delivery |
 | --- | --- | --- | --- |
-| 1 | F12 F13 F34 F35 | Pushed to draft PR37; CI pending | Final check-all PASS: Family109/6 existing skips, unified91; 9 readable PNGs; review clear. |
-| 2 | F14 F15 F16 | Pending | Not run |
+| 1 | F12 F13 F34 F35 | Delivered to draft PR37; seven-job CI PASS | Final check-all PASS: Family109/6 existing skips, unified91; 9 readable PNGs; review clear. |
+| 2 | F14 F15 F16 | Locally complete; push pending | check-all PASS: Family130/6 existing skips, unified95; 24 total refreshed renders. |
 | 3 | F38 F18 | Pending | Not run |
 | 4 | F19 F20 F21 | Pending | Not run |
 | 5 | F22 F23 | Pending | Not run |
@@ -140,3 +147,44 @@ native-speaker, real-Supabase or deployment pass is implied by widget screenshot
   Viewport screenshots show scrollable content, not full-page captures.
 - No native phone, dialer, real Supabase journey or native-speaker review run.
   Existing local-Supabase skips remain unchanged; no new skipped or weakened tests.
+
+### Group 2 implementation and checks
+
+- F14 Upcoming/Past with date blocks, worded status chips, date grouping, month-based
+  history using existing RPC arguments; assigned first name only. Existing backed
+  care-request cards remain. No inferred routine/history or new business window.
+- F15 nine persisted steps, stopped banners/Help, schematic route without unavailable
+  addresses, assigned companion initials/first name, recorded event timestamps and
+  completion card. Detail refresh also reads current patient access. Only issued
+  codes appear; exact code dialog is removed and pending responses invalidated on
+  background/offline/refresh. Cancel dialog keeps text on transport failure and
+  closes safely on permission/state loss. F16 Keep is primary; Cancel red outline.
+- Operational issue/Ops notes are suppressed even in malformed test projections;
+  intended companion handover/completion and family cancellation notes remain.
+- Added21 focused tests including nine states, three stopped states, dialog/code
+  lifecycle races, cancellation retry, private notes, date ranges and narrow200%
+  EN/TE/HI. Unified adds4 Home-to-detail access tests; no vault/billing prefetch.
+- Initial new tests observed RED. Initial Family run115 pass/12 fail covered old
+  labels/backup assertions, new current-access read counts and a real status-chip
+  clipping regression. Updated expectations to approved copy/hidden backup, retained
+  request/race/privacy assertions, and restored multi-line status labels. Date-block
+  layout initially overflowed under Ahem; width/layout corrected, focused21 PASS.
+- First broad run stopped on2 style infos and1 unused test constructor parameter;
+  corrected without disabling rules. Final `scripts/check-all.sh`
+  (`artifacts/check-all-group2-final.log`) **ALL CHECKS PASSED**: DB209/11 existing
+  skips, Ops70+lint/typecheck/build, shared29+format/analyze, Companion58/3 existing
+  skips, Family**130/6 existing skips**, unified**95**. Both fatal-info analyzers pass.
+- Final capture command `flutter test test/support/capture_family.dart --reporter
+  expanded`: **2 passed**,24 actual PNGs, including refreshedGroup1, Group2 light,
+  dark, Hindi,200%, stopped/code/dialog and scrolled recorded timelines. Sample
+  return12:30 matches the specification in the test fixture only. Harness analyzer
+  passed after that fixture change. Actual renders opened/inspected; full content
+  remains scrollable at large text.
+- Existing browser journeys now expect the new Family words and Request a visit;
+  Companion words and all RPC/status/idempotency/privacy assertions retained.
+  Playwright `--list` discovers both tests; replacement CI execution pending.
+- Worker/reviewer sessions failed token refresh during this group. Root completed
+  implementation, self-review and captures directly; no credentials were changed.
+  A fresh delegated Group2 review could not run, and is not claimed as passed.
+- No native phone/native-speaker/hosted testing or deployment. Missing-data proposals
+  remain unchanged. Final local build evidence fromGroup1 is not a newGroup2 build claim.

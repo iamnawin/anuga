@@ -82,8 +82,8 @@ test('Family request -> assigned companion journey -> persisted completion acros
     // The patient card merges its name and centre into one semantic label.
     await expect(family.getByRole('button', { name: /Lakshmi Rao \(synthetic\)/ })).toBeVisible();
     await family.getByRole('tab', { name: 'Visits', exact: true }).click();
-    await family.getByRole('button', { name: 'Request care', exact: true }).waitFor();
-    await family.getByRole('button', { name: 'Request care', exact: true }).click();
+    await family.getByRole('button', { name: 'Request a visit', exact: true }).waitFor();
+    await family.getByRole('button', { name: 'Request a visit', exact: true }).click();
     await family.getByText('Package', { exact: true }).click();
     await family.getByRole('menuitem', { name: 'Basic', exact: true }).click();
     // Whole-minute pickup shortly ahead, inside the unchanged 180-minute Start
@@ -264,14 +264,14 @@ test('Family request -> assigned companion journey -> persisted completion acros
     expect(verification.ok).toBe(true);
     expect(verification.status).toBe('picked_up');
     await refreshFamily('picked_up', 'Picked up');
-    await advance('Reached the centre', 'at_centre', 'At centre');
+    await advance('Reached the centre', 'at_centre', 'At the centre');
     await family.screenshot({ path: `${shots}/09-family-at-centre.png` });
-    await advance('Handed over at the centre', 'handed_over', 'Handed over to centre staff', 'Handed over to centre staff (synthetic).');
-    await advance('Session finished', 'session_done', 'Session done');
+    await advance('Handed over at the centre', 'handed_over', 'Handed to centre staff', 'Handed over to centre staff (synthetic).');
+    await advance('Session finished', 'session_done', 'Session finished');
     await advance('Starting the return journey', 'returning', 'On the way home');
-    await advance('Dropped home safely', 'dropped_home', 'Dropped home');
+    await advance('Dropped home safely', 'dropped_home', 'Home');
     const completionNote = 'Returned home safely; family informed (synthetic).';
-    const completedEvents = await advance('Complete visit', 'completed', 'Completed', completionNote);
+    const completedEvents = await advance('Complete visit', 'completed', 'Visit complete', completionNote);
     expect(completedEvents.at(-1)?.note).toBe(completionNote);
     receipt.milestones = milestones;
     receipt.pickup_verified = true;
@@ -293,7 +293,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     const completedRequests = await (await completedFamilyRead).json() as CareRow[];
     expect(completedRequests.find((row) => row.schedule_id === scheduleId)?.request_state).toBe('completed');
-    await revealFlutter(family, familyCard('Completed'));
+    await revealFlutter(family, familyCard('Visit complete'));
     await family.screenshot({ path: `${shots}/11-family-persisted-completed.png` });
     await ops.goto(opsPath('/trips'));
     const opsTrip = ops.locator(`[data-trip-id="${tripId}"]`);
