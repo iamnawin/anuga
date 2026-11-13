@@ -1,5 +1,8 @@
 # AnugaCare execution state
 
+2026-11-13 20:31:07 IST - ROOT-ENTRY-20261113: founder explicitly requests main URL Welcome instead of chooser. Own fix/welcome-root-entry from e8e0063 changes only root routing/fallback in scripts/build-staging.sh; six tracking files/evidence record it. Local syntax/config/order/no-loop checks PASS and existing application bundles byte-identical. Live redeploy/test pending. No other agent component merge authorized; #40 remains unmerged, other worktrees untouched. Signed-in session behavior and production gates unchanged. Next: publish and verify own root fix.
+
+
 ### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
 
 **Agent:** Codex; Family/Patient UI implementation and verification.

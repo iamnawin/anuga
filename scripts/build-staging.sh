@@ -38,7 +38,7 @@ for pair in family_app:family companion_app:companion anugacare_app:app; do
   cp -r "apps/$dir/build/web" "$OUT/static/$app"
 done
 
-step "landing page and routing"
+step "app entry and routing"
 cp docs/logo/anugacare-lockup.png "$OUT/static/anugacare-lockup.png"
 cp apps/family_app/web/favicon.png "$OUT/static/favicon.png"
 cat > "$OUT/static/index.html" <<'HTML'
@@ -50,26 +50,10 @@ cat > "$OUT/static/index.html" <<'HTML'
 <meta name="robots" content="noindex, nofollow">
 <title>AnugaCare</title>
 <link rel="icon" type="image/png" href="/favicon.png">
-<style>
-  body { font-family: system-ui, sans-serif; margin: 0; padding: 24px 16px; background: #F7FBFA; color: #10243A; }
-  main { max-width: 480px; margin: 0 auto; }
-  h1 { margin: 0 0 16px; text-align: center; }
-  h1 img { width: 240px; max-width: 70%; height: auto; }
-  .banner { background: #fff3cd; border: 2px solid #8a6d00; padding: 12px 16px; border-radius: 8px; font-size: 18px; }
-  a.app { display: block; margin: 16px 0; padding: 20px; min-height: 56px; border-radius: 12px; background: #00666B;
-          color: #fff; font-size: 22px; text-decoration: none; }
-  a.app span { display: block; font-size: 16px; opacity: .9; margin-top: 4px; }
-</style>
+<meta http-equiv="refresh" content="0;url=/app/">
 </head>
 <body>
-<main>
-  <h1><img src="/anugacare-lockup.png" alt="AnugaCare: someone beside you, every visit." width="240" height="235"></h1>
-  <p class="banner"><strong>Test site.</strong> All people, patients and bills here are invented. Payments are simulated.</p>
-  <a class="app" href="/app/">AnugaCare app<span>One app for family and companions: opens the right screens after sign-in</span></a>
-  <a class="app" href="/ops/">Ops console<span>Trips, schedules, exceptions, billing</span></a>
-  <a class="app" href="/family/">Family app / కుటుంబం / परिवार<span>Bookings, pickup code, records, bills</span></a>
-  <a class="app" href="/companion/">Companion app / సహాయకుడు / साथी<span>Today's visits, pickup code check</span></a>
-</main>
+<p><a href="/app/">Open AnugaCare</a></p>
 </body>
 </html>
 HTML
@@ -80,6 +64,7 @@ cat > "$OUT/config.json" <<'JSON'
   "version": 3,
   "routes": [
     { "src": "/(.*)", "headers": { "X-Robots-Tag": "noindex, nofollow" }, "continue": true },
+    { "src": "^/$", "status": 307, "headers": { "Location": "/app/", "Cache-Control": "no-store" } },
     { "src": "^/(ops|family|companion|app)$", "status": 308, "headers": { "Location": "/$1/" } },
     { "handle": "filesystem" },
     { "src": "^/(.+)/$", "dest": "/$1/index.html" }
