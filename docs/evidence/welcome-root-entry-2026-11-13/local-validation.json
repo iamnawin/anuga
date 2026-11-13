@@ -1,0 +1,15 @@
+{
+  "result": "Pass",
+  "root_redirect": {
+    "src": "^/$",
+    "status": 307,
+    "headers": {
+      "Location": "/app/",
+      "Cache-Control": "no-store"
+    }
+  },
+  "index_fallback_to": "/app/",
+  "chooser_removed": true,
+  "application_bundles_unchanged": true,
+  "application_source": "e8e0063862a5407d78f4004be637ce7a612382f3"
+}

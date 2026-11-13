@@ -1,5 +1,30 @@
 # Handoff
 
+### Agent Session - 2026-11-13 20:31:07 IST - own root entry routing fix
+
+**Agent:** Codex.
+**Role / responsibility:** Correct only the root launcher identified by founder screenshot.
+**Session start (IST):** 2026-11-13 20:27:44 (first captured task clock).
+**Task ID / Name:** ROOT-ENTRY-20261113 / main URL opens existing Welcome entry.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-publish-2026-11-13.
+**Branch:** fix/welcome-root-entry.
+**Starting commit:** e8e0063862a5407d78f4004be637ce7a612382f3.
+**Current commit:** Base e8e0063 verified; own routing/receipt changes are the commit containing this entry, identifiable in Git.
+**PR:** New root-fix PR pending creation. #40 publication/scope-correction documentation remains OPEN/unmerged and is not imported here.
+**Scope:** Own scripts/build-staging.sh root route and root HTML fallback only; no other agent component merge.
+**Completed work:** Confirmed live root200 served chooser. Added temporary307 root -> /app/ with no-store before filesystem; root HTML also forwards to /app/. Existing app/ops/family/companion URLs preserved.
+**Files changed:** Build routing/fallback, own mandatory tracking and root-entry evidence only.
+**Tests and actual results:** bash syntax PASS; emitted config/index parsed and checked redirect order, cache header, no loop and no chooser. Existing verified application bundles remain byte-identical. Live post-deploy root/browser test pending.
+**CI evidence:** Existing published application source e8e0063 seven SUCCESS in43443795283; unchanged app checks/artifacts reused. New root PR automatic checks not yet known, no pass inferred.
+**Merge status:** No other PR merged in this task; only the new own routing fix is authorized by current request.
+**Deployment and migration status:** Own prebuilt config/index prepared; no redeploy yet at checkpoint. No hosted data/roles/RLS/consent/session/provider change.
+**Decisions and assumptions:** Founder explicitly requested Welcome instead of chooser. Signed-out visitors see Welcome; existing valid sessions retain normal role Home. Earlier scope clarification prohibiting other-component merges remains in force.
+**Blockers:** None for this route fix; existing production/device/native/backend gates unchanged.
+**Uncommitted changes:** Only own route and receipt; other worktrees preserved.
+**Exact next action:** Review/commit/push own root fix, merge only that PR normally, publish routing with unchanged app bundles, verify root redirects and signed-out Welcome is first.
+**Next responsible agent:** Codex for this routing fix only, then founder visual review.
+
+
 ### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
 
 **Agent:** Codex; Family/Patient UI implementation and verification.
