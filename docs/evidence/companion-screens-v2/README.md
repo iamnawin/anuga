@@ -1,5 +1,13 @@
 # COMP-V2: unified Companion screen implementation
 
+Delivery: 2026-11-13 15:34:45 IST. [Draft PR36](https://github.com/iamnawin/anuga/pull/36),
+implementation `6aea386c9061a604297b05ca7db4a44e1ab9f6de`, foundation `beddacb`,
+plan `2d619e2`. OPEN/DRAFT, not merged/deployed. Seven source CI jobs observed
+IN_PROGRESS, Supabase Preview SKIPPED; later receipt check rollup authoritative.
+Final unified146/analyze and final release web build PASS. This documentation-only
+receipt reuses runtime verification of identical source; no further app changes.
+
+
 Agent: Codex, Flutter implementation coordinator. Worktree:
 `D:\AI-Workspace\Repos\anuga-companion-screens-v2`, branch
 `feat/companion-screens-v2`, baseline `b834b53fbc19952e86161d3bdb049354dfb78291`.

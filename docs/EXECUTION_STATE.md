@@ -1,5 +1,16 @@
 # AnugaCare execution state
 
+COMP-V2 DELIVERED FOR REVIEW (2026-11-13 15:34:45 IST):
+[Draft PR36](https://github.com/iamnawin/anuga/pull/36), tested source
+`6aea386c9061a604297b05ca7db4a44e1ab9f6de`, base main. C3-C18 supported portions
+implemented/tested; C1/C2/C19/C20 and missing-contract portions deferred. Full
+check-all PASS; final unified146/analyze/release-web PASS. Source CI seven jobs
+observed running, Supabase Preview skipped; no CI pass inferred. Not merged or
+deployed; no hosted mutation/migration, real data or production gate closure.
+Physical/native-language acceptance pending. See latest HANDOFF and
+[receipt](evidence/companion-screens-v2/README.md). Next: founder draft review.
+
+
 COMP-V2 delivery checkpoint 2026-11-13 15:32:34 IST: foundation committed as
 `beddacb2b9a2b609cc35d70a768bfd60233232ff` after planning `2d619e2`.
 Final source unified146 tests/analyze PASS; release web rebuild PASS (exit0,

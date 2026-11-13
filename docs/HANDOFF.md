@@ -1,5 +1,45 @@
 # Handoff
 
+### Agent Session - 2026-11-13 15:34:45 IST - COMP-V2 draft PR delivery
+
+**Agent:** Codex, Flutter implementation coordinator. Session start not recorded;
+first observed clock 2026-11-13 15:05:07 IST; completion/checkpoint 2026-11-13 15:34:45 IST.
+**Task ID / Name:** COMP-V2 / unified Companion screens.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2, tracking origin branch.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** Tested source6aea386c9061a604297b05ca7db4a44e1ab9f6de;
+this documentation-only receipt's SHA is its Git metadata.
+**PR:** https://github.com/iamnawin/anuga/pull/36 - OPEN, DRAFT, base main.
+**Scope:** Unified Companion screens and required tracking/evidence only.
+**Completed work:** Supported C3-C18 portions, 59 new Companion widget tests,
+21 synthetic viewport renders. C1/C2/C19/C20 and documented contract gaps deferred.
+**Files changed:** Unified companion_* presentation, Companion app mount, three
+ARBs, existing direct launcher/web declarations, tests, PRODUCT design context,
+six tracking files and docs/evidence/companion-screens-v2. Old app/shared/backend,
+auth/payment/upload sources unchanged. Foundation beddacb, planning2d619e2.
+**Tests and actual results:** Full check-all PASS; final unified146/146 and analyzer
+PASS; final release web build PASS exit0 (50.1s). Exact commands, skips and earlier
+failed checks/fixes preserved in COMP-V2 receipt. No assertions weakened.
+**CI evidence:** Source6aea386 checks observed seven jobs IN_PROGRESS and
+Supabase Preview SKIPPED. No CI pass claimed; later receipt check rollup is
+authoritative. Local tests are not CI evidence.
+**Merge status:** Not merged; draft review only.
+**Deployment and migration status:** Not deployed; no hosted mutation/migration.
+Release build used example.invalid synthetic-only configuration.
+**Decisions and assumptions:** Approved final spec D1-D7, D5=M0. Existing RPCs and
+state machine retained; no invented identity, event times, verification or windows.
+Missing profile/verification/availability/document/support/settings contracts remain
+explicit proposals; C12 recipient is text in the existing completion note.
+**Blockers:** Deferred contracts; physical maps/dialer, browser/PWA offline and
+human Telugu/Hindi acceptance were not performed. No production gate closed.
+**Uncommitted changes:** This Markdown-only receipt before commit; pushed source
+was clean. Other agents' worktrees and historical evidence preserved.
+**Exact next action:** Push receipt, confirm draft/head and clean tree, hand off
+for founder review. No merge, deployment, hosted migration or backend expansion.
+**Next responsible agent:** Founder/reviewer; Codex only on requested follow-up.
+
+
 COMP-V2 delivery checkpoint 2026-11-13 15:32:34 IST: foundation committed as
 `beddacb2b9a2b609cc35d70a768bfd60233232ff` after planning `2d619e2`.
 Final source unified146 tests/analyze PASS; release web rebuild PASS (exit0,
