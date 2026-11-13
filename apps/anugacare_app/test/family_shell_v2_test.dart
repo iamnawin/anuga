@@ -1,3 +1,5 @@
+import 'dart:ui' show SemanticsRole;
+
 import 'package:anugacare_app/src/app.dart';
 import 'package:family_app/family_app.dart' show Payments, PhotoSource, PickedPhoto, VaultFiles;
 import 'package:flutter/material.dart';
@@ -25,6 +27,7 @@ void main() {
   for (final level in AccessLevel.values) {
     testWidgets('unified Family shell follows ${level.dbValue} access without billing prefetch', (tester) async {
       usePhoneScreen(tester);
+      final semantics = tester.ensureSemantics();
       final auth = FakeAccountAuth()..roles[familyPhone] = 'family';
       await auth.sendCode(familyPhone);
       await auth.verifyCode(familyPhone, '123456');
@@ -57,6 +60,7 @@ void main() {
       await tester.pumpAndSettle();
       final nav = find.byType(NavigationBar);
       expect(nav, findsOneWidget);
+      expect(tester.getSemantics(find.byKey(const Key('nav-visits'))).getSemanticsData().role, SemanticsRole.tab);
       expect(find.descendant(of: nav, matching: find.text('Home')), findsOneWidget);
       expect(find.descendant(of: nav, matching: find.text('Visits')), findsOneWidget);
       expect(
@@ -81,6 +85,7 @@ void main() {
       expect(find.byKey(const Key('expired')), findsOneWidget);
       expect(find.byType(NavigationBar), findsNothing);
       expect(find.text('Ravi Rao'), findsNothing);
+      semantics.dispose();
     });
   }
 }

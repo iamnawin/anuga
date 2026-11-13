@@ -24,6 +24,15 @@ this is discovery, not an execution pass. Local browser/Supabase execution is
 unavailable: `docker` is not installed (`docker info` could not run). Replacement
 CI must prove the navigation correction before Group2 begins.
 
+Replacement run43438812876: six jobs SUCCESS again; supabase-local FAILED at the
+new Visits selector. Root used role `button`, but Flutter NavigationBar exposes
+`SemanticsRole.tab`. Corrected both browser journeys to role `tab` for Visits and
+More. The four unified access tests now explicitly assert the Visits semantic
+role; **4 passed**. A temporary test-harness semantics-handle disposal error was
+corrected before this pass; production source was unchanged. No backend assertions,
+timeouts, skips or workflow gates changed. Another automatic CI run will verify
+the browser path. This failure and its correction remain recorded.
+
 Binding specification: `origin/ccr-d6e3aaf3-jvijtn:docs/research/business-validation-2026-11/screen_mockups/Family_Screens_FINAL_Spec_v1.md`.
 Founder approved the plan, six sequential groups, and `url_launcher ^6.3.3`
 for dialer handoff only (112/108/configured support). No other new packages.

@@ -1,5 +1,28 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / group1-CI-tab-semantics.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** 35a20fc83656489e0468f81946f5027517661dfe; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** Replacement CI43438812876: sixSUCCESS, supabase-localFAILED on rolebutton Visits selector. Corrected both existing browser journeys to role tab for Visits/More, with4 passing unified semantic-role assertions. Production widgets unchanged. Repeated scripts/check-all.sh ALL CHECKS PASSED (Family109/6skip, unified91). No weakened backend assertions or new skips. Next: replacement CI on this fix, thenGroup2.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
 ### Agent Session - 2026-11-13 19:31:13 IST - FAMILY-V2 group1-CI-navigation-fix
 
 **Agent:** Codex; Family/Patient UI implementation and verification.

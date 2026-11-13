@@ -81,7 +81,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     receipt.family_identity = await signedInIdentity(family, '919000000101', 'Verify code');
     // The patient card merges its name and centre into one semantic label.
     await expect(family.getByRole('button', { name: /Lakshmi Rao \(synthetic\)/ })).toBeVisible();
-    await family.getByRole('button', { name: 'Visits', exact: true }).click();
+    await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     await family.getByRole('button', { name: 'Request care', exact: true }).waitFor();
     await family.getByRole('button', { name: 'Request care', exact: true }).click();
     await family.getByText('Package', { exact: true }).click();
@@ -131,7 +131,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     const pendingRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
     await family.reload();
     await enableFlutter(family);
-    await family.getByRole('button', { name: 'Visits', exact: true }).click();
+    await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     const pendingRows = await (await pendingRead).json() as { schedule_id: string; request_state: string }[];
     expect(pendingRows.find((row) => row.schedule_id === scheduleId)?.request_state).toBe('pending');
     await revealFlutter(family, familyCard('Pending ops confirmation'));
@@ -154,7 +154,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await expect(card.getByText('Confirmed', { exact: true })).toBeVisible();
     await family.reload();
     await enableFlutter(family);
-    await family.getByRole('button', { name: 'Visits', exact: true }).click();
+    await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     await revealFlutter(family, familyCard('Confirmed · companion not assigned'));
     receipt.family_after_confirmation = 'confirmed';
     await family.screenshot({ path: `${shots}/05-family-confirmed.png` });
@@ -182,7 +182,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     const assignedRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
     await family.reload();
     await enableFlutter(family);
-    await family.getByRole('button', { name: 'Visits', exact: true }).click();
+    await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     const assignedRows = await (await assignedRead).json() as CareRow[];
     const assigned = assignedRows.find((row) => row.schedule_id === scheduleId)!;
     expect(assigned.request_state).toBe('assigned');
@@ -290,7 +290,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     const completedFamilyRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
     await family.reload();
     await enableFlutter(family);
-    await family.getByRole('button', { name: 'Visits', exact: true }).click();
+    await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     const completedRequests = await (await completedFamilyRead).json() as CareRow[];
     expect(completedRequests.find((row) => row.schedule_id === scheduleId)?.request_state).toBe('completed');
     await revealFlutter(family, familyCard('Completed'));
@@ -300,7 +300,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await expect(opsTrip.getByText('Completed', { exact: true })).toBeVisible();
     await opsTrip.screenshot({ path: `${shots}/12-ops-completed.png` });
     receipt.completion_after_reload = { family: 'completed', companion: 'completed', ops: 'completed' };
-    await family.getByRole('button', { name: 'More', exact: true }).click();
+    await family.getByRole('tab', { name: 'More', exact: true }).click();
     await family.getByText('Sign out', { exact: true }).click();
     await family.getByRole('button', { name: 'Sign out', exact: true }).click();
     delete receipt.current_stage;
