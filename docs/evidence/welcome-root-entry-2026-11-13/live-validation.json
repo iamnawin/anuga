@@ -1,0 +1,15 @@
+{
+  "url": "https://anuga.vercel.app/",
+  "root_status": 307,
+  "location": "/app/",
+  "cache_control": "no-store",
+  "browser_landed_at": "https://anuga.vercel.app/app/",
+  "welcome_visible": true,
+  "chooser_visible": false,
+  "ops_route_status": 200,
+  "application_bundles_unchanged": true,
+  "application_source": "e8e0063862a5407d78f4004be637ce7a612382f3",
+  "routing_source": "4856121d7d74e06802004fda83ab4b9349ec974d",
+  "routing_main_merge": "29a8356ea6c68e01afca962035fefaf6a68d70a3",
+  "result": "Pass"
+}
