@@ -12,10 +12,12 @@
   <a href="docs/TASKS.md">Roadmap</a>
 </div>
 
-Source update (2026-11-13): the approved UI baseline, unified login, patient
-Consent and Welcome entry are merged through PRs #29/#32/#33/#34. This is a
-source merge, not a new deployment of the linked synthetic site. See
-[handoff](docs/HANDOFF.md) and [screen evidence](docs/screenshots/consent-welcome/README.md).
+Synthetic site updated (2026-11-13): Welcome, unified Login, Consent and the
+completed Family Home group are live at [AnugaCare](https://anuga.vercel.app/app/).
+Published source e8e0063 passed all seven CI jobs; live bundles and read-only
+Welcome/Consent/role smoke checks passed. Signed-in sessions open Home; sign out
+to see Welcome. [Publication evidence](docs/evidence/synthetic-ui-publish-2026-11-13/README.md).
+Production launch and existing backend/device/native-language gates remain open.
 
 
 <br />

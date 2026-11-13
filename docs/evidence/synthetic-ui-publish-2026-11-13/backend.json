@@ -1,0 +1,39 @@
+{
+  "project": "vsvkllfgrnlbhdydysny",
+  "result": "Pass",
+  "roles": [
+    {
+      "role": "family",
+      "user_id": "20000000-0000-0000-0000-000000000001",
+      "phone": "919000000101",
+      "allowed_rpc": "family_my_patients",
+      "allowed_status": 200,
+      "row_count": 1,
+      "denied_rpc": "ops_exception_queue",
+      "denied_status": 403,
+      "consent_read_status": 200,
+      "consent_rows": 3
+    },
+    {
+      "role": "companion",
+      "user_id": "30000000-0000-0000-0000-000000000001",
+      "phone": "919000000201",
+      "allowed_rpc": "companion_my_trips",
+      "allowed_status": 200,
+      "row_count": 6,
+      "denied_rpc": "family_my_patients",
+      "denied_status": 403
+    },
+    {
+      "role": "ops",
+      "user_id": "10000000-0000-0000-0000-000000000001",
+      "phone": "919000000001",
+      "allowed_rpc": "ops_schedule_board",
+      "allowed_status": 200,
+      "row_count": 14,
+      "denied_rpc": "family_my_patients",
+      "denied_status": 403
+    }
+  ],
+  "patient_data_changes": false
+}

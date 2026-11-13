@@ -1,5 +1,11 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+2026-11-13 20:21:23 IST - REL-UI-20261113 COMPLETE for static synthetic UI publication. Main source e8e0063 (#30/#37 plus previously merged Welcome/Login/Consent) passed all7CI43443795283. READY dpl_56zQ7WJbcGtBAAeN8pxdUFjup2v9 at anuga.vercel.app; five bundles match and five routes200. Live Welcome/light-dark/login/Family Home/Consent + three-role allowed/denied reads PASS, no patient/consent mutation. Evidence: docs/evidence/synthetic-ui-publish-2026-11-13/. Family scope Group1 only; #28 conflicted, #36 browser failure, research/uncommitted legal preserved. Full hosted hardening/recovery, physical/native acceptance and production NO-GO remain open; no broad UX findings or readiness percentages promoted. Next: founder reload /app/; signed-out Welcome or More -> Privacy and consent.
+
+
+2026-11-13 20:08:00 IST - REL-UI-20261113 checkpoint: founder explicitly approved tested source merges and existing synthetic publication. Main e8e0063 contains Welcome/Login/Consent plus reviewed #30 security and #37 completed Family Group1. Combined build/main CI43443795283 pending; not yet deployed at this checkpoint. #28/#36 failures, #31 research, uncommitted legal drafts and active worktrees preserved. No backend mutation or production gate promoted. Exact next action: publish and verify live UI, then record final evidence.
+
+
 ### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
 
 **Agent:** Codex; Family/Patient UI implementation and verification.

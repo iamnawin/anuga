@@ -1,0 +1,22 @@
+{
+  "url": "https://anuga.vercel.app/app/",
+  "surface": "Desktop Chrome phone viewport; physical-device checks not claimed",
+  "screens": [
+    "Welcome light visible",
+    "Updated shared phone sign-in visible",
+    "Family Group1 Home visible",
+    "Consent choices read from hosted backend; no save performed",
+    "Welcome dark visible"
+  ],
+  "patient_data_changes": false,
+  "companion_cta_routes_to_phone": true,
+  "authenticated_user": {
+    "id": "20000000-0000-0000-0000-000000000001",
+    "phone": "919000000101"
+  },
+  "consent_read_status": 200,
+  "consent_rows": 3,
+  "family_session_reload_passed": true,
+  "browser_errors": [],
+  "result": "Pass"
+}
