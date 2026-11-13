@@ -101,6 +101,48 @@ content is excluded. Existing original brand assets are reused.
 
 ## Validation receipt
 
-Implementation/checkpoint in progress. Do not infer a full check, commit, PR,
-merge, deployment or physical/native-speaker approval from this initial plan.
-Executed results will replace this paragraph before handoff.
+Final implementation is reviewable; C1/C2/C19/C20 remain deferred, and the partial
+screen limits in the table remain open. C14 additionally shows the next assigned
+pickup date/time when already-loaded assignment metadata is available. It does
+not introduce another patient's cached private identity into the completed view.
+
+Executed locally on 2026-11-13:
+
+| Command | Actual result |
+| --- | --- |
+| `cd apps/companion_app; flutter pub get`, then Family and unified equivalent | PASS; generated existing package localizations. Old app sources/locks unchanged. |
+| `cd apps/anugacare_app; flutter pub get` | PASS; only the existing locked launcher/web packages changed from transitive to direct. |
+| `flutter analyze --fatal-infos` in unified app | Final PASS, no issues. Initial four style infos fixed; a later temporary capture-harness import warning was fixed. |
+| `flutter test --reporter expanded` in unified app | Final PASS **146/146**, including **59 Companion tests** and all existing routing/login/Welcome tests. |
+| `& 'C:/Program Files/Git/bin/bash.exe' scripts/check-all.sh` from root | PASS (`ALL CHECKS PASSED`): DB209 pass/11 existing skips, Ops70 plus lint/typecheck/build, shared Dart29 plus format/analyze, legacy Companion58/3 existing skips, Family94/6 existing skips, unified145. Final next-visit metadata test was added afterward; full unified146 and analyzer rerun passed. |
+| `dart format --output=none --set-exit-if-changed lib/main.dart lib/src test` | PASS through full script; final scoped formatting also clean. |
+| `flutter build web --release --no-web-resources-cdn --dart-define=SUPABASE_URL=https://example.invalid --dart-define=SUPABASE_PUBLISHABLE_KEY=synthetic-build-only` | Release build succeeded; final source rebuild recorded in delivery checkpoint. No hosted calls/configuration used. Existing Cupertino font warning and informational Wasm dry-run message remain; exit status was 0. |
+| `flutter test artifacts/capture_companion.dart --reporter expanded` | PASS; ignored capture harness produced 21 actual synthetic widget viewport PNGs here. Loaded local Nirmala/Material fonts for legible test rendering; these font files are not product dependencies or committed assets. |
+| `git diff --check` | PASS. |
+
+Earlier failures preserved: the first broad run stopped on an unformatted new
+home file after earlier stages passed; the second stopped on lint in the ignored
+capture harness. Initial full unified run failed four added privacy regressions
+before fixes; focused modal lifecycle tests also demonstrated RED before fixes.
+Final green runs did not remove assertions or add skips. Logs remain under ignored
+`artifacts/`; no secrets or logs are committed.
+
+Tests cover every persisted journey state and both allowed/refused UI actions,
+first-name/hidden-field/no-phone presentation, server OTP attempts/lockout,
+start windows from data, checklist/note guards, transient retries retaining draft,
+no-show sanitization, lost-access refresh, revoked modal submission races,
+offline write blocking and home/centre/home external launch URIs. EN/TE/HI
+light/dark status screens and C7/C9/C13/C15/C16 forms/sheets are exercised at
+360px and 200% text. Eight visual steps never skip the nine persisted statuses.
+
+No real Supabase journey, hosted fixture mutation, APK install, physical phone,
+browser/PWA offline acceptance, native maps/dialer or human Telugu/Hindi approval
+was performed for this task. Existing environment-dependent tests are skipped
+because local Supabase test settings are absent; shared Dart also ran via the
+required full script despite remaining unchanged. Native connectivity still uses
+transport-failure guidance rather than a new device SDK. No launch gate is closed.
+
+Independent source review found no remaining high/medium issues after fixes.
+Reference imagery and screenshots are direction/evidence, not new capabilities.
+Screenshots show one viewport and can omit scrollable content below it.
+Next: review draft PR and approve separate contracts/device work as needed.

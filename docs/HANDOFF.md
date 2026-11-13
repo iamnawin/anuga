@@ -1,5 +1,42 @@
 # Handoff
 
+### Agent Session - 2026-11-13 15:31:56 IST - COMP-V2 implementation verification
+
+**Agent:** Codex, Flutter implementation coordinator. Session start not recorded;
+first observed clock 2026-11-13 15:05:07 IST. Completion/checkpoint: 2026-11-13 15:31:56 IST.
+**Task ID / Name:** COMP-V2 / unified Companion screens.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** Planning2d619e2; implementation commits follow this checkpoint.
+**PR:** Pending DRAFT creation; no merge authorized.
+**Scope:** apps/anugacare_app only plus required evidence/tracking documents.
+**Completed work:** Supported C3-C18 screens/forms, 8-step presentation over all
+existing persisted stages, private first-name essentials, native maps handoff, OTP,
+handover checklist, required note, issue/no-show, Help/Me. C1/C2/C19/C20 deferred.
+**Files changed:** Unified companion_* presentation, app Companion mount, EN/TE/HI
+ARBs, direct declarations of existing launcher/web packages, tests, PRODUCT design
+summary, this tracking set and 21 synthetic widget viewport images.
+**Tests and actual results:** Full check-all PASS (DB209/11skip, Ops70/build, shared29,
+old Companion58/3skip, Family94/6skip, unified145); final unified146 incl59 Companion
+and analyze PASS after next-assignment metadata UI/test. Privacy RED failures
+fixed without weakening assertions. Exact commands/history in COMP-V2 receipt.
+**CI evidence:** Not yet observed for the new branch. Local checks are not CI.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no hosted mutations/migrations.
+Release web built with example.invalid synthetic-only config; final rebuild pending
+in this checkpoint. No real Supabase journey or physical/native acceptance.
+**Decisions and assumptions:** Approved final spec D1-D7, D5=M0. Missing profile,
+ID/training, availability/upload, support number, event times and business settings
+remain gaps; no invented identity/timelines/wait windows or standalone new RPCs.
+C12 recipient is part of the existing completion note, not a new database field.
+**Blockers:** Deferred contracts and manual phone/native-speaker approval.
+**Uncommitted changes:** Intended verified source/evidence before small commits.
+**Exact next action:** Commit foundation then journey/tests with documentation,
+push only this branch, open DRAFT PR, record exact SHAs/link/status. Never merge/deploy.
+**Next responsible agent:** Codex for delivery receipt; founder for review.
+
+
 ### Agent Session - 2026-11-13 15:16 IST - COMP-V2 planning checkpoint
 
 **Agent:** Codex, Flutter implementation coordinator.
