@@ -1,5 +1,16 @@
 # Tasks and milestones
 
+## Delivered — 2026-11-13 13:49:48 IST
+
+- [x] Consent separately committed/pushed b5e9142, [PR #33](https://github.com/iamnawin/anuga/pull/33), CI7 SUCCESS.
+- [x] Welcome separately committed/pushed b464716, [PR #34](https://github.com/iamnawin/anuga/pull/34), source CI3 SUCCESS/4 IN_PROGRESS.
+- [x] Mandatory handoff, actual images/comparisons/test evidence and Pixel plan
+      published. Same Wi-Fi preview http://192.168.31.252:3114/app/ HTTP200.
+- [ ] Founder Pixel/native-language acceptance; latest Welcome CI final result.
+- No merge/deploy/production approval. STOP for review; prior checklists below
+  are dated checkpoints, not missing new implementations.
+
+
 ## Two-screen delivery checkpoint — 2026-11-13 13:44:37 IST
 
 - [x] Consent built/verified FIRST, b5e9142 pushed to #33; seven-job CI SUCCESS.

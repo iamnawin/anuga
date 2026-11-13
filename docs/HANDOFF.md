@@ -1,5 +1,19 @@
 # Handoff
 
+Delivery receipt — **2026-11-13 13:49:48 IST**: Welcome committed/pushed as
+`b464716d2d043a64da5150634e24d444310316ae` in [PR #34](https://github.com/iamnawin/anuga/pull/34),
+OPEN, base `feat/consent-review` / #33. Consent remains b5e9142 in #33 with seven
+successful CI jobs; #32 remains ca22a5d and unmerged. Source Welcome run
+[43392256735](https://github.com/iamnawin/anuga/actions/runs/43392256735) observed
+DB/shared/Ops SUCCESS, four other jobs IN_PROGRESS; Supabase Preview SKIPPED.
+No complete CI pass or deployment inferred. This later documentation-only commit
+records delivery; use #34's current check rollup for later receipt runs/results.
+Both implementations, screenshots and manual plan are now published separately.
+Working tree clean before this receipt; no code change after b464716. Final local
+preview HTTP200 at http://192.168.31.252:3114/app/, server PID14468. **STOP for
+founder Pixel/native-language review; no merge/deploy/next feature.**
+
+
 ### Agent Session - 2026-11-13 13:44:37 IST — Screen 01 Welcome
 
 **Agent:** Codex.

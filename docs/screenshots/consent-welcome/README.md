@@ -1,5 +1,19 @@
 # Screens 04 Consent and 01 Welcome — delivery ledger
 
+**Delivered 2026-11-13 13:49:48 IST:** [Consent PR #33](https://github.com/iamnawin/anuga/pull/33)
+`b5e9142838ccf04b58474cdf6257e5f05a9dea23` (CI all7 SUCCESS), then
+[Welcome PR #34](https://github.com/iamnawin/anuga/pull/34)
+`b464716d2d043a64da5150634e24d444310316ae` (source run43392256735 observed3 SUCCESS,
+4 IN_PROGRESS; current PR checks authoritative). Both OPEN/unmerged; #32 intact.
+This later receipt changes documentation only. Code/tests/images/handoff pushed;
+STOP for Pixel/native review at **http://192.168.31.252:3114/app/**.
+
+Quick review: sign out to see Welcome; both actions reach the existing phone form.
+Sign into an authorized synthetic Family account and open Privacy and consent for
+the selected patient. No merge/deploy or production approval; missing policy URL
+and standing support scope are detailed below.
+
+
 ## Welcome verified — 2026-11-13 13:44:37 IST
 
 Welcome is implemented on separate `feat/welcome-review`, based on Consent
