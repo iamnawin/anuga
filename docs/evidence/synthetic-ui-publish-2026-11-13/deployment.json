@@ -1,0 +1,58 @@
+{
+  "source": "e8e0063862a5407d78f4004be637ce7a612382f3",
+  "deployment_id": "dpl_56zQ7WJbcGtBAAeN8pxdUFjup2v9",
+  "url": "https://anuga.vercel.app",
+  "status": "READY",
+  "vercel_target": "production target of existing synthetic test site; product launch remains gated",
+  "previous_deployment_id": "dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN",
+  "backend": "vsvkllfgrnlbhdydysny",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/app/",
+      "status": 200
+    },
+    {
+      "path": "/family/",
+      "status": 200
+    },
+    {
+      "path": "/companion/",
+      "status": 200
+    },
+    {
+      "path": "/ops/login/",
+      "status": 200
+    }
+  ],
+  "bundles": [
+    {
+      "file": "app/main.dart.js",
+      "sha256": "fcad8e14e86f0d777e59350698bcf02f00d70c1a071a1fa9568d9843adce3016",
+      "matches": true
+    },
+    {
+      "file": "family/main.dart.js",
+      "sha256": "8036915b8f79ba1091379a35a44ef2ba821578437c46856bfc432095eeca1a6c",
+      "matches": true
+    },
+    {
+      "file": "companion/main.dart.js",
+      "sha256": "322e9f965b615733196b2e5bcc68b41b456de7cdc734c96ac3320515e1255720",
+      "matches": true
+    },
+    {
+      "file": "ops/index.html",
+      "sha256": "ef1dff29150c4f028cb0de37f20c96ed1c393045a34ab4007b6c940a687bd3ec",
+      "matches": true
+    },
+    {
+      "file": "ops/schedules/index.html",
+      "sha256": "5378a75debce04094365ff74038367083465963200cb740b104f31721be320f9",
+      "matches": true
+    }
+  ]
+}

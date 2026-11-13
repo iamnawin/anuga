@@ -1,0 +1,50 @@
+[
+  {
+    "theme": "light",
+    "width": 390,
+    "height": 844,
+    "assets": [
+      {
+        "url": "https://anuga.vercel.app/app/assets/assets/brand/anugacare-lockup.png",
+        "status": 200
+      },
+      {
+        "url": "https://anuga.vercel.app/app/assets/assets/welcome/walking-clinic.png",
+        "status": 200
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/notosans/v37/o-0mIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A99Y41P6zHtY.woff2",
+        "status": 200
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/notosanstelugu/v26/0FlxVOGZlE2Rrtr-HmgkMWJNjJ5_RyT8o8c7fHkeg-esVC5dzHkHIJQqrEntezbqREbf-3v37w.woff2",
+        "status": 200
+      }
+    ],
+    "result": "Pass"
+  },
+  {
+    "theme": "dark",
+    "width": 360,
+    "height": 800,
+    "assets": [
+      {
+        "url": "https://anuga.vercel.app/app/assets/assets/welcome/walking-clinic.png",
+        "status": 200
+      },
+      {
+        "url": "https://anuga.vercel.app/app/assets/assets/brand/anugacare-lockup.png",
+        "status": 200
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/notosanstelugu/v26/0FlxVOGZlE2Rrtr-HmgkMWJNjJ5_RyT8o8c7fHkeg-esVC5dzHkHIJQqrEntezbqREbf-3v37w.woff2",
+        "status": 200
+      },
+      {
+        "url": "https://fonts.gstatic.com/s/notosans/v37/o-0mIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A99Y41P6zHtY.woff2",
+        "status": 200
+      }
+    ],
+    "result": "Pass"
+  }
+]

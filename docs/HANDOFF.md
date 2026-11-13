@@ -1,5 +1,58 @@
 # Handoff
 
+2026-11-13 20:25:10 IST - SCOPE CORRECTION / REL-UI-20261113: Founder explicitly clarified that Codex must not merge other agents' components. Codex, through connected account iamnawin, performed #37 and #30 merges after interpreting the preceding general approval too broadly. This was an agent action, not a founder-invoked merge or specific human approval of #37. No further merges or rollback will be performed under that interpretation. Existing main/live source e8e0063 still includes #37 Group1; Group2 worktree/branch not edited by this session. Documentation PR #40 remains OPEN/unmerged; correction is on the release branch only. Other workstreams preserved. Next action belongs to founder: select any desired rollback or later release scope explicitly; Codex STOP after saving this correction.
+
+
+### Agent Session - 2026-11-13 20:21:23 IST - synthetic UI published and verified
+
+**Agent:** Codex.
+**Role / responsibility:** Approved integration and verified Vercel UI publication.
+**Session start (IST):** 2026-11-13 19:59:00 (first captured clock).
+**Task ID / Name:** REL-UI-20261113 / completed tested UI to existing synthetic site.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-publish-2026-11-13.
+**Branch:** release/synthetic-ui-2026-11-13.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** Published application source e8e0063862a5407d78f4004be637ce7a612382f3; this later documentation-only receipt is identified by Git.
+**PR:** #29/#32/#33/#34/#35 already merged; #30 merged a78bdb4 and #37 completed Group1 merged e8e0063 under current founder approval. New publication receipt PR is documentation only.
+**Scope:** Existing synthetic anuga.vercel.app; Welcome/Login/Consent and completed Family Home/picker/viewer/patient Group1, reviewed dependency patch. No unfinished Family Groups2-6 or failing Companion redesign included.
+**Completed work:** Built exact combined main, authenticated existing Vercel owner/project, published once, verified live hashes/routes and real read-only role/UI smoke. All original worktrees, branches and uncommitted legal/design work preserved.
+**Files changed:** README, HANDOFF, TASKS, EXECUTION_STATE, PROGRESS_LEDGER, UX_AUDIT, UX_IMPLEMENTATION_PLAN and sanitized publication evidence only. No application/database edit in receipt.
+**Tests and actual results:** Release build PASS; five live bundles equal local build; five routes200. Family/Companion/Ops allowed/denied read checks PASS; Family Consent RPC200/three rows. Live Chrome390 light/360 dark Welcome assets/render PASS; both CTA phone routes, updated login, authenticated Family Home, Consent saved choices, disabled unchanged Save and session reload PASS; browser errors0. No consent/visit changes. Initial smoke selector assumed an exact phone name and Back button; aligned the helper to observed mobile-name hint and existing route/reload. Initial artwork captures were recaptured after actual PNG/font responses200 and decoding.
+**CI evidence:** Exact heads #30/047460d run42751690159 and #37/4724e39 run43441169469 seven SUCCESS; published combined main e8e0063 run43443795283 seven SUCCESS. No pending CI called passed; no successful expensive checks manually repeated.
+**Merge status:** Approved source merges complete. #28 remains conflicting with a failed infrastructure job; #36 browser journey fails; #31 research and local legal drafts remain separate. No branch protection override or self-approval fabricated.
+**Deployment and migration status:** READY dpl_56zQ7WJbcGtBAAeN8pxdUFjup2v9, alias https://anuga.vercel.app/app/, source e8e0063, all live hashes match. Previous dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN recorded. No hosted migration/data/roles/users/RLS/provider configuration change; synthetic Auth logins only.
+**Decisions and assumptions:** Explicit current founder approval covers completed passing source + synthetic publication, superseding old stop-before-deploy notes. Signed-in sessions bypass Welcome; Consent is under More -> Privacy and consent. Product production launch, actual phone/native acceptance and full hosted hardening/recovery remain separate gates.
+**Blockers:** None for this UI publication. Missing Nov4 hardening effects, recovery proof, physical/native review, policy URL and broader production gates remain open; no full REL-002/production-readiness claim.
+**Uncommitted changes:** Only this documentation receipt before commit; local builds/logs ignored. Other worktrees' dirty paths preserved.
+**Exact next action:** Push/merge sanitized receipt under current approval; founder reloads /app/ and signs out to see Welcome, or opens More -> Privacy and consent while signed in. Keep #28/#36 and backend recovery as separate tasks.
+**Next responsible agent:** Founder for visual/device review; next technical owner only for an explicitly selected task.
+
+
+### Agent Session - 2026-11-13 20:08:00 IST - synthetic UI publication checkpoint
+
+**Agent:** Codex.
+**Role / responsibility:** Approved source integration and existing synthetic Vercel release.
+**Session start (IST):** 2026-11-13 19:59:00 (first captured clock).
+**Task ID / Name:** REL-UI-20261113 / publish tested Welcome, Consent and ready UI.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-publish-2026-11-13.
+**Branch:** release/synthetic-ui-2026-11-13.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** e8e0063862a5407d78f4004be637ce7a612382f3 (release application source).
+**PR:** #29/#32/#33/#34/#35 previously merged; #30/#37 now merged under explicit founder approval. Publication receipt PR follows.
+**Scope:** Publish completed tested source to existing synthetic anuga.vercel.app. Family V2 scope is completed Group1 only.
+**Completed work:** Reconciled all worktrees/current GitHub state; independent read-only review clear for #30/#37. Merged security patch a78bdb4 and Family Group1 e8e0063 with expected-head guards. Original branches/worktrees preserved.
+**Files changed:** Publication evidence and mandatory tracking only; no application or database edit in this branch.
+**Tests and actual results:** Reused seven successful checks on exact #30 head047460d and #37 head4724e39; main b834b53 seven SUCCESS. Combined release build RUNNING. Hosted Welcome/Consent smoke NOT YET RUN.
+**CI evidence:** #30 42751690159, #37 43441169469; new main43443795283 pending. No pending result counted as pass.
+**Merge status:** #30/#37 merged. #28 conflicted + failed infrastructure check; #36 failed new Companion browser journey; #31 research and uncommitted legal/V2 assets excluded from this passing release.
+**Deployment and migration status:** Build only at checkpoint; Vercel CLI authenticated existing owner. No hosted schema/data/role/user/consent/provider changes. Existing missing hardening/recovery remains unresolved.
+**Decisions and assumptions:** Current founder approval supersedes earlier stop-before-merge/deploy for completed passing work. No production/physical/native acceptance inferred. Main already contained Welcome/Login/Consent; old Vercel alias explained stale UI.
+**Blockers:** None for static UI build/publication; source/backend hardening parity and recovery remain production blockers.
+**Uncommitted changes:** This publication receipt/tracking only; local artifacts ignored. Other worktrees' untracked paths untouched.
+**Exact next action:** Finish release build, verify main CI, publish existing synthetic alias, verify live bundle and read-only Welcome/Consent/role navigation; finalize receipt.
+**Next responsible agent:** Codex release coordinator, then founder for physical/native review.
+
+
 ### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
 
 **Agent:** Codex; Family/Patient UI implementation and verification.
