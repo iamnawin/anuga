@@ -1,5 +1,8 @@
 # Handoff
 
+2026-11-13 20:25:10 IST - SCOPE CORRECTION / REL-UI-20261113: Founder explicitly clarified that Codex must not merge other agents' components. Codex, through connected account iamnawin, performed #37 and #30 merges after interpreting the preceding general approval too broadly. This was an agent action, not a founder-invoked merge or specific human approval of #37. No further merges or rollback will be performed under that interpretation. Existing main/live source e8e0063 still includes #37 Group1; Group2 worktree/branch not edited by this session. Documentation PR #40 remains OPEN/unmerged; correction is on the release branch only. Other workstreams preserved. Next action belongs to founder: select any desired rollback or later release scope explicitly; Codex STOP after saving this correction.
+
+
 ### Agent Session - 2026-11-13 20:21:23 IST - synthetic UI published and verified
 
 **Agent:** Codex.

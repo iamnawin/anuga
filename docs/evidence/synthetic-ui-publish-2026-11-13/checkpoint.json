@@ -15,5 +15,13 @@
   },
   "deployment": "dpl_56zQ7WJbcGtBAAeN8pxdUFjup2v9",
   "patient_data_changes": false,
-  "production_launch": false
+  "production_launch": false,
+  "scope_correction_ist": "2026-11-13 20:25:10",
+  "merge_actor": "Codex using connected GitHub account iamnawin",
+  "specific_founder_approval_of_pr37": false,
+  "authorization_interpretation": "Earlier broad approval was interpreted too broadly; founder clarified no other-agent component merges",
+  "additional_merges_performed": false,
+  "rollback_performed": false,
+  "documentation_pr": 40,
+  "documentation_pr_state": "OPEN, unmerged"
 }
