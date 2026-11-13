@@ -72,6 +72,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     await enterFlutter(family, '6-digit code', otp);
     const familyIdentity = await identity(family, '9000000101', 'Verify code');
     receipt.family_identity = familyIdentity;
+    await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     await family.getByRole('button', { name: 'Request care', exact: true }).click();
     await family.getByText('Package', { exact: true }).click();
     await family.getByRole('menuitem', { name: 'Basic', exact: true }).click();
@@ -124,6 +125,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     const assignedRead = family.waitForResponse((r) => isRpc(r.url(), 'family_care_requests'));
     await family.reload();
     await enableFlutter(family);
+    await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     const assignedRows = await (await assignedRead).json() as { schedule_id: string; trip_id: string; request_state: string }[];
     const assigned = assignedRows.find((row) => row.schedule_id === scheduleId)!;
     expect(assigned.request_state).toBe('assigned');
@@ -268,6 +270,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     const resumedFamilyRead = family.waitForResponse((r) => isRpc(r.url(), 'family_care_requests'));
     await family.reload();
     await enableFlutter(family);
+    await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     const resumedRequests = await (await resumedFamilyRead).json() as {
       schedule_id: string; trip_id: string; request_state: string; companion_name: string;
     }[];

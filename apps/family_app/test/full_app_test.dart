@@ -52,6 +52,7 @@ void main() {
     await signIn(tester, '9000000101');
 
     expect(find.text('Lakshmi Rao (synthetic)'), findsOneWidget); // app bar
+    await tapVisible(tester, byKey('nav-visits'));
     expect(byKey('booking-today'), findsOneWidget);
     // Friday is covered by the backup companion, and the family can see that.
     expect(
@@ -71,7 +72,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.descendant(of: byKey('booking-today'), matching: find.textContaining('Picked up')), findsOneWidget);
 
-    await tapVisible(tester, find.text('Updates'));
+    await tapVisible(tester, byKey('nav-home'));
+    await tapVisible(tester, byKey('home-all-updates'));
     expect(byKey('update-2'), findsOneWidget);
     expect(find.descendant(of: byKey('update-2'), matching: find.textContaining('Picked up')), findsOneWidget);
     expect(
@@ -85,6 +87,7 @@ void main() {
       ..addVisit(FakeVisit(id: 'today', pickupAt: DateTime.now().toUtc()));
     await pumpApp(tester, backend, FakePhoneAuth());
     await signIn(tester, '9000000101');
+    await tapVisible(tester, byKey('nav-visits'));
     expect(byKey('view-only'), findsOneWidget);
     await tapVisible(tester, byKey('booking-today'));
     expect(byKey('get-pickup-code'), findsNothing);
@@ -95,7 +98,7 @@ void main() {
     final backend = FakeFamilyBackend()..patients.clear();
     await pumpApp(tester, backend, FakePhoneAuth());
     await signIn(tester, '9000000101');
-    expect(find.textContaining('No patient is linked'), findsOneWidget);
+    expect(find.textContaining('Your patient is not set up yet'), findsOneWidget);
   });
 
   testWidgets('the app switches to Telugu and Hindi', (tester) async {
