@@ -1,5 +1,14 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+2026-11-13 14:09:07 IST integration receipt: #29 modernization baseline, #32
+unified login, #33 Consent and #34 Welcome are MERGED into main d22dc27 under
+founder authorization. Historical implementation entries marked IN PR now have
+source merge evidence; unresolved UX decisions, physical/native approval and
+deployment states are not closed by merging. Seven source CI successes per PR,
+final exact-tree proof and timestamps recorded in screen evidence. No history
+erased; no broad UX-01–UX-08 human-approval or production claim.
+
+
 2026-11-13 13:44:37 IST — Screen01 Welcome locally verified after Screen04 #33.
 Original teal-shirt illustration, native Flutter copy/controls, explicit stored
 language, both same-login CTAs, valid-session bypass;87 tests including6AA checks

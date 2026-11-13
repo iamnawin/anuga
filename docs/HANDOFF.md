@@ -1,5 +1,60 @@
 # Handoff
 
+### Agent Session - 2026-11-13 14:09:07 IST — authorized UI stack merge
+
+**Agent:** Codex.
+**Role / responsibility:** Verify pushed heads/CI, merge the approved UI dependency
+stack into main, preserve independent work and record exact integration state.
+**Session start (IST):** 2026-11-13 13:58:15.
+**Task ID / Name:** MERGE-UI-STACK / founder instruction to push, approve and merge.
+**Repository / Worktree:** Source inspected in D:\AI-Workspace\Repos\anuga-consent-welcome;
+documentation receipt in D:\AI-Workspace\Repos\anuga-merge-receipt.
+**Branch:** docs/merge-ui-stack-2026-11-13, from updated origin/main.
+**Starting commit:** Before merging, main ea6d142fb0ab6662b64369a3bdb0704f14d3e1e9;
+receipt branch starts d22dc2738d4ff962d22d0eb776213f812a8c9b85.
+**Current commit:** Main source integration d22dc2738d4ff962d22d0eb776213f812a8c9b85;
+this later Markdown-only receipt has no application/workflow/database change.
+**PR:** #29/#32/#33/#34 all MERGED to main; #32–#34 retargeted to main after their
+parents merged. Original head branches preserved. Separate doc receipt follows.
+**Scope:** Current UI stack only; #29 required baseline, #32 login, #33 Consent,
+#34 Welcome. Unrelated technical #28, security #30 and research #31 remain OPEN.
+**Completed work:** Confirmed clean/pushed source trees, exact heads and seven
+successful checks on every PR. Independent final source review clear. Merged in
+dependency order using head-SHA guards, without admin override or deleting branches.
+**Files changed:** Only this receipt's existing Markdown tracking files; merge
+operations preserve all original implementation/source history and image evidence.
+**Tests and actual results:** Existing exact-head CI reused, no successful jobs
+manually rerun. At source merge d22dc27, main file tree
+c61cc4ddf97736abbd76c9f2e176b867dc80e3e1 equals tested Welcome head1cac74a
+exactly; later receipt changes only Markdown. Source diff check PASS.
+New receipt limited to Markdown; diff/format/scope checks, no runtime rebuild.
+**CI evidence:** #29 run42633518434, #32 run43211837626, #33 run43234936451,
+#34 run43392520421: each seven SUCCESS; Supabase Preview integration SKIPPED.
+New main checks run43394513880 on d22dc27 observed IN_PROGRESS at14:07:31 IST;
+not a complete main-CI pass. Later doc pushes may trigger newer runs; GitHub is
+authoritative. Deployment workflows are workflow_dispatch-only; none invoked.
+**Merge status:** All four UI PRs merged. Exact merge commit/timestamp table in
+screenshots/consent-welcome/README.md. No self-approval/review fabricated.
+**Deployment and migration status:** Not deployed; no migration application,
+hosted data/roles/users/RLS/provider configuration or real SMS/payment changes.
+Existing local preview is unchanged by source integration, not a hosted rollout.
+**Decisions and assumptions:** Current founder instruction explicitly authorizes
+this UI source merge, superseding earlier task-specific stop-before-merge notes.
+It does not assert physical Pixel/native-language tests passed or approve real
+patient onboarding. #29 integrated as necessary reviewed visual dependency;
+independent #28/#30/#31/V2 and all worktrees preserved, not reset or overwritten.
+**Blockers:** No source merge blocker. Production remains NO-GO: physical/native
+acceptance, missing policy URL, standing rather than request-scoped support,
+hosted hardening/isolation/recovery and other existing release gates remain.
+**Uncommitted changes:** Markdown receipt before commit only; no source changes,
+secrets/builds/backup artifacts staged. Original feature worktrees clean/preserved.
+**Exact next action:** Push/merge this documentation-only receipt under the same
+authorization, verify remote main and PR states, report completion and STOP.
+Pixel/native review and any deployment are separately scoped next tasks; do not
+start BACKUP-002, change hosted data or merge unrelated PRs automatically.
+**Next responsible agent:** Founder/release owner for remaining acceptance scope.
+
+
 Delivery receipt — **2026-11-13 13:49:48 IST**: Welcome committed/pushed as
 `b464716d2d043a64da5150634e24d444310316ae` in [PR #34](https://github.com/iamnawin/anuga/pull/34),
 OPEN, base `feat/consent-review` / #33. Consent remains b5e9142 in #33 with seven

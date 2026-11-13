@@ -1,5 +1,19 @@
 # Tasks and milestones
 
+## Authorized source merge — 2026-11-13 14:09:07 IST
+
+- [x] All current UI changes pushed; latest #29/#32/#33/#34 heads had seven CI
+      successes each. Final independent review clear; no job reruns/admin bypass.
+- [x] Merged #29 baseline, #32 login, #33 Consent, #34 Welcome into main in order.
+- [x] Main d22dc27 file tree exactly equals tested Welcome1cac74a tree.
+- [x] Preserved original branches/worktrees and unrelated open #28/#30/#31.
+- [x] Updated merge receipt/state; no deployment, hosted changes or migrations.
+- [ ] Newly triggered main CI final result (run43394513880 observed running).
+- [ ] Physical Pixel/native-language and remaining production-release acceptance.
+- Source merge is approved/completed; earlier unmerged stop notes below are
+  historical. No production gate promotion or automatic deployment authorization.
+
+
 ## Delivered — 2026-11-13 13:49:48 IST
 
 - [x] Consent separately committed/pushed b5e9142, [PR #33](https://github.com/iamnawin/anuga/pull/33), CI7 SUCCESS.
