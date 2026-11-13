@@ -1,5 +1,73 @@
 # Handoff
 
+Delivery receipt — **2026-11-13 13:49:48 IST**: Welcome committed/pushed as
+`b464716d2d043a64da5150634e24d444310316ae` in [PR #34](https://github.com/iamnawin/anuga/pull/34),
+OPEN, base `feat/consent-review` / #33. Consent remains b5e9142 in #33 with seven
+successful CI jobs; #32 remains ca22a5d and unmerged. Source Welcome run
+[43392256735](https://github.com/iamnawin/anuga/actions/runs/43392256735) observed
+DB/shared/Ops SUCCESS, four other jobs IN_PROGRESS; Supabase Preview SKIPPED.
+No complete CI pass or deployment inferred. This later documentation-only commit
+records delivery; use #34's current check rollup for later receipt runs/results.
+Both implementations, screenshots and manual plan are now published separately.
+Working tree clean before this receipt; no code change after b464716. Final local
+preview HTTP200 at http://192.168.31.252:3114/app/, server PID14468. **STOP for
+founder Pixel/native-language review; no merge/deploy/next feature.**
+
+
+### Agent Session - 2026-11-13 13:44:37 IST — Screen 01 Welcome
+
+**Agent:** Codex.
+**Role / responsibility:** Welcome implementation after verified Consent; final
+two-screen integration evidence and separate review delivery.
+**Session start (IST):** Original task 2026-11-12 19:08:40; Welcome phase began
+19:43:23 after Consent push. Resumed 2026-11-13 13:36:08 from saved local changes.
+**Task ID / Name:** SCREEN-01-WELCOME / signed-out entry using approved illustration.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-consent-welcome`.
+**Branch:** `feat/welcome-review`.
+**Starting commit:** `b5e9142838ccf04b58474cdf6257e5f05a9dea23` (Consent).
+**Current commit:** Ending Welcome implementation commit contains this entry;
+exact SHA is its Git metadata. No source changes after final87 test run except
+documentation and recovered build/capture; final selected-chip style included.
+**PR:** New Welcome PR pending creation, base `feat/consent-review` (#33).
+Consent #33 OPEN/b5e9142; #32 OPEN/ca22a5d; #28/#29/#30/V2 preserved.
+**Scope:** New signed-out Welcome, clean supplied asset, existing login route,
+localized Flutter controls and tests/evidence; no new signed-in Home redesign.
+**Completed work:** Both actions push same LoginScreen, duplicate-route guard,
+valid sessions bypass Welcome, existing role/OTP/expiry/storage preserved. English
+default, actual persisted chip/menu language, readable light/dark UI, synthetic
+footer. Original pictures retained in docs; actual render/reference comparisons.
+**Files changed:** Unified Welcome screen, root route handler, three ARBs, asset
+registration/original clean illustration, Welcome tests/explicit login test helper,
+logout assertions, fresh-start-only two E2E selectors; mandatory docs/evidence.
+Consent production files are unchanged from the separate #33 commit.
+**Tests and actual results:** Unified87 PASS, Family94/6 skip PASS; all analyzers,
+format, final release web build PASS. Broad fast stages DB209/11 skip, Ops70/build,
+shared29, Companion58/3 skip PASS. Script Family stage OOM recovered with complete
+sequential Family/unified reruns, no weakened assertions/timeouts/new skips.
+Nine final release browser configurations (360/390 light/dark and locale/large
+text), 29 PNGs including comparisons, both actions and TE/HI reload PASS; zero
+hosted calls. Independent review findings addressed. Not physical Pixel testing.
+**CI evidence:** #33 run43234936451 seven SUCCESS. New Welcome commit has local
+verification only before push; observe its automatic PR checks separately.
+**Merge status:** No merge; both screen approvals remain open.
+**Deployment and migration status:** No deploy or migrations, hosted data/roles/
+RLS/real Auth/SMS unchanged. Local server restarted Nov13 PID14468; HTTP200.
+**Decisions and assumptions:** Use original illustration bytes and existing flat
+themes/logo. Flutter owns copy/buttons/locale controls. Explicit recovery CTAs
+open phone; phone Back returns prior status/Welcome route as appropriate. No role
+choice or signup inferred from Companion action. Existing patient selector kept.
+**Blockers:** Founder Pixel/native-language acceptance; approved Privacy Policy
+URL absent and support grant is standing, not per request. Hosted hardening/
+recovery gates unchanged and production NO-GO. Nov12 Windows resource failures
+recovered for final build/tests; do not mark interrupted invocations successful.
+**Uncommitted changes:** Intended Welcome implementation/docs/images before commit;
+ignored logs/capture tooling/public client config/build output remain local.
+**Exact next action:** Commit/push separate Welcome PR based on #33, record exact
+SHA/PR/check state, then STOP for review at http://192.168.31.252:3114/app/.
+Sign out for Welcome; Family Home→Privacy and consent for Screen04. No auto merge.
+**Next responsible agent:** Founder Pixel reviewer; Codex only on feedback.
+
+
 ### Agent Session - 2026-11-12 19:40:46 IST — Screen 04 Consent
 
 **Agent:** Codex.

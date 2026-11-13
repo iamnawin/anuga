@@ -111,6 +111,7 @@ Future<FakeRpc> pumpApp(
   Locale locale = const Locale('en'),
   bool settle = true,
   List<Object?> companionTrips = const [],
+  ValueChanged<Locale>? onLocaleChanged,
 }) async {
   usePhoneScreen(tester);
   final rpc = FakeRpc(companionTrips: companionTrips);
@@ -123,6 +124,7 @@ Future<FakeRpc> pumpApp(
       photos: _NoPhotos(),
       payments: _NoPayments(),
       initialLocale: locale,
+      onLocaleChanged: onLocaleChanged,
     ),
   );
   // The checking screen spins until the role lookup returns, so a test that
@@ -139,4 +141,23 @@ Future<void> signIn(WidgetTester tester, String phone, {String code = '123456'})
   await tester.enterText(find.byKey(const Key('code')), code);
   await tester.tap(find.byKey(const Key('verify-code')));
   await tester.pumpAndSettle();
+}
+
+/// Login-focused tests explicitly open phone entry. Entry tests use pumpApp,
+/// which keeps the actual Welcome screen and never silently skips it.
+Future<FakeRpc> pumpLogin(
+  WidgetTester tester,
+  FakeAccountAuth auth, {
+  Locale locale = const Locale('en'),
+  bool settle = true,
+  List<Object?> companionTrips = const [],
+}) async {
+  final rpc = await pumpApp(tester, auth, locale: locale, settle: settle, companionTrips: companionTrips);
+  if (find.byKey(const Key('welcome')).evaluate().isNotEmpty) {
+    final start = find.byKey(const Key('welcome-get-started'));
+    await tester.ensureVisible(start);
+    await tester.tap(start);
+    await tester.pumpAndSettle();
+  }
+  return rpc;
 }

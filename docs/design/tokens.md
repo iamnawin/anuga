@@ -1,5 +1,14 @@
 # ANUGA UI reference contract
 
+Screen01 implementation checkpoint 2026-11-13: original supplied clean illustration
+is a runtime asset (deep teal crew-neck/chest logo), while Welcome copy, language
+controls and both actions are Flutter. Reuse approved transparent branding and
+flat light/dark palettes; selected language filled, other choices outlined.
+Accessible text/minimum1.15 scale and2× content scroll rather than imitate baked
+mockup typography. Both actions open existing phone sign-in without selecting
+roles; existing sessions bypass Welcome. See screenshots/consent-welcome.
+
+
 ## Screen 04 / 01 founder references — 2026-11-12
 
 Original mockups and clean teal crew-neck companion illustration are retained

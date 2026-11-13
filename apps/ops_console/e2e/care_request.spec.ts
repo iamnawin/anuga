@@ -74,6 +74,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
   try {
     await family.goto(preview ? `${preview}/app/` : 'http://127.0.0.1:3103/app/');
     await enableFlutter(family);
+    await family.getByRole('button', { name: 'Get started', exact: true }).click();
     await enterFlutter(family, 'Mobile number', '9000000101');
     await family.getByRole('button', { name: 'Send verification code', exact: true }).click();
     await enterFlutter(family, '6-digit code', otp);
@@ -190,6 +191,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     const pwa = preview ? `${preview}/app/` : 'http://127.0.0.1:3103/app/';
     await companion.goto(pwa);
     await enableFlutter(companion);
+    await companion.getByRole('button', { name: 'Get started', exact: true }).click();
     await enterFlutter(companion, 'Mobile number', '9000000202');
     await companion.getByRole('button', { name: 'Send verification code', exact: true }).click();
     await enterFlutter(companion, '6-digit code', otp);

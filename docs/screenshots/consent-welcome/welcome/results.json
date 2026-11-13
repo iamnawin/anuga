@@ -1,0 +1,104 @@
+{
+  "at": "2026-11-13T08:09:50.722Z",
+  "results": [
+    {
+      "width": 360,
+      "colorScheme": "light",
+      "lang": "en",
+      "scale": 1,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "default",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "en",
+      "scale": 1,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "default",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    },
+    {
+      "width": 390,
+      "colorScheme": "light",
+      "lang": "en",
+      "scale": 1,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "default",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    },
+    {
+      "width": 390,
+      "colorScheme": "dark",
+      "lang": "en",
+      "scale": 1,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "default",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "en",
+      "scale": 2,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "default",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "te",
+      "scale": 1,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "PASS",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "te",
+      "scale": 2,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "PASS",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "hi",
+      "scale": 1,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "PASS",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    },
+    {
+      "width": 360,
+      "colorScheme": "dark",
+      "lang": "hi",
+      "scale": 2,
+      "defaultWithTeBrowser": "English",
+      "explicitLanguageReload": "PASS",
+      "bothActions": "same phone form",
+      "hostedCalls": 0,
+      "surface": "Running release Flutter, Chromium Pixel emulation; not physical Pixel"
+    }
+  ]
+}

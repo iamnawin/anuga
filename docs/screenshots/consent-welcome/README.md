@@ -1,5 +1,107 @@
 # Screens 04 Consent and 01 Welcome — delivery ledger
 
+**Delivered 2026-11-13 13:49:48 IST:** [Consent PR #33](https://github.com/iamnawin/anuga/pull/33)
+`b5e9142838ccf04b58474cdf6257e5f05a9dea23` (CI all7 SUCCESS), then
+[Welcome PR #34](https://github.com/iamnawin/anuga/pull/34)
+`b464716d2d043a64da5150634e24d444310316ae` (source run43392256735 observed3 SUCCESS,
+4 IN_PROGRESS; current PR checks authoritative). Both OPEN/unmerged; #32 intact.
+This later receipt changes documentation only. Code/tests/images/handoff pushed;
+STOP for Pixel/native review at **http://192.168.31.252:3114/app/**.
+
+Quick review: sign out to see Welcome; both actions reach the existing phone form.
+Sign into an authorized synthetic Family account and open Privacy and consent for
+the selected patient. No merge/deploy or production approval; missing policy URL
+and standing support scope are detailed below.
+
+
+## Welcome verified — 2026-11-13 13:44:37 IST
+
+Welcome is implemented on separate `feat/welcome-review`, based on Consent
+`b5e9142838ccf04b58474cdf6257e5f05a9dea23` / [PR #33](https://github.com/iamnawin/anuga/pull/33).
+Consent was committed and verified **before** Welcome code began. PR #33 CI
+[43234936451](https://github.com/iamnawin/anuga/actions/runs/43234936451) completed
+SUCCESS, all seven jobs; no merge or successful-job rerun. #32 remains unchanged.
+
+Welcome implementation:
+
+- Signed-out root is Welcome. Valid stored sessions still go directly through
+  existing checking/database-role routing. Both Get started and Companion sign in
+  push the **same existing LoginScreen**; no role hint, signup or separate account.
+- Existing OTP handlers/validation, session storage, expiry/account restrictions
+  and language persistence remain unchanged. System Back moves OTP→phone→Welcome;
+  successful verification clears pushed routes. A guard prevents duplicate login
+  routes from rapid taps. Own logout now returns Welcome; explicit expired/Ops/
+  unassigned-account recovery keeps its existing phone sign-in path.
+- Supplied clean illustration is a Flutter asset, unmodified, with the teal
+  crew-neck shirt/chest logo. SHA-256 in docs and runtime asset:
+  `BFB92B056BAAFA56C7FD976F1B46B2B807BE2E32C7EB2C704074291CB9582FFB`.
+  Heading/body, choice chips, dropdown, both actions and footer are Flutter widgets,
+  not a screenshot. Existing transparent branding/dark wordmark treatment reused.
+- English remains default even with Telugu browser locale. Chip/menu selection
+  uses the existing callback and exact `anuga-language` storage. Real browser
+  Telugu/Hindi selection→reload→both phone actions passed. Synthetic footer kept.
+
+Actual validation:
+
+| Check | Result and evidence boundary |
+|---|---|
+| Welcome TDD | Initial 2 passed/29 failed (existing stored-session cases already passed); final new38 cases PASS |
+| Unified suite | **87 PASS**, including old49 phone/OTP/session/role checks, new24 layout combinations, six light/dark accessibility-guideline checks, locale callback/back, both actions and double-tap guard |
+| Family suite | **94 PASS, 6 documented skips**; unchanged from Consent |
+| Analyzer/format | PASS; final analyzer reports no issues |
+| Release web build | PASS on Nov13; same release/dart2js build with optional Wasm dry-run disabled, no workflow/app setting change |
+| Broad fast checks | DB209/11 skip, Ops70 + build, shared29, Companion58/3 skip and all analyzers PASS. That script invocation then hit Windows Dart OOM at Family; Family94 and unified87 both passed on complete sequential reruns with identical assertions, no timeout increase or new skips. Do not label the interrupted script invocation itself successful |
+| Browser matrix | **9 configurations**, 27 viewport captures +2 comparison sheets; four 360/390 English light/dark cases, English2×, Telugu/Hindi1×/2×. All actual release Flutter, not HTML reconstruction |
+| Auth/network boundary | Welcome checks aborted every hosted request; observed hosted calls **0**. Both actions reached phone without submitting OTP. Consent captures used intercepted fixtures. No SMS, real login/session or hosted data change |
+| Independent review | No material auth/navigation issue; suggested locale callback/AA tests and accurate logout names added and passed. Physical Pixel/native wording approval still pending |
+
+[Dark comparison](welcome/comparison-dark.png) · [light comparison](welcome/comparison-light.png)
+· [final browser results](welcome/results.json). Final capture completed
+2026-11-13 13:39:50 IST. Original mockups under docs/design/screens-01-04 are
+unchanged; screenshots preserve proportions and label separate top/middle/bottom
+viewports. No invented light mockup or stitched fake full-screen evidence.
+
+Visual improvement pass changed unselected language chips from inherited fills
+to outlines, matching the supplied mockup; final release was rebuilt/recaptured.
+Intentional differences: existing flat themes/platform font/minimum1.15 scale,
+original logo proportions, and full clean illustration instead of reusing its
+cropped mockup. Longer translations/200% text scroll rather than shrink or clip.
+Small brand tagline stays in the approved lockup; ordinary copy remains localized.
+
+Recovery/evidence history: Nov12 tool-session reset interrupted build checks;
+later full-script Family run exhausted host memory, recovered sequentially. A
+final recapture build failed starting DartWorker when Windows had ~480MiB free;
+Nov13 retry succeeded without changing product code or reinstalling tools. Capture
+helper bootstrap/choice-chip ARIA locators were corrected after actual UI was
+visible but semantic locators were not; no test timeout was increased. Existing
+Wasm/font asset advisory warnings were not treated as passing or failing tests.
+
+## Pixel review and release boundary
+
+Current server PID **14468**, `http://192.168.31.252:3114/app/` (same Wi-Fi),
+loopback/LAN HTTP200 checked Nov13. Old PID37772 belonged to Nov12 and is historical.
+**Sign out to review Welcome**; a valid existing session intentionally bypasses it.
+For Consent, sign into an authorized synthetic Family account, keep/select the
+patient in Home and open Privacy and consent. Explicit Save calls real staging
+from a person's browser; capture fixtures do not intercept the phone's browser.
+
+Review both themes, language selection/reload, both Welcome actions, OTP/back and
+keyboard, patient-specific state, withdrawal confirmation, parent-vault/support
+behavior and non-owner read-only access. Physical behavior and native-language
+meaning require human review. Outstanding contract gaps remain: approved Privacy
+Policy destination and any request-scoped support permission (currently standing).
+No release gate promoted; production NO-GO, no merge/deploy/migrations. Next:
+commit/push Welcome separately, record its PR, then STOP for founder Pixel review.
+
+
+## Phase transition — 2026-11-12 19:43:23 IST
+
+Consent committed/pushed as `b5e9142838ccf04b58474cdf6257e5f05a9dea23`,
+[PR #33](https://github.com/iamnawin/anuga/pull/33) OPEN, base #32. Gate 5 met.
+Welcome begins only after that verified checkpoint, on separate `feat/welcome-review`
+branch from b5e9142. Same owned worktree/preview; no source PR edited or merged.
+
+
 Codex session started 2026-11-12 19:08:40 IST. Worktree
 `D:\AI-Workspace\Repos\anuga-consent-welcome`, Consent branch `feat/consent-review`,
 starting at PR #32 `ca22a5d463d23eabffe8662b1de5b730959b7bc1`.

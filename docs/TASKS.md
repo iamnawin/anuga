@@ -1,5 +1,38 @@
 # Tasks and milestones
 
+## Delivered — 2026-11-13 13:49:48 IST
+
+- [x] Consent separately committed/pushed b5e9142, [PR #33](https://github.com/iamnawin/anuga/pull/33), CI7 SUCCESS.
+- [x] Welcome separately committed/pushed b464716, [PR #34](https://github.com/iamnawin/anuga/pull/34), source CI3 SUCCESS/4 IN_PROGRESS.
+- [x] Mandatory handoff, actual images/comparisons/test evidence and Pixel plan
+      published. Same Wi-Fi preview http://192.168.31.252:3114/app/ HTTP200.
+- [ ] Founder Pixel/native-language acceptance; latest Welcome CI final result.
+- No merge/deploy/production approval. STOP for review; prior checklists below
+  are dated checkpoints, not missing new implementations.
+
+
+## Two-screen delivery checkpoint — 2026-11-13 13:44:37 IST
+
+- [x] Consent built/verified FIRST, b5e9142 pushed to #33; seven-job CI SUCCESS.
+- [x] Welcome implemented separately on feat/welcome-review; valid sessions bypass
+      entry, both actions use existing phone/OTP/database-role path.
+- [x] Supplied clean artwork asset; Flutter text/controls/three languages; original
+      images retained in docs/design/screens-01-04; exact image hashes match.
+- [x] Unified87, Family94/6 skip, analyzers/format/release build PASS; broad fast
+      suite's Family OOM recovered by complete sequential runs, no timeouts relaxed.
+- [x] Each screen has nine actual browser render configs and24 layout test cases;
+      360/390, both themes, en/te/hi and2× text; comparison sheets recaptured.
+- [x] Missing approved Privacy Policy URL and standing support scope reported.
+- [ ] Welcome commit/push/separate PR (next), then founder Pixel/native approval.
+- Preview: http://192.168.31.252:3114/app/. Sign out for Welcome; Family Privacy
+  and consent for04. No merge/deploy/hosted changes or release gate promotion.
+
+
+2026-11-12 19:43:23 IST: Consent committed/pushed b5e9142, PR #33 OPEN based
+on #32. Welcome now IN_PROGRESS on separate feat/welcome-review based on #33.
+Earlier pending-commit checklist below is preserved as historical checkpoint.
+
+
 ## Screens 04 Consent then 01 Welcome — 2026-11-12 19:40:46 IST
 
 - [x] PR #32 baseline ca22a5d checked, OPEN, CI43211837626 seven SUCCESS.
