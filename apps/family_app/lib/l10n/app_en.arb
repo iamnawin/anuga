@@ -223,5 +223,59 @@
   "consentPartial": "Some choices were saved. Review the remaining changes and try again.",
   "consentReloadRequired": "Reload the saved choices before making more changes.",
   "consentReload": "Reload choices",
-  "consentKeep": "Keep this choice"
+  "consentKeep": "Keep this choice",
+  "fHome": "Home",
+  "fVisits": "Visits",
+  "fMore": "More",
+  "fHelp": "Help and support",
+  "fHomeGreeting": "Here is what is next",
+  "fHelloPatient": "Hello, {name}. Here is your next visit.",
+  "fChoosePatient": "Choose patient",
+  "fAccessOwner": "You are the owner",
+  "fAccessEditor": "You can manage visits",
+  "fAccessViewer": "You can view",
+  "fAccessPatient": "Your own care",
+  "fViewerNotice": "You can see updates. Only the account owner can make changes.",
+  "fNoPatients": "Your patient is not set up yet. Call AnugaCare support.",
+  "fNoVisits": "No visits booked yet",
+  "fNextVisit": "Next visit",
+  "fYourCompanion": "{name}, your companion",
+  "fViewVisit": "View visit",
+  "fRequestVisit": "Request a visit",
+  "fMyVisits": "My visits",
+  "fSeeUpdates": "See all updates",
+  "fTryAgain": "Try again",
+  "fOffline": "No internet. Your changes will not be saved.",
+  "fStep": "Step {step} of 9 · {status}",
+  "fCallSupport": "Call AnugaCare support",
+  "fSupportUnavailable": "The AnugaCare support number is not available in this build.",
+  "fEmergency": "Medical emergency? Call 112 or 108. AnugaCare does not send emergency help.",
+  "fSignOutConfirm": "Sign out?",
+  "fKeepSignedIn": "Stay signed in",
+  "fPatientsAccess": "Patients and access",
+  "@fHelloPatient": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@fYourCompanion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@fStep": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "fNavHelp": "Help"
 }

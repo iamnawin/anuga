@@ -36,7 +36,7 @@ void main() {
       lookup.completeError(StateError('old offline lookup'));
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('accountError')), findsNothing);
-      expect(find.text('No patient is linked to this account yet. Ask the family owner to add you.'), findsOneWidget);
+      expect(find.text('Your patient is not set up yet. Call AnugaCare support.'), findsOneWidget);
     });
 
     testWidgets('family account opens the family home and only family RPCs run', (tester) async {
@@ -45,7 +45,7 @@ void main() {
 
       await signIn(tester, familyPhone);
 
-      expect(find.text('No patient is linked to this account yet. Ask the family owner to add you.'), findsOneWidget);
+      expect(find.text('Your patient is not set up yet. Call AnugaCare support.'), findsOneWidget);
       expect(rpc.calls, contains('family_my_patients'));
       expect(rpc.calls, isNot(contains('companion_my_trips')));
       expect(auth.isSignedIn, isTrue);
@@ -121,6 +121,8 @@ void main() {
       await pumpLogin(tester, auth);
 
       await tester.tap(find.byTooltip('Sign out'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(FilledButton, 'Sign out'));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('welcome')), findsOneWidget);
@@ -216,7 +218,7 @@ void main() {
       auth.roleLookup = null;
       await tester.tap(find.text('Try again'));
       await tester.pumpAndSettle();
-      expect(find.text('No patient is linked to this account yet. Ask the family owner to add you.'), findsOneWidget);
+      expect(find.text('Your patient is not set up yet. Call AnugaCare support.'), findsOneWidget);
     });
 
     testWidgets('failed role lookup can also sign out', (tester) async {
@@ -295,10 +297,7 @@ void main() {
       await tester.tap(find.widgetWithText(FilledButton, 'कोड सत्यापित करें'));
       await tester.pumpAndSettle();
 
-      expect(
-        find.text('इस खाते से अभी कोई मरीज़ नहीं जुड़ा है। परिवार के मालिक से आपको जोड़ने को कहें।'),
-        findsOneWidget,
-      );
+      expect(find.text('आपके मरीज़ की जानकारी अभी दर्ज नहीं है। AnugaCare सहायता को कॉल करें।'), findsOneWidget);
       expect(find.byTooltip('साइन आउट'), findsOneWidget);
     });
 

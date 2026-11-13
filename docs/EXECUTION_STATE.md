@@ -1,5 +1,51 @@
 # AnugaCare execution state
 
+### Agent Session - 2026-11-13 19:20:13 IST - FAMILY-V2 group1
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / group1.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** b834b53fbc19952e86161d3bdb049354dfb78291; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** F12/F13/F34/F35 and access-specific shell built. Added15 Home regressions and4 unified access/session tests, existing navigation expectations adapted. Final scripts/check-all.sh PASS: DB209/11skip, Ops70, shared29, Companion58/3skip, Family109/6skip, unified91; analyzers/format PASS. Nine actual renders; reviewer findings fixed. Source changes confined to Family UI/l10n and app tests; no app.dart/auth/adapter/Companion source edits.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
+### Agent Session - 2026-11-13 19:05:48 IST - FAMILY-V2 startup
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / startup.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** b834b53fbc19952e86161d3bdb049354dfb78291; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** Isolated main-based branch created. Baseline flutter test: Family 94 passed/6 existing skips; unified 87 passed. Dependency resolution passed. Specification and four boards inspected; existing adapters retained.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
 MERGED TO MAIN — 2026-11-13 14:09:07 IST: founder authorized current UI stack;
 #29→#32→#33→#34 all merged, main source d22dc2738d4ff962d22d0eb776213f812a8c9b85.
 Exact tree equals tested1cac74a, all seven source checks per PR passed. Original

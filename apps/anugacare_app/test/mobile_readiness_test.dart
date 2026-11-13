@@ -109,6 +109,10 @@ void main() {
 
       await tester.tap(find.byTooltip('Sign out'));
       await tester.pumpAndSettle();
+      if (phone == familyPhone) {
+        await tester.tap(find.widgetWithText(FilledButton, 'Sign out'));
+        await tester.pumpAndSettle();
+      }
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
       tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
