@@ -21,7 +21,7 @@ Future<void> tapVisible(WidgetTester tester, Finder target) async {
 
 void main() {
   testWidgets('system back from the code step returns to phone entry', (tester) async {
-    await pumpApp(tester, FakeAccountAuth());
+    await pumpLogin(tester, FakeAccountAuth());
     await useNarrowPhone(tester);
     await tester.enterText(find.byKey(const Key('phone')), familyPhone.substring(3));
     await tapVisible(tester, find.widgetWithText(FilledButton, 'Send verification code'));
@@ -43,7 +43,7 @@ void main() {
       ) async {
         tester.platformDispatcher.textScaleFactorTestValue = scale;
         addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
-        await pumpApp(tester, FakeAccountAuth(), locale: locale);
+        await pumpLogin(tester, FakeAccountAuth(), locale: locale);
         await useNarrowPhone(tester, keyboardHeight: 280);
         final l10n = AppLocalizations.of(tester.element(find.byKey(const Key('phone'))));
 
@@ -72,7 +72,7 @@ void main() {
         tester.platformDispatcher.textScaleFactorTestValue = scale;
         addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
         final auth = FakeAccountAuth(signedInAs: opsPhone);
-        await pumpApp(tester, auth, locale: locale);
+        await pumpLogin(tester, auth, locale: locale);
         await useNarrowPhone(tester);
         final l10n = AppLocalizations.of(tester.element(find.byKey(const Key('opsAccount'))));
 
@@ -88,7 +88,7 @@ void main() {
   for (final phone in [familyPhone, companionPhone]) {
     testWidgets('pause and resume preserve the role home, but cannot undo logout ($phone)', (tester) async {
       final auth = FakeAccountAuth(signedInAs: phone);
-      final rpc = await pumpApp(tester, auth);
+      final rpc = await pumpLogin(tester, auth);
       final ownRead = phone == familyPhone ? 'family_my_patients' : 'companion_my_trips';
       final otherRead = phone == familyPhone ? 'companion_my_trips' : 'family_my_patients';
       expect(rpc.calls, contains(ownRead));
@@ -119,7 +119,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(auth.isSignedIn, isFalse);
-      expect(find.byKey(const Key('phone')), findsOneWidget);
+      expect(find.byKey(const Key('welcome')), findsOneWidget);
       expect(find.byTooltip('Sign out'), findsNothing);
       expect(tester.takeException(), isNull);
     });

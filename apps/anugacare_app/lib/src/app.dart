@@ -12,6 +12,7 @@ import '../l10n/generated/app_localizations.dart';
 import 'auth.dart';
 import 'screens/account_status_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/welcome_screen.dart';
 
 /// Where the app is between launch and a role home.
 enum AccountStage { signedOut, checking, family, companion, opsAccount, noRole, expired, error }
@@ -53,6 +54,7 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
   late AccountStage _stage = widget.auth.isSignedIn ? AccountStage.checking : AccountStage.signedOut;
   late final StreamSubscription<void> _sessionEnded;
   int _generation = 0;
+  bool _loginOpen = false;
 
   /// Set while the app signs out by itself, so the resulting sign-out event is
   /// not shown as an expired session. Cleared when a new session starts.
@@ -127,6 +129,20 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
     widget.onLocaleChanged?.call(locale);
   }
 
+  Future<void> _openLogin(BuildContext context) async {
+    if (_loginOpen) return;
+    _loginOpen = true;
+    try {
+      await Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => LoginScreen(auth: widget.auth, onLocaleChanged: _setLocale, onSignedIn: _resolve),
+        ),
+      );
+    } finally {
+      _loginOpen = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = _stage == AccountStage.companion ? companionTheme : familyTheme;
@@ -152,9 +168,9 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
 
   Widget _home(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    void signIn() => _show(AccountStage.signedOut);
+    void signIn() => _openLogin(context);
     return switch (_stage) {
-      AccountStage.signedOut => LoginScreen(auth: widget.auth, onLocaleChanged: _setLocale, onSignedIn: _resolve),
+      AccountStage.signedOut => WelcomeScreen(onStart: signIn, onLocaleChanged: _setLocale),
       AccountStage.checking => AccountStatusScreen(
         key: const Key('checking'),
         icon: Icons.verified_user_outlined,

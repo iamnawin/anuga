@@ -12,7 +12,7 @@ void main() {
     testWidgets('session expiry invalidates a delayed stored role response', (tester) async {
       final lookup = Completer<String?>();
       final auth = FakeAccountAuth(signedInAs: companionPhone)..roleLookup = () => lookup.future;
-      final rpc = await pumpApp(tester, auth, settle: false);
+      final rpc = await pumpLogin(tester, auth, settle: false);
       auth.sessionEvents.add(null);
       await tester.pumpAndSettle();
       expect(find.byKey(const Key('expired')), findsOneWidget);
@@ -25,7 +25,7 @@ void main() {
     testWidgets('a stale lookup failure cannot replace a newer signed-in home', (tester) async {
       final lookup = Completer<String?>();
       final auth = FakeAccountAuth(signedInAs: companionPhone)..roleLookup = () => lookup.future;
-      final rpc = await pumpApp(tester, auth, settle: false);
+      final rpc = await pumpLogin(tester, auth, settle: false);
       await auth.signOut();
       await tester.pumpAndSettle();
       await tester.tap(find.text('Sign in again'));
@@ -41,7 +41,7 @@ void main() {
 
     testWidgets('family account opens the family home and only family RPCs run', (tester) async {
       final auth = FakeAccountAuth();
-      final rpc = await pumpApp(tester, auth);
+      final rpc = await pumpLogin(tester, auth);
 
       await signIn(tester, familyPhone);
 
@@ -53,7 +53,7 @@ void main() {
 
     testWidgets('companion account opens the companion trips and only companion RPCs run', (tester) async {
       final auth = FakeAccountAuth();
-      final rpc = await pumpApp(tester, auth);
+      final rpc = await pumpLogin(tester, auth);
 
       await signIn(tester, companionPhone);
 
@@ -73,7 +73,7 @@ void main() {
         'centre_address': '1 Example Road, Hyderabad (synthetic)',
         'details_visible': false,
       };
-      await pumpApp(
+      await pumpLogin(
         tester,
         FakeAccountAuth(signedInAs: companionPhone),
         companionTrips: [trip('yesterday', now.subtract(const Duration(days: 1))), trip('today', now)],
@@ -86,7 +86,7 @@ void main() {
     });
 
     testWidgets('the login offers no role choice', (tester) async {
-      await pumpApp(tester, FakeAccountAuth());
+      await pumpLogin(tester, FakeAccountAuth());
 
       for (final word in ['Family', 'Companion', 'Patient']) {
         expect(find.textContaining(word), findsNothing, reason: 'no role picker or role-named button');
@@ -99,7 +99,7 @@ void main() {
     testWidgets('a stored session is checked against the database before any home opens', (tester) async {
       final lookup = Completer<String?>();
       final auth = FakeAccountAuth(signedInAs: companionPhone)..roleLookup = () => lookup.future;
-      final rpc = await pumpApp(tester, auth, settle: false);
+      final rpc = await pumpLogin(tester, auth, settle: false);
 
       // The lookup is still pending: the checking state stays up, with its
       // spinner and no home, for as long as the database has not answered.
@@ -116,26 +116,26 @@ void main() {
       expect(find.text('No trips assigned yet.'), findsOneWidget);
     });
 
-    testWidgets('sign out from a role home returns to the shared sign-in', (tester) async {
+    testWidgets('sign out from a role home returns to Welcome', (tester) async {
       final auth = FakeAccountAuth(signedInAs: familyPhone);
-      await pumpApp(tester, auth);
+      await pumpLogin(tester, auth);
 
       await tester.tap(find.byTooltip('Sign out'));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('phone')), findsOneWidget);
+      expect(find.byKey(const Key('welcome')), findsOneWidget);
       expect(auth.isSignedIn, isFalse);
       expect(find.byKey(const Key('expired')), findsNothing, reason: 'own sign-out is not an expired session');
     });
 
-    testWidgets('sign out from the companion home returns to the shared sign-in', (tester) async {
+    testWidgets('sign out from the companion home returns to Welcome', (tester) async {
       final auth = FakeAccountAuth(signedInAs: companionPhone);
-      await pumpApp(tester, auth);
+      await pumpLogin(tester, auth);
 
       await tester.tap(find.byTooltip('Sign out'));
       await tester.pumpAndSettle();
 
-      expect(find.byKey(const Key('phone')), findsOneWidget);
+      expect(find.byKey(const Key('welcome')), findsOneWidget);
       expect(auth.isSignedIn, isFalse);
       expect(find.byKey(const Key('expired')), findsNothing);
     });
@@ -144,7 +144,7 @@ void main() {
   group('accounts this app cannot open', () {
     testWidgets('ops account is pointed to the ops console and signed out', (tester) async {
       final auth = FakeAccountAuth();
-      final rpc = await pumpApp(tester, auth);
+      final rpc = await pumpLogin(tester, auth);
 
       await signIn(tester, opsPhone);
 
@@ -160,7 +160,7 @@ void main() {
 
     testWidgets('account without a known role is refused and signed out', (tester) async {
       final auth = FakeAccountAuth();
-      final rpc = await pumpApp(tester, auth);
+      final rpc = await pumpLogin(tester, auth);
 
       await signIn(tester, unlinkedPhone);
 
@@ -171,7 +171,7 @@ void main() {
 
     testWidgets('an unexpected role value never opens a home', (tester) async {
       final auth = FakeAccountAuth(signedInAs: familyPhone)..roleLookup = () async => 'patient';
-      final rpc = await pumpApp(tester, auth);
+      final rpc = await pumpLogin(tester, auth);
 
       expect(find.byKey(const Key('noRole')), findsOneWidget);
       expect(auth.isSignedIn, isFalse);
@@ -179,7 +179,7 @@ void main() {
     });
 
     testWidgets('unknown number gets the auth server message, no account is created', (tester) async {
-      await pumpApp(tester, FakeAccountAuth());
+      await pumpLogin(tester, FakeAccountAuth());
 
       await tester.enterText(find.byKey(const Key('phone')), '9123456789');
       await tester.tap(find.text('Send verification code'));
@@ -193,7 +193,7 @@ void main() {
   group('loading, errors and expired sessions', () {
     testWidgets('invalid phone and wrong code are shown on the sign-in screen', (tester) async {
       final auth = FakeAccountAuth();
-      await pumpApp(tester, auth);
+      await pumpLogin(tester, auth);
 
       await tester.enterText(find.byKey(const Key('phone')), '12345');
       await tester.tap(find.text('Send verification code'));
@@ -208,7 +208,7 @@ void main() {
     testWidgets('failed role lookup shows retry, keeps the session, and retry opens the home', (tester) async {
       final auth = FakeAccountAuth(signedInAs: familyPhone)
         ..roleLookup = () async => throw const RpcException('', 'network down');
-      await pumpApp(tester, auth);
+      await pumpLogin(tester, auth);
 
       expect(find.byKey(const Key('accountError')), findsOneWidget);
       expect(auth.isSignedIn, isTrue);
@@ -221,18 +221,18 @@ void main() {
 
     testWidgets('failed role lookup can also sign out', (tester) async {
       final auth = FakeAccountAuth(signedInAs: familyPhone)..roleLookup = () async => throw StateError('offline');
-      await pumpApp(tester, auth);
+      await pumpLogin(tester, auth);
 
       await tester.tap(find.text('Sign out'));
       await tester.pumpAndSettle();
-      expect(find.byKey(const Key('phone')), findsOneWidget);
+      expect(find.byKey(const Key('welcome')), findsOneWidget);
       expect(auth.isSignedIn, isFalse);
     });
 
     testWidgets('expired stored session clears it and asks to sign in again', (tester) async {
       final auth = FakeAccountAuth(signedInAs: companionPhone)
         ..roleLookup = () async => throw const SessionExpiredException();
-      final rpc = await pumpApp(tester, auth);
+      final rpc = await pumpLogin(tester, auth);
 
       expect(find.byKey(const Key('expired')), findsOneWidget);
       expect(auth.isSignedIn, isFalse);
@@ -247,7 +247,7 @@ void main() {
 
     testWidgets('session ending while a home is open shows the expired state', (tester) async {
       final auth = FakeAccountAuth(signedInAs: companionPhone);
-      await pumpApp(tester, auth);
+      await pumpLogin(tester, auth);
       expect(find.text('No trips assigned yet.'), findsOneWidget);
 
       auth.sessionEvents.add(null);
@@ -261,7 +261,7 @@ void main() {
   group('language and accessibility', () {
     testWidgets('language choice applies to sign-in and carries into the role home', (tester) async {
       final auth = FakeAccountAuth();
-      await pumpApp(tester, auth);
+      await pumpLogin(tester, auth);
 
       await tester.tap(find.byTooltip('Language'));
       await tester.pumpAndSettle();
@@ -281,7 +281,7 @@ void main() {
     });
 
     testWidgets('Hindi sign-in carries into the family home', (tester) async {
-      await pumpApp(tester, FakeAccountAuth());
+      await pumpLogin(tester, FakeAccountAuth());
 
       await tester.tap(find.byTooltip('Language'));
       await tester.pumpAndSettle();
@@ -307,12 +307,12 @@ void main() {
         'sign-in and status screens meet tap-target, label and contrast guidelines (${locale.languageCode})',
         (tester) async {
           final handle = tester.ensureSemantics();
-          await pumpApp(tester, FakeAccountAuth(), locale: locale);
+          await pumpLogin(tester, FakeAccountAuth(), locale: locale);
           await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
           await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
           await expectLater(tester, meetsGuideline(textContrastGuideline));
 
-          await pumpApp(
+          await pumpLogin(
             tester,
             FakeAccountAuth(signedInAs: familyPhone)..roleLookup = () async => throw const SessionExpiredException(),
             locale: locale,
@@ -327,7 +327,7 @@ void main() {
     testWidgets('sign-in screen does not overflow at 200% text', (tester) async {
       tester.platformDispatcher.textScaleFactorTestValue = 2;
       addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
-      await pumpApp(tester, FakeAccountAuth(), locale: const Locale('te'));
+      await pumpLogin(tester, FakeAccountAuth(), locale: const Locale('te'));
       expect(tester.takeException(), isNull);
     });
   });

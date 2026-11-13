@@ -1,5 +1,42 @@
 # AnugaCare execution state
 
+Final local checkpoint 2026-11-13 13:44:37 IST: both requested screens implemented
+and locally verified, Consent FIRST in #33/b5e9142 (all7CI SUCCESS), Welcome now
+ready for separate commit/PR on feat/welcome-review. Unified87/Family94 tests,
+analyzers and recovered release build PASS. Final Welcome9 browser configs and
+comparisons inspected; all hosted calls blocked. No incomplete screenshot step.
+Earlier Windows OOM/thread failures retained in evidence; sequential tests and
+Nov13 build recovered without code weakening. Server PID14468, port3114 ready.
+Next: push Welcome PR receipt, STOP for Pixel/native review. No merge/deploy.
+
+
+Recovery checkpoint 2026-11-13 13:36:41 IST: resumed original two-screen task on
+feat/welcome-review, uncommitted Welcome changes preserved. Consent #33/b5e9142
+is pushed, OPEN/unmerged; no Welcome PR yet. Prior exact code tests: unified87
+PASS, Family94/6 skip PASS sequentially; final analyzer PASS. Broad recheck had
+Windows Dart OOM at Family stage; sequential runs recovered every case. Nov12
+final release recapture build failed creating DartWorker under low host memory.
+Nov13 host has more free memory; rerunning only interrupted release build with
+--no-wasm-dry-run, no app/workflow/dependency changes. Next: recapture final
+Welcome, compare, update handoff, commit/push separate PR and STOP for Pixel.
+
+
+Welcome working checkpoint 2026-11-12 20:04:06 IST: implementation is local on
+feat/welcome-review from b5e9142/#33. Root pushes existing phone login with route
+guard, both CTAs share handler, valid sessions unchanged. Unified87 tests PASS,
+analyzer PASS. Initial build/analyze process sessions interrupted by tool reset;
+analyzer completed on retry, release build retry in progress. Screenshots/final
+PR/handoff pending; do not report Welcome pushed or merged. #33 CI now all seven
+SUCCESS. Next: build, capture/compare both themes/widths/locales/large text, finish
+checks and separate Welcome PR, then Pixel review. No hosted mutations/deploy.
+
+
+2026-11-12 19:43:23 IST: Consent complete locally and pushed b5e9142 to #33 OPEN,
+base #32. Welcome now starts on separate feat/welcome-review from that exact
+checkpoint, same owned worktree. #33 remains unchanged for independent review.
+Full Consent evidence recorded below; no source PR merge/deploy/hosted mutation.
+
+
 ## Screen 04 checkpoint — 2026-11-12 19:40:46 IST
 
 Codex isolated `feat/consent-review` at D:\AI-Workspace\Repos\anuga-consent-welcome,

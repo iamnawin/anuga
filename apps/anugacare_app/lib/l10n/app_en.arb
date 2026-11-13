@@ -33,5 +33,10 @@
   "accountErrorTitle": "We couldn't check your account",
   "accountErrorBody": "Check your internet connection and try again.",
   "retry": "Try again",
-  "signOut": "Sign out"
+  "signOut": "Sign out",
+  "welcomeTitle": "A familiar face for every visit",
+  "welcomeBody": "Scheduled hospital trips. Updates for your family.",
+  "welcomeGetStarted": "Get started",
+  "welcomeCompanionSignIn": "Companion sign in",
+  "welcomeOr": "or"
 }

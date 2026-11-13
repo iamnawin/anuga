@@ -26,7 +26,7 @@ void main() {
       testWidgets('$width ${brightness.name}: compact logo, spaced selector and aligned form', (tester) async {
         tester.platformDispatcher.platformBrightnessTestValue = brightness;
         addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
-        await pumpApp(tester, FakeAccountAuth());
+        await pumpLogin(tester, FakeAccountAuth());
         tester.view.physicalSize = Size(width, 844);
         tester.view.devicePixelRatio = 1;
         await tester.pumpAndSettle();
@@ -51,7 +51,7 @@ void main() {
     }
   }
   testWidgets('sending from a scrolled phone form opens OTP at the top', (tester) async {
-    await pumpApp(tester, FakeAccountAuth());
+    await pumpLogin(tester, FakeAccountAuth());
     tester.view.devicePixelRatio = 1;
     tester.view.physicalSize = const Size(360, 640);
     await tester.pumpAndSettle();
@@ -65,7 +65,7 @@ void main() {
   });
   testWidgets('verification stays disabled across keyboard changes and recovers from expiry', (tester) async {
     final auth = SlowVerifyAuth();
-    await pumpApp(tester, auth);
+    await pumpLogin(tester, auth);
     await tester.enterText(find.byKey(const Key('phone')), '9000000101');
     await tester.tap(find.byKey(const Key('send-code')));
     await tester.pumpAndSettle();
@@ -88,7 +88,7 @@ void main() {
     expect(auth.roleLookups, 0);
   });
   testWidgets('Verify stays visible when the OTP keyboard opens without manual scrolling', (tester) async {
-    await pumpApp(tester, FakeAccountAuth());
+    await pumpLogin(tester, FakeAccountAuth());
     await tester.enterText(find.byKey(const Key('phone')), '9000000101');
     await tester.tap(find.byKey(const Key('send-code')));
     await tester.pumpAndSettle();
@@ -102,13 +102,13 @@ void main() {
   testWidgets('English language selector fits at 200 percent on a narrow phone', (tester) async {
     tester.platformDispatcher.textScaleFactorTestValue = 2;
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
-    await pumpApp(tester, FakeAccountAuth());
+    await pumpLogin(tester, FakeAccountAuth());
     tester.view.physicalSize = const Size(360, 640);
     tester.view.devicePixelRatio = 1;
     await tester.pumpAndSettle();
   });
   testWidgets('phone entry uses approved lockup and verification copy', (tester) async {
-    await pumpApp(tester, FakeAccountAuth());
+    await pumpLogin(tester, FakeAccountAuth());
     expect(find.byKey(const Key('brand-lockup')), findsOneWidget);
     expect(find.text('English'), findsOneWidget);
     expect(find.text('+91'), findsOneWidget);
@@ -117,7 +117,7 @@ void main() {
 
   testWidgets('sending disables repeat submission and announces progress', (tester) async {
     final auth = SlowAuth();
-    await pumpApp(tester, auth);
+    await pumpLogin(tester, auth);
     await tester.enterText(find.byKey(const Key('phone')), '9000000101');
     await tester.tap(find.widgetWithText(FilledButton, 'Send verification code'));
     await tester.pump();

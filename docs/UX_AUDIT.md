@@ -1,5 +1,14 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+2026-11-13 13:44:37 IST — Screen01 Welcome locally verified after Screen04 #33.
+Original teal-shirt illustration, native Flutter copy/controls, explicit stored
+language, both same-login CTAs, valid-session bypass;87 tests including6AA checks
+and24 layout combinations PASS. Final real-render comparisons9configs complete.
+Unselected languages changed to outlines after visual review and recaptured.
+No original UX register finding erased or broadly closed; Pixel/native approval
+pending. Source support/policy gaps remain in the combined evidence README.
+
+
 2026-11-12 19:40:46 IST — Screen04 follow-up: explicit Save/partial recovery,
 truthful consent hierarchy and accessible labels implemented on isolated branch
 from #32. Family94/full suite and nine real-render configs PASS; physical/native
