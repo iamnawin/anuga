@@ -1,4 +1,4 @@
-import 'package:family_app/family_app.dart' show CareHeading, LanguageMenu;
+import 'package:family_app/family_app.dart' show CareHeading, CarePanel, LanguageMenu;
 import 'package:flutter/material.dart';
 
 /// Full-screen state between sign-in and a role home: checking, expired session,
@@ -46,13 +46,27 @@ class AccountStatusScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 16),
+              CarePanel(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(color: scheme.primaryContainer, shape: BoxShape.circle),
+                        child: Icon(icon, size: 36, color: scheme.primary),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Announced by screen readers as soon as the state changes.
+                    Semantics(liveRegion: true, child: CareHeading(title)),
+                    if (body != null) Text(body!, style: Theme.of(context).textTheme.bodyLarge),
+                  ],
+                ),
+              ),
               const SizedBox(height: 24),
-              Icon(icon, size: 48, color: scheme.primary),
-              const SizedBox(height: 24),
-              // Announced by screen readers as soon as the state changes.
-              Semantics(liveRegion: true, child: CareHeading(title)),
-              if (body != null) Text(body!, style: Theme.of(context).textTheme.bodyLarge),
-              const SizedBox(height: 32),
               if (busy)
                 const Center(child: CircularProgressIndicator())
               else ...[

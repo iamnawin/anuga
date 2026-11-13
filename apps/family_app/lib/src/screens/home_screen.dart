@@ -104,27 +104,47 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: constraints.maxHeight * 0.35),
+              constraints: BoxConstraints(maxHeight: constraints.maxHeight * 0.32),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
                       child: CarePanel(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Icons.person_outline, size: 32, color: Theme.of(context).colorScheme.primary),
+                            Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primaryContainer,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(Icons.person_outline, size: 24, color: Theme.of(context).colorScheme.primary),
+                            ),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(l10n.patientLabel, style: Theme.of(context).textTheme.bodySmall),
-                                  Text(selected.fullName, style: Theme.of(context).textTheme.titleMedium),
-                                  Text(selected.centreName, style: Theme.of(context).textTheme.bodyMedium),
+                                  Text(
+                                    l10n.patientLabel,
+                                    style: Theme.of(context).textTheme.labelMedium
+                                        ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                  ),
+                                  Text(
+                                    selected.fullName,
+                                    style: Theme.of(context).textTheme.titleMedium
+                                        ?.copyWith(fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    selected.centreName,
+                                    style: Theme.of(context).textTheme.bodyMedium
+                                        ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                  ),
                                 ],
                               ),
                             ),
@@ -134,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     if (patients.length > 1)
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                        padding: const EdgeInsets.fromLTRB(16, 6, 16, 0),
                         child: DropdownButtonFormField<String>(
                           key: const Key('patient-picker'),
                           itemHeight: null,

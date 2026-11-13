@@ -126,6 +126,15 @@ void main() {
     backend.trips['t1']!.status = TripStatus.cancelled;
     await tapVisible(tester, byKey('action-companion_en_route'));
     expect(find.text('This step is no longer possible. Refresh the trip.'), findsOneWidget);
+    expect(byKey('status'), findsOneWidget);
+  });
+
+  testWidgets('progress strip highlights current persisted stage and advances after step', (tester) async {
+    await pumpTrip(tester, TripStatus.scheduled);
+    expect(byKey('visit-progress'), findsOneWidget);
+    expect(byKey('visit-progress-current-0'), findsOneWidget);
+    await tapVisible(tester, byKey('action-companion_en_route'));
+    expect(byKey('visit-progress-current-1'), findsOneWidget);
   });
 
   testWidgets('reporting an issue needs a description', (tester) async {

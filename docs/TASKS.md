@@ -1,6 +1,21 @@
 # Tasks and milestones
 
-## Autonomous integration, UI and synthetic staging mission (2026-11-06) `[~]`
+## Complete UI/UX Modernization Workstream — Gemini CLI (2026-11-09) `[~]` (PR #29 7/7 CI green at `c4ced74`/`631ac5d` & Vercel Preview `dpl_6673mDsp1iZULg4uPa4SD8HPz2kC` READY; product decisions `DEC-01`/`DEC-02`/`DEC-05`, human `QA-002` & staging `REL-002` remain open)
+
+Authoritative audit register: `docs/UX_AUDIT.md`. Phased execution tracker: `docs/UX_IMPLEMENTATION_PLAN.md`.
+Isolated branch: `feat/anugacare-ui-modernization` in `D:\AI-Workspace\Ideas\Anuga` (branched from `origin/main` `ea6d142`, **PR #29** `https://github.com/iamnawin/anuga/pull/29`).
+Vercel Preview (team sign-in, non-prod): `https://anuga-ptkyex1az-iamnawins-projects.vercel.app` (`dpl_6673mDsp1iZULg4uPa4SD8HPz2kC`, built from `631ac5d` / code `c4ced74`).
+Concurrent Codex stream: PR #28 (`feat/g7-ui-staging` in `D:\AI-Workspace\Repos\anuga-trips-fix`).
+
+- [x] `WP-0`: Permanent Multi-Agent Handoff Policy in `AGENTS.md`, permanent UX audit register (`docs/UX_AUDIT.md` covering `UX-01`–`UX-08`, 5 product recommendations, and open founder decisions), implementation plan (`docs/UX_IMPLEMENTATION_PLAN.md`), and cross-agent handoff updates (`71fb555`).
+- [x] `WP-1`: Shared visual system & reusable components (`care_ui.dart`, `CareEmergencyBanner`, 9-stage `_VisitProgressStrip` compatible with PR #28).
+- [~] `WP-2`: Entry/authentication (`anugacare_app`) and Family experience modernization (`UX-01` & `UX-02` `Tested`; `UX-03` inline OTP card `Tested`, server re-read requires `DEC-01`; `UX-05` summary card `Tested`, native picker requires E2E selector update).
+- [~] `WP-3`: Patient-access priority experience and Companion experience modernization (`UX-02` `Tested`; `UX-04` visual separation `Tested`, time-gating `no_show` & intermediate step confirmations require `DEC-02`; `UX-08` emergency banner & 9-stage progress strip `Tested`, `tel:` launcher requires `url_launcher` approval).
+- [~] `WP-4`: Ops Console modernization across `globals.css` and `exceptions/page.tsx` (`UX-07` visual hierarchy & 0 lint warnings `Tested`; auto-confirmation on companion assignment requires `DEC-05`).
+- [~] `WP-5`: Localization (`EN` / `TE` / `HI` terminology cleanup for `UX-06` in `app_te.arb` & `app_hi.arb` `Tested`; English `Ops` strings retained for existing test contracts; flagged for human review `QA-002`), responsive mobile/tablet layouts, and 200% text-scaling accessibility.
+- [x] `WP-6`: Full regression verification (`pnpm db:test` 209/209, `ops_console` 70/70, `shared_dart` 29/29, `family_app` 58/58, `companion_app` 58/58, `anugacare_app` 39/39) and **PR #29** (`c4ced74`) passing all 7 GitHub Actions CI jobs in run `42625907826` (`db-tests`, `shared-dart`, `ops-console`, `companion-app`, `family-app`, `anugacare-app`, `supabase-local`).
+
+## Autonomous integration, UI and synthetic staging mission (2026-11-06 / 2026-11-07) `[~]`
 
 Authoritative atomic task status and fixed weights live in
 `docs/PROGRESS_LEDGER.md`; resume instructions live in `docs/RECOVERY.md`.
@@ -8,26 +23,22 @@ Authoritative atomic task status and fixed weights live in
 - [x] `STATE-001`: durable execution/recovery records pushed at `7a06f1b`;
       corrected full local Unlazy gate passes.
 - [x] `INT-001`: reconcile main, worktrees, PRs #21-#27, CI and migrations.
-- [~] `INT-002`: integrate the implemented/green #22-#27 stack into main in
-      dependency order; not yet merged.
-- [~] `UI-001`: reconcile the three new reference boards with approved tokens and
-      supported functionality; boards are not runtime evidence.
-- [~] `UI-002` / `UI-003` / `UI-004`: preserve existing implemented Family and
-      Companion flows; audit supported Patient view and make only evidence-backed
-      targeted UI changes after stack integration.
+- [x] `INT-002`: integrate the implemented/green #22-#27 stack into main in
+      dependency order (`a8109ae`, `5b838b6`, `8d175b4`, `038fb67`, `88b0c0b`, `ea6d142`).
+- [x] `UI-001`: reconcile the three new reference boards with approved tokens and
+      supported functionality; 17 PR #28 screenshots retained from CI `42342439646`.
+- [~] `UI-002` / `UI-003` / `UI-004`: Codex PR #28 (`feat/g7-ui-staging`, `7fa7cb2`) implements the 9-stage progress strip (CI `42343362420` 7/7 green); Gemini `feat/anugacare-ui-modernization` implements full `UX-01`â€“`UX-08` UI/UX modernization in parallel.
 - [ ] `NAV-001`: verify configured navigation capability; prefer a truthful
       external handoff over fabricated map/ETA UI.
 - [~] `PWA-001`: prior implementation exists; target deployed install/session/
       cache behavior and physical-device acceptance remain open.
-- [x] `QA-001`: current PR #27 real-Supabase CI journeys pass; rerun on integrated
-      main and deployed synthetic staging.
+- [x] `QA-001`: current PR #27 (`42203978157`) and PR #28 (`42343362420`) real-Supabase CI journeys pass; rerun after UI modernization integration and on deployed synthetic staging.
 - [!] `QA-002`: physical Android and human Telugu/Hindi/healthcare wording review
       require named people and remain NOT TESTED.
-- [~] `REL-001`: PR/CI completion in progress; no stack merge yet.
-- [ ] `REL-002`: hosted identity/history/recovery verification, migrations,
-      deployment and post-deploy journey not started.
+- [~] `REL-001`: #22-#27 merged to `main` (`ea6d142`); PR #28 reviewed and green (`7fa7cb2`); Gemini UI modernization PR in progress on `feat/anugacare-ui-modernization`.
+- [!] `REL-002`: Vercel identity inspected (`dpl_AEj5XTiyqYPynhzgkQGzX7zvuzQN`); Supabase management token unavailable (`Access token not provided`); hosted migrations and deployment remain blocked.
 
-Current mission progress: implemented 61/100, verified 23/100, merged 0/100,
+Current mission progress: implemented 73/100, verified 65/100, merged 23/100,
 deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
 
 ## PR #27 CI fixture repair (2026-11-06) `[x]`
@@ -175,7 +186,7 @@ deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
       2026-11-01 00:00 IST. Rerun count not independently evidenced.
 - [x] Asha identity/Previous/Today/Upcoming on `/app/`.
 - [x] Browser refresh, stale responses, Retry (**injected-error test**).
-- [x] Browser Family → Asha switching and Asha protected-view denials.
+- [x] Browser Family â†’ Asha switching and Asha protected-view denials.
 - [x] Ops 9000000001 live identity, console guidance, cleared session and
       Back to sign in navigation; sanitized ops-access.json. No new /ops/ journey.
 - [x] Follow-up PR #18 opened. Founder now authorizes ready/merge after final-head
@@ -198,10 +209,10 @@ deployed-and-verified 0/100. See the ledger for evidence and calculation rules.
 Build one milestone at a time. A milestone is done only when its acceptance checks have run and
 passed; record results (and checks that could not run) in `docs/HANDOFF.md`.
 
-Goal of M1-M7, the **first working journey**: ops assigns a companion → family sees the booking →
-companion completes pickup and hospital handover → family receives status → return journey completes.
+Goal of M1-M7, the **first working journey**: ops assigns a companion â†’ family sees the booking â†’
+companion completes pickup and hospital handover â†’ family receives status â†’ return journey completes.
 
-Status: `[x]` done and verified · `[~]` in progress · `[ ]` not started · `[!]` blocked
+Status: `[x]` done and verified Â· `[~]` in progress Â· `[ ]` not started Â· `[!]` blocked
 
 ## M0. Repo foundation `[x]`
 

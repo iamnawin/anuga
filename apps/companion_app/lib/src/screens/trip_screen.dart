@@ -181,7 +181,9 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
       await action();
     } catch (e) {
       if (mounted) {
-        _trip = null;
+        if (e is RpcException && e.isNotAllowed) {
+          _trip = null;
+        }
         _otp.clear();
         _error = _describe(e, AppLocalizations.of(context));
       }
@@ -298,7 +300,9 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(statusLabel(l10n, _status), style: theme.textTheme.titleLarge),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 12),
+                          _VisitProgressStrip(status: _status),
+                          const SizedBox(height: 12),
                           Text(l10n.pickupAt(formatIstTime(trip.scheduledPickupAt, locale))),
                           Text(l10n.returnAt(formatIstTime(trip.scheduledReturnAt, locale))),
                         ],
@@ -357,8 +361,13 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                 Text(l10n.tripClosed, style: theme.textTheme.titleMedium),
                 const SizedBox(height: 16),
               ],
-              for (final action in actions) ...[
-                if (action.to == TripStatus.companionEnRoute && _tooEarlyToStart) ...[
+              for (var i = 0; i < actions.length; i++) ...[
+                if (i > 0 &&
+                    (actions[i].kind == TripActionKind.noShow || actions[i].kind == TripActionKind.reportIssue) &&
+                    actions[i - 1].kind != TripActionKind.noShow &&
+                    actions[i - 1].kind != TripActionKind.reportIssue)
+                  const Divider(height: 28),
+                if (actions[i].to == TripStatus.companionEnRoute && _tooEarlyToStart) ...[
                   Text(
                     l10n.startOpensAt(formatIstTime(trip.startAllowedAt!, locale)),
                     key: const Key('start-opens'),
@@ -366,7 +375,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                   ),
                   const SizedBox(height: 8),
                 ],
-                if (action.kind == TripActionKind.verifyPickupOtp)
+                if (actions[i].kind == TripActionKind.verifyPickupOtp)
                   TextField(
                     key: const Key('otp'),
                     controller: _otp,
@@ -376,18 +385,18 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                   ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: action.kind == TripActionKind.noShow || action.kind == TripActionKind.reportIssue
+                  child: actions[i].kind == TripActionKind.noShow || actions[i].kind == TripActionKind.reportIssue
                       ? OutlinedButton(
-                          key: Key('action-${action.kind.name}'),
-                          onPressed: _busy ? null : () => _perform(action),
-                          child: Text(actionLabel(l10n, action)),
+                          key: Key('action-${actions[i].kind.name}'),
+                          onPressed: _busy ? null : () => _perform(actions[i]),
+                          child: Text(actionLabel(l10n, actions[i])),
                         )
                       : FilledButton(
-                          key: Key('action-${action.to.dbValue}'),
-                          onPressed: _busy || (action.to == TripStatus.companionEnRoute && _tooEarlyToStart)
+                          key: Key('action-${actions[i].to.dbValue}'),
+                          onPressed: _busy || (actions[i].to == TripStatus.companionEnRoute && _tooEarlyToStart)
                               ? null
-                              : () => _perform(action),
-                          child: Text(actionLabel(l10n, action)),
+                              : () => _perform(actions[i]),
+                          child: Text(actionLabel(l10n, actions[i])),
                         ),
                 ),
               ],
@@ -402,6 +411,49 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
           ),
         ),
       ),
+    );
+  }
+}
+
+const _visitProgressStatuses = <TripStatus>[
+  TripStatus.scheduled,
+  TripStatus.companionEnRoute,
+  TripStatus.pickedUp,
+  TripStatus.atCentre,
+  TripStatus.handedOver,
+  TripStatus.sessionDone,
+  TripStatus.returning,
+  TripStatus.droppedHome,
+  TripStatus.completed,
+];
+
+class _VisitProgressStrip extends StatelessWidget {
+  const _VisitProgressStrip({required this.status});
+
+  final TripStatus status;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final currentStage = _visitProgressStatuses.indexOf(status);
+    return Row(
+      key: const Key('visit-progress'),
+      children: [
+        for (var i = 0; i < _visitProgressStatuses.length; i++) ...[
+          if (i > 0) const SizedBox(width: 4),
+          Expanded(
+            child: Container(
+              key: Key('visit-progress-stage-$i'),
+              height: i == currentStage ? 10 : 6,
+              decoration: BoxDecoration(
+                color: currentStage >= 0 && i <= currentStage ? scheme.primary : scheme.outlineVariant,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: i == currentStage ? SizedBox.expand(key: Key('visit-progress-current-$i')) : null,
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

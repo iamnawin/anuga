@@ -42,9 +42,10 @@ function ExceptionQueue() {
 
   useEffect(() => {
     mounted.current = true;
+    const req = request;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void load();
-    return () => { mounted.current = false; ++request.current; };
+    return () => { mounted.current = false; ++req.current; };
   }, [load]);
 
   const move = async (row: ExceptionRow, to: TripStatus) => {

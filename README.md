@@ -130,9 +130,11 @@ or browser checks do not count as physical-device verification.
 
 - [Product spec](docs/PRODUCT_SPEC.md) ? users, service scope and permissions.
 - [Architecture](docs/ARCHITECTURE.md) ? components, data flow and access boundaries.
+- [UX & Accessibility Audit (`UX_AUDIT.md`)](docs/UX_AUDIT.md) ? permanent UX findings (`UX-01`â€“`UX-08`), product recommendations and open founder decisions.
+- [UX Implementation Plan (`UX_IMPLEMENTATION_PLAN.md`)](docs/UX_IMPLEMENTATION_PLAN.md) ? phased UI modernization work packages and lifecycle status.
 - [Tasks](docs/TASKS.md) ? milestones and acceptance criteria.
 - [Handoff](docs/HANDOFF.md) ? current work, validation and exact next steps.
-- [Contributor instructions](AGENTS.md) ? repository rules for coding agents.
+- [Contributor instructions](AGENTS.md) ? repository rules and permanent multi-agent handoff policy.
 
 Remaining limits carry forward: no new signed-in `/ops/` journey, hosted fixture
 cleanup pending, and fixtures must be refreshed before future trip-grouping checks.

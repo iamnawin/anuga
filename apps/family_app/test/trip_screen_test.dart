@@ -62,6 +62,9 @@ void main() {
     expect(find.text('482913'), findsOneWidget);
     expect(find.textContaining('Only the newest code works'), findsOneWidget);
     expect(backend.visits['t1']!.otp, '482913');
+    await tapVisible(tester, find.text('Close'));
+    expect(byKey('active-pickup-code-card'), findsOneWidget);
+    expect(find.text('482913'), findsOneWidget);
   });
 
   testWidgets('if the database refuses the code, the user is told', (tester) async {
@@ -94,6 +97,7 @@ void main() {
     await tapVisible(tester, byKey('cancel-trip'));
     await tapVisible(tester, find.descendant(of: find.byType(AlertDialog), matching: find.text('Cancel this visit')));
     expect(find.text('This is no longer possible. Refresh the visit.'), findsOneWidget);
+    expect(byKey('status'), findsOneWidget);
     expect(backend.visits['t1']!.status, TripStatus.companionEnRoute);
   });
 
