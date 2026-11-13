@@ -11,6 +11,98 @@
 - [ ] Backend for acceptance records and consent evidence (gaps G1 to G4, G7).
 - Draft PR on `feat/legal-documents`. Not merged, not deployed, no migrations.
 
+### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / group1-CI-tab-semantics.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** 35a20fc83656489e0468f81946f5027517661dfe; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** Replacement CI43438812876: sixSUCCESS, supabase-localFAILED on rolebutton Visits selector. Corrected both existing browser journeys to role tab for Visits/More, with4 passing unified semantic-role assertions. Production widgets unchanged. Repeated scripts/check-all.sh ALL CHECKS PASSED (Family109/6skip, unified91). No weakened backend assertions or new skips. Next: replacement CI on this fix, thenGroup2.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
+### Agent Session - 2026-11-13 19:31:13 IST - FAMILY-V2 group1-CI-navigation-fix
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / group1-CI-navigation-fix.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** 5283415bac05ddac8ae5faf001ba46ef2b4efbce; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** Group1 source5283415 pushed to draftPR37 byiamnawin. CI43437185702: sixSUCCESS, supabase-localFAILED on obsolete Request care landing selector. Adapted only two existing Ops browser-test files for Home->Visits after sign-in/reload and More confirmed signout; retained backend assertions. Playwright discovery2 PASS (not execution), Docker unavailable locally. Repeated scripts/check-all.sh ALL CHECKS PASSED: Family109/6skip, unified91 and unchanged broad counts. Replacement CI pending; do not startGroup2 until corrected.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
+### Agent Session - 2026-11-13 19:20:13 IST - FAMILY-V2 group1
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / group1.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** b834b53fbc19952e86161d3bdb049354dfb78291; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** F12/F13/F34/F35 and access-specific shell built. Added15 Home regressions and4 unified access/session tests, existing navigation expectations adapted. Final scripts/check-all.sh PASS: DB209/11skip, Ops70, shared29, Companion58/3skip, Family109/6skip, unified91; analyzers/format PASS. Nine actual renders; reviewer findings fixed. Source changes confined to Family UI/l10n and app tests; no app.dart/auth/adapter/Companion source edits.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
+### Agent Session - 2026-11-13 19:05:48 IST - FAMILY-V2 startup
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / startup.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** b834b53fbc19952e86161d3bdb049354dfb78291; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** Isolated main-based branch created. Baseline flutter test: Family 94 passed/6 existing skips; unified 87 passed. Dependency resolution passed. Specification and four boards inspected; existing adapters retained.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
 ## Authorized source merge — 2026-11-13 14:09:07 IST
 
 - [x] All current UI changes pushed; latest #29/#32/#33/#34 heads had seven CI

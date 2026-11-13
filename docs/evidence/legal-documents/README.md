@@ -24,9 +24,9 @@ Worktree: `D:\AI-Workspace\Repos\anuga-legal-documents`. Checkpoint: 2026-11-13 
 | Command | Where | Result |
 |---|---|---|
 | `flutter analyze --fatal-infos` | `apps/family_app` | No issues |
-| `flutter test` | `apps/family_app` | 126 passed, 6 skipped (existing skips), 0 failed |
+| `flutter test` | `apps/family_app` | 141 passed, 6 skipped (existing skips), 0 failed (after merging main e8e0063) |
 | `flutter analyze --fatal-infos` | `apps/anugacare_app` | No issues |
-| `flutter test` | `apps/anugacare_app` | 87 passed, 0 failed |
+| `flutter test` | `apps/anugacare_app` | 91 passed, 0 failed (after merging main e8e0063) |
 | `flutter test test/support/capture_legal.dart` | `apps/family_app` | 1 passed; wrote the images below |
 
 Not run: `pnpm db:test`, `scripts/check-all.sh`, ops console checks, companion app tests (no SQL, shared Dart, ops or companion source changed). CI: see the pull request.
@@ -50,4 +50,4 @@ Rendered from the real widgets by the test harness at 390 x 844, using a local s
 - Lawyer review of `docs/legal/lawyer-review-pack.md`; founder to fill Part H first.
 - Native-speaker review of the seven Telugu and Hindi labels.
 - Physical-phone and screen-reader check.
-- Possible merge conflict with PR #37 in `apps/family_app/lib/l10n/*.arb` and, if it restyles the consent screen, in `consent_screen.dart`. The change here is one import pair and one inserted block.
+- PR #37 merged to main during this task; main e8e0063 is merged into this branch. Only the four shared handoff documents conflicted (both sides kept).
