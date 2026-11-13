@@ -2,6 +2,8 @@
 
 Date: 2026-11-12. Paste one board prompt into your image tool at a time. Each is self-contained and repeats the shared style so the boards match.
 
+**Update 2026-11-13:** the family prompts in boards 1 to 7 are replaced by section 6 of `screen_mockups/Family_Screens_FINAL_Spec_v1.md` (boards FAM-1 to FAM-9). Use those instead.
+
 **Direction only, not specification.** Where a mockup shows a map, avatar or companion detail, the real app follows `docs/design/tokens.md`: no live map, ETA, countdown, notification count or verification badge, and no avatar photos until the design contract is changed. The map in F2 (home location) and the map preview in F15 are ideas to decide on. F37 (Medicines) is on hold: it is clinical, so ask before building. A2 (Sign in) is already built in PR #32 and is not in these boards.
 
 Tips: if the tool garbles small text, generate each board twice and pick the cleaner one, or ask for 'two screens per image' and combine. Prices are test values from one dialysis scenario.

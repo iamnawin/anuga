@@ -69,6 +69,8 @@ Companion to `AnugaCare_App_Navigation_and_Screen_Map.md`. Status sources: `docs
 
 ### Family: main app
 
+Final spec for the family and patient screens (approved 2026-11-13): `screen_mockups/Family_Screens_FINAL_Spec_v1.md` (decisions FD1 to FD9). Where this table and the spec differ, the spec wins. The spec gates F1 to F11, F17, F24 to F26, F29 and F33 behind backend proposals or ADRs, so their priorities below are not build instructions.
+
 | ID | Screen | Status | Priority | Mockup | What to change or add |
 |---|---|---|---|---|---|
 | F12 | Home | CHANGE | P0 | Prompt | Next-visit card, progress bar, plan card, quick actions |
@@ -97,6 +99,7 @@ Companion to `AnugaCare_App_Navigation_and_Screen_Map.md`. Status sources: `docs
 | F35 | Patient-access variant of Home | CHANGE | P1 | None | Own next visit, pickup code, updates |
 | F36 | Requests ('I need...') | SPEC | P2 | None | In spec, not built |
 | F37 | Medicines | SPEC | P2 | None | Clinical: ask before building (repo rule) |
+| F38 | Request a visit (care request) | CHANGE | P0 | Prompt | Exists on main (added 2026-11-13, missed earlier; not included in the totals in section 1). Restyle only |
 
 ### Companion app
 
