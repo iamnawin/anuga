@@ -1,5 +1,30 @@
 # Handoff
 
+### Agent Session - 2026-11-13 20:36:36 IST - root Welcome verified live
+
+**Agent:** Codex.
+**Role / responsibility:** Own root-entry routing correction and live evidence.
+**Session start (IST):** 2026-11-13 20:27:44 (first captured task clock).
+**Task ID / Name:** ROOT-ENTRY-20261113 / remove chooser as first screen.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-publish-2026-11-13.
+**Branch:** docs/welcome-root-live-2026-11-13 (receipt only, from routing main29a8356).
+**Starting commit:** Application base e8e0063862a5407d78f4004be637ce7a612382f3; receipt base29a8356ea6c68e01afca962035fefaf6a68d70a3.
+**Current commit:** Routing main29a8356 verified; later evidence commit contains this entry and is identified by Git.
+**PR:** #41 own routing fix MERGED; this documentation receipt follows separately. #40 remains OPEN/unmerged.
+**Scope:** Exact root307 -> /app/ and HTML forwarding fallback only; no other agent component integration.
+**Completed work:** Removed chooser from builder output, reviewed four-line insertion/old HTML removal, preserved routes, merged only own #41, reused verified app bytes, published and visually verified Welcome from bare root.
+**Files changed:** Only root-entry evidence and mandatory shared tracking in this receipt; product change was scripts/build-staging.sh in #41.
+**Tests and actual results:** Shell syntax/config/index/order/no-loop checks PASS. Live root307/Location/app/no-store PASS; browser root navigation ends/app and shows Welcome with artwork, no chooser. Ops login200; all prior app bundle hashes match byte-for-byte. Root screenshot visually inspected; no hosted data/session mutation.
+**CI evidence:** Unchanged application source e8e0063 run43443795283 SUCCESS7; its exact artifacts reused. Routing main43448459235 IN_PROGRESS at checkpoint; no pending CI called passed.
+**Merge status:** Only new Codex-owned PR #41 merged under the explicit root-screen request. No #28/#36/#40 or other component merge.
+**Deployment and migration status:** READY dpl_Hh646SE3ibGmxdFQe23oYjBsYjuC; existing synthetic alias anuga.vercel.app. Application e8e0063 unchanged, routing4856121/main29a8356. No database/RLS/consent/provider/migration change.
+**Decisions and assumptions:** Signed-out root visitors see Welcome first; valid sessions keep existing role Home. Earlier prohibition on other-agent component merges remains in force.
+**Blockers:** None for root entry. Existing backend recovery/hardening, physical/native and production gates unchanged.
+**Uncommitted changes:** Own documentation/evidence before commit only; builds/logs ignored and all other worktrees preserved.
+**Exact next action:** Push this receipt as OPEN/unmerged PR; founder reloads bare site URL. STOP with no further merges or rollout.
+**Next responsible agent:** Founder for visual confirmation; Codex only on next explicit scope.
+
+
 ### Agent Session - 2026-11-13 20:31:07 IST - own root entry routing fix
 
 **Agent:** Codex.

@@ -1,5 +1,8 @@
 # Tasks and milestones
 
+2026-11-13 20:36:36 IST - ROOT-ENTRY-20261113 COMPLETE. Explicit founder request to replace chooser with Welcome was fulfilled by Codex-owned routing PR #41 only (head4856121, merge29a8356). READY deployment dpl_Hh646SE3ibGmxdFQe23oYjBsYjuC at anuga.vercel.app. Executed live root307 -> /app/ with no-store, browser landed on signed-out Welcome with artwork, chooser absent, Ops login200, all existing app bundle hashes unchanged. App source remains e8e0063 (seven CI successes43443795283); new routing main CI43448459235 is IN_PROGRESS at this observation, not claimed passed. No auth/DB/provider/session changes or other component merges. PR #40 stays OPEN/unmerged. Final evidence under docs/evidence/welcome-root-entry-2026-11-13/. This later own documentation receipt is for review only; STOP, no additional merges.
+
+
 2026-11-13 20:31:07 IST - ROOT-ENTRY-20261113: founder explicitly requests main URL Welcome instead of chooser. Own fix/welcome-root-entry from e8e0063 changes only root routing/fallback in scripts/build-staging.sh; six tracking files/evidence record it. Local syntax/config/order/no-loop checks PASS and existing application bundles byte-identical. Live redeploy/test pending. No other agent component merge authorized; #40 remains unmerged, other worktrees untouched. Signed-in session behavior and production gates unchanged. Next: publish and verify own root fix.
 
 

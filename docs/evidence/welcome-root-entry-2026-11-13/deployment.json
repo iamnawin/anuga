@@ -1,0 +1,12 @@
+{
+  "deployment_id": "dpl_Hh646SE3ibGmxdFQe23oYjBsYjuC",
+  "url": "https://anuga.vercel.app",
+  "status": "READY",
+  "application_source": "e8e0063862a5407d78f4004be637ce7a612382f3",
+  "routing_source": "4856121d7d74e06802004fda83ab4b9349ec974d",
+  "routing_main_merge": "29a8356ea6c68e01afca962035fefaf6a68d70a3",
+  "same_routing_head_and_merge_tree": "7bd9f8e1912c1b9813e3ad89435903a89201bef5",
+  "checkpoint_ist": "2026-11-13 20:36:36",
+  "other_components_merged": false,
+  "hosted_data_changes": false
+}
