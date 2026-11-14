@@ -1,5 +1,30 @@
 # Handoff
 
+2026-11-14 20:08:36 IST - COMPANION-TEST-ACCESS: full check-all ALL CHECKS PASSED (DB209/11skip, Ops70/build, shared39, legacyCompanion58/3skip, Family181/6skip, unified162); focusedCompanion65 and analyzer pass. Navigation code not yet live. Font47 approved and merged d5e3f39; production alias READY dpl_6WYYtt1AWoJ2PLYykCUteu8LiLGb created20:04:43IST; promoted bundle SHA C7BD6B3D5DF8E13052F132E6783D6B30C65E5F56279138354D09048105E6F834 matches local, browser shows Text size Standard. Direct main-domain fetch timed out locally, Vercel authenticated artifact and alias mapping verified. Next integrate current main so navigation includes fonts, release preview and CI.
+
+
+### Agent Session - 2026-11-14 20:05:45 IST - Companion test access and map fix
+
+**Agent:** Codex; diagnose/repair Companion navigation and synthetic test readiness.
+**Task ID / Name:** COMPANION-TEST-ACCESS-20261114.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-companion-test-access.
+**Branch:** fix/companion-test-visit-access.
+**Starting commit:** 67cca2ec2434d6870f66b05596f4791de9e92c72; first captured session clock19:48:30 IST.
+**Current commit:** Own changes pending task commit.
+**PR:** Pending.
+**Scope:** Founder reports map/Start stuck on first Companion screen.
+**Completed work:** Verified old Asha visits startNov16, details hidden; Ravi none. Created one current-window synthetic visit via existing owner request/Ops confirm/assign RPCs, pickupNov14 20:23 IST, Asha9000000201, exact tripf85106fd-1408-4192-9702-67dd06d9f9e0. Left scheduled/unstarted. Web geo link replaced HTTPS directions; authorized home coordinates preferred; Start message adds date. Guards retained.
+**Files changed:** Companion UI/trip screen, focused tests, tracking/evidence including fixture receipt.
+**Tests and actual results:** Date/coordinate regressions RED; analyzer clean; Companion65 PASS. Full check-all running. No native-device launch claim.
+**CI evidence:** Navigation CI not created. Separate font source5509d4d CI43603097816 sevenSUCCESS; receiptbf5a531 CI43604067348 green before approved #47 merge.
+**Merge status:** Navigation unmerged. Founder explicitly approved font47 merge/publication;47 merged d5e3f39, promotion command succeeded, live hash verification underway.
+**Deployment and migration status:** Navigation not deployed. Font preview promotion created dpl_6WYYtt1AWoJ2PLYykCUteu8LiLGb. Synthetic fixture created by permitted app RPCs; no migrations/RLS/auth/provider edits.
+**Decisions and assumptions:** No overwritten journey; stale fixtures and phone-only web map protocol caused symptoms. Real timing/privacy restrictions preserved. All data synthetic.
+**Blockers:** Full navigation checks/build/browser/PR delivery pending; font live hash check pending.
+**Uncommitted changes:** Own code/tests/evidence before commit.
+**Exact next action:** Complete validation, reconcile merged font source, build browser preview and publish only within applicable approval. Refresh Today asAsha201 for20:23 test visit.
+**Next responsible agent:** Codex; founder for synthetic walkthrough/native acceptance.
+
 2026-11-14 18:42:04 IST - UI-PUBLICATION evidence correction (Codex, D:/AI-Workspace/Repos/anuga-ui-publication, docs/ui-live-proof-2026-11-14 from872ac9d): restored the live browser tab's normal1920x855 viewport and replaced the incorrectly scaled live-family-home-desktop.png from the viewport override. Reload still preserves Family sign-in and new Booked/Request a visit UI. No app, deployment, database or provider change; production remains dpl_B8UMsvF9VE1PpuL52xAEWYiwDDVL, sourceCI43597122368 seven SUCCESS. Receipt45 MERGED872ac9d; this image-only follow-up has its own Git/PR metadata. Browser viewport restored; temporary local server already stopped. Next: deliver live URL/evidence; founder phone review.
 
 

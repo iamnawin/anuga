@@ -150,6 +150,36 @@ void main() {
   setUp(() => companionNetworkOnline.value = true);
   tearDown(() => companionNetworkOnline.value = true);
 
+  test('web navigation uses an encoded HTTPS directions URL on every browser platform', () {
+    const destination = '17.4,78.4';
+    for (final platform in [TargetPlatform.windows, TargetPlatform.android, TargetPlatform.iOS]) {
+      final uri = companionMapUri(destination, isWeb: true, platform: platform);
+      expect(uri.scheme, 'https');
+      expect(uri.host, 'www.google.com');
+      expect(uri.path, '/maps/dir/');
+      expect(uri.queryParameters, {'api': '1', 'destination': destination});
+    }
+    final address = companionMapUri('Lake View & Main Road, హైదరాబాద్', isWeb: true, platform: TargetPlatform.windows);
+    expect(address.queryParameters['destination'], 'Lake View & Main Road, హైదరాబాద్');
+  });
+
+  test('native Android and iOS retain their map app links', () {
+    final android = companionMapUri('17.4,78.4', isWeb: false, platform: TargetPlatform.android);
+    final ios = companionMapUri('17.4,78.4', isWeb: false, platform: TargetPlatform.iOS);
+    expect(android.scheme, 'geo');
+    expect(ios.scheme, 'maps');
+    expect(android.queryParameters['q'], '17.4,78.4');
+    expect(ios.queryParameters['q'], '17.4,78.4');
+  });
+
+  testWidgets('hidden stale home coordinates do not enable navigation', (tester) async {
+    final backend = _Backend(TripStatus.scheduled)..visible = false;
+    final trip = CompanionTrip.fromJson({...backend.row, 'home_lat': 17.4, 'home_lng': 78.4});
+    await _pump(tester, CompanionTripScreen(api: backend.api, trip: trip, clock: () => _now));
+    expect(tester.widget<OutlinedButton>(_key('navigate')).onPressed, isNull);
+    expect(backend.writes, isEmpty);
+  });
+
   testWidgets('visit cards expose their persisted ID for browser journeys', (tester) async {
     final semantics = tester.ensureSemantics();
     try {
@@ -236,6 +266,30 @@ void main() {
     expect(tester.widget<FilledButton>(_key('start-journey')).onPressed, isNull);
     expect(backend.writes, isEmpty);
     await tester.pumpWidget(const SizedBox()); // Dispose the future start timer.
+  });
+
+  testWidgets('C5 future start message includes the opening date, not only a clock time', (tester) async {
+    final backend = _Backend(TripStatus.scheduled)..startAllowedAt = _now.add(const Duration(days: 1));
+    await _trip(tester, backend);
+    expect(find.textContaining('You can start from Fri, Nov 13, 2026'), findsOneWidget);
+    expect(tester.widget<FilledButton>(_key('start-journey')).onPressed, isNull);
+    expect(backend.writes, isEmpty);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('Navigate prefers authorized home coordinates over an unresolvable sample address', (tester) async {
+    const channel = MethodChannel('plugins.flutter.io/url_launcher');
+    Uri? destination;
+    tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, (call) async {
+      destination = Uri.parse((call.arguments as Map<Object?, Object?>)['url']! as String);
+      return true;
+    });
+    addTearDown(() => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(channel, null));
+    final backend = _Backend(TripStatus.scheduled);
+    final trip = CompanionTrip.fromJson({...backend.row, 'home_lat': 17.4, 'home_lng': 78.4});
+    await _pump(tester, CompanionTripScreen(api: backend.api, trip: trip, clock: () => _now));
+    await _tap(tester, 'navigate');
+    expect(destination!.queryParameters['q'], '17.4,78.4');
   });
 
   testWidgets('C7 validates six digits, handles server attempts and locks at zero', (tester) async {

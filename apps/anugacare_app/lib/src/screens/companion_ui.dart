@@ -206,10 +206,19 @@ class CompanionProgress extends StatelessWidget {
 
 Future<bool> companionExternal(Uri uri) async {
   try {
-    return await launchUrl(uri, mode: LaunchMode.externalApplication);
+    return await launchUrl(uri, mode: kIsWeb ? LaunchMode.platformDefault : LaunchMode.externalApplication);
   } catch (_) {
     return false;
   }
+}
+
+Uri companionMapUri(String destination, {required bool isWeb, required TargetPlatform platform}) {
+  if (isWeb) {
+    return Uri.https('www.google.com', '/maps/dir/', {'api': '1', 'destination': destination});
+  }
+  return platform == TargetPlatform.iOS
+      ? Uri(scheme: 'maps', queryParameters: {'q': destination})
+      : Uri(scheme: 'geo', path: '0,0', queryParameters: {'q': destination});
 }
 
 class CompanionRoute extends StatelessWidget {
@@ -221,10 +230,13 @@ class CompanionRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final home = trip.detailsVisible ? trip.homeAddress : null;
+    final homeDestination = trip.detailsVisible && trip.homeLat != null && trip.homeLng != null
+        ? '${trip.homeLat},${trip.homeLng}'
+        : home;
     final currentStatus = status ?? trip.status;
     final destination =
         returning || currentStatus == TripStatus.scheduled || currentStatus == TripStatus.companionEnRoute
-        ? home
+        ? homeDestination
         : trip.centreAddress;
     final homeRow = _Place(icon: Icons.home_outlined, label: l.homeAddress, value: home ?? l.detailsHidden);
     final centreRow = _Place(icon: Icons.apartment_outlined, label: trip.centreName, value: trip.centreAddress);
@@ -257,9 +269,7 @@ class CompanionRoute extends StatelessWidget {
             onPressed: destination == null || destination.trim().isEmpty || companionIsOffline(context)
                 ? null
                 : () async {
-                    final uri = defaultTargetPlatform == TargetPlatform.iOS
-                        ? Uri(scheme: 'maps', queryParameters: {'q': destination})
-                        : Uri(scheme: 'geo', path: '0,0', queryParameters: {'q': destination});
+                    final uri = companionMapUri(destination, isWeb: kIsWeb, platform: defaultTargetPlatform);
                     final opened = await companionExternal(uri);
                     if (!opened && context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.cCannotOpen)));
