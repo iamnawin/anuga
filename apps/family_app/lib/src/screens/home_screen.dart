@@ -4,7 +4,6 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import '../app.dart';
-import '../labels.dart';
 import '../payments.dart';
 import '../photo_source.dart';
 import '../vault_files.dart';
@@ -267,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     if (_error != null && selected == null) {
       body = Padding(
         padding: const EdgeInsets.all(16),
-        child: FamilyStateNotice(describeError(l10n, _error!), onRetry: _load),
+        child: FamilyFailureNotice(_error!, onRetry: _load),
       );
     } else if (_patients == null) {
       body = Center(child: Text(l10n.loading));
@@ -373,7 +372,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             if (_error != null && selected != null)
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: FamilyStateNotice(describeError(l10n, _error!), onRetry: _load),
+                child: FamilyFailureNotice(_error!, onRetry: _load),
               ),
             Expanded(
               key: const Key('family-content'),

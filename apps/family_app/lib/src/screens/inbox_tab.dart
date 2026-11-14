@@ -3,6 +3,7 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import 'care_ui.dart';
+import 'family_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 
@@ -92,12 +93,7 @@ class _InboxTabState extends State<InboxTab> with WidgetsBindingObserver {
               ),
             ],
           ),
-          if (_error != null)
-            Text(
-              describeError(l10n, _error!),
-              key: const Key('updates-error'),
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
+          if (_error != null) FamilyFailureNotice(_error!, key: const Key('updates-error')),
           if (items == null && _error == null) Text(l10n.loading),
           if (items != null && items.isEmpty) Text(l10n.noUpdates),
           for (final n in items ?? const <InboxNotification>[])

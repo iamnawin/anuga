@@ -3,6 +3,7 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import 'care_ui.dart';
+import 'family_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 import '../photo_source.dart';
@@ -169,12 +170,7 @@ class _RecordsTabState extends State<RecordsTab> {
               ),
             ),
           if (_info != null) Text(_info!, key: const Key('records-info')),
-          if (_error != null)
-            Text(
-              describeError(l10n, _error!),
-              key: const Key('records-error'),
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
+          if (_error != null) FamilyFailureNotice(_error!, key: const Key('records-error')),
           if (docs == null && _error == null) Text(l10n.loading),
           if (docs != null && docs.isEmpty) Text(l10n.noRecords),
           for (final doc in docs ?? const <VaultDocument>[])

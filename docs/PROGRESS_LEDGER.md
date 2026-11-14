@@ -31,6 +31,11 @@
 2026-11-14 10:56:30 IST - WELCOME-HERO-20261113 on isolated feat/welcome-hero-arch from29a8356. Hero-only edit implemented: separate transparent arch asset, original preserved; theme-aware side/lower alpha, natural foreground, no rectangularclip/crop, solidbackgroundbeforeheadline. Logo/copy/controls/navigation unchanged. Focused40/fullunified93/analyze/releasebuild PASS;12 browserconfigs360/390 light/dark EN/TE/HI,24screenshots,language/actions PASS,hostedcalls0. Required sequential check-all PASS (DB209/11skip, Ops70/build, shared29, Companion58/3skip, Family109/6skip, unified93); final diff/visual review clear. Commit/push own PR, then STOP for visual review. No merge or hosted deployment; other components untouched.
 
 
+2026-11-13 20:58 IST: ERR-1 groups 1 to 3 IN DRAFT PR (feat/error-handling). Family
+failures now show a kind-specific sentence and a support code; requests have a time limit.
+Local Dart and Flutter checks passed; CI not yet observed; no browser or phone check. Companion, global
+fallback, sign-in messages and failure recording are not built. Not merged or deployed.
+
 2026-11-13 20:31:07 IST - ROOT-ENTRY-20261113: founder explicitly requests main URL Welcome instead of chooser. Own fix/welcome-root-entry from e8e0063 changes only root routing/fallback in scripts/build-staging.sh; six tracking files/evidence record it. Local syntax/config/order/no-loop checks PASS and existing application bundles byte-identical. Live redeploy/test pending. No other agent component merge authorized; #40 remains unmerged, other worktrees untouched. Signed-in session behavior and production gates unchanged. Next: publish and verify own root fix.
 
 ### Agent Session - 2026-11-13 20:19:11 IST - FAMILY-V2 group2

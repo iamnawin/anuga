@@ -428,7 +428,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                 if (_error != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
-                    child: FamilyStateNotice(describeError(l10n, _error!), key: const Key('error'), onRetry: _load),
+                    child: FamilyFailureNotice(_error!, key: const Key('error'), onRetry: _load),
                   ),
                 if (_info != null) Text(_info!, key: const Key('info'), style: theme.textTheme.titleMedium),
                 const SizedBox(height: 24),

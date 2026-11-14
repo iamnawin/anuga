@@ -305,5 +305,18 @@
   "fNextMonth": "Next month",
   "fEarlierRequests": "Earlier requests",
   "fVisitDetails": "Visit details",
-  "fPickupHome": "Pickup from home"
+  "fPickupHome": "Pickup from home",
+  "errorNetwork": "We could not reach AnugaCare. Check your signal and try again.",
+  "errorTimeout": "This is taking too long. Your network may be slow. Check whether your last change was saved before you try again.",
+  "errorSession": "Your sign-in has ended. Sign out and sign in again.",
+  "errorNotFound": "We could not find this. It may have been removed or changed.",
+  "errorAlreadyDone": "This was already saved. Refresh to see the latest.",
+  "errorCode": "Code: {code}",
+  "@errorCode": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  }
 }

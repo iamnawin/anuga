@@ -3,9 +3,9 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import '../format.dart';
-import '../labels.dart';
 import '../legal/legal_documents_en.dart';
 import 'legal_document_screen.dart';
+import 'family_ui.dart';
 
 /// Explicit patient-specific edits over the existing owner-only consent RPC.
 class ConsentScreen extends StatefulWidget {
@@ -281,6 +281,7 @@ class _ConsentScreenState extends State<ConsentScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  const FamilyOfflineHint(),
                   Semantics(header: true, child: Text(l10n.consentTitle, style: theme.textTheme.headlineSmall)),
                   const SizedBox(height: 12),
                   Text(l10n.consentIntro, style: theme.textTheme.bodyLarge),
@@ -376,10 +377,7 @@ class _ConsentScreenState extends State<ConsentScreen> {
                   if (_error != null)
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: Semantics(
-                        liveRegion: true,
-                        child: Text(describeError(l10n, _error!), style: TextStyle(color: theme.colorScheme.error)),
-                      ),
+                      child: Semantics(liveRegion: true, child: FamilyFailureNotice(_error!)),
                     ),
                   if (_message != null)
                     Padding(

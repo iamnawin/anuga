@@ -53,6 +53,28 @@
 **Next responsible agent:** Codex for receipt, founder for visual approval.
 
 
+### Agent Session - 2026-11-13 20:58 IST - ERR-1 groups 1 to 3 (error handling)
+
+**Agent:** Claude Code; error handling for the Family app and shared package.
+**Task ID / Name:** ERR-1 / failure classifier, backend adapter conversion, Family failure notice.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-error-handling.
+**Branch:** feat/error-handling.
+**Starting commit:** e8e0063 (origin/main); fast-forwarded to 29a8356 (PR #41, no Dart changes) before the commit.
+**Current commit:** See the pull request head.
+**PR:** See GitHub, branch feat/error-handling (draft).
+**Scope:** Groups 1 to 3 of docs/design/Error_Handling_Feature_Spec_v1.md, approved by the founder in chat on 2026-11-13. Groups 4 to 6 are not started.
+**Completed work:** Group 1: `FailureKind`, `classifyFailure`, `failureCode`, `guardRequest`, `NetworkException`, `RequestTimeoutException` in packages/shared_dart (pure Dart, no new dependency). Group 2: Family `supabaseRpc`, `SupabasePayments` and `SupabaseVaultFiles` convert transport failures and stalled requests (20 s; 60 s for file upload). Group 3: `describeError` returns one sentence per kind; new `FamilyFailureNotice` (icon, sentence, support code, optional Try again) replaces plain red text on Home, Visits, Bills, Updates, Records, Record and Consent; new `FamilyOfflineHint` on the Consent, Care request and Visit screens; six new strings in en/te/hi.
+**Files changed:** packages/shared_dart/lib/src/failures.dart (new), packages/shared_dart/lib/shared_dart.dart, packages/shared_dart/test/failures_test.dart (new); apps/family_app/lib/src/supabase_rpc.dart, payments.dart, vault_files.dart, labels.dart; apps/family_app/lib/src/screens/family_ui.dart and nine screen files (one or two lines each); apps/family_app/lib/l10n/app_{en,te,hi}.arb; apps/family_app/test/failure_notice_test.dart (new); docs/design/Error_Handling_Feature_Spec_v1.md (new); these four handoff documents.
+**Tests and actual results:** shared_dart: analyze clean, dart test 39 passed. Family app: analyze clean, flutter test 128 passed, 6 existing skips. Companion app: analyze clean, flutter test 58 passed, 3 existing skips. Unified app: analyze clean, flutter test 91 passed. Not run: pnpm db:test, scripts/check-all.sh, ops console checks, supabase-local journeys, browser or phone checks. No screenshots were made.
+**CI evidence:** Not available at time of writing; see the pull request checks.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed. No migrations. No RPC, RLS, consent or authorization change.
+**Decisions and assumptions:** Founder approved building groups 1 to 3; the time limits (20 s, 60 s) and showing a support code are the spec's recommended values, used without a separate answer. The support code is the kind plus the database or HTTP code, with no time and no message. The offline hint does not disable Save, because the browser's connection flag is only a hint and the server stays authoritative. The standalone Companion adapter is unchanged (Group 4); in the unified app Companion calls already pass through the Family adapter and so get the time limit. Existing wording for the three old messages is unchanged. No new dependency: `http` was already a Family dependency.
+**Blockers:** Group 4 waits for PR #36 (Companion screens). Group 5 waits for PR #28 (unified app home and welcome). Native-speaker review of the six new Telugu and Hindi strings.
+**Uncommitted changes:** None after the task commit.
+**Exact next action:** Founder review of the draft pull request. Remaining work is listed in section 12 of the spec.
+**Next responsible agent:** Founder.
+
 ### Agent Session - 2026-11-13 20:31:07 IST - own root entry routing fix
 
 **Agent:** Codex.

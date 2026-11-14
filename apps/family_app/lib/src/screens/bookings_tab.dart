@@ -211,7 +211,7 @@ class _BookingsTabState extends State<BookingsTab> with WidgetsBindingObserver {
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Text(l10n.viewOnly, key: const Key('view-only')),
               ),
-            if (_error != null) FamilyStateNotice(describeError(l10n, _error!), onRetry: _load),
+            if (_error != null) FamilyFailureNotice(_error!, onRetry: _load),
             if (rows == null && _error == null) Text(l10n.loading),
             if (rows != null && visibleRows.isEmpty) Text(l10n.fNoVisits),
             if (requests.isNotEmpty) ...[
