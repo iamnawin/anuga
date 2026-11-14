@@ -14,11 +14,13 @@ class CompanionHomeScreen extends StatefulWidget {
     required this.onLocaleChanged,
     required this.onSignOut,
     this.clock = DateTime.now,
+    this.textSizeControl,
   });
   final CompanionApi api;
   final ValueChanged<Locale> onLocaleChanged;
   final Future<void> Function() onSignOut;
   final DateTime Function() clock;
+  final Widget? textSizeControl;
   @override
   State<CompanionHomeScreen> createState() => _CompanionHomeScreenState();
 }
@@ -152,6 +154,7 @@ class _CompanionHomeScreenState extends State<CompanionHomeScreen> with WidgetsB
                     ],
                   ),
                 ),
+                ?widget.textSizeControl,
                 Row(
                   children: [
                     const Icon(Icons.translate),

@@ -1,5 +1,31 @@
 # AnugaCare progress ledger
 
+2026-11-14 19:36:06 IST - TEXT-SIZE-20261114: scripts/check-all.sh ALL CHECKS PASSED: DB209/11 existing skips, Ops70+lint/typecheck/build, shared39, legacy Companion58/3 existing skips, Family181/6 existing skips, unified167. Format and fatal-info analyzers clean. Includes10 focused text-size cases with200% device scaling and Extra-large phone/OTP/keyboard across EN/TE/HI. Final lint null-aware collection warning corrected. Implementation commit/push/PR next; release build/browser persistence pending. No main merge or live deployment.
+
+
+### Agent Session - 2026-11-14 19:27:32 IST - text size preference implementation
+
+**Agent:** Codex; UI/local preference implementation and validation.
+**Task ID / Name:** TEXT-SIZE-20261114.
+**Session start:** First observed clock2026-11-14 19:08:20 IST.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-text-size.
+**Branch:** feat/text-size-preference.
+**Starting commit:** 67cca2ec2434d6870f66b05596f4791de9e92c72.
+**Current commit:** Starting head; own implementation before task commit.
+**PR:** Pending feature PR.
+**Scope:** Founder reports font too large and requests app text-size setting.
+**Completed work:** Four localized presets (90/100/115/130%), Standard default removes forced115%; nonlinear device scaling preserved. Reused local preferences; optional UI slots expose setting in Welcome, Family More/patient Help, Companion Me. Selection survives navigation/sign-out without role/RPC changes.
+**Files changed:** Unified text_size.dart, app/root preferences, optional screen slots, three ARBs, focused tests, design/plan and tracking/evidence.
+**Tests and actual results:** Default-floor RED20vs23; focused10 PASS, including200% device text, sign-out retention, no extra role/RPC calls, EN/TE/HI extra-large phone/OTP at360px with keyboard. Fixed new-row theme inheritance; removed cache experiment. First broad check stopped on Family formatting; corrected. Final check-all running.
+**CI evidence:** Not yet created; no pass inferred.
+**Merge status:** Not merged; prior publication approval is not standing approval for new feature merges.
+**Deployment and migration status:** Not deployed; preview pending. No auth/RPC/database/provider/dependency change. Existing live publication unchanged.
+**Decisions and assumptions:** Agent chooses four simple presets; this is device-local preference, not patient data. Legacy standalone scaling preserved. Storage failure keeps session setting usable.
+**Blockers:** Full checks/build/browser persistence/CI pending. Main merge/publication requires founder approval after concrete feature review per AGENTS.
+**Uncommitted changes:** Own implementation/documentation only.
+**Exact next action:** Finish full checks, build/review preview, commit/push feature PR and actual receipt; seek publication approval only after ready.
+**Next responsible agent:** Codex for delivery; founder for live publication decision.
+
 2026-11-14 18:42:04 IST - UI-PUBLICATION evidence correction (Codex, D:/AI-Workspace/Repos/anuga-ui-publication, docs/ui-live-proof-2026-11-14 from872ac9d): restored the live browser tab's normal1920x855 viewport and replaced the incorrectly scaled live-family-home-desktop.png from the viewport override. Reload still preserves Family sign-in and new Booked/Request a visit UI. No app, deployment, database or provider change; production remains dpl_B8UMsvF9VE1PpuL52xAEWYiwDDVL, sourceCI43597122368 seven SUCCESS. Receipt45 MERGED872ac9d; this image-only follow-up has its own Git/PR metadata. Browser viewport restored; temporary local server already stopped. Next: deliver live URL/evidence; founder phone review.
 
 

@@ -1,5 +1,13 @@
 # Unified AnugaCare product context
 
+## Text size preference (2026-11-14 workstream)
+
+The unified app offers a device-local Text size setting: Small, Standard, Large,
+Extra large. Standard removes the forced115% minimum; the chosen factor composes
+with device accessibility scaling, including nonlinear scaling. Preserve fonts,
+themes and touch targets. Apply across unified roles/routes; patient permissions
+and standalone apps remain as they are.
+
 ## Register
 Product UI. The specification remains `docs/PRODUCT_SPEC.md`; this is a design summary.
 
