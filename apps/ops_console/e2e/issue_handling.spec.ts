@@ -312,7 +312,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     const completedEvents = await refreshFamily('completed', 'Visit complete');
     expect(completedEvents.at(-1)?.note).toBe(`Handed to: Family member\n${completionNote}`);
     await family.screenshot({ path: `${shots}/04-family-completed.png` });
-    await expect(companion.getByRole('group', { name: /Visit note submitted/ })).toBeVisible();
+    await expect(companion.getByRole('heading', { name: 'Visit completed', exact: true })).toBeVisible();
     const completedCompanionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_my_trips'));
     await companion.reload();
     await enableFlutter(companion);

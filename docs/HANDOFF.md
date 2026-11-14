@@ -1,5 +1,8 @@
 # Handoff
 
+2026-11-14 18:24:45 IST - UI-PUBLICATION PR44: CI43596189338 again six jobs SUCCESS and complete persisted care journey; static completion Card has no group role. Previous selector fix incorrectly generalized from interactive Cards. Reproduced the actual completed-state semantics after note submission locally: stable isHeader/namesRoute label Visit completed, static thank-you/note text merged into an unroled node. Both journeys now assert that completed heading; persisted status/note checks and reload grouped-card checks retained. Temporary diagnostic probe PASS (ignored artifacts/completion-semantics.log). Ops lint/typecheck/two-test discovery PASS. Application bundle remains unchanged; no publication yet. Next replacement CI is required.
+
+
 2026-11-14 18:13:05 IST - UI-PUBLICATION PR44: replacement CI43595334241 six jobs SUCCESS; real care browser completed all9 persisted stages and exact completion note, then failed on getByText(Visit note submitted) because Flutter Card text is an aria-label group. Actual release DOM inspected: card texts are grouped accessible names, not independent text nodes. Both journeys now assert completion group by accessible name and reload status within the persisted-ID card. No product/guard/backend change. Ops lint/typecheck/test discovery PASS. Previous failures retained. Replacement CI next; no live publication yet.
 
 

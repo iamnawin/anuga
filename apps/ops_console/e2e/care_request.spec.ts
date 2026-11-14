@@ -282,7 +282,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     receipt.milestones = milestones;
     receipt.pickup_verified = true;
     receipt.required_completion_note_persisted = true;
-    await expect(companion.getByRole('group', { name: /Visit note submitted/ })).toBeVisible();
+    await expect(companion.getByRole('heading', { name: 'Visit completed', exact: true })).toBeVisible();
     await companion.screenshot({ path: `${shots}/10-companion-completed.png` });
     // Read completion again from each role after navigation/reload, rather than
     // inferring it from a mutation reply or a timeline alone.
