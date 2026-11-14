@@ -1,5 +1,12 @@
 # ANUGA UI reference contract
 
+Welcome hero branch update, 2026-11-14: founder's caring-duo arch reference affects
+only the illustration and its immediate spacing. A separate transparent hero
+preserves natural figures and softened scenery; alpha-only side/lower masks
+composite with the existing `scaffoldBackgroundColor` in both themes. The fade
+finishes before the real headline. Original artwork, logo, copy, locale controls
+and routes remain intact. Evidence: `docs/evidence/welcome-hero-2026-11-13/`.
+
 Screen01 implementation checkpoint 2026-11-13: original supplied clean illustration
 is a runtime asset (deep teal crew-neck/chest logo), while Welcome copy, language
 controls and both actions are Flutter. Reuse approved transparent branding and

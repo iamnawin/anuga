@@ -1,0 +1,28 @@
+{
+  "original": {
+    "path": "apps/anugacare_app/assets/welcome/walking-clinic.png",
+    "sha256": "bfb92b056baafa56c7fd976f1b46b2b807be2e32c7eb2c704074291cb9582ffb",
+    "retained_unchanged": true
+  },
+  "hero": {
+    "path": "apps/anugacare_app/assets/welcome/walking-clinic-hero.png",
+    "sha256": "444c38fc11fb8ecc6a6967894a6b517bef2bfeb9bd1b27886439df837c383769",
+    "width": 1448,
+    "height": 1086,
+    "rgba": true
+  },
+  "reference": {
+    "path": "reference.png",
+    "sha256": "aa1c9c38f6d375deac960ffa70d5d15634e626677f3ec230fa68636e1d857c2f"
+  },
+  "editing": "Separate transparent hero edited with built-in image generation; no UI text or standalone logo baked into hero",
+  "theme_blend": "Existing scaffoldBackgroundColor with alpha-only masks; no foreground color filter",
+  "lower_fade": {
+    "starts_at": 0.86,
+    "fully_transparent_at": 0.92,
+    "hands_and_handle_above_start": true
+  },
+  "headline": "Separate existing UI, after the fully transparent tail and 8px layout gap",
+  "backend_changes": false,
+  "copy_localization_navigation_changes": false
+}

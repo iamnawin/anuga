@@ -1,0 +1,33 @@
+{
+  "task": "WELCOME-HERO-20261113",
+  "source_base": "29a8356ea6c68e01afca962035fefaf6a68d70a3",
+  "checks": {
+    "focused_welcome_render": 40,
+    "full_unified": 93,
+    "analyzer": "Pass",
+    "release_web_build": "Pass",
+    "repository_check_all": "Pass",
+    "database": {
+      "pass": 209,
+      "skip": 11
+    },
+    "ops": 70,
+    "shared_dart": 29,
+    "legacy_companion": {
+      "pass": 58,
+      "skip": 3
+    },
+    "family": {
+      "pass": 109,
+      "skip": 6
+    },
+    "browser_configurations": 12,
+    "screenshots": 24,
+    "hosted_calls": 0,
+    "render_regression_before_fix": "2 failed",
+    "render_regression_after_fix": "2 passed",
+    "independent_review": "No blockers"
+  },
+  "merged": false,
+  "deployed": false
+}
