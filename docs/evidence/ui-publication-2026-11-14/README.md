@@ -36,8 +36,8 @@ not the last observed failure.
 Neither implementation was overwritten. In an isolated current-main integration,
 product sources merged automatically. Six shared tracking documents conflicted;
 their contributions were retained together. `PRODUCT.md` had an add/add conflict,
-and both scoped design descriptions were retained. Other worktrees, unpublished
-Family follow-up, legal draft and error-handling branches were not changed.
+and both scoped design descriptions were retained. Other agents' worktrees and
+source branches were not changed.
 
 ## Correction and boundaries
 
@@ -46,6 +46,15 @@ includes exact Welcome head `f5e9eb4`. Browser journeys now use a persisted trip
 semantics identifier instead of full-name/time formatting, and follow the actual
 pickup, handover checklist and completion-note pages. Exact trip/status replies,
 persisted notes, private-note checks and denied reassignment checks remain.
+
+The founder subsequently explicitly selected **include all completed changes,
+with legal drafts read-only**. Local merges `07cd48e`, `d2d91e7` and `162d524`
+include exact Family `429c0cd`, legal `30bdf3e` and error-handling `76e6e16` heads.
+All five source heads are ancestors of the integration branch. Product conflicts
+in the wider merge retained the new Family layouts, offline controls and retry
+handlers while adopting typed failure notices. Browser assertions combine the
+new Family wording with new Companion controls. Legal document approval fields
+remain unset; no acceptance flow is enabled.
 
 The new Companion UI belongs to `/app/`. `/companion/` remains the separate
 legacy app, with its existing sessions and Android support. Existing signed-in
@@ -59,5 +68,13 @@ deferred. Synthetic publication does not close production or human acceptance ga
 
 - Hosted read-only role/endpoint smoke: 10/10 PASS on November 14.
 - Ops lint/typecheck and discovery of both browser journeys: PASS.
+- Companion/Welcome integration: unified 153/153 PASS; initial added-test cleanup
+  failure corrected. Removing the visit identifier reproduced the expected zero
+  matches; restoring it passed. Its cleanup now uses `finally`.
+- Companion/Welcome combined staging build: PASS, all four apps and root routing.
+- Wider five-branch full repository check: running on the integrated source.
 - Full integrated checks, actual browser journeys, release build, PR/CI and
   deployment: in progress; results must be appended before delivery.
+
+Expanded source162d524: scripts/check-all.sh ALL CHECKS PASSED on 2026-11-14 17:51:15 IST. DB209 pass/11 existing skips; Ops70 and lint/typecheck/build; shared39; legacy Companion58/3 existing skips; Family181/6 existing skips; unified157. Format and fatal-info analyzers passed. Logs: ignored artifacts/check-all-combined.log. No new integration CI result or live deployment inferred.
+

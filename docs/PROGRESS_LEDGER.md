@@ -1,5 +1,31 @@
 # AnugaCare progress ledger
 
+2026-11-14 17:51:15 IST - UI-PUBLICATION: full expanded scripts/check-all.sh ALL CHECKS PASSED (DB209/11 existing skips, Ops70 plus lint/typecheck/build, shared39, legacy Companion58/3 existing skips, Family181/6 existing skips, unified157; format and fatal-info analyze pass). Legal draft acceptance remains disabled. Five source heads included. Integration PR and CI next; no live update yet. Evidence: docs/evidence/ui-publication-2026-11-14/README.md.
+
+
+### Agent Session - 2026-11-14 17:48:35 IST - full completed UI integration
+
+**Agent:** Codex; coordinator, source reconciliation and synthetic publication.
+**Task ID / Name:** UI-PUBLICATION-20261114.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-ui-publication.
+**Branch:** fix/ui-publication-2026-11-14.
+**Starting commit:** 29a8356ea6c68e01afca962035fefaf6a68d70a3; session first clock 2026-11-14 17:33:17 IST.
+**Current commit:** 162d524; own tracking/evidence edits pending.
+**PR:** Integration PR pending; sources36/38/39/43 unmerged at inspection; error branch76e6e16 has no open PR.
+**Scope:** Founder explicitly requests all completed changes with legal drafts read-only.
+**Completed work:** Five exact source heads integrated without touching their worktrees. Companion8770a0b, Welcome f5e9eb4, Family429c0cd, legal30bdf3e, errors76e6e16 are ancestors. Resolved shared histories and Family/error overlaps; retained current layouts/retries/offline controls, added failure notices. Updated browser flows for both new app presentations.
+**Files changed:** Five source streams and focused journey/identifier integration; evidence README lists lifecycle audit.
+**Tests and actual results:** Core unified153 PASS, missing-identifier RED reproduced, core four-app build PASS. Hosted read-only10/10 PASS. Expanded five-branch check-all running, not yet passed.
+**CI evidence:** Prior failures recorded in evidence; no new integration CI yet.
+**Merge status:** Local integration only; main unchanged.
+**Deployment and migration status:** No new deployment; no migration, provider or backend access-rule changes.
+**Decisions and assumptions:** Preserve legal DRAFT/approval gate and unimplemented groups. Existing /app/ is current app; legacy app URLs retained.
+**Blockers:** Finish expanded checks, actual journeys/CI and exact-build publication verification.
+**Uncommitted changes:** Own integration documentation/evidence only.
+**Exact next action:** Repair any integration regressions, full checks, integration PR/CI, build and verify combined synthetic publication.
+**Next responsible agent:** Codex.
+
+
 2026-11-14 UI-PUBLICATION checkpoint: Codex integrated exact Companion8770a0b and Welcome f5e9eb4 on current-main isolated branch. Unified153 PASS; missing-identifier RED reproduced; initial added-test semantics cleanup failure corrected. Ops lint/typecheck and both browser-test discovery PASS; hosted read-only smoke10/10 PASS. Browser journeys updated for current Companion controls, preserving RPC/status/private-note assertions. Full release build underway, no publication/main merge yet. Founder now explicitly requests all completed Family39/legal38/error76e6e16 changes too; legal stays read-only DRAFT with acceptance disabled. Next: merge those sources here, preserve histories, rerun full checks/CI and synthetic publication. Other worktrees untouched.
 
 
