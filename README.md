@@ -12,10 +12,11 @@
   <a href="docs/TASKS.md">Roadmap</a>
 </div>
 
-Source update (2026-11-13): the approved UI baseline, unified login, patient
-Consent and Welcome entry are merged through PRs #29/#32/#33/#34. This is a
-source merge, not a new deployment of the linked synthetic site. See
-[handoff](docs/HANDOFF.md) and [screen evidence](docs/screenshots/consent-welcome/README.md).
+Published update (2026-11-14): completed Companion, Welcome hero, Family visit,
+legal draft and error-handling changes are merged through PR #44 and live on the
+synthetic test app. Phone/OTP, consent and Home are retained. Terms/Privacy remain
+read-only drafts. Release CI passed all seven jobs; live bundles and routes verified.
+See [handoff](docs/HANDOFF.md) and [publication evidence](docs/evidence/ui-publication-2026-11-14/README.md).
 
 
 <br />
