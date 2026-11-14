@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:anugacare_app/src/app.dart';
 import 'package:anugacare_app/src/auth.dart';
+import 'package:anugacare_app/src/text_size.dart';
 import 'package:family_app/family_app.dart' show Payments, PhotoSource, PickedPhoto, VaultFiles;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -112,19 +113,24 @@ Future<FakeRpc> pumpApp(
   bool settle = true,
   List<Object?> companionTrips = const [],
   ValueChanged<Locale>? onLocaleChanged,
+  AppTextSize initialTextSize = AppTextSize.standard,
+  ValueChanged<AppTextSize>? onTextSizeChanged,
+  FamilyApi? familyApi,
 }) async {
   usePhoneScreen(tester);
   final rpc = FakeRpc(companionTrips: companionTrips);
   await tester.pumpWidget(
     AnugaCareApp(
       auth: auth,
-      familyApi: FamilyApi(rpc.call),
+      familyApi: familyApi ?? FamilyApi(rpc.call),
       companionApi: CompanionApi(rpc.call),
       files: _NoFiles(),
       photos: _NoPhotos(),
       payments: _NoPayments(),
       initialLocale: locale,
       onLocaleChanged: onLocaleChanged,
+      initialTextSize: initialTextSize,
+      onTextSizeChanged: onTextSizeChanged,
     ),
   );
   // The checking screen spins until the role lookup returns, so a test that

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:companion_app/companion_app.dart' show companionTheme;
 import 'package:companion_app/l10n/generated/app_localizations.dart' as companion_l10n;
-import 'package:family_app/family_app.dart' show familyTheme, largeText, HomeScreen, Payments, PhotoSource, VaultFiles;
+import 'package:family_app/family_app.dart' show familyTheme, HomeScreen, Payments, PhotoSource, VaultFiles;
 import 'package:family_app/l10n/generated/app_localizations.dart' as family_l10n;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,6 +10,7 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../l10n/generated/app_localizations.dart';
 import 'auth.dart';
+import 'text_size.dart';
 import 'screens/account_status_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/welcome_screen.dart';
@@ -34,6 +35,8 @@ class AnugaCareApp extends StatefulWidget {
     required this.payments,
     this.initialLocale = const Locale('en'),
     this.onLocaleChanged,
+    this.initialTextSize = AppTextSize.standard,
+    this.onTextSizeChanged,
   });
 
   final AccountAuth auth;
@@ -44,6 +47,8 @@ class AnugaCareApp extends StatefulWidget {
   final Payments payments;
   final Locale initialLocale;
   final ValueChanged<Locale>? onLocaleChanged;
+  final AppTextSize initialTextSize;
+  final ValueChanged<AppTextSize>? onTextSizeChanged;
 
   @override
   State<AnugaCareApp> createState() => _AnugaCareAppState();
@@ -52,6 +57,7 @@ class AnugaCareApp extends StatefulWidget {
 class _AnugaCareAppState extends State<AnugaCareApp> {
   final _navigator = GlobalKey<NavigatorState>();
   late Locale _locale = widget.initialLocale;
+  late AppTextSize _textSize = widget.initialTextSize;
   late AccountStage _stage = widget.auth.isSignedIn ? AccountStage.checking : AccountStage.signedOut;
   late final StreamSubscription<void> _sessionEnded;
   int _generation = 0;
@@ -130,6 +136,12 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
     widget.onLocaleChanged?.call(locale);
   }
 
+  void _setTextSize(AppTextSize size) {
+    if (size == _textSize) return;
+    setState(() => _textSize = size);
+    widget.onTextSizeChanged?.call(size);
+  }
+
   Future<void> _openLogin(BuildContext context) async {
     if (_loginOpen) return;
     _loginOpen = true;
@@ -162,7 +174,17 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
       ],
       theme: theme(Brightness.light),
       darkTheme: theme(Brightness.dark),
-      builder: largeText,
+      builder: (context, child) {
+        final media = MediaQuery.of(context);
+        return TextSizeScope(
+          value: _textSize,
+          onChanged: _setTextSize,
+          child: MediaQuery(
+            data: media.copyWith(textScaler: adjustedTextScaler(media.textScaler, _textSize)),
+            child: child ?? const SizedBox.shrink(),
+          ),
+        );
+      },
       home: Builder(builder: _home),
     );
   }
@@ -171,7 +193,11 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
     final l10n = AppLocalizations.of(context);
     void signIn() => _openLogin(context);
     return switch (_stage) {
-      AccountStage.signedOut => WelcomeScreen(onStart: signIn, onLocaleChanged: _setLocale),
+      AccountStage.signedOut => WelcomeScreen(
+        onStart: signIn,
+        onLocaleChanged: _setLocale,
+        textSizeControl: const TextSizeControl(),
+      ),
       AccountStage.checking => AccountStatusScreen(
         key: const Key('checking'),
         icon: Icons.verified_user_outlined,
@@ -180,6 +206,7 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
         onLocaleChanged: _setLocale,
       ),
       AccountStage.family => HomeScreen(
+        textSizeControl: const TextSizeControl(),
         api: widget.familyApi,
         files: widget.files,
         photos: widget.photos,
@@ -188,6 +215,7 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
         onSignOut: () => _signOut(AccountStage.signedOut),
       ),
       AccountStage.companion => CompanionHomeScreen(
+        textSizeControl: const TextSizeControl(),
         api: widget.companionApi,
         onLocaleChanged: _setLocale,
         onSignOut: () => _signOut(AccountStage.signedOut),

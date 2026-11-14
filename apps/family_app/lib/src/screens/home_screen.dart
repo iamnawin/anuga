@@ -31,6 +31,7 @@ class HomeScreen extends StatefulWidget {
     required this.onSignOut,
     this.now,
     this.online,
+    this.textSizeControl,
   });
 
   final FamilyApi api;
@@ -41,6 +42,7 @@ class HomeScreen extends StatefulWidget {
   final Future<void> Function() onSignOut;
   final DateTime Function()? now;
   final ValueListenable<bool>? online;
+  final Widget? textSizeControl;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -167,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       padding: const EdgeInsets.all(16),
       children: [
         Text(l10n.fEmergency, style: Theme.of(context).textTheme.bodyLarge),
+        ?widget.textSizeControl,
         const SizedBox(height: 24),
         const FamilySupportUnavailable(),
         const SizedBox(height: 24),
@@ -208,6 +211,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       padding: const EdgeInsets.all(16),
       children: [
         ListTile(leading: const Icon(Icons.people_outline), title: Text(l10n.fPatientsAccess), onTap: _choosePatient),
+        ?widget.textSizeControl,
         ListTile(
           key: const Key('privacy'),
           leading: const Icon(Icons.privacy_tip_outlined),
