@@ -24,11 +24,17 @@ String actorLabel(AppLocalizations l10n, TransitionActor? actor) => switch (acto
   null => '',
 };
 
-String describeError(AppLocalizations l10n, Object error) {
-  if (error is RpcException && error.isNotAllowed) return l10n.errorNotAllowed;
-  if (error is RpcException && error.isStepNotPossible) return l10n.errorStepNotPossible;
-  return l10n.errorGeneric;
-}
+/// One plain sentence per kind of failure. Never the database's own message.
+String describeError(AppLocalizations l10n, Object error) => switch (classifyFailure(error)) {
+  FailureKind.network => l10n.errorNetwork,
+  FailureKind.timeout => l10n.errorTimeout,
+  FailureKind.sessionExpired => l10n.errorSession,
+  FailureKind.notAllowed => l10n.errorNotAllowed,
+  FailureKind.outOfDate => l10n.errorStepNotPossible,
+  FailureKind.notFound => l10n.errorNotFound,
+  FailureKind.alreadyDone => l10n.errorAlreadyDone,
+  FailureKind.server => l10n.errorGeneric,
+};
 
 String docTypeLabel(AppLocalizations l10n, String type) => switch (type) {
   'lab_report' => l10n.docTypeLabReport,

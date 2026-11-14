@@ -59,8 +59,8 @@ void main() {
     visit.companionName = 'Ravi Companion (synthetic)';
     backend.fake.addEvent(visit, TripStatus.completed, TransitionActor.companion, 'Returned home (synthetic).');
     await tapVisible(tester, byKey('visit-refresh'));
-    expect(find.descendant(of: byKey('status'), matching: find.text('Completed')), findsOneWidget);
-    expect(find.textContaining('Ravi Companion'), findsOneWidget);
+    expect(find.descendant(of: byKey('status'), matching: find.text('Visit complete')), findsOneWidget);
+    expect(find.textContaining('Ravi, your companion'), findsOneWidget);
     expect(find.textContaining('Asha Companion'), findsNothing);
     expect(find.textContaining('Returned home (synthetic).'), findsOneWidget);
     expect(byKey('visit-latest-update'), findsOneWidget);
@@ -104,12 +104,12 @@ void main() {
     backend.fake.addEvent(backend.fake.visits['t1']!, TripStatus.pickedUp, TransitionActor.companion, null);
     await tester.tap(byKey('visit-refresh'));
     await tester.pumpAndSettle();
-    expect(pending, hasLength(4));
-    for (final call in pending.skip(2)) {
+    expect(pending, hasLength(6));
+    for (final call in pending.skip(3)) {
       call.result.complete(call.rows);
     }
     await tester.pumpAndSettle();
-    for (final call in pending.take(2)) {
+    for (final call in pending.take(3)) {
       call.result.complete(call.rows);
     }
     await tester.pumpAndSettle();
@@ -127,7 +127,7 @@ void main() {
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
     await tester.pumpAndSettle();
     expect(backend.boardParams, hasLength(calls + 1));
-    expect(find.descendant(of: byKey('status'), matching: find.text('Handed over to centre staff')), findsOneWidget);
+    expect(find.descendant(of: byKey('status'), matching: find.text('Handed to centre staff')), findsOneWidget);
     await tester.pump(const Duration(minutes: 1));
     expect(backend.boardParams, hasLength(calls + 1));
   });
@@ -175,6 +175,7 @@ void main() {
       ..addEvent(visit, TripStatus.atCentre, TransitionActor.companion, null)
       ..addEvent(visit, TripStatus.issueReported, TransitionActor.companion, 'Traffic delay');
     await issueBackend.pump(tester);
-    expect(byKey('visit-progress-current-3'), findsOneWidget);
+    expect(byKey('visit-progress-current-3'), findsNothing);
+    expect(byKey('visit-stopped'), findsOneWidget);
   });
 }

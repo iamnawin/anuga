@@ -6,6 +6,7 @@ import 'dart:ui' as ui;
 import 'package:family_app/l10n/generated/app_localizations.dart';
 import 'package:family_app/src/app.dart';
 import 'package:family_app/src/screens/home_screen.dart';
+import 'package:family_app/src/screens/trip_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +19,62 @@ import 'fake_backend.dart';
 final captureNow = DateTime.utc(2026, 11, 12, 0, 30);
 final captureKey = GlobalKey();
 
+FamilyPatient capturePatient(AccessLevel level) => FamilyPatient(
+  patientId: 'p1',
+  fullName: 'Ravi Rao',
+  accessLevel: level,
+  centreName: 'City Dialysis Centre, Kukatpally',
+);
+
+CaptureFamilyBackend captureVisitBackend(TripStatus status) {
+  final backend = CaptureFamilyBackend();
+  final visit = backend.visits['visit-next']!;
+  visit.status = status;
+  final stages = <(TripStatus, DateTime)>[
+    (TripStatus.scheduled, DateTime.utc(2026, 11, 11, 12)),
+    (TripStatus.companionEnRoute, DateTime.utc(2026, 11, 12, 1, 20)),
+    (TripStatus.pickedUp, DateTime.utc(2026, 11, 12, 1, 30)),
+    (TripStatus.atCentre, DateTime.utc(2026, 11, 12, 1, 55)),
+    (TripStatus.handedOver, DateTime.utc(2026, 11, 12, 2, 5)),
+    (TripStatus.sessionDone, DateTime.utc(2026, 11, 12, 6, 15)),
+    (TripStatus.returning, DateTime.utc(2026, 11, 12, 6, 20)),
+    (TripStatus.droppedHome, DateTime.utc(2026, 11, 12, 7)),
+    (TripStatus.completed, DateTime.utc(2026, 11, 12, 7, 5)),
+  ];
+  var last = stages.indexWhere((stage) => stage.$1 == status);
+  if (last == -1) last = status == TripStatus.noShow || status == TripStatus.cancelled ? 0 : 3;
+  for (var i = 0; i <= last; i++) {
+    visit.events.add({
+      'event_id': i + 1,
+      'from_status': i == 0 ? null : stages[i - 1].$1.dbValue,
+      'to_status': stages[i].$1.dbValue,
+      'actor_kind': 'companion',
+      'created_at': stages[i].$2.toIso8601String(),
+      'note': null,
+    });
+  }
+  if (!stages.any((stage) => stage.$1 == status)) {
+    visit.events.add({
+      'event_id': visit.events.length + 1,
+      'from_status': stages[last].$1.dbValue,
+      'to_status': status.dbValue,
+      'actor_kind': status == TripStatus.cancelled ? 'family' : 'companion',
+      'created_at': DateTime.utc(2026, 11, 12, 2, 10).toIso8601String(),
+      'note': null,
+    });
+  }
+  return backend;
+}
+
+TripScreen captureVisit(CaptureFamilyBackend backend) => TripScreen(
+  api: backend.api,
+  patient: capturePatient(backend.level),
+  booking: FamilyBoardRow.fromJson({
+    ...backend.visits['visit-next']!.toBoardRow(),
+    'centre_name': 'City Dialysis Centre, Kukatpally',
+  }),
+);
+
 /// Synthetic specification examples exist only in this test harness.
 class CaptureFamilyBackend extends FakeFamilyBackend {
   CaptureFamilyBackend({super.level}) {
@@ -26,6 +83,7 @@ class CaptureFamilyBackend extends FakeFamilyBackend {
       ..addAll({'p1': 'Ravi Rao', 'p2': 'Lakshmi Rao'});
     addVisit(FakeVisit(id: 'visit-next', pickupAt: DateTime.utc(2026, 11, 12, 1, 30), companionName: 'Suresh Kumar'));
     addVisit(FakeVisit(id: 'visit-friday', pickupAt: DateTime.utc(2026, 11, 13, 1, 30), companionName: 'Suresh Kumar'));
+    addVisit(FakeVisit(id: 'visit-monday', pickupAt: DateTime.utc(2026, 11, 16, 1, 30), companionName: 'Suresh Kumar'));
     addVisit(
       FakeVisit(
         id: 'visit-past',
@@ -68,7 +126,13 @@ class CaptureFamilyBackend extends FakeFamilyBackend {
     if (function == 'family_trip_board') {
       return [
         for (final row in result! as List<Map<String, Object?>>)
-          {...row, 'centre_name': 'City Dialysis Centre, Kukatpally'},
+          {
+            ...row,
+            'centre_name': 'City Dialysis Centre, Kukatpally',
+            'scheduled_return_at': DateTime.parse(row['scheduled_pickup_at']! as String)
+                .add(const Duration(hours: 5, minutes: 30))
+                .toIso8601String(),
+          },
       ];
     }
     return result;
@@ -206,6 +270,54 @@ void main() {
     await tester.tap(find.byKey(const Key('patient-picker')));
     await tester.pumpAndSettle();
     await captureShot(tester, 'F13-patient-picker');
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
+  testWidgets('capture Group 2 actual synthetic widget renders', (tester) async {
+    addTearDown(tester.view.reset);
+    await pumpCapture(tester, captureHome(CaptureFamilyBackend()));
+    await tester.tap(find.byKey(const Key('nav-visits')));
+    await tester.pumpAndSettle();
+    await captureShot(tester, 'F14-visits-upcoming');
+    await tester.tap(find.byKey(const Key('visits-past')));
+    await tester.pumpAndSettle();
+    await captureShot(tester, 'F14-visits-past');
+
+    for (final variant in <(String, TripStatus, String, Brightness, double)>[
+      ('F15-booked-light', TripStatus.scheduled, 'en', Brightness.light, 1.15),
+      ('F15-booked-dark', TripStatus.scheduled, 'en', Brightness.dark, 1.15),
+      ('F15-booked-hi', TripStatus.scheduled, 'hi', Brightness.light, 1.15),
+      ('F15-booked-200pct', TripStatus.scheduled, 'en', Brightness.light, 2),
+      ('F15-active-at-centre', TripStatus.atCentre, 'en', Brightness.light, 1.15),
+      ('F15-completed', TripStatus.completed, 'en', Brightness.light, 1.15),
+      ('F15-cancelled', TripStatus.cancelled, 'en', Brightness.light, 1.15),
+      ('F15-patient-unavailable', TripStatus.noShow, 'en', Brightness.light, 1.15),
+      ('F15-service-issue', TripStatus.issueReported, 'en', Brightness.light, 1.15),
+    ]) {
+      final backend = captureVisitBackend(variant.$2);
+      await pumpCapture(tester, captureVisit(backend), language: variant.$3, brightness: variant.$4, scale: variant.$5);
+      await captureShot(tester, variant.$1);
+      if (variant.$2 == TripStatus.atCentre || variant.$2 == TripStatus.completed) {
+        final lastEvent = backend.visits['visit-next']!.events.last['event_id'];
+        await tester.ensureVisible(find.byKey(Key('event-$lastEvent')));
+        await tester.pumpAndSettle();
+        await captureShot(tester, '${variant.$1}-timeline');
+      }
+    }
+
+    await pumpCapture(tester, captureVisit(captureVisitBackend(TripStatus.scheduled)));
+    final getCode = find.byKey(const Key('get-pickup-code'));
+    await tester.ensureVisible(getCode);
+    await tester.tap(getCode);
+    await tester.pumpAndSettle();
+    await captureShot(tester, 'F15-pickup-code-issued');
+
+    await pumpCapture(tester, captureVisit(captureVisitBackend(TripStatus.scheduled)));
+    final cancel = find.byKey(const Key('cancel-trip'));
+    await tester.ensureVisible(cancel);
+    await tester.tap(cancel);
+    await tester.pumpAndSettle();
+    await captureShot(tester, 'F16-cancel-visit-dialog');
     await tester.pumpWidget(const SizedBox.shrink());
   });
 }

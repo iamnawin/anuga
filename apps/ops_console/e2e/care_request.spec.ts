@@ -82,8 +82,8 @@ test('Family request -> assigned companion journey -> persisted completion acros
     // The patient card merges its name and centre into one semantic label.
     await expect(family.getByRole('button', { name: /Lakshmi Rao \(synthetic\)/ })).toBeVisible();
     await family.getByRole('tab', { name: 'Visits', exact: true }).click();
-    await family.getByRole('button', { name: 'Request care', exact: true }).waitFor();
-    await family.getByRole('button', { name: 'Request care', exact: true }).click();
+    await family.getByRole('button', { name: 'Request a visit', exact: true }).waitFor();
+    await family.getByRole('button', { name: 'Request a visit', exact: true }).click();
     await family.getByText('Package', { exact: true }).click();
     await family.getByRole('menuitem', { name: 'Basic', exact: true }).click();
     // Whole-minute pickup shortly ahead, inside the unchanged 180-minute Start
@@ -206,12 +206,12 @@ test('Family request -> assigned companion journey -> persisted completion acros
     const companionTrip = companionTrips.find((row) => row.trip_id === tripId);
     expect(companionTrip?.status).toBe('scheduled');
     expect(companionTrip?.details_visible).toBe(true);
-    // Match the unique pickup slot on the restricted companion card; subsequent
-    // mutation responses must refer to the exact generated trip ID.
-    const companionTile = () => companion.getByRole('group', { name: new RegExp(`${pickupTime}.*Lakshmi Rao`) }).first();
+    // Select the restricted card by its persisted ID, independent of localized
+    // time formatting and first-name presentation.
+    const companionTile = () => companion.locator(`[flt-semantics-identifier="companion-trip-${tripId}"]`);
     await revealFlutter(companion, companionTile());
-    await companionTile().click();
-    await expect(companion.getByRole('button', { name: "I'm on my way", exact: true })).toBeVisible();
+    await companionTile().getByRole('button', { name: 'Open visit', exact: true }).click();
+    await expect(companion.getByRole('button', { name: 'Start journey', exact: true })).toBeVisible();
     await companion.screenshot({ path: `${shots}/08-companion-assigned-visit.png` });
     await familyCard('Confirmed · companion assigned').getByRole('button', { name: 'Open visit', exact: true }).click();
     await expect(family.getByRole('button', { name: 'Get pickup code', exact: true })).toBeVisible();
@@ -234,13 +234,18 @@ test('Family request -> assigned companion journey -> persisted completion acros
     };
     const advance = async (label: string, status: string, familyLabel: string, note?: string) => {
       receipt.current_stage = status;
+      if (status === 'handed_over') {
+        await companion.getByRole('button', { name: 'Continue to handover', exact: true }).click();
+        const received = companion.getByRole('checkbox', { name: 'Patient received by centre staff', exact: true });
+        await received.click();
+        await expect(received).toBeChecked();
+        await enterFlutter(companion, 'Handover note (optional)', note!);
+      } else if (status === 'completed') {
+        await companion.getByRole('button', { name: 'Add visit note', exact: true }).click();
+        await enterFlutter(companion, 'Visit note', note!);
+      }
       const changed = companion.waitForResponse((r) => r.url().endsWith('/rpc/advance_trip'));
       await companion.getByRole('button', { name: label, exact: true }).click();
-      if (note !== undefined) {
-        // Existing note dialog has a title and one unlabelled editing node.
-        await enterFlutter(companion, '', note);
-        await companion.getByRole('button', { name: 'Submit', exact: true }).click();
-      }
       const result = await changed;
       expect(result.status()).toBe(200);
       const body = await result.json();
@@ -250,33 +255,34 @@ test('Family request -> assigned companion journey -> persisted completion acros
       return refreshFamily(status, familyLabel);
     };
 
-    await advance("I'm on my way", 'companion_en_route', 'Companion on the way');
+    await advance('Start journey', 'companion_en_route', 'Companion on the way');
     const issued = family.waitForResponse((r) => r.url().endsWith('/rpc/issue_pickup_otp'));
     await family.getByRole('button', { name: 'Get pickup code', exact: true }).click();
     const pickupCode = await (await issued).json() as string;
     expect(/^\d{6}$/.test(pickupCode)).toBe(true);
     await family.getByRole('button', { name: 'Close', exact: true }).click();
-    await enterFlutter(companion, 'Pickup code from the family', pickupCode);
+    await companion.getByRole('button', { name: 'Confirm pickup', exact: true }).click();
+    await enterFlutter(companion, '6-digit pickup code', pickupCode);
     receipt.current_stage = 'picked_up';
     const verified = companion.waitForResponse((r) => r.url().endsWith('/rpc/verify_pickup_otp'));
-    await companion.getByRole('button', { name: 'Verify code and pick up', exact: true }).click();
+    await companion.getByRole('button', { name: 'Verify and confirm pickup', exact: true }).click();
     const verification = await (await verified).json() as { ok: boolean; status: string };
     expect(verification.ok).toBe(true);
     expect(verification.status).toBe('picked_up');
     await refreshFamily('picked_up', 'Picked up');
-    await advance('Reached the centre', 'at_centre', 'At centre');
+    await advance('Confirm arrival at centre', 'at_centre', 'At the centre');
     await family.screenshot({ path: `${shots}/09-family-at-centre.png` });
-    await advance('Handed over at the centre', 'handed_over', 'Handed over to centre staff', 'Handed over to centre staff (synthetic).');
-    await advance('Session finished', 'session_done', 'Session done');
-    await advance('Starting the return journey', 'returning', 'On the way home');
-    await advance('Dropped home safely', 'dropped_home', 'Dropped home');
+    await advance('Confirm handover', 'handed_over', 'Handed to centre staff', 'Handed over to centre staff (synthetic).');
+    await advance('Confirm session finished', 'session_done', 'Session finished');
+    await advance('Start return journey', 'returning', 'On the way home');
+    await advance('Confirm home arrival', 'dropped_home', 'Home');
     const completionNote = 'Returned home safely; family informed (synthetic).';
-    const completedEvents = await advance('Complete visit', 'completed', 'Completed', completionNote);
-    expect(completedEvents.at(-1)?.note).toBe(completionNote);
+    const completedEvents = await advance('Submit and complete visit', 'completed', 'Visit complete', completionNote);
+    expect(completedEvents.at(-1)?.note).toBe(`Handed to: Family member\n${completionNote}`);
     receipt.milestones = milestones;
     receipt.pickup_verified = true;
     receipt.required_completion_note_persisted = true;
-    await expect(companion.getByText('This trip is closed.', { exact: true })).toBeVisible();
+    await expect(companion.getByRole('heading', { name: 'Visit completed', exact: true })).toBeVisible();
     await companion.screenshot({ path: `${shots}/10-companion-completed.png` });
     // Read completion again from each role after navigation/reload, rather than
     // inferring it from a mutation reply or a timeline alone.
@@ -286,14 +292,14 @@ test('Family request -> assigned companion journey -> persisted completion acros
     const reloadedTrips = await (await completedCompanionRead).json() as { trip_id: string; status: string }[];
     expect(reloadedTrips.find((row) => row.trip_id === tripId)?.status).toBe('completed');
     await revealFlutter(companion, companionTile());
-    await expect(companionTile().getByRole('checkbox', { name: 'Completed', exact: true })).toBeVisible();
+    await expect(companionTile().getByRole('group', { name: /\bCompleted\b/ })).toBeVisible();
     const completedFamilyRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
     await family.reload();
     await enableFlutter(family);
     await family.getByRole('tab', { name: 'Visits', exact: true }).click();
     const completedRequests = await (await completedFamilyRead).json() as CareRow[];
     expect(completedRequests.find((row) => row.schedule_id === scheduleId)?.request_state).toBe('completed');
-    await revealFlutter(family, familyCard('Completed'));
+    await revealFlutter(family, familyCard('Visit complete'));
     await family.screenshot({ path: `${shots}/11-family-persisted-completed.png` });
     await ops.goto(opsPath('/trips'));
     const opsTrip = ops.locator(`[data-trip-id="${tripId}"]`);

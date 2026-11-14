@@ -161,3 +161,15 @@ Future<FakeRpc> pumpLogin(
   }
   return rpc;
 }
+
+/// Companion sign-out is a confirmed Me action in the unified shell.
+Future<void> signOutCompanion(WidgetTester tester) async {
+  await tester.tap(find.text('Me'));
+  await tester.pumpAndSettle();
+  final button = find.byKey(const Key('companion-sign-out'));
+  await tester.ensureVisible(button);
+  await tester.tap(button);
+  await tester.pumpAndSettle();
+  await tester.tap(find.widgetWithText(FilledButton, 'Sign out'));
+  await tester.pumpAndSettle();
+}

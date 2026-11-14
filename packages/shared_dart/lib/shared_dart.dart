@@ -3,6 +3,7 @@ library;
 
 export 'src/api.dart';
 export 'src/errors.dart';
+export 'src/failures.dart';
 export 'src/india.dart';
 export 'src/models.dart';
 export 'src/phone_auth.dart';

@@ -115,6 +115,6 @@ void main() {
     expect(find.textContaining('Auto broke down (synthetic)'), findsNothing);
     expect(find.textContaining('Resolved by ops'), findsNothing);
     expect(find.textContaining('by our team'), findsOneWidget);
-    expect(find.textContaining('Call 108'), findsOneWidget);
+    expect(find.textContaining('112 or 108'), findsOneWidget);
   });
 }

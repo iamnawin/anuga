@@ -80,16 +80,8 @@ class WelcomeScreen extends StatelessWidget {
                         : logo,
                   ),
                   const SizedBox(height: 16),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: Image.asset(
-                      'assets/welcome/walking-clinic.png',
-                      key: const Key('welcome-illustration'),
-                      excludeFromSemantics: true,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
+                  const _WelcomeHero(),
+                  const SizedBox(height: 8),
                   Semantics(
                     header: true,
                     child: Text(l10n.welcomeTitle, textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
@@ -160,4 +152,41 @@ class WelcomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+/// The asset owns the asymmetric arch and softened scenery. Alpha-only masks
+/// blend with either theme without tinting the faces, hands or cane handle.
+class _WelcomeHero extends StatelessWidget {
+  const _WelcomeHero();
+
+  @override
+  Widget build(BuildContext context) => ColoredBox(
+    color: Theme.of(context).scaffoldBackgroundColor,
+    child: AspectRatio(
+      aspectRatio: 4 / 3,
+      child: ShaderMask(
+        blendMode: BlendMode.dstIn,
+        shaderCallback: (bounds) => const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent, Colors.transparent],
+          // Both hands finish above .86; the image is clear before the headline.
+          stops: [0, .06, .86, .92, 1],
+        ).createShader(bounds),
+        child: ShaderMask(
+          blendMode: BlendMode.dstIn,
+          shaderCallback: (bounds) => const LinearGradient(
+            colors: [Colors.transparent, Colors.white, Colors.white, Colors.transparent],
+            stops: [0, .12, .88, 1],
+          ).createShader(bounds),
+          child: Image.asset(
+            'assets/welcome/walking-clinic-hero.png',
+            key: const Key('welcome-illustration'),
+            excludeFromSemantics: true,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
+    ),
+  );
 }

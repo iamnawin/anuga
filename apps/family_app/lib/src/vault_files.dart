@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_dart/shared_dart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'supabase_rpc.dart';
+
 /// Vault file transfer through the `vault-files` Edge Function. Widgets depend
 /// on this interface; tests pass a fake. The function asks the database (as the
 /// signed-in user) before it signs any URL; this app never sees a storage path.
@@ -35,7 +37,10 @@ class SupabaseVaultFiles implements VaultFiles {
   final String _baseUrl;
   final http.Client _http;
 
-  Future<Map<String, dynamic>> _call(Map<String, Object?> body) async {
+  Future<Map<String, dynamic>> _call(Map<String, Object?> body) =>
+      guardRequest(() => _invoke(body), isNetworkError: isTransportError);
+
+  Future<Map<String, dynamic>> _invoke(Map<String, Object?> body) async {
     try {
       final response = await _client.functions.invoke('vault-files', body: body);
       return response.data as Map<String, dynamic>;
@@ -77,7 +82,11 @@ class SupabaseVaultFiles implements VaultFiles {
 
   @override
   Future<void> putFile(Uri uploadUrl, Uint8List bytes, String contentType) async {
-    final response = await _http.put(uploadUrl, headers: {'Content-Type': contentType}, body: bytes);
+    final response = await guardRequest(
+      () => _http.put(uploadUrl, headers: {'Content-Type': contentType}, body: bytes),
+      isNetworkError: isTransportError,
+      limit: uploadTimeLimit,
+    );
     if (response.statusCode >= 300) throw RpcException('${response.statusCode}', 'upload failed');
   }
 

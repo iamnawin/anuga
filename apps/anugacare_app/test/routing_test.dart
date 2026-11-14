@@ -57,7 +57,7 @@ void main() {
 
       await signIn(tester, companionPhone);
 
-      expect(find.text('No trips assigned yet.'), findsOneWidget);
+      expect(find.text('No visit assigned today'), findsOneWidget);
       expect(rpc.calls, contains('companion_my_trips'));
       expect(rpc.calls, isNot(contains('family_my_patients')));
     });
@@ -80,8 +80,11 @@ void main() {
       );
 
       double y(Finder f) => tester.getTopLeft(f).dy;
+      expect(find.byKey(const Key('trip-today')), findsOneWidget);
+      expect(find.byKey(const Key('trip-yesterday')), findsNothing);
+      await tester.tap(find.text('Visits'));
+      await tester.pumpAndSettle();
       expect(find.text('Previous'), findsOneWidget);
-      expect(y(find.byKey(const Key('trip-today'))), lessThan(y(find.text('Previous'))));
       expect(y(find.text('Previous')), lessThan(y(find.byKey(const Key('trip-yesterday')))));
     });
 
@@ -113,7 +116,7 @@ void main() {
 
       lookup.complete('companion');
       await tester.pumpAndSettle();
-      expect(find.text('No trips assigned yet.'), findsOneWidget);
+      expect(find.text('No visit assigned today'), findsOneWidget);
     });
 
     testWidgets('sign out from a role home returns to Welcome', (tester) async {
@@ -134,7 +137,7 @@ void main() {
       final auth = FakeAccountAuth(signedInAs: companionPhone);
       await pumpLogin(tester, auth);
 
-      await tester.tap(find.byTooltip('Sign out'));
+      await signOutCompanion(tester);
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('welcome')), findsOneWidget);
@@ -244,19 +247,19 @@ void main() {
       await tester.tap(find.text('Sign in again'));
       await tester.pumpAndSettle();
       await signIn(tester, companionPhone);
-      expect(find.text('No trips assigned yet.'), findsOneWidget);
+      expect(find.text('No visit assigned today'), findsOneWidget);
     });
 
     testWidgets('session ending while a home is open shows the expired state', (tester) async {
       final auth = FakeAccountAuth(signedInAs: companionPhone);
       await pumpLogin(tester, auth);
-      expect(find.text('No trips assigned yet.'), findsOneWidget);
+      expect(find.text('No visit assigned today'), findsOneWidget);
 
       auth.sessionEvents.add(null);
       await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('expired')), findsOneWidget);
-      expect(find.text('No trips assigned yet.'), findsNothing);
+      expect(find.text('No visit assigned today'), findsNothing);
     });
   });
 
@@ -279,7 +282,9 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Sign out'), findsNothing);
-      expect(find.byTooltip('సైన్ అవుట్'), findsOneWidget);
+      await tester.tap(find.text('\u0c28\u0c47\u0c28\u0c41'));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('companion-sign-out')), findsOneWidget);
     });
 
     testWidgets('Hindi sign-in carries into the family home', (tester) async {

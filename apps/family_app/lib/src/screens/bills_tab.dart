@@ -3,6 +3,7 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import 'care_ui.dart';
+import 'family_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 import '../payments.dart';
@@ -62,8 +63,7 @@ class _BillsTabState extends State<BillsTab> {
         padding: const EdgeInsets.all(16),
         children: [
           CareHeading(l10n.tabBills),
-          if (_error != null)
-            Text(describeError(l10n, _error!), style: TextStyle(color: Theme.of(context).colorScheme.error)),
+          if (_error != null) FamilyFailureNotice(_error!),
           if (bills == null && _error == null) Text(l10n.loading),
           if (bills != null && bills.isEmpty) Text(l10n.noBills),
           for (final bill in bills ?? const <Invoice>[])

@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import '../labels.dart';
 import 'care_ui.dart';
+import 'family_connection.dart';
 
 String familyFirstName(String name) => name.trim().split(RegExp(r'\s+')).first;
 
@@ -21,16 +23,25 @@ class FamilyAvatar extends StatelessWidget {
 }
 
 class FamilyStateNotice extends StatelessWidget {
-  const FamilyStateNotice(this.message, {super.key, this.onRetry});
+  const FamilyStateNotice(this.message, {super.key, this.onRetry, this.icon, this.detail});
   final String message;
   final VoidCallback? onRetry;
+  final IconData? icon;
+
+  /// A smaller second line, such as a support code.
+  final String? detail;
 
   @override
   Widget build(BuildContext context) => CarePanel(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        if (icon != null) ...[ExcludeSemantics(child: Icon(icon, size: 32)), const SizedBox(height: 8)],
         Text(message, style: Theme.of(context).textTheme.bodyLarge),
+        if (detail != null) ...[
+          const SizedBox(height: 8),
+          Text(detail!, key: const Key('family-failure-code'), style: Theme.of(context).textTheme.bodySmall),
+        ],
         if (onRetry != null) ...[
           const SizedBox(height: 12),
           OutlinedButton.icon(
@@ -42,6 +53,44 @@ class FamilyStateNotice extends StatelessWidget {
         ],
       ],
     ),
+  );
+}
+
+/// What went wrong, what to do, and a code for support. Used wherever a screen
+/// holds the caught error itself.
+class FamilyFailureNotice extends StatelessWidget {
+  const FamilyFailureNotice(this.error, {super.key, this.onRetry});
+  final Object error;
+  final VoidCallback? onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return FamilyStateNotice(
+      describeError(l10n, error),
+      icon: switch (classifyFailure(error)) {
+        FailureKind.network => Icons.wifi_off_outlined,
+        FailureKind.timeout => Icons.hourglass_bottom_outlined,
+        FailureKind.sessionExpired => Icons.lock_clock_outlined,
+        FailureKind.notAllowed => Icons.lock_outline,
+        _ => Icons.error_outline,
+      },
+      detail: l10n.errorCode(failureCode(error)),
+      onRetry: onRetry,
+    );
+  }
+}
+
+/// Shows [FamilyOfflineBanner] while the device reports no connection. A hint
+/// only: the server remains authoritative, so nothing is disabled.
+class FamilyOfflineHint extends StatelessWidget {
+  const FamilyOfflineHint({super.key, this.online});
+  final ValueListenable<bool>? online;
+
+  @override
+  Widget build(BuildContext context) => ValueListenableBuilder<bool>(
+    valueListenable: online ?? familyOnline,
+    builder: (_, isOnline, _) => isOnline ? const SizedBox.shrink() : const FamilyOfflineBanner(),
   );
 }
 
@@ -85,16 +134,19 @@ class FamilyProgress extends StatelessWidget {
           label: l10n.fStep(index + 1, statusLabel(l10n, status)),
           child: ExcludeSemantics(
             child: Row(
+              key: const Key('visit-progress'),
               children: [
                 for (var i = 0; i < familyProgressStatuses.length; i++)
                   Expanded(
                     child: Container(
+                      key: Key('visit-progress-stage-$i'),
                       margin: const EdgeInsetsDirectional.only(end: 3),
                       height: 6,
                       decoration: BoxDecoration(
                         color: i <= index ? scheme.primary : scheme.outlineVariant,
                         borderRadius: BorderRadius.circular(8),
                       ),
+                      child: i == index ? SizedBox.expand(key: Key('visit-progress-current-$i')) : null,
                     ),
                   ),
               ],

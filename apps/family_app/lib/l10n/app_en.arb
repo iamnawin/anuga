@@ -90,15 +90,15 @@
   "errorGeneric": "Something went wrong. Try again.",
   "errorNotAllowed": "You do not have permission for this.",
   "errorStepNotPossible": "This is no longer possible. Refresh the visit.",
-  "statusScheduled": "Scheduled",
+  "statusScheduled": "Booked",
   "statusCompanionEnRoute": "Companion on the way",
   "statusPickedUp": "Picked up",
-  "statusAtCentre": "At centre",
-  "statusHandedOver": "Handed over to centre staff",
-  "statusSessionDone": "Session done",
+  "statusAtCentre": "At the centre",
+  "statusHandedOver": "Handed to centre staff",
+  "statusSessionDone": "Session finished",
   "statusReturning": "On the way home",
-  "statusDroppedHome": "Dropped home",
-  "statusCompleted": "Completed",
+  "statusDroppedHome": "Home",
+  "statusCompleted": "Visit complete",
   "statusCancelled": "Cancelled",
   "statusNoShow": "Patient was not available",
   "statusIssueReported": "Service issue",
@@ -126,6 +126,27 @@
   "viewFailed": "Could not open this report. Try again.",
   "consentTitle": "Choose what you share",
   "consentIntro": "You're in control. You can change or withdraw these choices here at any time.",
+  "legalPrivacyTitle": "Privacy notice",
+  "legalTermsTitle": "Terms of service",
+  "legalDraftBanner": "Draft. Not approved. Not in force.",
+  "legalDraftBody": "This text is waiting for legal review and is shown for preview only. Reading it or using this test app does not make any agreement.",
+  "legalVersion": "Version {version}",
+  "@legalVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "legalEffective": "In force from {date}",
+  "@legalEffective": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "legalEnglishOnly": "This document stays in English until its translation has been legally reviewed.",
   "consentTripsTitle": "Trip coordination",
   "consentTripsBody": "Share visit schedule, pickup and drop-off locations, and trip details with your assigned companion. Your health documents are not shared.",
   "consentVaultTitle": "Private health vault",
@@ -277,5 +298,25 @@
       }
     }
   },
-  "fNavHelp": "Help"
+  "fNavHelp": "Help",
+  "fUpcoming": "Upcoming",
+  "fPast": "Past",
+  "fPreviousMonth": "Previous month",
+  "fNextMonth": "Next month",
+  "fEarlierRequests": "Earlier requests",
+  "fVisitDetails": "Visit details",
+  "fPickupHome": "Pickup from home",
+  "errorNetwork": "We could not reach AnugaCare. Check your signal and try again.",
+  "errorTimeout": "This is taking too long. Your network may be slow. Check whether your last change was saved before you try again.",
+  "errorSession": "Your sign-in has ended. Sign out and sign in again.",
+  "errorNotFound": "We could not find this. It may have been removed or changed.",
+  "errorAlreadyDone": "This was already saved. Refresh to see the latest.",
+  "errorCode": "Code: {code}",
+  "@errorCode": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  }
 }

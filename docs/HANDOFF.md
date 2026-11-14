@@ -1,5 +1,115 @@
 # Handoff
 
+2026-11-14 18:24:45 IST - UI-PUBLICATION PR44: CI43596189338 again six jobs SUCCESS and complete persisted care journey; static completion Card has no group role. Previous selector fix incorrectly generalized from interactive Cards. Reproduced the actual completed-state semantics after note submission locally: stable isHeader/namesRoute label Visit completed, static thank-you/note text merged into an unroled node. Both journeys now assert that completed heading; persisted status/note checks and reload grouped-card checks retained. Temporary diagnostic probe PASS (ignored artifacts/completion-semantics.log). Ops lint/typecheck/two-test discovery PASS. Application bundle remains unchanged; no publication yet. Next replacement CI is required.
+
+
+2026-11-14 18:13:05 IST - UI-PUBLICATION PR44: replacement CI43595334241 six jobs SUCCESS; real care browser completed all9 persisted stages and exact completion note, then failed on getByText(Visit note submitted) because Flutter Card text is an aria-label group. Actual release DOM inspected: card texts are grouped accessible names, not independent text nodes. Both journeys now assert completion group by accessible name and reload status within the persisted-ID card. No product/guard/backend change. Ops lint/typecheck/test discovery PASS. Previous failures retained. Replacement CI next; no live publication yet.
+
+
+2026-11-14 18:02:22 IST - UI-PUBLICATION PR44: CI43594410252 six jobs SUCCESS (including Android builds), supabase-local failed only at new handover Playwright checkbox .check immediate-state assertion after actual pickup/centre transitions. Test now clicks and polls toBeChecked; no app/guard/backend change. Ops lint/typecheck and two browser-test discovery PASS after fix. Combined release build PASS and preview dpl_EvtXn4Tah4T47681zo1Jdax29z9r READY; preview app SHA256 C3DA804B8FEE7F0052CD35067A8E1D47B795CA03233DE577EE236F9C28B8AFB1 equals local. Actual browser Companion/Family synthetic sign-ins, Today/Visits/Me, essentials, consent and read-only Terms draft verified; four curated desktop PNGs added. Narrow widget matrix passed; browser viewport override did not apply, so these captures are honestly desktop. Live alias unchanged pending replacement CI.
+
+
+2026-11-14 17:51:15 IST - UI-PUBLICATION: full expanded scripts/check-all.sh ALL CHECKS PASSED (DB209/11 existing skips, Ops70 plus lint/typecheck/build, shared39, legacy Companion58/3 existing skips, Family181/6 existing skips, unified157; format and fatal-info analyze pass). Legal draft acceptance remains disabled. Five source heads included. Integration PR and CI next; no live update yet. Evidence: docs/evidence/ui-publication-2026-11-14/README.md.
+
+
+### Agent Session - 2026-11-14 17:48:35 IST - full completed UI integration
+
+**Agent:** Codex; coordinator, source reconciliation and synthetic publication.
+**Task ID / Name:** UI-PUBLICATION-20261114.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-ui-publication.
+**Branch:** fix/ui-publication-2026-11-14.
+**Starting commit:** 29a8356ea6c68e01afca962035fefaf6a68d70a3; session first clock 2026-11-14 17:33:17 IST.
+**Current commit:** 162d524; own tracking/evidence edits pending.
+**PR:** Integration PR pending; sources36/38/39/43 unmerged at inspection; error branch76e6e16 has no open PR.
+**Scope:** Founder explicitly requests all completed changes with legal drafts read-only.
+**Completed work:** Five exact source heads integrated without touching their worktrees. Companion8770a0b, Welcome f5e9eb4, Family429c0cd, legal30bdf3e, errors76e6e16 are ancestors. Resolved shared histories and Family/error overlaps; retained current layouts/retries/offline controls, added failure notices. Updated browser flows for both new app presentations.
+**Files changed:** Five source streams and focused journey/identifier integration; evidence README lists lifecycle audit.
+**Tests and actual results:** Core unified153 PASS, missing-identifier RED reproduced, core four-app build PASS. Hosted read-only10/10 PASS. Expanded five-branch check-all running, not yet passed.
+**CI evidence:** Prior failures recorded in evidence; no new integration CI yet.
+**Merge status:** Local integration only; main unchanged.
+**Deployment and migration status:** No new deployment; no migration, provider or backend access-rule changes.
+**Decisions and assumptions:** Preserve legal DRAFT/approval gate and unimplemented groups. Existing /app/ is current app; legacy app URLs retained.
+**Blockers:** Finish expanded checks, actual journeys/CI and exact-build publication verification.
+**Uncommitted changes:** Own integration documentation/evidence only.
+**Exact next action:** Repair any integration regressions, full checks, integration PR/CI, build and verify combined synthetic publication.
+**Next responsible agent:** Codex.
+
+
+2026-11-14 UI-PUBLICATION checkpoint: Codex integrated exact Companion8770a0b and Welcome f5e9eb4 on current-main isolated branch. Unified153 PASS; missing-identifier RED reproduced; initial added-test semantics cleanup failure corrected. Ops lint/typecheck and both browser-test discovery PASS; hosted read-only smoke10/10 PASS. Browser journeys updated for current Companion controls, preserving RPC/status/private-note assertions. Full release build underway, no publication/main merge yet. Founder now explicitly requests all completed Family39/legal38/error76e6e16 changes too; legal stays read-only DRAFT with acceptance disabled. Next: merge those sources here, preserve histories, rerun full checks/CI and synthetic publication. Other worktrees untouched.
+
+
+### Agent Session - 2026-11-14 17:34:34 IST - UI publication reconciliation checkpoint
+
+**Agent:** Codex, integration and deployment investigation.
+**Task ID / Name:** UI-PUBLICATION-20261114.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-ui-publication.
+**Branch:** fix/ui-publication-2026-11-14.
+**Starting commit:** 29a8356ea6c68e01afca962035fefaf6a68d70a3.
+**Current commit:** Checkpoint commit identified by Git; integration in progress.
+**PR:** Pending integration PR; source PR36 draft/unmerged and PR43 open/unmerged.
+**Scope:** Founder requests investigation and correction of missing published Companion and Welcome UI.
+**Completed work:** Verified live dpl_Hh646SE3ibGmxdFQe23oYjBsYjuC remains Nov13; Git deployment disabled; Companion36 not merged, Welcome43 not merged. New Companion lives in unified /app/, legacy /companion/ unchanged. Reconciled only six documentation conflicts, preserving both histories; product sources auto-merge.
+**Files changed:** Source36 plus additive mandatory tracking.
+**Tests and actual results:** Investigation only; integrated checks pending. PR43 latest Supabase failure is obsolete companionTile selector, not merely historical Docker collision.
+**CI evidence:** PR43 run43562467546 latest failure at issue_handling.spec.ts154; six jobs pass. No integration CI yet.
+**Merge status:** Local integration only; no main merge.
+**Deployment and migration status:** Not deployed; no DB changes.
+**Decisions and assumptions:** Current founder request authorizes preparing combined synthetic publication; preserve other worktrees and unrelated branches.
+**Blockers:** Need update browser journey for actual Companion UI and verify integrated checks.
+**Uncommitted changes:** Integration before this checkpoint commit.
+**Exact next action:** Incorporate Welcome43, update actual journey selectors/interactions without weakening backend checks, full validation and combined preview.
+**Next responsible agent:** Codex.
+
+2026-11-14 11:07:49 IST - WELCOME-HERO-20261113 DELIVERED: PR #43 https://github.com/iamnawin/anuga/pull/43 OPEN/unmerged, implementation8a13349825b89b08aa590b128d677efadb2649c3. All required local checks passed and24 release screenshots/12configs captured with zerohostedcalls. This later delivery receipt is documentation only. No main merge/deployment/other component integration; STOP for founder visual review.
+
+
+### Agent Session - 2026-11-14 10:56:30 IST - Welcome hero implementation and visual checks
+
+**Agent:** Codex.
+**Role / responsibility:** Own signed-out Welcome hero illustration/layout only.
+**Session start (IST):** 2026-11-13 22:46:23 (first captured task clock); resumed2026-11-14 10:56:30.
+**Task ID / Name:** WELCOME-HERO-20261113 / asymmetric caring-duo hero.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-welcome-hero.
+**Branch:** feat/welcome-hero-arch.
+**Starting commit:** 29a8356ea6c68e01afca962035fefaf6a68d70a3.
+**Current commit:** Implementation8a13349825b89b08aa590b128d677efadb2649c3 pushed; this later delivery receipt changes documentation only and is identified by Git.
+**PR:** PR #43 OPEN/unmerged: https://github.com/iamnawin/anuga/pull/43. No merge or live deployment for this task.
+**Scope:** Illustration, alpha blend and immediate headline spacing only. Logo/copy/l10n/theme tokens/controls/routes retained.
+**Completed work:** Inspected original/mockup/theme; saved a separate edited transparent4:3 arch asset, original untouched. Soft muted clinic/trees, natural figures and cane; theme-background alpha masks start lowerfade below hands and end before headline. Removed rounded rectangle/crop; reserved aspect avoids layout shift.
+**Files changed:** welcome_screen.dart, pubspec asset registration, separate heroPNG, focused render test, app product context and task/evidence records.
+**Tests and actual results:** Render edge tests RED2 on old rectangle then GREEN; focusedWelcome40PASS, full unified93PASS, analyzerclean, releasewebbuildPASS. Browser12configs (360/390 x light/dark x EN/TE/HI),24screenshots, bothactions/language reload PASS, hostedcalls0. Existing200%widgetmatrix passes. Sequential check-all PASS: DB209/11skip, Ops70/build, shared29, Companion58/3skip, Family109/6skip, unified93. Independent final diff/visual review clear.
+**CI evidence:** PR #43 automatic CI pending after push; local check-all PASS, no CI pass inferred.
+**Merge status:** Not merged; no other component PR touched.
+**Deployment and migration status:** Local release preview only http://127.0.0.1:3132/app/; no hosted deployment, backend/data/role/consent/provider change.
+**Decisions and assumptions:** User mockup controls hero only. Use actual scaffoldBackgroundColor in both themes; no fullimage color filter. Original asset retained unchanged. User requested screenshot review, not automatic merge/publication.
+**Blockers:** None for implementation; physical-device/native-speaker approval not claimed.
+**Uncommitted changes:** Delivery receipt only before commit; implementation/source already pushed; all other worktrees preserved.
+**Exact next action:** STOP for founder visual review of PR #43/screenshots. All implementation/required local checks are committed/pushed; observe PR CI separately. No merge/deploy/next feature. No merge/deploy.
+**Next responsible agent:** Codex for receipt, founder for visual approval.
+
+
+### Agent Session - 2026-11-13 20:58 IST - ERR-1 groups 1 to 3 (error handling)
+
+**Agent:** Claude Code; error handling for the Family app and shared package.
+**Task ID / Name:** ERR-1 / failure classifier, backend adapter conversion, Family failure notice.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-error-handling.
+**Branch:** feat/error-handling.
+**Starting commit:** e8e0063 (origin/main); fast-forwarded to 29a8356 (PR #41, no Dart changes) before the commit.
+**Current commit:** See the pull request head.
+**PR:** See GitHub, branch feat/error-handling (draft).
+**Scope:** Groups 1 to 3 of docs/design/Error_Handling_Feature_Spec_v1.md, approved by the founder in chat on 2026-11-13. Groups 4 to 6 are not started.
+**Completed work:** Group 1: `FailureKind`, `classifyFailure`, `failureCode`, `guardRequest`, `NetworkException`, `RequestTimeoutException` in packages/shared_dart (pure Dart, no new dependency). Group 2: Family `supabaseRpc`, `SupabasePayments` and `SupabaseVaultFiles` convert transport failures and stalled requests (20 s; 60 s for file upload). Group 3: `describeError` returns one sentence per kind; new `FamilyFailureNotice` (icon, sentence, support code, optional Try again) replaces plain red text on Home, Visits, Bills, Updates, Records, Record and Consent; new `FamilyOfflineHint` on the Consent, Care request and Visit screens; six new strings in en/te/hi.
+**Files changed:** packages/shared_dart/lib/src/failures.dart (new), packages/shared_dart/lib/shared_dart.dart, packages/shared_dart/test/failures_test.dart (new); apps/family_app/lib/src/supabase_rpc.dart, payments.dart, vault_files.dart, labels.dart; apps/family_app/lib/src/screens/family_ui.dart and nine screen files (one or two lines each); apps/family_app/lib/l10n/app_{en,te,hi}.arb; apps/family_app/test/failure_notice_test.dart (new); docs/design/Error_Handling_Feature_Spec_v1.md (new); these four handoff documents.
+**Tests and actual results:** shared_dart: analyze clean, dart test 39 passed. Family app: analyze clean, flutter test 128 passed, 6 existing skips. Companion app: analyze clean, flutter test 58 passed, 3 existing skips. Unified app: analyze clean, flutter test 91 passed. Not run: pnpm db:test, scripts/check-all.sh, ops console checks, supabase-local journeys, browser or phone checks. No screenshots were made.
+**CI evidence:** Not available at time of writing; see the pull request checks.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed. No migrations. No RPC, RLS, consent or authorization change.
+**Decisions and assumptions:** Founder approved building groups 1 to 3; the time limits (20 s, 60 s) and showing a support code are the spec's recommended values, used without a separate answer. The support code is the kind plus the database or HTTP code, with no time and no message. The offline hint does not disable Save, because the browser's connection flag is only a hint and the server stays authoritative. The standalone Companion adapter is unchanged (Group 4); in the unified app Companion calls already pass through the Family adapter and so get the time limit. Existing wording for the three old messages is unchanged. No new dependency: `http` was already a Family dependency.
+**Blockers:** Group 4 waits for PR #36 (Companion screens). Group 5 waits for PR #28 (unified app home and welcome). Native-speaker review of the six new Telugu and Hindi strings.
+**Uncommitted changes:** None after the task commit.
+**Exact next action:** Founder review of the draft pull request. Remaining work is listed in section 12 of the spec.
+**Next responsible agent:** Founder.
+
 ### Agent Session - 2026-11-13 20:31:07 IST - own root entry routing fix
 
 **Agent:** Codex.
@@ -24,6 +134,75 @@
 **Exact next action:** Review/commit/push own root fix, merge only that PR normally, publish routing with unchanged app bundles, verify root redirects and signed-out Welcome is first.
 **Next responsible agent:** Codex for this routing fix only, then founder visual review.
 
+### Agent Session - 2026-11-13 20:19:11 IST - FAMILY-V2 group2
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / group2.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** 4724e39f9fc889d16297f7e70828eb64faff6599; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** F14/F15/F16 complete: grouped visits/date blocks/history,9steps/stopped banners/route/first-name companion, issued-code lifecycle, current access refresh, cancellation draftretry/private notes.21 focused tests +4 unified visit-action tests. Final check-all PASS DB209/11skip Ops70 shared29 Companion58/3skip Family130/6skip unified95; fatal-info/format pass.24 actual renders (Group1 refreshed). Worker/reviewer authrefresh unavailable; root completed/self-reviewed, no credentials changes. Browser selector/copy updates retain backend assertions. Same draftPR37; nextpush+CI gate beforeGroup3.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
+### Agent Session - 2026-11-13 19:57:45 IST - FAMILY-V2 group1-CI-green-group2-start
+
+**Agent:** Codex; Family/Patient UI implementation and verification.
+**Task ID / Name:** FAMILY-V2 / group1-CI-green-group2-start.
+**Repository / Worktree:** `D:\AI-Workspace\Repos\anuga-family-screens-v2`.
+**Branch:** `feat/family-screens-v2`.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** 4724e39f9fc889d16297f7e70828eb64faff6599; this checkpoint is included in the next task commit.
+**PR:** Draft only; see evidence README for current link.
+**Scope:** Approved six-group Family screen specification; no Companion/auth/backend changes.
+**Completed work / Files changed:** Group1 source4724e39/run43441169469 all7CI SUCCESS, observed2026-11-13 19:56:51IST. Includes real LOCAL Supabase SQL/Edge, both browser/API journeys and cross-app journey. Preview integration skipped; no hosted mutations. Group2 F14/F15/F16 implementation starts only after this gate, same draftPR37. Deferred contracts unchanged.
+**Tests and actual results / CI evidence:** See group ledger in docs/evidence/family-screens-v2/README.md; no unrecorded pass implied.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no migrations or hosted mutations.
+**Decisions and assumptions:** Approved url_launcher ^6.3.3 for dialer only. Deferred contracts explicitly listed in evidence.
+**Blockers:** Support number, profile/routine/address/latest-history/notification lookup/overdue/upload-limit/legal contracts deferred.
+**Uncommitted changes:** Intended group changes before task commit; other worktrees preserved.
+**Exact next action:** Complete current group checks/docs/push, verify CI, continue next approved group.
+**Next responsible agent:** Codex.
+
+**BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+
+### Agent Session - 2026-11-13 19:55 IST - legal documents draft preview
+
+**Agent:** Claude Code.
+**Role / responsibility:** Build the legal-document screens as one reviewable feature; keep acceptance gated until lawyer sign-off.
+**Session start (IST):** 2026-11-13 19:32.
+**Task ID / Name:** LEGAL-DOCS-1 / legal documents and consent integration (draft preview).
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-legal-documents.
+**Branch:** feat/legal-documents.
+**Starting commit:** b834b53 (origin/main).
+**Current commit:** See the pull request head.
+**PR:** See GitHub, branch feat/legal-documents (draft).
+**Scope:** Versioned privacy notice and terms of service as read-only DRAFT screens in the Family app, linked from the existing Consent screen. Documentation of acceptance evidence requirements and gaps.
+**Completed work:** Document model with an approval gate; English draft texts (version 0.1-draft) from docs/legal/lawyer-review-pack.md; read-only screen with pinned draft banner; two reading links on the Consent screen; seven labels in en/te/hi; docs/legal/acceptance-evidence.md; screenshots.
+**Files changed:** apps/family_app/lib/src/legal/*, apps/family_app/lib/src/screens/legal_document_screen.dart, apps/family_app/lib/src/screens/consent_screen.dart (imports and one inserted block), apps/family_app/lib/l10n/app_{en,te,hi}.arb, apps/family_app/test/legal_documents_test.dart, apps/family_app/test/support/capture_legal.dart, docs/legal/*, docs/evidence/legal-documents/*, shared handoff documents.
+**Tests and actual results:** Family app: analyze clean; flutter test 141 passed, 6 existing skips (after merging main e8e0063). Unified app: analyze clean; flutter test 91 passed. Capture harness 1 passed. Not run: pnpm db:test, scripts/check-all.sh, ops console, companion app tests (no such source changed).
+**CI evidence:** Not available at time of writing; see the pull request checks.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed. No migrations. No hosted changes.
+**Decisions and assumptions:** No lawyer sign-off is recorded, so both documents are drafts and cannot be accepted. Founder decision in chat (2026-11-13): build the screens now, keep the acceptance requirement gated until sign-off. Legal text is English only until translations are legally reviewed. Blanks are kept as "[To be confirmed: ...]"; nothing was invented.
+**Blockers:** Lawyer review; founder to fill Part H of the lawyer pack. Backend gaps G1 to G9 in docs/legal/acceptance-evidence.md, including G4: create_patient() records a trips consent automatically.
+**Uncommitted changes:** None after the task commit.
+**Exact next action:** STOP for founder review of the draft pull request. Do not add an acceptance step or link these screens elsewhere until the founder decides.
+**Next responsible agent:** Founder. Main e8e0063 (PR #37, PR #30) is already merged into this branch.
 
 ### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
 
@@ -115,6 +294,120 @@
 **Next responsible agent:** Codex.
 
 **BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+### Agent Session - 2026-11-13 15:34:45 IST - COMP-V2 draft PR delivery
+
+**Agent:** Codex, Flutter implementation coordinator. Session start not recorded;
+first observed clock 2026-11-13 15:05:07 IST; completion/checkpoint 2026-11-13 15:34:45 IST.
+**Task ID / Name:** COMP-V2 / unified Companion screens.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2, tracking origin branch.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** Tested source6aea386c9061a604297b05ca7db4a44e1ab9f6de;
+this documentation-only receipt's SHA is its Git metadata.
+**PR:** https://github.com/iamnawin/anuga/pull/36 - OPEN, DRAFT, base main.
+**Scope:** Unified Companion screens and required tracking/evidence only.
+**Completed work:** Supported C3-C18 portions, 59 new Companion widget tests,
+21 synthetic viewport renders. C1/C2/C19/C20 and documented contract gaps deferred.
+**Files changed:** Unified companion_* presentation, Companion app mount, three
+ARBs, existing direct launcher/web declarations, tests, PRODUCT design context,
+six tracking files and docs/evidence/companion-screens-v2. Old app/shared/backend,
+auth/payment/upload sources unchanged. Foundation beddacb, planning2d619e2.
+**Tests and actual results:** Full check-all PASS; final unified146/146 and analyzer
+PASS; final release web build PASS exit0 (50.1s). Exact commands, skips and earlier
+failed checks/fixes preserved in COMP-V2 receipt. No assertions weakened.
+**CI evidence:** Source6aea386 checks observed seven jobs IN_PROGRESS and
+Supabase Preview SKIPPED. No CI pass claimed; later receipt check rollup is
+authoritative. Local tests are not CI evidence.
+**Merge status:** Not merged; draft review only.
+**Deployment and migration status:** Not deployed; no hosted mutation/migration.
+Release build used example.invalid synthetic-only configuration.
+**Decisions and assumptions:** Approved final spec D1-D7, D5=M0. Existing RPCs and
+state machine retained; no invented identity, event times, verification or windows.
+Missing profile/verification/availability/document/support/settings contracts remain
+explicit proposals; C12 recipient is text in the existing completion note.
+**Blockers:** Deferred contracts; physical maps/dialer, browser/PWA offline and
+human Telugu/Hindi acceptance were not performed. No production gate closed.
+**Uncommitted changes:** This Markdown-only receipt before commit; pushed source
+was clean. Other agents' worktrees and historical evidence preserved.
+**Exact next action:** Push receipt, confirm draft/head and clean tree, hand off
+for founder review. No merge, deployment, hosted migration or backend expansion.
+**Next responsible agent:** Founder/reviewer; Codex only on requested follow-up.
+
+
+COMP-V2 delivery checkpoint 2026-11-13 15:32:34 IST: foundation committed as
+`beddacb2b9a2b609cc35d70a768bfd60233232ff` after planning `2d619e2`.
+Final source unified146 tests/analyze PASS; release web rebuild PASS (exit0,
+50.1s; existing font warning). Journey source/tests and 21 synthetic PNGs are
+being committed next. Draft PR/push pending; no merge/deploy/hosted mutations.
+
+
+### Agent Session - 2026-11-13 15:31:56 IST - COMP-V2 implementation verification
+
+**Agent:** Codex, Flutter implementation coordinator. Session start not recorded;
+first observed clock 2026-11-13 15:05:07 IST. Completion/checkpoint: 2026-11-13 15:31:56 IST.
+**Task ID / Name:** COMP-V2 / unified Companion screens.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** Planning2d619e2; implementation commits follow this checkpoint.
+**PR:** Pending DRAFT creation; no merge authorized.
+**Scope:** apps/anugacare_app only plus required evidence/tracking documents.
+**Completed work:** Supported C3-C18 screens/forms, 8-step presentation over all
+existing persisted stages, private first-name essentials, native maps handoff, OTP,
+handover checklist, required note, issue/no-show, Help/Me. C1/C2/C19/C20 deferred.
+**Files changed:** Unified companion_* presentation, app Companion mount, EN/TE/HI
+ARBs, direct declarations of existing launcher/web packages, tests, PRODUCT design
+summary, this tracking set and 21 synthetic widget viewport images.
+**Tests and actual results:** Full check-all PASS (DB209/11skip, Ops70/build, shared29,
+old Companion58/3skip, Family94/6skip, unified145); final unified146 incl59 Companion
+and analyze PASS after next-assignment metadata UI/test. Privacy RED failures
+fixed without weakening assertions. Exact commands/history in COMP-V2 receipt.
+**CI evidence:** Not yet observed for the new branch. Local checks are not CI.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no hosted mutations/migrations.
+Release web built with example.invalid synthetic-only config; final rebuild pending
+in this checkpoint. No real Supabase journey or physical/native acceptance.
+**Decisions and assumptions:** Approved final spec D1-D7, D5=M0. Missing profile,
+ID/training, availability/upload, support number, event times and business settings
+remain gaps; no invented identity/timelines/wait windows or standalone new RPCs.
+C12 recipient is part of the existing completion note, not a new database field.
+**Blockers:** Deferred contracts and manual phone/native-speaker approval.
+**Uncommitted changes:** Intended verified source/evidence before small commits.
+**Exact next action:** Commit foundation then journey/tests with documentation,
+push only this branch, open DRAFT PR, record exact SHAs/link/status. Never merge/deploy.
+**Next responsible agent:** Codex for delivery receipt; founder for review.
+
+
+### Agent Session - 2026-11-13 15:16 IST - COMP-V2 planning checkpoint
+
+**Agent:** Codex, Flutter implementation coordinator.
+**Task ID / Name:** COMP-V2 / unified Companion C1-C20 supported screen contracts.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291 (latest fetched main).
+**Current commit:** Baseline; implementation uncommitted during this checkpoint.
+**PR:** Not created yet; draft only authorized.
+**Scope:** Unified Companion screens only, required tracking documents.
+**Completed work:** Read approved research spec, audited contracts, opened references,
+recorded C1-C20 mapping/plan and missing-contract proposals in
+docs/evidence/companion-screens-v2/README.md. Supported UI written; validation in progress.
+**Files changed:** Unified Companion screens, ARBs, app mount, direct declarations
+of already-transitive launcher/web dependencies, widget tests; tracking docs.
+**Tests and actual results:** Focused new screens 43 PASS, updated routing/mobile39
+PASS; broader checks running. Initial analyzer had four lint infos, being corrected.
+**CI evidence:** Not run for this branch.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no hosted mutations/migrations.
+**Decisions and assumptions:** Founder instruction authorizes this next task after
+prior historical STOP. Final spec controls; D5=M0. Missing profile/verification/
+availability/document/support/timeline/settings contracts remain deferred.
+**Blockers:** No supported-screen blocker; complete C1/C2/C19/C20 and several
+requested fields need separate backend contracts. Native/language approval pending.
+**Uncommitted changes:** Implementation/tests currently uncommitted in this worktree.
+**Exact next action:** Finish review corrections, execute full checks, commit with
+receipt, push this branch and open DRAFT PR only. No merge or deploy.
+**Next responsible agent:** Codex for implementation/validation; founder for review.
 
 
 ### Agent Session - 2026-11-13 14:09:07 IST — authorized UI stack merge
@@ -1827,3 +2120,25 @@ Not run: device/emulator,real-Supabase journey/permissions (Docker absent),hoste
 
 
 Local integration browser receipt: repository Playwright/Edge opened all three real release builds, enabled Flutter semantics and entered each synthetic phone. Three HTTP 200, zero page errors or failed requests, all input values confirmed. No login submitted because Phone is disabled. Proof: docs/evidence/integration. Full logs in ignored artifacts/integration. Historical docs were reconciled using UTF-8 source snapshots and normalized to LF after Windows shell encoding changed historical punctuation. No product code changed in this correction; diff whitespace check rerun. Next: open integration PR, inspect CI, founder configures synthetic phone auth and completes LOCAL_TESTING walkthrough.
+
+### Agent Session - 2026-11-14 11:22 IST - COMP-V2 preview publication
+
+**Agent:** Codex, delivery coordinator. First observed session clock 11:17:53 IST; checkpoint 11:22 IST.
+**Task ID / Name:** COMP-V2-PREVIEW / publish companion screens for founder testing.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** fbbc13bac8b5089d4862b350c92725b8116859f7.
+**Current commit:** Runtime/deployed source fbbc13b; this documentation commit identified by Git metadata.
+**PR:** https://github.com/iamnawin/anuga/pull/36 (OPEN, DRAFT).
+**Scope:** Founder requested commit/push and Vercel test availability; synthetic preview only.
+**Completed work:** Confirmed source already committed and remote head identical; git push reported Everything up-to-date. Built all four apps with existing public synthetic settings and deployed a prebuilt preview to the existing anuga project.
+**Files changed:** HANDOFF, TASKS, EXECUTION_STATE, PROGRESS_LEDGER, UX_AUDIT, UX_IMPLEMENTATION_PLAN documentation only. No runtime/config/backend changes.
+**Tests and actual results:** scripts/build-staging.sh exit 0 (Ops and all three Flutter release web builds). Existing Cupertino font warning remains. Authenticated Vercel CLI curl /app/ returned HTTP 200. No browser sign-in/journey or physical-phone test in this session. git diff --check passed before receipt; repeated before commit.
+**CI evidence:** https://github.com/iamnawin/anuga/actions/runs/43406351667 on fbbc13b: db-tests, shared-dart, ops-console, companion-app, family-app, anugacare-app SUCCESS; supabase-local FAILURE at care_request.spec.ts:207, old group locator matching time and Lakshmi Rao not found. Supabase Preview SKIPPED. No all-green CI claim.
+**Merge status:** Not merged; draft PR remains open.
+**Deployment and migration status:** Preview READY, dpl_7vXnp3NqYb3qbYcSSH3xyKJeFVvz, https://anuga-648ez5abn-iamnawins-projects.vercel.app/app/ . Existing live alias unchanged. No hosted migrations/data mutation. Inspector: https://vercel.com/iamnawins-projects/anuga/7vXnp3NqYb3qbYcSSH3xyKJeFVvz .
+**Decisions and assumptions:** Existing vercel.json disables Git deployment; push alone cannot publish. Used existing manual prebuilt deployment; no automatic deployment config changed. New screens are unified /app/, not legacy /companion/. Preview may require Vercel team sign-in.
+**Blockers:** CI journey locator failure unresolved; browser/native/language acceptance pending. No production gate closed.
+**Uncommitted changes:** This six-file documentation receipt before commit; generated artifacts ignored.
+**Exact next action:** Commit/push receipt to same branch, verify remote SHA, founder opens preview /app/ and signs in with synthetic companion 9000000201 or 9000000202. Resolve journey CI before merge.
+**Next responsible agent:** Founder for preview test; Codex for requested fixes.
