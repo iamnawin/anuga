@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'src/app.dart';
 import 'src/auth.dart';
+import 'src/text_size.dart';
 
 // Configure with --dart-define (values from `supabase status -o env` for local):
 //   flutter run --dart-define=SUPABASE_URL=http://10.0.2.2:54321 --dart-define=SUPABASE_PUBLISHABLE_KEY=...
@@ -18,10 +19,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final preferences = SharedPreferencesAsync();
   String? language;
+  String? textSize;
   try {
     language = await preferences.getString('anuga-language');
+    textSize = await preferences.getString('anuga-text-size');
   } catch (_) {
-    // Storage may be unavailable; English still works for this session.
+    // Storage may be unavailable; default preferences still work this session.
   }
   if (_url.isEmpty || _publishableKey.isEmpty) {
     throw StateError('Pass --dart-define=SUPABASE_URL=... and --dart-define=SUPABASE_PUBLISHABLE_KEY=...');
@@ -37,6 +40,14 @@ Future<void> main() async {
   final rpc = supabaseRpc(client);
   runApp(
     AnugaCareApp(
+      initialTextSize: AppTextSize.fromStoredValue(textSize),
+      onTextSizeChanged: (size) async {
+        try {
+          await preferences.setString('anuga-text-size', size.name);
+        } catch (_) {
+          // A blocked preference store must not prevent changing text size.
+        }
+      },
       initialLocale: Locale(const ['en', 'te', 'hi'].contains(language) ? language! : 'en'),
       onLocaleChanged: (locale) async {
         try {

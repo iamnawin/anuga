@@ -1,0 +1,17 @@
+{
+  "source_commit": "5509d4d8c6fbc5b6a69b023570167426b2a4e903",
+  "surface": "Chrome desktop, real release build on localhost:3191; no mocked storage",
+  "preview": "https://anuga-62htzcnd0-iamnawins-projects.vercel.app/app/",
+  "preview_deployment": "dpl_3D6vpPq9p17vduH5Lh49N7YwYZ4w",
+  "preview_bundle_matches_local": true,
+  "app_js_sha256": "c7bd6b3d5df8e13052f132e6783d6b30c65e5f56279138354d09048105e6f834",
+  "initial_choice": "Standard",
+  "selected_choice": "Small",
+  "small_restored_after_reload": true,
+  "language_change_retained_small": true,
+  "telugu_and_small_restored_together_after_reload": true,
+  "sign_in_submissions": 0,
+  "hosted_data_mutations": 0,
+  "physical_phone_tested": false,
+  "note": "Screenshot is actual desktop capture. Clip capture timed out; full capture succeeded. No viewport override was used."
+}

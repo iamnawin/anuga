@@ -220,5 +220,10 @@
   "cVisitCompleted": "Visit completed",
   "cVisitDenied": "You cannot open this visit.",
   "cVisitNote": "Visit note",
-  "cWaitForCentre": "Handover complete. You can wait nearby or take a break. Wait for the centre to say the session is finished."
+  "cWaitForCentre": "Handover complete. You can wait nearby or take a break. Wait for the centre to say the session is finished.",
+  "textSizeLarge": "Large",
+  "textSizeStandard": "Standard",
+  "textSizeExtraLarge": "Extra large",
+  "textSize": "Text size",
+  "textSizeSmall": "Small"
 }

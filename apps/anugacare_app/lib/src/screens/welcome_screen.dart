@@ -6,9 +6,10 @@ import '../../l10n/generated/app_localizations.dart';
 /// Signed-out introduction only. Both actions open the same existing login;
 /// neither selects a role or creates an account.
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key, required this.onStart, required this.onLocaleChanged});
+  const WelcomeScreen({super.key, required this.onStart, required this.onLocaleChanged, this.textSizeControl});
   final VoidCallback onStart;
   final ValueChanged<Locale> onLocaleChanged;
+  final Widget? textSizeControl;
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +145,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(l10n.syntheticBanner, textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
+                  ?textSizeControl,
                 ],
               ),
             ),
