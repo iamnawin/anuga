@@ -79,6 +79,17 @@
 **BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
 
 
+## Legal documents draft preview (LEGAL-DOCS-1) - 2026-11-13 19:55 IST
+
+- [x] Versioned privacy notice and terms as read-only DRAFT screens in the Family app.
+- [x] Reading links on the existing Consent screen; consent logic unchanged.
+- [x] Approval gate (`canRequestAcceptance`) with tests; no acceptance flow exists.
+- [x] Evidence requirements and gaps recorded in `docs/legal/acceptance-evidence.md`.
+- [ ] Lawyer review and written sign-off; founder fills Part H of the lawyer pack.
+- [ ] Legally reviewed Telugu and Hindi text.
+- [ ] Backend for acceptance records and consent evidence (gaps G1 to G4, G7).
+- Draft PR on `feat/legal-documents`. Not merged, not deployed, no migrations.
+
 ### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
 
 **Agent:** Codex; Family/Patient UI implementation and verification.

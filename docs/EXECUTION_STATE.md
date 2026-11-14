@@ -79,6 +79,13 @@
 **BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
 
 
+IN DRAFT PR - 2026-11-13 19:55 IST: LEGAL-DOCS-1 (Claude Code) on feat/legal-documents
+from b834b53, worktree D:\AI-Workspace\Reposnuga-legal-documents. Read-only DRAFT privacy
+notice and terms screens in the Family app, linked from the Consent screen. No acceptance
+flow, no migration, no deployment. Family 141 passed/6 existing skips; unified app 91 passed (main e8e0063 merged in).
+PR #37 is merged on main and merged into this branch without code conflicts.
+STOP for founder review; lawyer sign-off pending.
+
 ### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
 
 **Agent:** Codex; Family/Patient UI implementation and verification.

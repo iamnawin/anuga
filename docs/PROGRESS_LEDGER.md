@@ -79,6 +79,11 @@
 **BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
 
 
+2026-11-13 19:55 IST: LEGAL-DOCS-1 IN DRAFT PR (feat/legal-documents). Legal document
+screens built as DRAFT preview with an approval gate; acceptance not built. Local Flutter
+checks passed; CI not yet observed. No lawyer approval, no translations, no backend evidence
+records: release weight for legal readiness unchanged. Not merged or deployed.
+
 ### Agent Session - 2026-11-13 19:46:19 IST - FAMILY-V2 group1-CI-tab-semantics
 
 **Agent:** Codex; Family/Patient UI implementation and verification.
