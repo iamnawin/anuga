@@ -236,7 +236,9 @@ test('Family request -> assigned companion journey -> persisted completion acros
       receipt.current_stage = status;
       if (status === 'handed_over') {
         await companion.getByRole('button', { name: 'Continue to handover', exact: true }).click();
-        await companion.getByRole('checkbox', { name: 'Patient received by centre staff', exact: true }).check();
+        const received = companion.getByRole('checkbox', { name: 'Patient received by centre staff', exact: true });
+        await received.click();
+        await expect(received).toBeChecked();
         await enterFlutter(companion, 'Handover note (optional)', note!);
       } else if (status === 'completed') {
         await companion.getByRole('button', { name: 'Add visit note', exact: true }).click();

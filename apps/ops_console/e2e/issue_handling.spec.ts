@@ -161,7 +161,9 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
         button = 'Send report';
       } else if (status === 'handed_over') {
         await companion.getByRole('button', { name: 'Continue to handover', exact: true }).click();
-        await companion.getByRole('checkbox', { name: 'Patient received by centre staff', exact: true }).check();
+        const received = companion.getByRole('checkbox', { name: 'Patient received by centre staff', exact: true });
+        await received.click();
+        await expect(received).toBeChecked();
         await enterFlutter(companion, 'Handover note (optional)', note!);
       } else if (status === 'completed') {
         await companion.getByRole('button', { name: 'Add visit note', exact: true }).click();

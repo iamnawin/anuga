@@ -1,5 +1,8 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+2026-11-14 18:02:22 IST - UI-PUBLICATION PR44: CI43594410252 six jobs SUCCESS (including Android builds), supabase-local failed only at new handover Playwright checkbox .check immediate-state assertion after actual pickup/centre transitions. Test now clicks and polls toBeChecked; no app/guard/backend change. Ops lint/typecheck and two browser-test discovery PASS after fix. Combined release build PASS and preview dpl_EvtXn4Tah4T47681zo1Jdax29z9r READY; preview app SHA256 C3DA804B8FEE7F0052CD35067A8E1D47B795CA03233DE577EE236F9C28B8AFB1 equals local. Actual browser Companion/Family synthetic sign-ins, Today/Visits/Me, essentials, consent and read-only Terms draft verified; four curated desktop PNGs added. Narrow widget matrix passed; browser viewport override did not apply, so these captures are honestly desktop. Live alias unchanged pending replacement CI.
+
+
 2026-11-14 17:51:15 IST - UI-PUBLICATION: full expanded scripts/check-all.sh ALL CHECKS PASSED (DB209/11 existing skips, Ops70 plus lint/typecheck/build, shared39, legacy Companion58/3 existing skips, Family181/6 existing skips, unified157; format and fatal-info analyze pass). Legal draft acceptance remains disabled. Five source heads included. Integration PR and CI next; no live update yet. Evidence: docs/evidence/ui-publication-2026-11-14/README.md.
 
 
