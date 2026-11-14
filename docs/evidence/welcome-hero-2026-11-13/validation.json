@@ -29,5 +29,10 @@
     "independent_review": "No blockers"
   },
   "merged": false,
-  "deployed": false
+  "deployed": false,
+  "implementation_commit": "8a13349825b89b08aa590b128d677efadb2649c3",
+  "pr": "https://github.com/iamnawin/anuga/pull/43",
+  "pr_state": "OPEN, unmerged",
+  "delivery_checkpoint_ist": "2026-11-14 11:07:49",
+  "ci": "Pending automatic PR checks; local results above are executed"
 }

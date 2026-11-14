@@ -1,5 +1,8 @@
 # AnugaCare execution state
 
+2026-11-14 11:07:49 IST - WELCOME-HERO-20261113 DELIVERED: PR #43 https://github.com/iamnawin/anuga/pull/43 OPEN/unmerged, implementation8a13349825b89b08aa590b128d677efadb2649c3. All required local checks passed and24 release screenshots/12configs captured with zerohostedcalls. This later delivery receipt is documentation only. No main merge/deployment/other component integration; STOP for founder visual review.
+
+
 2026-11-14 10:56:30 IST - WELCOME-HERO-20261113 on isolated feat/welcome-hero-arch from29a8356. Hero-only edit implemented: separate transparent arch asset, original preserved; theme-aware side/lower alpha, natural foreground, no rectangularclip/crop, solidbackgroundbeforeheadline. Logo/copy/controls/navigation unchanged. Focused40/fullunified93/analyze/releasebuild PASS;12 browserconfigs360/390 light/dark EN/TE/HI,24screenshots,language/actions PASS,hostedcalls0. Required sequential check-all PASS (DB209/11skip, Ops70/build, shared29, Companion58/3skip, Family109/6skip, unified93); final diff/visual review clear. Commit/push own PR, then STOP for visual review. No merge or hosted deployment; other components untouched.
 
 

@@ -1,5 +1,8 @@
 # Handoff
 
+2026-11-14 11:07:49 IST - WELCOME-HERO-20261113 DELIVERED: PR #43 https://github.com/iamnawin/anuga/pull/43 OPEN/unmerged, implementation8a13349825b89b08aa590b128d677efadb2649c3. All required local checks passed and24 release screenshots/12configs captured with zerohostedcalls. This later delivery receipt is documentation only. No main merge/deployment/other component integration; STOP for founder visual review.
+
+
 ### Agent Session - 2026-11-14 10:56:30 IST - Welcome hero implementation and visual checks
 
 **Agent:** Codex.
@@ -9,19 +12,19 @@
 **Repository / Worktree:** D:/AI-Workspace/Repos/anuga-welcome-hero.
 **Branch:** feat/welcome-hero-arch.
 **Starting commit:** 29a8356ea6c68e01afca962035fefaf6a68d70a3.
-**Current commit:** Starting29a8356 plus own uncommitted implementation/evidence; ending task commit will be identified by Git.
-**PR:** New hero PR pending; no merge or live deployment authorized/performed for this task.
+**Current commit:** Implementation8a13349825b89b08aa590b128d677efadb2649c3 pushed; this later delivery receipt changes documentation only and is identified by Git.
+**PR:** PR #43 OPEN/unmerged: https://github.com/iamnawin/anuga/pull/43. No merge or live deployment for this task.
 **Scope:** Illustration, alpha blend and immediate headline spacing only. Logo/copy/l10n/theme tokens/controls/routes retained.
 **Completed work:** Inspected original/mockup/theme; saved a separate edited transparent4:3 arch asset, original untouched. Soft muted clinic/trees, natural figures and cane; theme-background alpha masks start lowerfade below hands and end before headline. Removed rounded rectangle/crop; reserved aspect avoids layout shift.
 **Files changed:** welcome_screen.dart, pubspec asset registration, separate heroPNG, focused render test, app product context and task/evidence records.
 **Tests and actual results:** Render edge tests RED2 on old rectangle then GREEN; focusedWelcome40PASS, full unified93PASS, analyzerclean, releasewebbuildPASS. Browser12configs (360/390 x light/dark x EN/TE/HI),24screenshots, bothactions/language reload PASS, hostedcalls0. Existing200%widgetmatrix passes. Sequential check-all PASS: DB209/11skip, Ops70/build, shared29, Companion58/3skip, Family109/6skip, unified93. Independent final diff/visual review clear.
-**CI evidence:** New hero CI NOT RUN before push; no newpass inferred.
+**CI evidence:** PR #43 automatic CI pending after push; local check-all PASS, no CI pass inferred.
 **Merge status:** Not merged; no other component PR touched.
 **Deployment and migration status:** Local release preview only http://127.0.0.1:3132/app/; no hosted deployment, backend/data/role/consent/provider change.
 **Decisions and assumptions:** User mockup controls hero only. Use actual scaffoldBackgroundColor in both themes; no fullimage color filter. Original asset retained unchanged. User requested screenshot review, not automatic merge/publication.
 **Blockers:** None for implementation; physical-device/native-speaker approval not claimed.
-**Uncommitted changes:** Own hero/context/test/evidence only; all other worktrees preserved.
-**Exact next action:** Commit/push own feature PR with screenshots and record delivery, then STOP for founder visual review; all required local checks/visual review completed. No merge/deploy.
+**Uncommitted changes:** Delivery receipt only before commit; implementation/source already pushed; all other worktrees preserved.
+**Exact next action:** STOP for founder visual review of PR #43/screenshots. All implementation/required local checks are committed/pushed; observe PR CI separately. No merge/deploy/next feature. No merge/deploy.
 **Next responsible agent:** Codex for receipt, founder for visual approval.
 
 
