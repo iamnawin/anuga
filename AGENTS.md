@@ -56,6 +56,17 @@ cd apps/family_app && flutter pub get && flutter analyze --fatal-infos && flutte
 - LIVE https://anuga.vercel.app serves root chooser and /ops/, /family/, /companion/. All four routes HTTP 200 and real three-role sign-in/reload/isolated sign-out pass. Source de8f72a, deployment dpl_FHuVVy4Th8XzxEqQAz3Ekc1ZFyN3. PR #9 merged at 37bdae2c; code CI 38150546061 passed all six jobs, real Supabase 150/150, full journey/test billing and both APKs. Main app code exactly matches verified published source. Final receipt is docs-only; its new CI may be running. Next: founder manual active-window visit from LOCAL_TESTING. M10 remains gated.
 - 2026-10-20: founder chose Salesforce as a one-way ops copy; Supabase stays the system of record (ADR 0005, milestone M9a, stream S6). PR #2 now carries only that decision; main already has its staging work.
 
+## Current delivery note (2026-11-14)
+
+Completed UI streams are merged through PR #44 (3bb8508) and LIVE on the existing
+synthetic anuga.vercel.app/app/ alias, deployment dpl_B8UMsvF9VE1PpuL52xAEWYiwDDVL.
+Source CI43597122368 on63488b6 passed all7 jobs including both real browser journeys
+and Android. Hosted smoke10/10, live route/asset hashes and existing-session reload
+passed. Companion36, legal38, Family39 and Welcome43 are merged; error76e6e16 is
+included. Terms/Privacy remain read-only DRAFT; acceptance and unfinished contracts
+stay gated. Git deployments remain disabled: push alone does not publish.
+Read the latest HANDOFF and docs/evidence/ui-publication-2026-11-14/README.md.
+Earlier delivery notes below are historical; production/device/language gates remain.
 ## Current delivery note (2026-11-03)
 
 PRs #19/#20/#21 are merged. PR #21 merge `21ae9bc` is published to the existing

@@ -1,0 +1,54 @@
+{
+  "base": "https://anuga.vercel.app",
+  "checked_at": "2026-11-14T13:06:00.785Z",
+  "routes": [
+    {
+      "path": "/",
+      "status": 307,
+      "location": "/app/"
+    },
+    {
+      "path": "/app/",
+      "status": 200
+    },
+    {
+      "path": "/ops/login/",
+      "status": 200
+    },
+    {
+      "path": "/family/",
+      "status": 200
+    },
+    {
+      "path": "/companion/",
+      "status": 200
+    }
+  ],
+  "assets": [
+    {
+      "path": "/app/main.dart.js",
+      "sha256": "c3da804b8fee7f0052cd35067a8e1d47b795ca03233de577ee236f9c28b8afb1",
+      "bytes": 4066674
+    },
+    {
+      "path": "/app/flutter_bootstrap.js",
+      "sha256": "324b771621a1b6386ef0229e2b058d70fe85f75b311dbcfac1fea47e2ee0caa8",
+      "bytes": 13119
+    },
+    {
+      "path": "/app/assets/assets/welcome/walking-clinic-hero.png",
+      "sha256": "444c38fc11fb8ecc6a6967894a6b517bef2bfeb9bd1b27886439df837c383769",
+      "bytes": 1461980
+    },
+    {
+      "path": "/family/main.dart.js",
+      "sha256": "282147e5c4ee88bce3be77393c333f0d37d7c0bcb9d654666f9de0f8fe96e6c1",
+      "bytes": 3819873
+    },
+    {
+      "path": "/companion/main.dart.js",
+      "sha256": "322e9f965b615733196b2e5bcc68b41b456de7cdc734c96ac3320515e1255720",
+      "bytes": 3175690
+    }
+  ]
+}
