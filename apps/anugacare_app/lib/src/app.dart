@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:companion_app/companion_app.dart' show companionTheme, TripsScreen;
+import 'package:companion_app/companion_app.dart' show companionTheme;
 import 'package:companion_app/l10n/generated/app_localizations.dart' as companion_l10n;
 import 'package:family_app/family_app.dart' show familyTheme, largeText, HomeScreen, Payments, PhotoSource, VaultFiles;
 import 'package:family_app/l10n/generated/app_localizations.dart' as family_l10n;
@@ -13,6 +13,7 @@ import 'auth.dart';
 import 'screens/account_status_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/welcome_screen.dart';
+import 'screens/companion_home_screen.dart';
 
 /// Where the app is between launch and a role home.
 enum AccountStage { signedOut, checking, family, companion, opsAccount, noRole, expired, error }
@@ -186,7 +187,7 @@ class _AnugaCareAppState extends State<AnugaCareApp> {
         onLocaleChanged: _setLocale,
         onSignOut: () => _signOut(AccountStage.signedOut),
       ),
-      AccountStage.companion => TripsScreen(
+      AccountStage.companion => CompanionHomeScreen(
         api: widget.companionApi,
         onLocaleChanged: _setLocale,
         onSignOut: () => _signOut(AccountStage.signedOut),

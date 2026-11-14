@@ -38,5 +38,187 @@
   "welcomeBody": "Scheduled hospital trips. Updates for your family.",
   "welcomeGetStarted": "Get started",
   "welcomeCompanionSignIn": "Companion sign in",
-  "welcomeOr": "or"
+  "welcomeOr": "or",
+  "previous": "Previous",
+  "upcoming": "Upcoming",
+  "refresh": "Refresh",
+  "detailsHidden": "Patient details appear closer to pickup time.",
+  "pickupAt": "Pickup {time}",
+  "@pickupAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "centre": "Centre",
+  "homeAddress": "Home address",
+  "mobilityNotes": "Mobility notes",
+  "familyContacts": "Family contacts",
+  "statusScheduled": "Scheduled",
+  "statusCompanionEnRoute": "On the way",
+  "statusPickedUp": "Picked up",
+  "statusAtCentre": "At centre",
+  "statusHandedOver": "Handed over",
+  "statusSessionDone": "Session done",
+  "statusReturning": "Returning",
+  "statusDroppedHome": "Dropped home",
+  "statusCompleted": "Completed",
+  "statusCancelled": "Cancelled",
+  "statusNoShow": "Patient not available",
+  "statusIssueReported": "Issue reported",
+  "confirmNoShow": "Mark the patient as not available? The family and ops are told.",
+  "actionReportIssue": "Report an issue",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "loading": "Loading…",
+  "errorGeneric": "Something went wrong. Try again.",
+  "errorNotAllowed": "Not allowed. This trip may have been reassigned.",
+  "issueReported": "Issue recorded.",
+  "cToday": "Today",
+  "cNextVisit": "Next visit",
+  "cVisits": "Visits",
+  "cMe": "Me",
+  "cCompanion": "Companion",
+  "cNoToday": "No visit assigned today",
+  "cNoVisits": "No upcoming visits",
+  "cDrop": "Drop {time}",
+  "@cDrop": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "cReturn": "Return {time}",
+  "@cReturn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "cOpenVisit": "Open visit",
+  "cViewUpcoming": "View upcoming",
+  "cOffline": "No internet. Your changes will not be saved",
+  "cConnectionProblem": "Connection problem. Your change has not been confirmed. Check your connection and try again.",
+  "cStep": "Step {step} of 8",
+  "@cStep": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "cNavigate": "Navigate",
+  "cCannotOpen": "Could not open the phone app. Try again on your phone.",
+  "cCallSupport": "Call AnugaCare support",
+  "cSupportUnavailable": "Support calling is not available yet.",
+  "cHelp": "Help and emergency",
+  "cEmergency": "Medical emergency? Call 112 or 108. AnugaCare does not send emergency help.",
+  "cCall112": "Call 112",
+  "cCall108": "Call 108",
+  "cNonClinical": "You are a companion, not a medical professional. Do not give medicine.",
+  "cUnwell": "Patient feels unwell",
+  "cUnwellGuide": "Stop the journey and seek help. In an emergency call 112 or 108. Do not give medicine.",
+  "cCannotFind": "Cannot find family",
+  "cCannotFindGuide": "Check the pickup address. Contact AnugaCare support when calling is available, or report an issue on the visit.",
+  "cCentreNotReady": "Centre not ready",
+  "cCentreGuide": "Ask centre staff for guidance. Report an issue if the visit cannot continue.",
+  "cSignOutConfirm": "Sign out of AnugaCare?",
+  "cProfileUnavailable": "Your profile and verification details are not available here yet.",
+  "cActionError": "We could not save this change. Try again.",
+  "cAddNote": "Add visit note",
+  "cAskPickupCode": "Ask the patient or family for the pickup code.",
+  "cAtCentre": "At the centre",
+  "cBackToday": "Back to Today",
+  "cBelongings": "Belongings handed over",
+  "cCancel": "Cancel",
+  "cCannotFindFamily": "Cannot find family",
+  "cCodeLocked": "Locked. Call support.",
+  "cCodeUnavailable": "This code is expired, locked, already used or not available. Ask the family for a new code or contact support.",
+  "cCodeWrong": "That code is not right. {attempts} tries left.",
+  "@cCodeWrong": {
+    "placeholders": {
+      "attempts": {
+        "type": "int"
+      }
+    }
+  },
+  "cCompleteAfterNote": "The visit is complete once you submit your note.",
+  "cConfirmAtCentre": "Confirm arrival at centre",
+  "cConfirmHandover": "Confirm handover",
+  "cConfirmHome": "Confirm home arrival",
+  "cConfirmPickup": "Confirm pickup",
+  "cConfirmSession": "Confirm session finished",
+  "cConfirmUnavailable": "Confirm patient not available",
+  "cContinueHandover": "Continue to handover",
+  "cEmergencyReminder": "In an emergency call 112 or 108.",
+  "cExpectedReturn": "Return pickup expected {time}",
+  "@cExpectedReturn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "cFamilyMember": "Family member",
+  "cHandedTo": "Handed to:",
+  "cHandoverNote": "Handover note (optional)",
+  "cHomeArrival": "Home arrival",
+  "cIssueDetails": "What happened?",
+  "cIssueRequired": "Describe the issue before sending.",
+  "cIssueWaiting": "Issue reported. Wait for AnugaCare to review this visit. Refresh to check for updates.",
+  "cKeepVisit": "Keep visit",
+  "cLoading": "Loading…",
+  "cMobility": "Mobility support: {note}",
+  "@cMobility": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "cNextHandover": "Next: hand over to centre staff.",
+  "cNoMedicalNotes": "Record visit details only. No medical notes.",
+  "cNoShowConfirm": "Confirm only if you could not pick up the patient. This will close the visit as patient not available. Contact support if you are unsure.",
+  "cNoteHint": "Describe the visit and any delays.",
+  "cNoteRequired": "Add a visit note before completing the visit.",
+  "cNoteSubmitted": "Visit note submitted",
+  "cOnTheWay": "On the way",
+  "cOther": "Other",
+  "cPatientAtDoor": "Patient at the door",
+  "cPatientHome": "The patient is home.",
+  "cPatientNotReady": "Patient not ready",
+  "cPatientUnavailable": "Patient not available",
+  "cPatientUnwell": "Patient unwell",
+  "cPatientWithYou": "The patient is with you.",
+  "cPickupCode": "6-digit pickup code",
+  "cRefresh": "Refresh visit",
+  "cReportIssue": "Report an issue",
+  "cReturningHome": "Returning home",
+  "cSendReport": "Send report",
+  "cSessionFinished": "The centre has confirmed the session is finished. Start the return when the patient is ready.",
+  "cSessionInProgress": "Session in progress",
+  "cStaffReceived": "Patient received by centre staff",
+  "cStartJourney": "Start journey",
+  "cStartOpens": "You can start from {time}",
+  "@cStartOpens": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "cStartReturn": "Start return journey",
+  "cStepChanged": "This step is no longer available. Refresh the visit and try again.",
+  "cSubmitComplete": "Submit and complete visit",
+  "cThankYou": "Thank you for accompanying this visit.",
+  "cTripEssentials": "Trip essentials",
+  "cVerifyPickup": "Verify and confirm pickup",
+  "cVisitClosed": "This visit is closed.",
+  "cVisitCompleted": "Visit completed",
+  "cVisitDenied": "You cannot open this visit.",
+  "cVisitNote": "Visit note",
+  "cWaitForCentre": "Handover complete. You can wait nearby or take a break. Wait for the centre to say the session is finished."
 }

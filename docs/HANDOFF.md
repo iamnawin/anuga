@@ -1,5 +1,28 @@
 # Handoff
 
+### Agent Session - 2026-11-14 17:34:34 IST - UI publication reconciliation checkpoint
+
+**Agent:** Codex, integration and deployment investigation.
+**Task ID / Name:** UI-PUBLICATION-20261114.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-ui-publication.
+**Branch:** fix/ui-publication-2026-11-14.
+**Starting commit:** 29a8356ea6c68e01afca962035fefaf6a68d70a3.
+**Current commit:** Checkpoint commit identified by Git; integration in progress.
+**PR:** Pending integration PR; source PR36 draft/unmerged and PR43 open/unmerged.
+**Scope:** Founder requests investigation and correction of missing published Companion and Welcome UI.
+**Completed work:** Verified live dpl_Hh646SE3ibGmxdFQe23oYjBsYjuC remains Nov13; Git deployment disabled; Companion36 not merged, Welcome43 not merged. New Companion lives in unified /app/, legacy /companion/ unchanged. Reconciled only six documentation conflicts, preserving both histories; product sources auto-merge.
+**Files changed:** Source36 plus additive mandatory tracking.
+**Tests and actual results:** Investigation only; integrated checks pending. PR43 latest Supabase failure is obsolete companionTile selector, not merely historical Docker collision.
+**CI evidence:** PR43 run43562467546 latest failure at issue_handling.spec.ts154; six jobs pass. No integration CI yet.
+**Merge status:** Local integration only; no main merge.
+**Deployment and migration status:** Not deployed; no DB changes.
+**Decisions and assumptions:** Current founder request authorizes preparing combined synthetic publication; preserve other worktrees and unrelated branches.
+**Blockers:** Need update browser journey for actual Companion UI and verify integrated checks.
+**Uncommitted changes:** Integration before this checkpoint commit.
+**Exact next action:** Incorporate Welcome43, update actual journey selectors/interactions without weakening backend checks, full validation and combined preview.
+**Next responsible agent:** Codex.
+
+
 ### Agent Session - 2026-11-13 20:31:07 IST - own root entry routing fix
 
 **Agent:** Codex.
@@ -115,6 +138,120 @@
 **Next responsible agent:** Codex.
 
 **BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+### Agent Session - 2026-11-13 15:34:45 IST - COMP-V2 draft PR delivery
+
+**Agent:** Codex, Flutter implementation coordinator. Session start not recorded;
+first observed clock 2026-11-13 15:05:07 IST; completion/checkpoint 2026-11-13 15:34:45 IST.
+**Task ID / Name:** COMP-V2 / unified Companion screens.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2, tracking origin branch.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** Tested source6aea386c9061a604297b05ca7db4a44e1ab9f6de;
+this documentation-only receipt's SHA is its Git metadata.
+**PR:** https://github.com/iamnawin/anuga/pull/36 - OPEN, DRAFT, base main.
+**Scope:** Unified Companion screens and required tracking/evidence only.
+**Completed work:** Supported C3-C18 portions, 59 new Companion widget tests,
+21 synthetic viewport renders. C1/C2/C19/C20 and documented contract gaps deferred.
+**Files changed:** Unified companion_* presentation, Companion app mount, three
+ARBs, existing direct launcher/web declarations, tests, PRODUCT design context,
+six tracking files and docs/evidence/companion-screens-v2. Old app/shared/backend,
+auth/payment/upload sources unchanged. Foundation beddacb, planning2d619e2.
+**Tests and actual results:** Full check-all PASS; final unified146/146 and analyzer
+PASS; final release web build PASS exit0 (50.1s). Exact commands, skips and earlier
+failed checks/fixes preserved in COMP-V2 receipt. No assertions weakened.
+**CI evidence:** Source6aea386 checks observed seven jobs IN_PROGRESS and
+Supabase Preview SKIPPED. No CI pass claimed; later receipt check rollup is
+authoritative. Local tests are not CI evidence.
+**Merge status:** Not merged; draft review only.
+**Deployment and migration status:** Not deployed; no hosted mutation/migration.
+Release build used example.invalid synthetic-only configuration.
+**Decisions and assumptions:** Approved final spec D1-D7, D5=M0. Existing RPCs and
+state machine retained; no invented identity, event times, verification or windows.
+Missing profile/verification/availability/document/support/settings contracts remain
+explicit proposals; C12 recipient is text in the existing completion note.
+**Blockers:** Deferred contracts; physical maps/dialer, browser/PWA offline and
+human Telugu/Hindi acceptance were not performed. No production gate closed.
+**Uncommitted changes:** This Markdown-only receipt before commit; pushed source
+was clean. Other agents' worktrees and historical evidence preserved.
+**Exact next action:** Push receipt, confirm draft/head and clean tree, hand off
+for founder review. No merge, deployment, hosted migration or backend expansion.
+**Next responsible agent:** Founder/reviewer; Codex only on requested follow-up.
+
+
+COMP-V2 delivery checkpoint 2026-11-13 15:32:34 IST: foundation committed as
+`beddacb2b9a2b609cc35d70a768bfd60233232ff` after planning `2d619e2`.
+Final source unified146 tests/analyze PASS; release web rebuild PASS (exit0,
+50.1s; existing font warning). Journey source/tests and 21 synthetic PNGs are
+being committed next. Draft PR/push pending; no merge/deploy/hosted mutations.
+
+
+### Agent Session - 2026-11-13 15:31:56 IST - COMP-V2 implementation verification
+
+**Agent:** Codex, Flutter implementation coordinator. Session start not recorded;
+first observed clock 2026-11-13 15:05:07 IST. Completion/checkpoint: 2026-11-13 15:31:56 IST.
+**Task ID / Name:** COMP-V2 / unified Companion screens.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291.
+**Current commit:** Planning2d619e2; implementation commits follow this checkpoint.
+**PR:** Pending DRAFT creation; no merge authorized.
+**Scope:** apps/anugacare_app only plus required evidence/tracking documents.
+**Completed work:** Supported C3-C18 screens/forms, 8-step presentation over all
+existing persisted stages, private first-name essentials, native maps handoff, OTP,
+handover checklist, required note, issue/no-show, Help/Me. C1/C2/C19/C20 deferred.
+**Files changed:** Unified companion_* presentation, app Companion mount, EN/TE/HI
+ARBs, direct declarations of existing launcher/web packages, tests, PRODUCT design
+summary, this tracking set and 21 synthetic widget viewport images.
+**Tests and actual results:** Full check-all PASS (DB209/11skip, Ops70/build, shared29,
+old Companion58/3skip, Family94/6skip, unified145); final unified146 incl59 Companion
+and analyze PASS after next-assignment metadata UI/test. Privacy RED failures
+fixed without weakening assertions. Exact commands/history in COMP-V2 receipt.
+**CI evidence:** Not yet observed for the new branch. Local checks are not CI.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no hosted mutations/migrations.
+Release web built with example.invalid synthetic-only config; final rebuild pending
+in this checkpoint. No real Supabase journey or physical/native acceptance.
+**Decisions and assumptions:** Approved final spec D1-D7, D5=M0. Missing profile,
+ID/training, availability/upload, support number, event times and business settings
+remain gaps; no invented identity/timelines/wait windows or standalone new RPCs.
+C12 recipient is part of the existing completion note, not a new database field.
+**Blockers:** Deferred contracts and manual phone/native-speaker approval.
+**Uncommitted changes:** Intended verified source/evidence before small commits.
+**Exact next action:** Commit foundation then journey/tests with documentation,
+push only this branch, open DRAFT PR, record exact SHAs/link/status. Never merge/deploy.
+**Next responsible agent:** Codex for delivery receipt; founder for review.
+
+
+### Agent Session - 2026-11-13 15:16 IST - COMP-V2 planning checkpoint
+
+**Agent:** Codex, Flutter implementation coordinator.
+**Task ID / Name:** COMP-V2 / unified Companion C1-C20 supported screen contracts.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** b834b53fbc19952e86161d3bdb049354dfb78291 (latest fetched main).
+**Current commit:** Baseline; implementation uncommitted during this checkpoint.
+**PR:** Not created yet; draft only authorized.
+**Scope:** Unified Companion screens only, required tracking documents.
+**Completed work:** Read approved research spec, audited contracts, opened references,
+recorded C1-C20 mapping/plan and missing-contract proposals in
+docs/evidence/companion-screens-v2/README.md. Supported UI written; validation in progress.
+**Files changed:** Unified Companion screens, ARBs, app mount, direct declarations
+of already-transitive launcher/web dependencies, widget tests; tracking docs.
+**Tests and actual results:** Focused new screens 43 PASS, updated routing/mobile39
+PASS; broader checks running. Initial analyzer had four lint infos, being corrected.
+**CI evidence:** Not run for this branch.
+**Merge status:** Not merged.
+**Deployment and migration status:** Not deployed; no hosted mutations/migrations.
+**Decisions and assumptions:** Founder instruction authorizes this next task after
+prior historical STOP. Final spec controls; D5=M0. Missing profile/verification/
+availability/document/support/timeline/settings contracts remain deferred.
+**Blockers:** No supported-screen blocker; complete C1/C2/C19/C20 and several
+requested fields need separate backend contracts. Native/language approval pending.
+**Uncommitted changes:** Implementation/tests currently uncommitted in this worktree.
+**Exact next action:** Finish review corrections, execute full checks, commit with
+receipt, push this branch and open DRAFT PR only. No merge or deploy.
+**Next responsible agent:** Codex for implementation/validation; founder for review.
 
 
 ### Agent Session - 2026-11-13 14:09:07 IST — authorized UI stack merge
@@ -1827,3 +1964,25 @@ Not run: device/emulator,real-Supabase journey/permissions (Docker absent),hoste
 
 
 Local integration browser receipt: repository Playwright/Edge opened all three real release builds, enabled Flutter semantics and entered each synthetic phone. Three HTTP 200, zero page errors or failed requests, all input values confirmed. No login submitted because Phone is disabled. Proof: docs/evidence/integration. Full logs in ignored artifacts/integration. Historical docs were reconciled using UTF-8 source snapshots and normalized to LF after Windows shell encoding changed historical punctuation. No product code changed in this correction; diff whitespace check rerun. Next: open integration PR, inspect CI, founder configures synthetic phone auth and completes LOCAL_TESTING walkthrough.
+
+### Agent Session - 2026-11-14 11:22 IST - COMP-V2 preview publication
+
+**Agent:** Codex, delivery coordinator. First observed session clock 11:17:53 IST; checkpoint 11:22 IST.
+**Task ID / Name:** COMP-V2-PREVIEW / publish companion screens for founder testing.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** fbbc13bac8b5089d4862b350c92725b8116859f7.
+**Current commit:** Runtime/deployed source fbbc13b; this documentation commit identified by Git metadata.
+**PR:** https://github.com/iamnawin/anuga/pull/36 (OPEN, DRAFT).
+**Scope:** Founder requested commit/push and Vercel test availability; synthetic preview only.
+**Completed work:** Confirmed source already committed and remote head identical; git push reported Everything up-to-date. Built all four apps with existing public synthetic settings and deployed a prebuilt preview to the existing anuga project.
+**Files changed:** HANDOFF, TASKS, EXECUTION_STATE, PROGRESS_LEDGER, UX_AUDIT, UX_IMPLEMENTATION_PLAN documentation only. No runtime/config/backend changes.
+**Tests and actual results:** scripts/build-staging.sh exit 0 (Ops and all three Flutter release web builds). Existing Cupertino font warning remains. Authenticated Vercel CLI curl /app/ returned HTTP 200. No browser sign-in/journey or physical-phone test in this session. git diff --check passed before receipt; repeated before commit.
+**CI evidence:** https://github.com/iamnawin/anuga/actions/runs/43406351667 on fbbc13b: db-tests, shared-dart, ops-console, companion-app, family-app, anugacare-app SUCCESS; supabase-local FAILURE at care_request.spec.ts:207, old group locator matching time and Lakshmi Rao not found. Supabase Preview SKIPPED. No all-green CI claim.
+**Merge status:** Not merged; draft PR remains open.
+**Deployment and migration status:** Preview READY, dpl_7vXnp3NqYb3qbYcSSH3xyKJeFVvz, https://anuga-648ez5abn-iamnawins-projects.vercel.app/app/ . Existing live alias unchanged. No hosted migrations/data mutation. Inspector: https://vercel.com/iamnawins-projects/anuga/7vXnp3NqYb3qbYcSSH3xyKJeFVvz .
+**Decisions and assumptions:** Existing vercel.json disables Git deployment; push alone cannot publish. Used existing manual prebuilt deployment; no automatic deployment config changed. New screens are unified /app/, not legacy /companion/. Preview may require Vercel team sign-in.
+**Blockers:** CI journey locator failure unresolved; browser/native/language acceptance pending. No production gate closed.
+**Uncommitted changes:** This six-file documentation receipt before commit; generated artifacts ignored.
+**Exact next action:** Commit/push receipt to same branch, verify remote SHA, founder opens preview /app/ and signs in with synthetic companion 9000000201 or 9000000202. Resolve journey CI before merge.
+**Next responsible agent:** Founder for preview test; Codex for requested fixes.

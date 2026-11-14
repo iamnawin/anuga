@@ -1,5 +1,28 @@
 # Tasks and milestones
 
+### Agent Session - 2026-11-14 17:34:34 IST - UI publication reconciliation checkpoint
+
+**Agent:** Codex, integration and deployment investigation.
+**Task ID / Name:** UI-PUBLICATION-20261114.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-ui-publication.
+**Branch:** fix/ui-publication-2026-11-14.
+**Starting commit:** 29a8356ea6c68e01afca962035fefaf6a68d70a3.
+**Current commit:** Checkpoint commit identified by Git; integration in progress.
+**PR:** Pending integration PR; source PR36 draft/unmerged and PR43 open/unmerged.
+**Scope:** Founder requests investigation and correction of missing published Companion and Welcome UI.
+**Completed work:** Verified live dpl_Hh646SE3ibGmxdFQe23oYjBsYjuC remains Nov13; Git deployment disabled; Companion36 not merged, Welcome43 not merged. New Companion lives in unified /app/, legacy /companion/ unchanged. Reconciled only six documentation conflicts, preserving both histories; product sources auto-merge.
+**Files changed:** Source36 plus additive mandatory tracking.
+**Tests and actual results:** Investigation only; integrated checks pending. PR43 latest Supabase failure is obsolete companionTile selector, not merely historical Docker collision.
+**CI evidence:** PR43 run43562467546 latest failure at issue_handling.spec.ts154; six jobs pass. No integration CI yet.
+**Merge status:** Local integration only; no main merge.
+**Deployment and migration status:** Not deployed; no DB changes.
+**Decisions and assumptions:** Current founder request authorizes preparing combined synthetic publication; preserve other worktrees and unrelated branches.
+**Blockers:** Need update browser journey for actual Companion UI and verify integrated checks.
+**Uncommitted changes:** Integration before this checkpoint commit.
+**Exact next action:** Incorporate Welcome43, update actual journey selectors/interactions without weakening backend checks, full validation and combined preview.
+**Next responsible agent:** Codex.
+
+
 2026-11-13 20:31:07 IST - ROOT-ENTRY-20261113: founder explicitly requests main URL Welcome instead of chooser. Own fix/welcome-root-entry from e8e0063 changes only root routing/fallback in scripts/build-staging.sh; six tracking files/evidence record it. Local syntax/config/order/no-loop checks PASS and existing application bundles byte-identical. Live redeploy/test pending. No other agent component merge authorized; #40 remains unmerged, other worktrees untouched. Signed-in session behavior and production gates unchanged. Next: publish and verify own root fix.
 
 
@@ -93,6 +116,40 @@
 **Next responsible agent:** Codex.
 
 **BACKEND FOLLOW-UP (not implemented here):** Make family_invoices and family_invoice_lines owner-only reads. Add allowed owner and denied editor/viewer/patient database tests, including direct RPC access. Existing SQL still permits editor reads; UI hiding does not change that boundary.
+
+COMP-V2 DELIVERED FOR REVIEW (2026-11-13 15:34:45 IST):
+[Draft PR36](https://github.com/iamnawin/anuga/pull/36), tested source
+`6aea386c9061a604297b05ca7db4a44e1ab9f6de`, base main. C3-C18 supported portions
+implemented/tested; C1/C2/C19/C20 and missing-contract portions deferred. Full
+check-all PASS; final unified146/analyze/release-web PASS. Source CI seven jobs
+observed running, Supabase Preview skipped; no CI pass inferred. Not merged or
+deployed; no hosted mutation/migration, real data or production gate closure.
+Physical/native-language acceptance pending. See latest HANDOFF and
+[receipt](evidence/companion-screens-v2/README.md). Next: founder draft review.
+
+
+COMP-V2 delivery checkpoint 2026-11-13 15:32:34 IST: foundation committed as
+`beddacb2b9a2b609cc35d70a768bfd60233232ff` after planning `2d619e2`.
+Final source unified146 tests/analyze PASS; release web rebuild PASS (exit0,
+50.1s; existing font warning). Journey source/tests and 21 synthetic PNGs are
+being committed next. Draft PR/push pending; no merge/deploy/hosted mutations.
+
+
+COMP-V2 (2026-11-13 15:31:56 IST): Supported C3-C18 IMPLEMENTED/locally TESTED in
+`feat/companion-screens-v2`; C1/C2/C19/C20 and documented missing-contract
+portions DEFERRED. Full check-all PASS; final unified146/analyze PASS. Privacy,
+EN/TE/HI dark/light/200% and native-handoff-URI checks included; human device/
+language acceptance NOT performed. Draft PR pending; no merge/deploy/migration.
+Exact commands, screen/reference map and gaps: [receipt](evidence/companion-screens-v2/README.md).
+Historical UX/release weights and launch gates are unchanged.
+
+
+COMP-V2 checkpoint (2026-11-13 15:16 IST): Codex owns isolated
+`feat/companion-screens-v2` from main `b834b53` for founder-requested unified
+Companion screens. Supported UI in progress; C1/C2/C19/C20 and missing-contract
+portions deferred. Plan, reference mapping and actual checks:
+[COMP-V2 receipt](evidence/companion-screens-v2/README.md). Draft PR only; no merge,
+deploy, hosted migration or production gate closure. Historical entries preserved.
 
 
 ## Authorized source merge — 2026-11-13 14:09:07 IST
@@ -795,3 +852,25 @@ roles, trip data export for pilot metrics, deletion job for consent withdrawal.
 - [x] Add the founder UI mockup PDF; ignore generated `.omx/` session state.
 - Validation: whitespace checks and PDF structure checks; full check script blocked
   at installation because Node is unavailable to WSL pnpm. See HANDOFF.
+
+### Agent Session - 2026-11-14 11:22 IST - COMP-V2 preview publication
+
+**Agent:** Codex, delivery coordinator. First observed session clock 11:17:53 IST; checkpoint 11:22 IST.
+**Task ID / Name:** COMP-V2-PREVIEW / publish companion screens for founder testing.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** fbbc13bac8b5089d4862b350c92725b8116859f7.
+**Current commit:** Runtime/deployed source fbbc13b; this documentation commit identified by Git metadata.
+**PR:** https://github.com/iamnawin/anuga/pull/36 (OPEN, DRAFT).
+**Scope:** Founder requested commit/push and Vercel test availability; synthetic preview only.
+**Completed work:** Confirmed source already committed and remote head identical; git push reported Everything up-to-date. Built all four apps with existing public synthetic settings and deployed a prebuilt preview to the existing anuga project.
+**Files changed:** HANDOFF, TASKS, EXECUTION_STATE, PROGRESS_LEDGER, UX_AUDIT, UX_IMPLEMENTATION_PLAN documentation only. No runtime/config/backend changes.
+**Tests and actual results:** scripts/build-staging.sh exit 0 (Ops and all three Flutter release web builds). Existing Cupertino font warning remains. Authenticated Vercel CLI curl /app/ returned HTTP 200. No browser sign-in/journey or physical-phone test in this session. git diff --check passed before receipt; repeated before commit.
+**CI evidence:** https://github.com/iamnawin/anuga/actions/runs/43406351667 on fbbc13b: db-tests, shared-dart, ops-console, companion-app, family-app, anugacare-app SUCCESS; supabase-local FAILURE at care_request.spec.ts:207, old group locator matching time and Lakshmi Rao not found. Supabase Preview SKIPPED. No all-green CI claim.
+**Merge status:** Not merged; draft PR remains open.
+**Deployment and migration status:** Preview READY, dpl_7vXnp3NqYb3qbYcSSH3xyKJeFVvz, https://anuga-648ez5abn-iamnawins-projects.vercel.app/app/ . Existing live alias unchanged. No hosted migrations/data mutation. Inspector: https://vercel.com/iamnawins-projects/anuga/7vXnp3NqYb3qbYcSSH3xyKJeFVvz .
+**Decisions and assumptions:** Existing vercel.json disables Git deployment; push alone cannot publish. Used existing manual prebuilt deployment; no automatic deployment config changed. New screens are unified /app/, not legacy /companion/. Preview may require Vercel team sign-in.
+**Blockers:** CI journey locator failure unresolved; browser/native/language acceptance pending. No production gate closed.
+**Uncommitted changes:** This six-file documentation receipt before commit; generated artifacts ignored.
+**Exact next action:** Commit/push receipt to same branch, verify remote SHA, founder opens preview /app/ and signs in with synthetic companion 9000000201 or 9000000202. Resolve journey CI before merge.
+**Next responsible agent:** Founder for preview test; Codex for requested fixes.

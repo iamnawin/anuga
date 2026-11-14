@@ -104,10 +104,18 @@ void main() {
       await tester.pumpAndSettle();
       expect(auth.isSignedIn, isTrue);
       expect(find.byKey(const Key('phone')), findsNothing);
-      expect(find.byTooltip('Sign out'), findsOneWidget);
+      if (phone == familyPhone) {
+        expect(find.byTooltip('Sign out'), findsOneWidget);
+      } else {
+        expect(find.text('Me'), findsOneWidget);
+      }
       expect(rpc.calls, isNot(contains(otherRead)));
 
-      await tester.tap(find.byTooltip('Sign out'));
+      if (phone == familyPhone) {
+        await tester.tap(find.byTooltip('Sign out'));
+      } else {
+        await signOutCompanion(tester);
+      }
       await tester.pumpAndSettle();
       if (phone == familyPhone) {
         await tester.tap(find.widgetWithText(FilledButton, 'Sign out'));
