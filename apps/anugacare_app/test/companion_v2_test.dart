@@ -150,6 +150,16 @@ void main() {
   setUp(() => companionNetworkOnline.value = true);
   tearDown(() => companionNetworkOnline.value = true);
 
+  testWidgets('visit cards expose their persisted ID for browser journeys', (tester) async {
+    final semantics = tester.ensureSemantics();
+    try {
+      await _home(tester, _Backend(TripStatus.scheduled));
+      expect(find.bySemanticsIdentifier('companion-trip-synthetic-trip'), findsOneWidget);
+    } finally {
+      semantics.dispose();
+    }
+  });
+
   testWidgets('C14 shows the next assigned pickup only when supplied', (tester) async {
     final backend = _Backend(TripStatus.completed);
     await _trip(tester, backend);

@@ -150,17 +150,25 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     const companionTrip = companionTrips.find((row) => row.trip_id === tripId);
     expect(companionTrip?.status).toBe('scheduled');
     expect(companionTrip?.details_visible).toBe(true);
-    const companionTile = () => companion.getByRole('group', { name: new RegExp(`${time}.*Lakshmi Rao`) }).first();
+    const companionTile = () => companion.locator(`[flt-semantics-identifier="companion-trip-${tripId}"]`);
     await revealFlutter(companion, companionTile());
-    await companionTile().click();
+    await companionTile().getByRole('button', { name: 'Open visit', exact: true }).click();
     const advance = async (button: string, status: string, note?: string) => {
       receipt.current_stage = status;
+      if (status === 'issue_reported') {
+        await companion.getByRole('button', { name: 'Report an issue', exact: true }).click();
+        await enterFlutter(companion, 'What happened?', note!);
+        button = 'Send report';
+      } else if (status === 'handed_over') {
+        await companion.getByRole('button', { name: 'Continue to handover', exact: true }).click();
+        await companion.getByRole('checkbox', { name: 'Patient received by centre staff', exact: true }).check();
+        await enterFlutter(companion, 'Handover note (optional)', note!);
+      } else if (status === 'completed') {
+        await companion.getByRole('button', { name: 'Add visit note', exact: true }).click();
+        await enterFlutter(companion, 'Visit note', note!);
+      }
       const response = companion.waitForResponse((r) => isRpc(r.url(), 'advance_trip'));
       await companion.getByRole('button', { name: button, exact: true }).click();
-      if (note !== undefined) {
-        await enterFlutter(companion, '', note);
-        await companion.getByRole('button', { name: 'Submit', exact: true }).click();
-      }
       const result = await response;
       expect(result.status()).toBe(200);
       const body = await result.json();
@@ -180,16 +188,17 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
       await expect(family.getByRole('checkbox', { name: label, exact: true })).toBeVisible();
       return timeline;
     };
-    await advance("I'm on my way", 'companion_en_route');
+    await advance('Start journey', 'companion_en_route');
     await refreshFamily('companion_en_route', 'Companion on the way');
     const issued = family.waitForResponse((r) => isRpc(r.url(), 'issue_pickup_otp'));
     await family.getByRole('button', { name: 'Get pickup code', exact: true }).click();
     const code = await (await issued).json() as string;
     expect(/^\d{6}$/.test(code)).toBe(true);
     await family.getByRole('button', { name: 'Close', exact: true }).click();
-    await enterFlutter(companion, 'Pickup code from the family', code);
+    await companion.getByRole('button', { name: 'Confirm pickup', exact: true }).click();
+    await enterFlutter(companion, '6-digit pickup code', code);
     const verified = companion.waitForResponse((r) => isRpc(r.url(), 'verify_pickup_otp'));
-    await companion.getByRole('button', { name: 'Verify code and pick up', exact: true }).click();
+    await companion.getByRole('button', { name: 'Verify and confirm pickup', exact: true }).click();
     const verification = await (await verified).json() as { ok: boolean; status: string };
     expect(verification.ok && verification.status === 'picked_up').toBe(true);
     const pickupRead = await opsContext.request.get(`${rest}trips?id=eq.${tripId}&select=picked_up_at`, { headers: opsHeaders });
@@ -287,28 +296,28 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     const refreshedTrips = await (await refreshedCompanion).json() as { trip_id: string; status: string }[];
     expect(refreshedTrips.find((row) => row.trip_id === tripId)?.status).toBe('picked_up');
     await revealFlutter(companion, companionTile());
-    await companionTile().click();
-    await expect(companion.getByRole('button', { name: 'Reached the centre', exact: true })).toBeVisible();
+    await companionTile().getByRole('button', { name: 'Open visit', exact: true }).click();
+    await expect(companion.getByRole('button', { name: 'Confirm arrival at centre', exact: true })).toBeVisible();
     // Asha still reads and acts on this exact trip; Ravi's denied assignment did
     // not transfer it. Continue ordinary supported stages, with the required note.
-    await advance('Reached the centre', 'at_centre');
-    await advance('Handed over at the centre', 'handed_over', 'Centre handover completed (synthetic).');
-    await advance('Session finished', 'session_done');
-    await advance('Starting the return journey', 'returning');
-    await advance('Dropped home safely', 'dropped_home');
+    await advance('Confirm arrival at centre', 'at_centre');
+    await advance('Confirm handover', 'handed_over', 'Centre handover completed (synthetic).');
+    await advance('Confirm session finished', 'session_done');
+    await advance('Start return journey', 'returning');
+    await advance('Confirm home arrival', 'dropped_home');
     const completionNote = 'Returned home safely after ops resolved transport issue (synthetic).';
-    await advance('Complete visit', 'completed', completionNote);
+    await advance('Submit and complete visit', 'completed', completionNote);
     const completedEvents = await refreshFamily('completed', 'Completed');
-    expect(completedEvents.at(-1)?.note).toBe(completionNote);
+    expect(completedEvents.at(-1)?.note).toBe(`Handed to: Family member\n${completionNote}`);
     await family.screenshot({ path: `${shots}/04-family-completed.png` });
-    await expect(companion.getByText('This trip is closed.', { exact: true })).toBeVisible();
+    await expect(companion.getByText('Visit note submitted', { exact: true })).toBeVisible();
     const completedCompanionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_my_trips'));
     await companion.reload();
     await enableFlutter(companion);
     const completedTrips = await (await completedCompanionRead).json() as { trip_id: string; status: string }[];
     expect(completedTrips.find((row) => row.trip_id === tripId)?.status).toBe('completed');
     await revealFlutter(companion, companionTile());
-    await expect(companionTile().getByRole('checkbox', { name: 'Completed', exact: true })).toBeVisible();
+    await expect(companionTile().getByText('Completed', { exact: true })).toBeVisible();
     await ops.goto(opsPath('/trips'));
     const completedTrip = ops.locator(`[data-trip-id="${tripId}"]`);
     await expect(completedTrip.getByText('Completed', { exact: true })).toBeVisible();

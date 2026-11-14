@@ -227,37 +227,40 @@ class _CompanionHomeScreenState extends State<CompanionHomeScreen> with WidgetsB
 
   Widget _tile(BuildContext context, CompanionTrip trip) {
     final l = AppLocalizations.of(context);
-    return CompanionPanel(
-      key: Key('trip-${trip.tripId}'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          CompanionPerson(name: trip.detailsVisible ? trip.patientName : null),
-          const SizedBox(height: 12),
-          Text(companionStatus(l, trip.status), style: Theme.of(context).textTheme.titleMedium),
-          const SizedBox(height: 8),
-          Text(trip.centreName),
-          if (trip.detailsVisible && (trip.homeAddress?.isNotEmpty ?? false)) ...[
+    return Semantics(
+      identifier: 'companion-trip-${trip.tripId}',
+      child: CompanionPanel(
+        key: Key('trip-${trip.tripId}'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CompanionPerson(name: trip.detailsVisible ? trip.patientName : null),
+            const SizedBox(height: 12),
+            Text(companionStatus(l, trip.status), style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(Icons.location_on_outlined),
-                const SizedBox(width: 8),
-                Expanded(child: Text(trip.homeAddress!)),
-              ],
+            Text(trip.centreName),
+            if (trip.detailsVisible && (trip.homeAddress?.isNotEmpty ?? false)) ...[
+              const SizedBox(height: 8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(Icons.location_on_outlined),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(trip.homeAddress!)),
+                ],
+              ),
+            ],
+            const SizedBox(height: 8),
+            Text(l.cDrop(companionTime(trip.scheduledPickupAt, context))),
+            Text(l.cReturn(companionTime(trip.scheduledReturnAt, context))),
+            const SizedBox(height: 16),
+            FilledButton(
+              key: Key('open-${trip.tripId}'),
+              onPressed: companionIsOffline(context) ? null : () => _open(trip),
+              child: Text(l.cOpenVisit),
             ),
           ],
-          const SizedBox(height: 8),
-          Text(l.cDrop(companionTime(trip.scheduledPickupAt, context))),
-          Text(l.cReturn(companionTime(trip.scheduledReturnAt, context))),
-          const SizedBox(height: 16),
-          FilledButton(
-            key: Key('open-${trip.tripId}'),
-            onPressed: companionIsOffline(context) ? null : () => _open(trip),
-            child: Text(l.cOpenVisit),
-          ),
-        ],
+        ),
       ),
     );
   }

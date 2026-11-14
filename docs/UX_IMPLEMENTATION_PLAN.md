@@ -1,5 +1,8 @@
 # AnugaCare — Complete UI/UX Modernization Implementation Plan (`UX_IMPLEMENTATION_PLAN.md`)
 
+2026-11-14 UI-PUBLICATION checkpoint: Codex integrated exact Companion8770a0b and Welcome f5e9eb4 on current-main isolated branch. Unified153 PASS; missing-identifier RED reproduced; initial added-test semantics cleanup failure corrected. Ops lint/typecheck and both browser-test discovery PASS; hosted read-only smoke10/10 PASS. Browser journeys updated for current Companion controls, preserving RPC/status/private-note assertions. Full release build underway, no publication/main merge yet. Founder now explicitly requests all completed Family39/legal38/error76e6e16 changes too; legal stays read-only DRAFT with acceptance disabled. Next: merge those sources here, preserve histories, rerun full checks/CI and synthetic publication. Other worktrees untouched.
+
+
 ### Agent Session - 2026-11-14 17:34:34 IST - UI publication reconciliation checkpoint
 
 **Agent:** Codex, integration and deployment investigation.
