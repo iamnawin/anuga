@@ -312,14 +312,14 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     const completedEvents = await refreshFamily('completed', 'Visit complete');
     expect(completedEvents.at(-1)?.note).toBe(`Handed to: Family member\n${completionNote}`);
     await family.screenshot({ path: `${shots}/04-family-completed.png` });
-    await expect(companion.getByText('Visit note submitted', { exact: true })).toBeVisible();
+    await expect(companion.getByRole('group', { name: /Visit note submitted/ })).toBeVisible();
     const completedCompanionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_my_trips'));
     await companion.reload();
     await enableFlutter(companion);
     const completedTrips = await (await completedCompanionRead).json() as { trip_id: string; status: string }[];
     expect(completedTrips.find((row) => row.trip_id === tripId)?.status).toBe('completed');
     await revealFlutter(companion, companionTile());
-    await expect(companionTile().getByText('Completed', { exact: true })).toBeVisible();
+    await expect(companionTile().getByRole('group', { name: /\bCompleted\b/ })).toBeVisible();
     await ops.goto(opsPath('/trips'));
     const completedTrip = ops.locator(`[data-trip-id="${tripId}"]`);
     await expect(completedTrip.getByText('Completed', { exact: true })).toBeVisible();

@@ -85,3 +85,8 @@ Expanded source162d524: scripts/check-all.sh ALL CHECKS PASSED on 2026-11-14 17:
 
 
 Browser Family console had no errors. Companion console recorded one asynchronous browser-message-channel listener error; no product failure was demonstrated. No hosted trip/consent mutation was performed in the manual browser smoke. Real CI reached the new handover screen before the test synchronization failure. No CI or live publication success is inferred.
+
+
+2026-11-14 18:13:05 IST - UI-PUBLICATION PR44: replacement CI43595334241 six jobs SUCCESS; real care browser completed all9 persisted stages and exact completion note, then failed on getByText(Visit note submitted) because Flutter Card text is an aria-label group. Actual release DOM inspected: card texts are grouped accessible names, not independent text nodes. Both journeys now assert completion group by accessible name and reload status within the persisted-ID card. No product/guard/backend change. Ops lint/typecheck/test discovery PASS. Previous failures retained. Replacement CI next; no live publication yet.
+
+Mobile screenshot companion-essentials-mobile-ci.png is the actual390x844 Chromium render from first CI43594410252, not a physical phone. Both failed run receipts are preserved as synthetic JSON evidence.

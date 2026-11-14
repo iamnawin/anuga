@@ -1,5 +1,8 @@
 # AnugaCare progress ledger
 
+2026-11-14 18:13:05 IST - UI-PUBLICATION PR44: replacement CI43595334241 six jobs SUCCESS; real care browser completed all9 persisted stages and exact completion note, then failed on getByText(Visit note submitted) because Flutter Card text is an aria-label group. Actual release DOM inspected: card texts are grouped accessible names, not independent text nodes. Both journeys now assert completion group by accessible name and reload status within the persisted-ID card. No product/guard/backend change. Ops lint/typecheck/test discovery PASS. Previous failures retained. Replacement CI next; no live publication yet.
+
+
 2026-11-14 18:02:22 IST - UI-PUBLICATION PR44: CI43594410252 six jobs SUCCESS (including Android builds), supabase-local failed only at new handover Playwright checkbox .check immediate-state assertion after actual pickup/centre transitions. Test now clicks and polls toBeChecked; no app/guard/backend change. Ops lint/typecheck and two browser-test discovery PASS after fix. Combined release build PASS and preview dpl_EvtXn4Tah4T47681zo1Jdax29z9r READY; preview app SHA256 C3DA804B8FEE7F0052CD35067A8E1D47B795CA03233DE577EE236F9C28B8AFB1 equals local. Actual browser Companion/Family synthetic sign-ins, Today/Visits/Me, essentials, consent and read-only Terms draft verified; four curated desktop PNGs added. Narrow widget matrix passed; browser viewport override did not apply, so these captures are honestly desktop. Live alias unchanged pending replacement CI.
 
 

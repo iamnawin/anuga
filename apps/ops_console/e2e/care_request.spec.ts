@@ -282,7 +282,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     receipt.milestones = milestones;
     receipt.pickup_verified = true;
     receipt.required_completion_note_persisted = true;
-    await expect(companion.getByText('Visit note submitted', { exact: true })).toBeVisible();
+    await expect(companion.getByRole('group', { name: /Visit note submitted/ })).toBeVisible();
     await companion.screenshot({ path: `${shots}/10-companion-completed.png` });
     // Read completion again from each role after navigation/reload, rather than
     // inferring it from a mutation reply or a timeline alone.
@@ -292,7 +292,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     const reloadedTrips = await (await completedCompanionRead).json() as { trip_id: string; status: string }[];
     expect(reloadedTrips.find((row) => row.trip_id === tripId)?.status).toBe('completed');
     await revealFlutter(companion, companionTile());
-    await expect(companionTile().getByText('Completed', { exact: true })).toBeVisible();
+    await expect(companionTile().getByRole('group', { name: /\bCompleted\b/ })).toBeVisible();
     const completedFamilyRead = family.waitForResponse((r) => r.url().endsWith('/rpc/family_care_requests'));
     await family.reload();
     await enableFlutter(family);
