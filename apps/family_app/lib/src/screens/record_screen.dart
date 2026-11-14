@@ -3,6 +3,7 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import 'care_ui.dart';
+import 'family_ui.dart';
 import '../labels.dart';
 import '../vault_files.dart';
 
@@ -45,7 +46,7 @@ class _RecordScreenState extends State<RecordScreen> {
     if (!doc.isImage) {
       body = Text(l10n.pdfNotViewable, key: const Key('pdf-note'));
     } else if (_error != null) {
-      body = Text(describeError(l10n, _error!), key: const Key('record-error'));
+      body = FamilyFailureNotice(_error!, key: const Key('record-error'));
     } else if (_url == null) {
       body = Text(l10n.loading);
     } else {

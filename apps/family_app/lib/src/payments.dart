@@ -1,6 +1,8 @@
 import 'package:shared_dart/shared_dart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'supabase_rpc.dart';
+
 /// Bill payments through the `payments` Edge Function. Widgets depend on this
 /// interface; tests pass a fake. The database lets only the owner pay an issued bill.
 abstract class Payments {
@@ -16,7 +18,10 @@ class SupabasePayments implements Payments {
 
   final SupabaseClient _client;
 
-  Future<Map<String, dynamic>> _call(Map<String, Object?> body) async {
+  Future<Map<String, dynamic>> _call(Map<String, Object?> body) =>
+      guardRequest(() => _invoke(body), isNetworkError: isTransportError);
+
+  Future<Map<String, dynamic>> _invoke(Map<String, Object?> body) async {
     try {
       return (await _client.functions.invoke('payments', body: body)).data as Map<String, dynamic>;
     } on FunctionException catch (e) {

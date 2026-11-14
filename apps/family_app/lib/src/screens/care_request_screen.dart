@@ -6,6 +6,7 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import 'care_ui.dart';
+import 'family_ui.dart';
 import 'consent_screen.dart';
 
 /// One-date care request; the database retains control of patient access,
@@ -153,6 +154,7 @@ class _CareRequestScreenState extends State<CareRequestScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  const FamilyOfflineHint(),
                   CareHeading(_review ? l10n.careReview : l10n.careRequestTitle),
                   CarePanel(
                     child: Column(

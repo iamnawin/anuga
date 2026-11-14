@@ -192,10 +192,7 @@ class _FamilyHomeTabState extends State<FamilyHomeTab> with WidgetsBindingObserv
                 FamilyStateNotice(l10n.fViewerNotice, key: const Key('home-viewer-notice')),
                 const SizedBox(height: 16),
               ],
-              if (_error != null) ...[
-                FamilyStateNotice(describeError(l10n, _error!), onRetry: _load),
-                const SizedBox(height: 16),
-              ],
+              if (_error != null) ...[FamilyFailureNotice(_error!, onRetry: _load), const SizedBox(height: 16)],
               if (_visits == null && _error == null) Text(l10n.loading),
               if (_visits != null && next == null) FamilyStateNotice(l10n.fNoVisits),
               if (next != null) ...[

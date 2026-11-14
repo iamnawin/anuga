@@ -1,5 +1,11 @@
 # AnugaCare execution state
 
+IN DRAFT PR - 2026-11-13 20:58 IST: ERR-1 groups 1 to 3 (Claude Code) on feat/error-handling
+from e8e0063 (fast-forwarded to 29a8356), worktree D:\AI-Workspace\Repos\anuga-error-handling. Shared failure classifier, Family adapter
+conversion with time limits, Family failure notice and offline hint. No migration, no deployment.
+shared_dart 39 passed; Family 128 passed/6 existing skips; Companion 58 passed/3 existing skips;
+unified app 91 passed. Groups 4 and 5 wait for PR #36 and PR #28. Founder review next.
+
 2026-11-13 20:31:07 IST - ROOT-ENTRY-20261113: founder explicitly requests main URL Welcome instead of chooser. Own fix/welcome-root-entry from e8e0063 changes only root routing/fallback in scripts/build-staging.sh; six tracking files/evidence record it. Local syntax/config/order/no-loop checks PASS and existing application bundles byte-identical. Live redeploy/test pending. No other agent component merge authorized; #40 remains unmerged, other worktrees untouched. Signed-in session behavior and production gates unchanged. Next: publish and verify own root fix.
 
 

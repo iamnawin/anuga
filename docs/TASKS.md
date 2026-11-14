@@ -1,5 +1,18 @@
 # Tasks and milestones
 
+## Error handling groups 1 to 3 (ERR-1) - 2026-11-13 20:58 IST
+
+- [x] Group 1: shared failure classifier and support code, with tests.
+- [x] Group 2: Family backend adapters convert transport failures and stalled requests (20 s; 60 s upload).
+- [x] Group 3: Family failure notice with icon, sentence and code; offline hint on Consent, Care request and Visit; six strings in en/te/hi.
+- [ ] Group 4: Companion notice, offline banner and standalone adapter (after PR #36).
+- [ ] Group 5: global fallback screen and start-up failure page in the unified app (after PR #28).
+- [ ] Sign-in screens still show the auth provider's own message text.
+- [ ] After a write times out, reload the state automatically (today the message asks the user to check).
+- [ ] Group 6: recording failures (needs separate approval).
+- [ ] Native-speaker review of the new Telugu and Hindi strings; phone check in airplane mode.
+- Draft PR on `feat/error-handling`. Not merged, not deployed, no migrations.
+
 2026-11-13 20:31:07 IST - ROOT-ENTRY-20261113: founder explicitly requests main URL Welcome instead of chooser. Own fix/welcome-root-entry from e8e0063 changes only root routing/fallback in scripts/build-staging.sh; six tracking files/evidence record it. Local syntax/config/order/no-loop checks PASS and existing application bundles byte-identical. Live redeploy/test pending. No other agent component merge authorized; #40 remains unmerged, other worktrees untouched. Signed-in session behavior and production gates unchanged. Next: publish and verify own root fix.
 
 

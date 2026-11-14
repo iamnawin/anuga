@@ -4,6 +4,7 @@ import 'package:shared_dart/shared_dart.dart';
 
 import '../../l10n/generated/app_localizations.dart';
 import 'care_ui.dart';
+import 'family_ui.dart';
 import '../format.dart';
 import '../labels.dart';
 
@@ -183,6 +184,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const FamilyOfflineHint(),
               if (b == null && _error == null) Text(l10n.loading),
               if (b != null) ...[
                 CareHeading(formatIstDateTime(b.scheduledPickupAt, locale)),
