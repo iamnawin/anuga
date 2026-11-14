@@ -96,14 +96,20 @@ void main() {
     await tester.pumpAndSettle();
     responses[0].complete(requestRows('issue_reported'));
     await tester.pumpAndSettle();
-    expect(find.text('Completed'), findsOneWidget);
+    expect(find.text('Visit complete'), findsOneWidget);
     expect(find.text('Service issue'), findsNothing);
   });
 
   testWidgets('failed bookings refresh clears old cards and recovers without replaying a request', (tester) async {
     var fail = false;
     final backend = FakeFamilyBackend()
-      ..addVisit(FakeVisit(id: 'old', pickupAt: DateTime.utc(2026, 11, 4), status: TripStatus.scheduled));
+      ..addVisit(
+        FakeVisit(
+          id: 'old',
+          pickupAt: DateTime.now().toUtc().add(const Duration(days: 1)),
+          status: TripStatus.scheduled,
+        ),
+      );
     await pumpBookings(
       tester,
       backend,
@@ -156,7 +162,8 @@ void main() {
     saved.addAll({'request_state': 'assigned', 'companion_name': 'Asha Companion (synthetic)'});
     await tapVisible(tester, byKey('care-refresh'));
     expect(find.text('Confirmed · companion assigned'), findsOneWidget);
-    expect(find.textContaining('Asha Companion'), findsOneWidget);
+    expect(find.textContaining('Asha Companion'), findsNothing);
+    expect(find.textContaining('Asha'), findsOneWidget);
   });
 
   testWidgets('submit is disabled in flight and retries preserve the request identity', (tester) async {

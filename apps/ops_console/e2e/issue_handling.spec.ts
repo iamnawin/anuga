@@ -73,7 +73,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     const familyIdentity = await identity(family, '9000000101', 'Verify code');
     receipt.family_identity = familyIdentity;
     await family.getByRole('tab', { name: 'Visits', exact: true }).click();
-    await family.getByRole('button', { name: 'Request care', exact: true }).click();
+    await family.getByRole('button', { name: 'Request a visit', exact: true }).click();
     await family.getByText('Package', { exact: true }).click();
     await family.getByRole('menuitem', { name: 'Basic', exact: true }).click();
     const pickup = process.env.ISSUE_PICKUP_AT ? new Date(process.env.ISSUE_PICKUP_AT)
@@ -307,7 +307,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     await advance('Confirm home arrival', 'dropped_home');
     const completionNote = 'Returned home safely after ops resolved transport issue (synthetic).';
     await advance('Submit and complete visit', 'completed', completionNote);
-    const completedEvents = await refreshFamily('completed', 'Completed');
+    const completedEvents = await refreshFamily('completed', 'Visit complete');
     expect(completedEvents.at(-1)?.note).toBe(`Handed to: Family member\n${completionNote}`);
     await family.screenshot({ path: `${shots}/04-family-completed.png` });
     await expect(companion.getByText('Visit note submitted', { exact: true })).toBeVisible();

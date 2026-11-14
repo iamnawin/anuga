@@ -282,6 +282,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           key: ValueKey('visits-${selected.patientId}-${selected.accessLevel.name}'),
           api: widget.api,
           patient: selected,
+          online: _online,
+          now: widget.now,
         ),
         'records' => RecordsTab(
           key: ValueKey('records-${selected.patientId}-${selected.accessLevel.name}'),
@@ -315,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           ),
           onVisit: (visit) => Navigator.of(context).push(
             MaterialPageRoute<void>(
-              builder: (_) => TripScreen(api: widget.api, patient: selected, booking: visit),
+              builder: (_) => TripScreen(api: widget.api, patient: selected, booking: visit, online: _online),
             ),
           ),
         ),

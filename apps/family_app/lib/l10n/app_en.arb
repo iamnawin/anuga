@@ -90,15 +90,15 @@
   "errorGeneric": "Something went wrong. Try again.",
   "errorNotAllowed": "You do not have permission for this.",
   "errorStepNotPossible": "This is no longer possible. Refresh the visit.",
-  "statusScheduled": "Scheduled",
+  "statusScheduled": "Booked",
   "statusCompanionEnRoute": "Companion on the way",
   "statusPickedUp": "Picked up",
-  "statusAtCentre": "At centre",
-  "statusHandedOver": "Handed over to centre staff",
-  "statusSessionDone": "Session done",
+  "statusAtCentre": "At the centre",
+  "statusHandedOver": "Handed to centre staff",
+  "statusSessionDone": "Session finished",
   "statusReturning": "On the way home",
-  "statusDroppedHome": "Dropped home",
-  "statusCompleted": "Completed",
+  "statusDroppedHome": "Home",
+  "statusCompleted": "Visit complete",
   "statusCancelled": "Cancelled",
   "statusNoShow": "Patient was not available",
   "statusIssueReported": "Service issue",
@@ -277,5 +277,12 @@
       }
     }
   },
-  "fNavHelp": "Help"
+  "fNavHelp": "Help",
+  "fUpcoming": "Upcoming",
+  "fPast": "Past",
+  "fPreviousMonth": "Previous month",
+  "fNextMonth": "Next month",
+  "fEarlierRequests": "Earlier requests",
+  "fVisitDetails": "Visit details",
+  "fPickupHome": "Pickup from home"
 }
