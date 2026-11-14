@@ -374,3 +374,25 @@ These five product capabilities require backend/SQL, external provider, or found
 | **DEC-03** | What customer-facing term should replace internal **"Ops"** in English, Telugu, and Hindi (`Care Team` / `AnugaCare Team` / `మా బృందం` / `हमारी टीम`)? | **Replaced phonetic `ఆప్స్` / `ऑप्स` in TE/HI** with natural team phrasing (`మా బృందం` / `हमारी टीम` / `ఆపరేషన్స్ బృందం` / `ऑपरेशंस टीम`); kept English strings asserted by existing tests; flagged for human review (`QA-002`). | Founder / Native Reviewers |
 | **DEC-04** | Should a confirmed Care Request (`tripId != null`) be collapsed into the main scheduled visit card in `BookingsTab` once E2E tests are updated? | **Unified card styling & preserved non-splitting status pill (`c4ced74`)** while retaining both `Key('care-request-<id>')` and `Key('booking-<tripId>')` for test/E2E compatibility. | Product / Engineering |
 | **DEC-05** | Should `/schedules` allow confirming a Care Request before a Primary Companion is assigned, or combine confirmation + assignment in one step? | **Preserved existing two-step RPC contract** (`Confirm request` -> `Change companions` -> `Save`) required by `20261102000100_family_care_requests.sql` and `e2e/care_request.spec.ts`. | Founder / Ops |
+
+### Agent Session - 2026-11-14 11:22 IST - COMP-V2 preview publication
+
+**Agent:** Codex, delivery coordinator. First observed session clock 11:17:53 IST; checkpoint 11:22 IST.
+**Task ID / Name:** COMP-V2-PREVIEW / publish companion screens for founder testing.
+**Repository / Worktree:** D:\AI-Workspace\Repos\anuga-companion-screens-v2.
+**Branch:** feat/companion-screens-v2.
+**Starting commit:** fbbc13bac8b5089d4862b350c92725b8116859f7.
+**Current commit:** Runtime/deployed source fbbc13b; this documentation commit identified by Git metadata.
+**PR:** https://github.com/iamnawin/anuga/pull/36 (OPEN, DRAFT).
+**Scope:** Founder requested commit/push and Vercel test availability; synthetic preview only.
+**Completed work:** Confirmed source already committed and remote head identical; git push reported Everything up-to-date. Built all four apps with existing public synthetic settings and deployed a prebuilt preview to the existing anuga project.
+**Files changed:** HANDOFF, TASKS, EXECUTION_STATE, PROGRESS_LEDGER, UX_AUDIT, UX_IMPLEMENTATION_PLAN documentation only. No runtime/config/backend changes.
+**Tests and actual results:** scripts/build-staging.sh exit 0 (Ops and all three Flutter release web builds). Existing Cupertino font warning remains. Authenticated Vercel CLI curl /app/ returned HTTP 200. No browser sign-in/journey or physical-phone test in this session. git diff --check passed before receipt; repeated before commit.
+**CI evidence:** https://github.com/iamnawin/anuga/actions/runs/43406351667 on fbbc13b: db-tests, shared-dart, ops-console, companion-app, family-app, anugacare-app SUCCESS; supabase-local FAILURE at care_request.spec.ts:207, old group locator matching time and Lakshmi Rao not found. Supabase Preview SKIPPED. No all-green CI claim.
+**Merge status:** Not merged; draft PR remains open.
+**Deployment and migration status:** Preview READY, dpl_7vXnp3NqYb3qbYcSSH3xyKJeFVvz, https://anuga-648ez5abn-iamnawins-projects.vercel.app/app/ . Existing live alias unchanged. No hosted migrations/data mutation. Inspector: https://vercel.com/iamnawins-projects/anuga/7vXnp3NqYb3qbYcSSH3xyKJeFVvz .
+**Decisions and assumptions:** Existing vercel.json disables Git deployment; push alone cannot publish. Used existing manual prebuilt deployment; no automatic deployment config changed. New screens are unified /app/, not legacy /companion/. Preview may require Vercel team sign-in.
+**Blockers:** CI journey locator failure unresolved; browser/native/language acceptance pending. No production gate closed.
+**Uncommitted changes:** This six-file documentation receipt before commit; generated artifacts ignored.
+**Exact next action:** Commit/push receipt to same branch, verify remote SHA, founder opens preview /app/ and signs in with synthetic companion 9000000201 or 9000000202. Resolve journey CI before merge.
+**Next responsible agent:** Founder for preview test; Codex for requested fixes.
