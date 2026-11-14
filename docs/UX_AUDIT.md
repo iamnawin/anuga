@@ -1,5 +1,8 @@
 # AnugaCare — Permanent UX & Accessibility Audit Register (`UX_AUDIT.md`)
 
+2026-11-14 18:42:04 IST - UI-PUBLICATION evidence correction (Codex, D:/AI-Workspace/Repos/anuga-ui-publication, docs/ui-live-proof-2026-11-14 from872ac9d): restored the live browser tab's normal1920x855 viewport and replaced the incorrectly scaled live-family-home-desktop.png from the viewport override. Reload still preserves Family sign-in and new Booked/Request a visit UI. No app, deployment, database or provider change; production remains dpl_B8UMsvF9VE1PpuL52xAEWYiwDDVL, sourceCI43597122368 seven SUCCESS. Receipt45 MERGED872ac9d; this image-only follow-up has its own Git/PR metadata. Browser viewport restored; temporary local server already stopped. Next: deliver live URL/evidence; founder phone review.
+
+
 ### Agent Session - 2026-11-14 18:38:33 IST - completed UI LIVE and verified
 
 **Agent:** Codex; coordinator for source reconciliation and synthetic publication.
