@@ -1,5 +1,27 @@
 # AnugaCare — Complete UI/UX Modernization Implementation Plan (`UX_IMPLEMENTATION_PLAN.md`)
 
+### Agent Session - 2026-11-15 13:10:16 IST - Step2 synthetic pickup test support
+
+**Agent:** Codex; synthetic walkthrough support.
+**Task ID / Name:** PICKUP-TEST-20261115.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-companion-test-access.
+**Branch:** docs/pickup-test-walkthrough-2026-11-15.
+**Starting commit:** 8df03639adc83e6f946e5bdc9c251e28f2724880.
+**Current commit:** Documentation-only task receipt identified by Git metadata.
+**PR:** Receipt PR follows; product48 and publication49 already merged.
+**Scope:** Founder reached Step2 and explicitly requests synthetic pickup OTP and remaining journey instructions.
+**Completed work:** Signed in existing synthetic Family owner101; found exact requested trip07807cdd-bc4f-4c4a-beb2-a5fd2617fd6a in its allowed care requests, verified companion_en_route, issued pickup code through normal issue_pickup_otp RPC at13:09:45IST and supplied transiently in chat. No OTP value recorded in repository. Visit remains at Step2 for founder; no companion verification/advance invoked.
+**Files changed:** Six tracking documents and test-walkthrough evidence only. Ignored local operator script uses existing auth/RPCs; no provider/access-rule changes.
+**Tests and actual results:** Owner sign-in, exact ownership/status read and pickup issue returnedHTTP200; code six digits. Current app source inspected for all8 visual stages. No new product tests needed for docs/operator support.
+**CI evidence:** Existing product head4d9f6da CI43606792734 sevenSUCCESS; no new product source in this task.
+**Merge status:** Product48 mergedb3749e7, publication49 merged8df0363; walkthrough receipt pending.
+**Deployment and migration status:** Existing live navigation/font build unchanged dpl_Fq13o7msB77BYTXmPxRXQvpiumDU. One expected owner-issued OTP mutation; no DB schema/grants/RLS changes, no test-state bypass.
+**Decisions and assumptions:** Pickup code is separate from synthetic sign-in OTP. Owner may regenerate through Get pickup code; regeneration replaces prior code. Remaining test flow uses actual controls, sample nonclinical notes and regular state transitions.
+**Blockers:** None for manual walkthrough; founder must enter pickup code and advance their visit.
+**Uncommitted changes:** Own docs before receipt commit.
+**Exact next action:** Founder verifies pickup, confirms centre arrival, checks centre staff receipt/handover, confirms session finished, starts return, confirms home arrival and submits a nonclinical visit note to finish. Use Family owner101 to issue another pickup code if needed; do not hardcode OTPs or auto-advance visit.
+**Next responsible agent:** Founder for walkthrough; Codex for reported issues.
+
 ### Agent Session - 2026-11-15 13:07:01 IST - approved navigation fix LIVE
 
 **Agent:** Codex; publication and synthetic test readiness.
