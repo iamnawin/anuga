@@ -225,5 +225,20 @@
   "textSizeStandard": "Standard",
   "textSizeExtraLarge": "Extra large",
   "textSize": "Text size",
-  "textSizeSmall": "Small"
+  "textSizeSmall": "Small",
+  "vArriveBy": "Arrive at centre by: {time}",
+  "vArrived": "Confirm at centre for return",
+  "vAwaitReady": "Waiting for Ops to record centre staff confirmation. The expected time does not confirm readiness.",
+  "vDepart": "Return to centre",
+  "vNextAssignment": "View next assignment",
+  "vOtherReturn": "Ops has assigned another companion for return pickup.",
+  "vPrepareAt": "Prepare for return: {time}",
+  "vReleased": "Drop-off complete. You may open your next Ops-approved assignment.",
+  "vReturnAt": "Return pickup expected: {time}",
+  "vReturnCode": "Return pickup code",
+  "vReturnCodeHelp": "Ask Ops for the separate return code after centre staff confirm the patient is ready.",
+  "vReturnDue": "Your reserved return assignment is due. Check with Ops if delayed.",
+  "vStay": "Stay with the patient. Your assignment continues.",
+  "vVerifyReturn": "Verify return pickup",
+  "vDropoffComplete": "Drop-off complete"
 }

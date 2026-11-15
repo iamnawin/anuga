@@ -22,6 +22,9 @@ class CompanionTrip {
     this.mobilityNotes,
     this.emergencyContacts = const [],
     this.startAllowedAt,
+    this.visitPlan,
+    this.canOutbound = true,
+    this.canReturn = true,
   });
 
   factory CompanionTrip.fromJson(Json json) => CompanionTrip(
@@ -41,6 +44,9 @@ class CompanionTrip {
       for (final c in (json['emergency_contacts'] as List<dynamic>? ?? const [])) EmergencyContact.fromJson(c as Json),
     ],
     startAllowedAt: json['start_allowed_at'] == null ? null : _time(json['start_allowed_at']),
+    visitPlan: json['visit_plan'] == null ? null : VisitPlan.fromJson(json['visit_plan'] as Json),
+    canOutbound: json['can_outbound'] as bool? ?? true,
+    canReturn: json['can_return'] as bool? ?? true,
   );
 
   final String tripId;
@@ -60,6 +66,43 @@ class CompanionTrip {
   /// Earliest time the companion may start (on the way), from
   /// `companion_start_minutes_before`. Null if the server does not send it.
   final DateTime? startAllowedAt;
+  final VisitPlan? visitPlan;
+  final bool canOutbound;
+  final bool canReturn;
+}
+
+/// Restricted service plan delivered by the database, never inferred from labels.
+class VisitPlan {
+  const VisitPlan({
+    required this.staysThroughSession,
+    required this.prepareAt,
+    required this.arriveBy,
+    required this.readyAt,
+    required this.endAt,
+    this.returnCompanionName,
+    this.handedOverAt,
+    this.centreReadyAt,
+    this.departedAt,
+    this.arrivedAt,
+    this.verifiedAt,
+  });
+  factory VisitPlan.fromJson(Json j) => VisitPlan(
+    staysThroughSession: j['stays_through_session'] as bool,
+    prepareAt: _time(j['return_prepare_at']),
+    arriveBy: _time(j['return_arrive_by']),
+    readyAt: _time(j['expected_ready_at']),
+    endAt: _time(j['return_end_at']),
+    returnCompanionName: j['return_companion_name'] as String?,
+    handedOverAt: j['handed_over_at'] == null ? null : _time(j['handed_over_at']),
+    centreReadyAt: j['centre_ready_at'] == null ? null : _time(j['centre_ready_at']),
+    departedAt: j['return_departed_at'] == null ? null : _time(j['return_departed_at']),
+    arrivedAt: j['return_arrived_at'] == null ? null : _time(j['return_arrived_at']),
+    verifiedAt: j['return_verified_at'] == null ? null : _time(j['return_verified_at']),
+  );
+  final bool staysThroughSession;
+  final DateTime prepareAt, arriveBy, readyAt, endAt;
+  final String? returnCompanionName;
+  final DateTime? handedOverAt, centreReadyAt, departedAt, arrivedAt, verifiedAt;
 }
 
 class EmergencyContact {

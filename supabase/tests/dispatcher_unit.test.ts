@@ -28,6 +28,13 @@ function fakeStore(rows: ClaimedNotification[], failStatus: 'pending' | 'failed'
 }
 
 describe('render', () => {
+  test('return reminders do not include private payload notes or location', () => {
+    for(const lang of ['en','te','hi']) for(const template of ['visit_return_reminder','visit_return_late']) {
+      const text=render(template,{note:'private synthetic marker',home_address:'private location'},lang);
+      assert.ok(text.title&&text.body);
+      assert.ok(!JSON.stringify(text).includes('private'));
+    }
+  });
   test('issue status reports the event without claiming that a team has acknowledged it', () => {
     const expected = { en: 'Issue reported', te: 'సమస్య నివేదించబడింది', hi: 'समस्या दर्ज' };
     for (const [lang, text] of Object.entries(expected)) {

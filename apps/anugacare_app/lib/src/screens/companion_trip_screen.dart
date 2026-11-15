@@ -8,7 +8,7 @@ import '../../l10n/generated/app_localizations.dart';
 import 'companion_help_screen.dart';
 import 'companion_ui.dart';
 
-enum _TripPage { status, pickup, handover, note }
+enum _TripPage { status, pickup, handover, note, returnPickup }
 
 typedef _IssueResult = ({String? error, bool denied});
 
@@ -50,7 +50,8 @@ class _CompanionTripScreenState extends State<CompanionTripScreen> with WidgetsB
   Timer? _startTimer;
 
   DateTime get _now => (widget.clock ?? DateTime.now)();
-  bool get _canAct => !_busy && !_loading && !_offline && _trip != null;
+  bool get _canAct =>
+      !_busy && !_loading && !_offline && _trip != null && (_trip!.visitPlan == null || _trip!.detailsVisible);
   bool _can(TripStatus to) => TripStateMachine.instance.canAdvance(_status, to, TransitionActor.companion);
 
   void _scrollToTop() {
@@ -81,11 +82,15 @@ class _CompanionTripScreenState extends State<CompanionTripScreen> with WidgetsB
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _scheduleStart();
+    if (widget.trip.visitPlan != null) _reload();
   }
 
   void _scheduleStart() {
     _startTimer?.cancel();
-    final at = _trip?.startAllowedAt;
+    final plan = _trip?.visitPlan;
+    final at = plan != null && (_status == TripStatus.handedOver || _status == TripStatus.sessionDone)
+        ? plan.prepareAt
+        : _trip?.startAllowedAt;
     if (at != null && at.isAfter(_now)) {
       _startTimer = Timer(at.difference(_now), () {
         if (mounted) setState(() {});
@@ -198,7 +203,9 @@ class _CompanionTripScreenState extends State<CompanionTripScreen> with WidgetsB
   Future<void> _advance(TripStatus to, {String? note}) async {
     if (!_can(to)) return;
     await _run(() async {
-      final result = await widget.api.advance(widget.trip.tripId, to, note: note);
+      final result = to == TripStatus.handedOver && widget.trip.visitPlan != null
+          ? await widget.api.confirmCentreHandover(widget.trip.tripId, staffReceived: _staffReceived, note: note)
+          : await widget.api.advance(widget.trip.tripId, to, note: note);
       if (!mounted) return;
       _status = result.status;
       _page = _TripPage.status;
@@ -220,6 +227,33 @@ class _CompanionTripScreenState extends State<CompanionTripScreen> with WidgetsB
         _clearDrafts();
       } else if (result.status == TripStatus.completed) {
         _clearDrafts();
+      }
+    });
+    if (mounted && to == TripStatus.handedOver && widget.trip.visitPlan != null) await _reload();
+  }
+
+  Future<void> _returnAction(String action) async {
+    await _run(() => widget.api.returnAction(widget.trip.tripId, action));
+    if (mounted && _error == null) await _reload();
+  }
+
+  Future<void> _verifyReturn() async {
+    final l = AppLocalizations.of(context);
+    if (!isOtpCode(_code.text)) {
+      setState(() => _error = l.invalidCode);
+      return;
+    }
+    await _run(() async {
+      final result = await widget.api.verifyReturnPickup(widget.trip.tripId, _code.text);
+      if (!mounted) return;
+      _code.clear();
+      if (result.ok) {
+        _status = TripStatus.returning;
+        _page = _TripPage.status;
+        _scrollToTop();
+      } else {
+        _locked = result.attemptsLeft == 0;
+        _error = result.reason == 'wrong_code' ? l.cCodeWrong(result.attemptsLeft ?? 0) : l.cCodeUnavailable;
       }
     });
   }
@@ -318,11 +352,13 @@ class _CompanionTripScreenState extends State<CompanionTripScreen> with WidgetsB
     _TripPage.pickup => l.cConfirmPickup,
     _TripPage.handover => l.cConfirmHandover,
     _TripPage.note => l.cVisitNote,
+    _TripPage.returnPickup => l.vReturnCode,
     _TripPage.status => switch (_status) {
       TripStatus.scheduled => l.cTripEssentials,
       TripStatus.companionEnRoute => l.cOnTheWay,
       TripStatus.atCentre => l.cAtCentre,
-      TripStatus.handedOver => l.cSessionInProgress,
+      TripStatus.handedOver =>
+        _trip?.visitPlan?.staysThroughSession == false ? l.vDropoffComplete : l.cSessionInProgress,
       TripStatus.returning => l.cReturningHome,
       TripStatus.droppedHome => l.cHomeArrival,
       TripStatus.completed => l.cVisitCompleted,
@@ -415,6 +451,53 @@ class _CompanionTripScreenState extends State<CompanionTripScreen> with WidgetsB
     if (_page == _TripPage.pickup) return _pickup(l);
     if (_page == _TripPage.handover) return _handover(l);
     if (_page == _TripPage.note) return _note(l);
+    if (_page == _TripPage.returnPickup) {
+      return [
+        Text(l.vReturnCodeHelp),
+        TextField(
+          key: const Key('return-code'),
+          controller: _code,
+          obscureText: true,
+          maxLength: 6,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          decoration: InputDecoration(labelText: l.vReturnCode),
+        ),
+        _button('verify-return', l.vVerifyReturn, _locked ? null : _verifyReturn),
+      ];
+    }
+    final plan = trip.visitPlan;
+    if (plan != null && (_status == TripStatus.handedOver || _status == TripStatus.sessionDone)) {
+      return [
+        CompanionPanel(child: Text(plan.staysThroughSession ? l.vStay : l.vReleased)),
+        Text(l.vReturnAt('${companionDate(plan.readyAt, context)} ${companionTime(plan.readyAt, context)}')),
+        Text(l.vPrepareAt(companionTime(plan.prepareAt, context))),
+        Text(l.vArriveBy(companionTime(plan.arriveBy, context))),
+        if (!trip.canReturn) Text(l.vOtherReturn),
+        if (trip.canReturn && plan.departedAt == null && !plan.staysThroughSession) ...[
+          if (!plan.prepareAt.isAfter(_now)) CompanionNotice(message: l.vReturnDue),
+          _button('depart-return', l.vDepart, plan.prepareAt.isAfter(_now) ? null : () => _returnAction('depart')),
+        ],
+        if (trip.canReturn && plan.arrivedAt == null && (plan.departedAt != null || plan.staysThroughSession)) ...[
+          if (!plan.staysThroughSession || plan.centreReadyAt != null)
+            CompanionRoute(trip: trip, status: TripStatus.pickedUp),
+          _button(
+            'arrive-return',
+            l.vArrived,
+            plan.staysThroughSession && plan.centreReadyAt == null ? null : () => _returnAction('arrive'),
+          ),
+        ],
+        if (plan.centreReadyAt == null) Text(l.vAwaitReady),
+        if (trip.canReturn && plan.arrivedAt != null && plan.centreReadyAt != null)
+          _button('open-return-code', l.vReturnCode, () => _showPage(_TripPage.returnPickup)),
+        if (!plan.staysThroughSession)
+          OutlinedButton(
+            key: const Key('next-assignment'),
+            onPressed: _busy ? null : () => Navigator.pop(context),
+            child: Text(l.vNextAssignment),
+          ),
+      ];
+    }
     final tooEarly = trip.startAllowedAt?.isAfter(_now) ?? false;
     switch (_status) {
       case TripStatus.scheduled:

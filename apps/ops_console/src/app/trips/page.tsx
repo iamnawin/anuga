@@ -8,6 +8,7 @@ import { useI18n } from '@/components/I18nProvider';
 import { OpsShell } from '@/components/OpsShell';
 import { ReassignTrip } from '@/components/ReassignTrip';
 import { StatusBadge } from '@/components/StatusBadge';
+import { VisitPlanTools, VisitReturnQueue } from '@/components/VisitPlanTools';
 import { TRIP_STATUSES, type TripRow, type TripStatus } from '@/lib/api';
 import { formatDateTime, istRange, istToday } from '@/lib/format';
 
@@ -45,6 +46,7 @@ function TripsBoard() {
         <h1 id="trips-title">{t('trips.title')}</h1>
         <button type="button" className="btn" onClick={() => void load()}>{t('common.refresh')}</button>
       </div>
+      <VisitReturnQueue />
       <form className="filters" onSubmit={(e) => e.preventDefault()}>
         <label className="field" htmlFor="from-day">
           <span>{t('trips.from')}</span>
@@ -91,6 +93,7 @@ function TripsBoard() {
                     </td>
                     <td data-col="companion">{trip.companion_name ?? t('trips.unassigned')}</td>
                     <td>
+                      <VisitPlanTools trip={trip}/>
                       <ReassignTrip trip={trip} onDone={(name) => {
                         setNotice(t('trips.reassigned', { name }));
                         void load();

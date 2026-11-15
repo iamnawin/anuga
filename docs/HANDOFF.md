@@ -1,5 +1,36 @@
 # Handoff
 
+2026-11-15 19:10:50 IST - VISIT-LEGS candidate: final unified188/188 PASS after exact title/body assertion correction; analyzer clean; six readable EN/TE/HI release/stay captures PASS. DB221/12skip, Ops72/build, shared42, legacyCompanion58/3skip, Family181/6skip from executed checks. Resume at19:10:34IST. Commit/push feature PR and actual real-concurrency/browser CI next; no hosted migration, merge or deploy. Product source not changed since local verification.
+
+
+### VISIT-LEGS checkpoint - 2026-11-15 14:11:01 IST
+
+Codex in D:/AI-Workspace/Repos/anuga-visit-legs, feat/visit-leg-assignments from981e567. Implementation covers opt-in service-aware reservations, guarded staff handover and return OTP, Ops readiness/replacement/reschedule, Family return identity, durable outbox/in-app reminders, EN/TE/HI. DB221PASS/12skip (one new real-connection concurrency test), Ops72PASS/lint/typecheck/build, shared42PASS, legacyCompanion58/3skip, Family181/6skip. Unified188 passed before title correction; exact title/body assertions rerunning after two substring-match failures. Six readable widget captures regenerated; no physical acceptance claim. No feature CI/PR yet, no hosted migration/deploy/main merge. Full check stopped on final formatting, corrected; each affected module rerun. Next: commit/push feature PR, run real Supabase/concurrency/browser CI and fix failures before release review. Prior agent limits prevented independent final audit; not claimed. No live changes or patient fixtures touched by this feature.
+
+
+### Agent Session - 2026-11-15 13:40:46 IST - service-aware visit work in progress
+
+**Agent:** Codex; coordinator/backend/shared/UI implementation.
+**Task ID / Name:** VISIT-LEGS-20261115.
+**Session start:** First captured2026-11-15 13:17:18 IST; checkpoint 2026-11-15 13:40:46 IST.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-visit-legs.
+**Branch:** feat/visit-leg-assignments.
+**Starting commit:** 981e567 (main after prior walkthrough receipt).
+**Current commit:** Own implementation pending milestone commit.
+**PR:** Not yet created.
+**Scope:** Founder requests Basic release after staff handover, other fitting assignments, reserved same-companion return/fallback; Plus stay-assist remains occupied. Founder explicitly chose Ops approval of jobs/replacements.30min prep/15min target arrival accepted in discussion.
+**Completed work:** Design/plan written. Opt-in service snapshots from package attendance flag; explicit operator time blocks; guarded planning/replacement/rescheduling/readiness/return actions and distinct return code, legacy endpoint/RLS isolation. Companion release/stay/return views and in-app due reminders; Ops planning/return queue, Family return identity. Native/legacy bookings remain on old behavior; unified read is switched to new board when deployed with migration.
+**Files changed:** New20261115000100 migration, DB tests, shared Dart models/API, unified Companion screens/main/ARBs/tests, Family detail/ARBs, Ops API/trips/planner/tests, design/plan. Coordinator-only shared records.
+**Tests and actual results:** Missing plan RPC RED first. Focused initial2 tests passed; expanded5 test suite exercised full return journey and replacement, crypto portability issue corrected to existing UUID-RNG pattern; empty test profile name corrected fixture. Full DB run214PASS/11existing skips after compatibility repair. New3 Companion screen tests PASS. Ops lint/typecheck passed before added tests; current broader tests underway. Full repository/release/browser/real concurrency checks pending, no completion inferred.
+**CI evidence:** No feature CI yet. Architecture agent failed model support; fallback returned focused hazards then hit usage limit. No independent final review claimed.
+**Merge status:** Not merged; no main changes.
+**Deployment and migration status:** Not deployed; new migration has NOT been applied hosted. Existing live site and test visit untouched by this feature.
+**Decisions and assumptions:** Ops supplies travel-inclusive outbound start/end and return start/end; readiness comes from booking then Ops reschedule. No live location/ETA/automatic dispatch. One plan records separate outbound/return identities/reservations, preserving original trip assignee history. Current in-app due reminders/return queue are not paid-provider push. Return readiness requires actual centre confirmation, not timer. New plans opt-in; old bookings retain continuous-visit behavior.
+**Blockers:** Implementation still needs wider security/concurrency/expiry/consent/UI tests, full checks and review before any release. Hosted migration/main merge/publication remain separate founder gates after concrete result. Graph report absent; source audit used, graph generation not run.
+**Uncommitted changes:** Own feature implementation before checkpoint commit; other worktrees preserved.
+**Exact next action:** Complete acceptance tests and failures, inspect expiry/lockout/revocation/concurrent reservations/direct-service-role denial, run check-all and realCI, build reviewable feature PR and isolated synthetic verification. Never deploy UI against old backend/new board missing or apply hosted migration without review.
+**Next responsible agent:** Codex implementation/verification; founder for eventual release approval.
+
 ### Agent Session - 2026-11-15 13:10:16 IST - Step2 synthetic pickup test support
 
 **Agent:** Codex; synthetic walkthrough support.

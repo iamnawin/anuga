@@ -13,19 +13,37 @@ String _timestamp(DateTime value) => value.toUtc().toIso8601String();
 
 /// Companion app calls. Authorization happens in the database.
 class CompanionApi {
-  const CompanionApi(this._rpc);
+  const CompanionApi(this._rpc, {this.visitPlansEnabled = false});
 
   final RpcCaller _rpc;
+  final bool visitPlansEnabled;
 
   Future<List<CompanionTrip>> myTrips({DateTime? from, DateTime? to}) async => [
     for (final row in _rows(
-      await _rpc('companion_my_trips', {
+      await _rpc(visitPlansEnabled ? 'companion_visit_board' : 'companion_my_trips', {
         if (from != null) 'p_from': _timestamp(from),
         if (to != null) 'p_to': _timestamp(to),
       }),
     ))
       CompanionTrip.fromJson(row),
   ];
+
+  Future<void> returnAction(String tripId, String action) async {
+    await _rpc('companion_return_action', {'p_trip_id': tripId, 'p_action': action});
+  }
+
+  Future<Trip> confirmCentreHandover(String tripId, {required bool staffReceived, String? note}) async => Trip.fromJson(
+    _single(
+      await _rpc('companion_confirm_centre_handover', {
+        'p_trip_id': tripId,
+        'p_staff_received': staffReceived,
+        'p_note': note,
+      }),
+    ),
+  );
+
+  Future<OtpVerification> verifyReturnPickup(String tripId, String code) async =>
+      OtpVerification.fromJson(_single(await _rpc('verify_return_pickup', {'p_trip_id': tripId, 'p_code': code})));
 
   Future<Trip> advance(String tripId, TripStatus to, {String? note, double? lat, double? lng}) async => Trip.fromJson(
     _single(
@@ -47,9 +65,13 @@ class CompanionApi {
 
 /// Family app calls.
 class FamilyApi {
-  const FamilyApi(this._rpc);
+  const FamilyApi(this._rpc, {this.visitPlansEnabled = false});
 
   final RpcCaller _rpc;
+  final bool visitPlansEnabled;
+
+  Future<Json?> visitPlan(String tripId) async =>
+      visitPlansEnabled ? await _rpc('family_visit_plan', {'p_trip_id': tripId}) as Json? : null;
 
   Future<List<FamilyBoardRow>> tripBoard(String patientId, {DateTime? from, DateTime? to}) async => [
     for (final row in _rows(
