@@ -425,7 +425,12 @@ class _CompanionTripScreenState extends State<CompanionTripScreen> with WidgetsB
           if (trip.detailsVisible && trip.emergencyContacts.isNotEmpty) Text(l.familyContacts),
           if (trip.detailsVisible)
             for (final contact in trip.emergencyContacts) CompanionPerson(name: firstName(contact.name)),
-          if (tooEarly) Text(l.cStartOpens(companionTime(trip.startAllowedAt!, context))),
+          if (tooEarly)
+            Text(
+              l.cStartOpens(
+                '${companionDate(trip.startAllowedAt!, context)} ${companionTime(trip.startAllowedAt!, context)}',
+              ),
+            ),
           _button('start-journey', l.cStartJourney, tooEarly ? null : () => _advance(TripStatus.companionEnRoute)),
         ];
       case TripStatus.companionEnRoute:

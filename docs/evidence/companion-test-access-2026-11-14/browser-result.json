@@ -1,0 +1,17 @@
+{
+  "source": "8c2208be8391ca5933d6a3665200fe7ad9fdf7dd",
+  "preview": "https://anuga-fq2p48yqe-iamnawins-projects.vercel.app/app/",
+  "deployment": "dpl_3pVCRkTDbxUcxRjQsYoFdvdQ8b5z",
+  "preview_bundle_matches_local": true,
+  "sha256": "4a6d223e35b01afc8b0fe14134a03f6051703b8608f11e88bd858924b0245a23",
+  "browser": "desktop Chrome on the actual release build served locally",
+  "synthetic_companion": "9000000201",
+  "trip_id": "f85106fd-1408-4192-9702-67dd06d9f9e0",
+  "start_enabled": true,
+  "navigate_enabled": true,
+  "navigate_click_opened_maps_tab": true,
+  "maps_url": "https://www.google.com/maps/dir/?api=1&destination=17.495%2C78.405",
+  "directions_rendered": true,
+  "trip_was_started_by_agent": false,
+  "note": "Maps receives synthetic fixture coordinates only. No route ETA or real location was copied into product or evidence. No physical native-app launch approval claimed."
+}
