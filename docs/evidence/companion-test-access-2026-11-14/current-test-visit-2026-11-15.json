@@ -1,0 +1,16 @@
+{
+  "request_id": "e8d02afe-c48b-4acb-a4e8-235acc62c984",
+  "pickup_at": "2026-11-15T08:06:00.000Z",
+  "created_at": "2026-11-15T07:35:56.768Z",
+  "companion_phone": "9000000201",
+  "phases": [],
+  "schedule_id": "e8d02afe-c48b-4acb-a4e8-235acc62c984",
+  "confirmed": true,
+  "assigned": true,
+  "trip_id": "07807cdd-bc4f-4c4a-beb2-a5fd2617fd6a",
+  "status": "scheduled",
+  "start_allowed_at": "2026-11-15T05:06:00+00:00",
+  "details_visible": true,
+  "has_home_coordinates": true,
+  "verified_at": "2026-11-15T07:35:57.422Z"
+}
