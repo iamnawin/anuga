@@ -26,6 +26,7 @@ class _Backend {
   Future<Object?>? delayedRead;
   List<Map<String, Object?>>? rows;
   DateTime? startAllowedAt;
+  Map<String, Object?>? visitPlan;
   Map<String, Object?> otp = {'ok': true, 'status': 'picked_up'};
   final calls = <(String, Map<String, Object?>)>[];
   CompanionApi get api => CompanionApi(call);
@@ -46,6 +47,7 @@ class _Backend {
       {'name': 'Anita Mehta', 'phone': '+919000000101'},
     ],
     'start_allowed_at': startAllowedAt?.toIso8601String(),
+    'visit_plan': visitPlan,
   };
 
   Future<Object?> call(String function, Map<String, Object?> params) async {
@@ -56,16 +58,27 @@ class _Backend {
       return missing ? <Object?>[] : rows ?? [row];
     }
     if (writeError != null) throw writeError!;
+    if (function == 'companion_return_action') {
+      visitPlan![params['p_action'] == 'depart' ? 'return_departed_at' : 'return_arrived_at'] = _now.toIso8601String();
+      return visitPlan;
+    }
+    if (function == 'verify_return_pickup') {
+      if (otp['ok'] == true) status = TripStatus.returning;
+      return {...otp, if (otp['ok'] == true) 'status': 'returning'};
+    }
     if (function == 'verify_pickup_otp') {
       if (otp['ok'] == true) status = TripStatus.pickedUp;
       return otp;
     }
-    if (function == 'advance_trip') {
-      final next = TripStatus.fromDb(params['p_to_status']! as String);
+    if (function == 'advance_trip' || function == 'companion_confirm_centre_handover') {
+      final next = function == 'companion_confirm_centre_handover'
+          ? TripStatus.handedOver
+          : TripStatus.fromDb(params['p_to_status']! as String);
       if (!TripStateMachine.instance.canAdvance(status, next, TransitionActor.companion)) {
         throw const RpcException('22023', 'synthetic transition denied');
       }
       status = next;
+      if (next == TripStatus.handedOver && visitPlan != null) visitPlan!['handed_over_at'] = _now.toIso8601String();
       return {
         'id': 'synthetic-trip',
         'patient_id': 'synthetic-patient',
@@ -149,6 +162,83 @@ Future<void> _home(WidgetTester tester, _Backend backend, {bool settle = true}) 
 void main() {
   setUp(() => companionNetworkOnline.value = true);
   tearDown(() => companionNetworkOnline.value = true);
+
+  Map<String, Object?> plan({bool stays = false, bool ready = false, bool arrived = false}) => {
+    'stays_through_session': stays,
+    'return_prepare_at': _now.subtract(const Duration(minutes: 1)).toIso8601String(),
+    'return_arrive_by': _now.add(const Duration(minutes: 14)).toIso8601String(),
+    'expected_ready_at': _now.add(const Duration(minutes: 29)).toIso8601String(),
+    'return_end_at': _now.add(const Duration(hours: 2)).toIso8601String(),
+    'handed_over_at': _now.subtract(const Duration(hours: 2)).toIso8601String(),
+    'centre_ready_at': ready ? _now.toIso8601String() : null,
+    'return_departed_at': arrived ? _now.toIso8601String() : null,
+    'return_arrived_at': arrived ? _now.toIso8601String() : null,
+  };
+
+  testWidgets('Basic handover offers next work, reserved return and no fake session-finished action', (tester) async {
+    final backend = _Backend(TripStatus.handedOver)..visitPlan = plan();
+    await _trip(tester, backend);
+    expect(find.text('Drop-off complete'), findsOneWidget);
+    expect(find.text('Drop-off complete. You may open your next Ops-approved assignment.'), findsOneWidget);
+    expect(_key('next-assignment'), findsOneWidget);
+    expect(_key('depart-return'), findsOneWidget);
+    expect(_key('session-finished'), findsNothing);
+    expect(backend.writes, isEmpty);
+  });
+  testWidgets('stay-assist handover keeps the companion with the patient', (tester) async {
+    await _trip(tester, _Backend(TripStatus.handedOver)..visitPlan = plan(stays: true));
+    expect(find.textContaining('Stay with the patient'), findsOneWidget);
+    expect(_key('next-assignment'), findsNothing);
+    expect(_key('depart-return'), findsNothing);
+  });
+
+  for (final stays in [false, true]) {
+    for (final locale in const [Locale('en'), Locale('te'), Locale('hi')]) {
+      for (final brightness in Brightness.values) {
+        testWidgets('planned ${stays ? 'stay' : 'release'} fits 200% ${locale.languageCode} ${brightness.name}', (
+          tester,
+        ) async {
+          await _trip(
+            tester,
+            _Backend(TripStatus.handedOver)..visitPlan = plan(stays: stays),
+            locale: locale,
+            brightness: brightness,
+            scale: 2,
+          );
+          final action = _key(stays ? 'arrive-return' : 'next-assignment');
+          await tester.ensureVisible(action);
+          await tester.pumpAndSettle();
+          expect(action, findsOneWidget);
+          expect(tester.getSize(action).height, greaterThanOrEqualTo(48));
+          expect(tester.takeException(), isNull);
+        });
+      }
+    }
+  }
+
+  testWidgets('confirmed planned handover reloads into released state using the guarded endpoint', (tester) async {
+    final backend = _Backend(TripStatus.atCentre)..visitPlan = {...plan(), 'handed_over_at': null};
+    await _trip(tester, backend);
+    await _tap(tester, 'open-handover');
+    await _tap(tester, 'staff-received');
+    await _tap(tester, 'confirm-handover');
+    expect(backend.writes.single.$1, 'companion_confirm_centre_handover');
+    expect(backend.writes.single.$2['p_staff_received'], isTrue);
+    expect(find.text('Drop-off complete'), findsOneWidget);
+    expect(find.text('Drop-off complete. You may open your next Ops-approved assignment.'), findsOneWidget);
+    expect(_key('session-finished'), findsNothing);
+  });
+  testWidgets('ready return requires a separate pickup code endpoint, never the home OTP', (tester) async {
+    final backend = _Backend(TripStatus.sessionDone)..visitPlan = plan(ready: true, arrived: true);
+    await _trip(tester, backend);
+    await _tap(tester, 'open-return-code');
+    await tester.enterText(_key('return-code'), '654321');
+    await _tap(tester, 'verify-return');
+    expect(backend.status, TripStatus.returning);
+    expect(backend.writes.single.$1, 'verify_return_pickup');
+    expect(backend.writes.single.$2['p_code'], '654321');
+    expect(_key('arrive-home'), findsOneWidget);
+  });
 
   test('web navigation uses an encoded HTTPS directions URL on every browser platform', () {
     const destination = '17.4,78.4';

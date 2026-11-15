@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:family_app/family_app.dart' show LanguageMenu;
 import 'package:flutter/material.dart';
 import 'package:shared_dart/shared_dart.dart';
@@ -30,6 +32,7 @@ class _CompanionHomeScreenState extends State<CompanionHomeScreen> with WidgetsB
   Object? _error;
   int _request = 0;
   int _tab = 0;
+  Timer? _returnReminder;
 
   @override
   void initState() {
@@ -40,6 +43,7 @@ class _CompanionHomeScreenState extends State<CompanionHomeScreen> with WidgetsB
 
   @override
   void dispose() {
+    _returnReminder?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -57,7 +61,23 @@ class _CompanionHomeScreenState extends State<CompanionHomeScreen> with WidgetsB
     });
     try {
       final trips = await widget.api.myTrips();
-      if (mounted && request == _request) setState(() => _trips = trips);
+      if (mounted && request == _request) {
+        setState(() => _trips = trips);
+        _returnReminder?.cancel();
+        final futureReturns =
+            trips
+                .where(
+                  (t) => !t.status.isTerminal && t.visitPlan != null && t.visitPlan!.prepareAt.isAfter(widget.clock()),
+                )
+                .map((t) => t.visitPlan!.prepareAt)
+                .toList()
+              ..sort();
+        if (futureReturns.isNotEmpty) {
+          _returnReminder = Timer(futureReturns.first.difference(widget.clock()), () {
+            if (mounted) _load();
+          });
+        }
+      }
     } catch (e) {
       if (mounted && request == _request) setState(() => _error = e);
     }
@@ -242,6 +262,11 @@ class _CompanionHomeScreenState extends State<CompanionHomeScreen> with WidgetsB
             Text(companionStatus(l, trip.status), style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(trip.centreName),
+            if (trip.visitPlan case final plan?) ...[
+              Text(plan.staysThroughSession ? l.vStay : l.vReturnAt(companionTime(plan.readyAt, context))),
+              if (plan.handedOverAt != null && plan.departedAt == null && !plan.prepareAt.isAfter(widget.clock()))
+                Text(l.vReturnDue, style: TextStyle(color: Theme.of(context).colorScheme.error)),
+            ],
             if (trip.detailsVisible && (trip.homeAddress?.isNotEmpty ?? false)) ...[
               const SizedBox(height: 8),
               Row(

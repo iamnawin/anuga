@@ -20,6 +20,17 @@ function fakeClient(result: PgResult<unknown>) {
 }
 
 describe('createOpsApi', () => {
+  test('visit planning uses guarded RPCs and carries version guards', async()=>{
+    const {client,calls}=fakeClient({data:[],error:null});const api=createOpsApi(client);
+    await api.reassignReturn('trip','version','relief');
+    await api.confirmCentreReady('trip','version','Centre staff confirmed');
+    await api.issueReturnCode('trip');
+    expect(calls).toEqual([
+      {fn:'ops_reassign_visit_return',args:{p_trip_id:'trip',p_expected_version:'version',p_companion_id:'relief'}},
+      {fn:'ops_confirm_centre_ready',args:{p_trip_id:'trip',p_expected_version:'version',p_confirmation:'Centre staff confirmed'}},
+      {fn:'ops_issue_return_code',args:{p_trip_id:'trip'}},
+    ]);
+  });
   test('maps arguments to the RPC parameter names', async () => {
     const { client, calls } = fakeClient({ data: [], error: null });
     const api = createOpsApi(client);

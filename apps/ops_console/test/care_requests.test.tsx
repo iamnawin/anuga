@@ -20,6 +20,8 @@ const request: CareRequestRow = {
 };
 function apiFor(requests: CareRequestRow[]): OpsApi {
   return {
+    visitPlans:vi.fn().mockResolvedValue([]),planVisit:vi.fn(),reassignReturn:vi.fn(),
+    confirmCentreReady:vi.fn(),rescheduleReturn:vi.fn(),issueReturnCode:vi.fn(),
     scheduleBoard: vi.fn().mockResolvedValue([schedule]), careRequests: vi.fn().mockResolvedValue(requests),
     tripBoard: vi.fn(), exceptionQueue: vi.fn(), opsTransitions: vi.fn(), companionOptions: vi.fn(),
     assignScheduleCompanions: vi.fn(), createScheduleTrips: vi.fn().mockResolvedValue([]),

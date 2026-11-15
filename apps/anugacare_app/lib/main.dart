@@ -57,8 +57,8 @@ Future<void> main() async {
         }
       },
       auth: SupabaseAccountAuth(client),
-      familyApi: FamilyApi(rpc),
-      companionApi: CompanionApi(rpc),
+      familyApi: FamilyApi(rpc, visitPlansEnabled: true),
+      companionApi: CompanionApi(rpc, visitPlansEnabled: true),
       files: SupabaseVaultFiles(client, _url),
       photos: DevicePhotoSource(),
       payments: SupabasePayments(client),

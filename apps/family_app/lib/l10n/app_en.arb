@@ -318,5 +318,7 @@
         "type": "String"
       }
     }
-  }
+  },
+  "fReturnCompanion": "Return companion: {name}",
+  "fReturnReadyAt": "Expected centre readiness: {time}"
 }

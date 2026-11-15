@@ -189,6 +189,27 @@ test('Family request -> assigned companion journey -> persisted completion acros
     expect(assigned.trip_id).toBeTruthy();
     const tripId = assigned.trip_id!;
     receipt.trip_id = tripId;
+    const opsHeaders = Object.fromEntries(Object.entries(await assignmentResponse.request().allHeaders())
+      .filter(([name]) => ['authorization', 'apikey', 'content-type'].includes(name)));
+    const opsRpc = async (name: string, data: Record<string, unknown> = {}) => {
+      const result = await opsContext.request.post(new URL(name, new URL('.', assignmentResponse.url())).href,
+        { headers: opsHeaders, data });
+      expect(result.status()).toBe(200);
+      return result.json();
+    };
+    const board = await opsRpc('ops_trip_board', { p_from: pickup.toISOString(), p_to: new Date(pickup.getTime() + 86400000).toISOString() }) as {trip_id:string;scheduled_return_at:string;companion_id:string}[];
+    const booking = board.find(row => row.trip_id === tripId)!;
+    expect(booking).toBeTruthy();
+    const readyAt = new Date(booking.scheduled_return_at);
+    const planned = await opsRpc('ops_plan_visit', {
+      p_trip_id:tripId,p_outbound_start:new Date(Date.now()-60000).toISOString(),
+      p_outbound_end:new Date(pickup.getTime()+60*60000).toISOString(),
+      p_return_start:new Date(readyAt.getTime()-30*60000).toISOString(),
+      p_return_end:new Date(readyAt.getTime()+60*60000).toISOString(),
+      p_outbound_companion:booking.companion_id,p_return_companion:booking.companion_id,
+    });
+    expect(planned.stays_through_session).toBe(false);
+    receipt.service_plan_enabled=true;
     await revealFlutter(family, familyCard('Confirmed · companion assigned'));
     receipt.family_after_assigned_reload = 'assigned';
     await family.screenshot({ path: `${shots}/07-family-persisted-assigned.png` });
@@ -200,7 +221,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await enterFlutter(companion, 'Mobile number', '9000000202');
     await companion.getByRole('button', { name: 'Send verification code', exact: true }).click();
     await enterFlutter(companion, '6-digit code', otp);
-    const companionRead = companion.waitForResponse((r) => r.url().endsWith('/rpc/companion_my_trips'));
+    const companionRead = companion.waitForResponse((r) => r.url().endsWith('/rpc/companion_visit_board'));
     receipt.companion_identity = await signedInIdentity(companion, '919000000202', 'Verify code');
     const companionTrips = await (await companionRead).json() as { trip_id: string; status: string; details_visible: boolean }[];
     const companionTrip = companionTrips.find((row) => row.trip_id === tripId);
@@ -244,7 +265,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
         await companion.getByRole('button', { name: 'Add visit note', exact: true }).click();
         await enterFlutter(companion, 'Visit note', note!);
       }
-      const changed = companion.waitForResponse((r) => r.url().endsWith('/rpc/advance_trip'));
+      const changed = companion.waitForResponse((r) => r.url().endsWith(status === 'handed_over' ? '/rpc/companion_confirm_centre_handover' : '/rpc/advance_trip'));
       await companion.getByRole('button', { name: label, exact: true }).click();
       const result = await changed;
       expect(result.status()).toBe(200);
@@ -273,8 +294,41 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await advance('Confirm arrival at centre', 'at_centre', 'At the centre');
     await family.screenshot({ path: `${shots}/09-family-at-centre.png` });
     await advance('Confirm handover', 'handed_over', 'Handed to centre staff', 'Handed over to centre staff (synthetic).');
-    await advance('Confirm session finished', 'session_done', 'Session finished');
-    await advance('Start return journey', 'returning', 'On the way home');
+    await expect(companion.getByRole('button',{name:'View next assignment',exact:true})).toBeVisible();
+    await expect(companion.getByRole('button',{name:'Confirm session finished',exact:true})).toHaveCount(0);
+    await companion.screenshot({path:`${shots}/09b-dropoff-released.png`});
+    const plans = await opsRpc('ops_visit_plans') as {trip_id:string;version:string}[];
+    const currentPlan = plans.find(p=>p.trip_id===tripId)!;
+    // Simulate an early centre finish through the same versioned Ops controls,
+    // not through database-owner writes or a fake browser clock.
+    const revised = await opsRpc('ops_reschedule_visit_return',{
+      p_trip_id:tripId,p_expected_version:currentPlan.version,
+      p_ready_at:new Date(Date.now()+29*60000).toISOString(),
+      p_return_start:new Date(Date.now()-60000).toISOString(),
+      p_return_end:new Date(Date.now()+90*60000).toISOString(),
+    });
+    await opsRpc('ops_confirm_centre_ready',{p_trip_id:tripId,p_expected_version:revised.version,p_confirmation:'Centre staff confirmed early readiness (synthetic).'});
+    const returnRead=companion.waitForResponse(r=>r.url().endsWith('/rpc/companion_visit_board'));
+    await companion.getByRole('button',{name:'Refresh visit',exact:true}).click();
+    await returnRead;
+    await refreshFamily('session_done','Session finished');
+    for(const [action,label] of [['depart','Return to centre'],['arrive','Confirm at centre for return']] as const){
+      const acted=companion.waitForResponse(r=>r.url().endsWith('/rpc/companion_return_action'));
+      await companion.getByRole('button',{name:label,exact:true}).click();
+      expect((await acted).status()).toBe(200);
+      receipt[`return_${action}`]=true;
+    }
+    const returnCode=await opsRpc('ops_issue_return_code',{p_trip_id:tripId}) as string;
+    expect(/^\d{6}$/.test(returnCode)).toBe(true);
+    await companion.getByRole('button',{name:'Return pickup code',exact:true}).click();
+    await enterFlutter(companion,'Return pickup code',returnCode);
+    const returnVerified=companion.waitForResponse(r=>r.url().endsWith('/rpc/verify_return_pickup'));
+    await companion.getByRole('button',{name:'Verify return pickup',exact:true}).click();
+    const returnResult=await returnVerified;
+    expect(returnResult.status()).toBe(200);
+    expect(await returnResult.json()).toEqual({ok:true,status:'returning'});
+    receipt.separate_return_pickup_verified=true;
+    await refreshFamily('returning','On the way home');
     await advance('Confirm home arrival', 'dropped_home', 'Home');
     const completionNote = 'Returned home safely; family informed (synthetic).';
     const completedEvents = await advance('Submit and complete visit', 'completed', 'Visit complete', completionNote);
@@ -286,7 +340,7 @@ test('Family request -> assigned companion journey -> persisted completion acros
     await companion.screenshot({ path: `${shots}/10-companion-completed.png` });
     // Read completion again from each role after navigation/reload, rather than
     // inferring it from a mutation reply or a timeline alone.
-    const completedCompanionRead = companion.waitForResponse((r) => r.url().endsWith('/rpc/companion_my_trips'));
+    const completedCompanionRead = companion.waitForResponse((r) => r.url().endsWith('/rpc/companion_visit_board'));
     await companion.reload();
     await enableFlutter(companion);
     const reloadedTrips = await (await completedCompanionRead).json() as { trip_id: string; status: string }[];

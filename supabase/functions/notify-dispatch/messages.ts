@@ -77,6 +77,12 @@ const NOTE_HINT: Record<Language, string> = {
 // The "pickup OTP verified" note is written by the system, not the companion.
 export function render(template: string, payload: Record<string, unknown>, language: string | null): Rendered {
   const lang = languageOf(language);
+  if(template==='visit_return_reminder' || template==='visit_return_late') {
+    const titles={en:'Return pickup',te:'తిరుగు పికప్',hi:'वापसी पिकअप'};
+    const reminder={en:'Your reserved return assignment is due. Open AnugaCare and check the current plan.',te:'మీ రిజర్వ్ చేసిన తిరుగు పని సమయం వచ్చింది. అనుగాకేర్‌లో ప్రస్తుత ప్లాన్ చూడండి.',hi:'आपके आरक्षित वापसी काम का समय हो गया है। AnugaCare में वर्तमान योजना देखें।'};
+    const late={en:'Return arrival is overdue. Check the companion and arrange backup if needed.',te:'తిరుగు పికప్‌కు రాక ఆలస్యమైంది. సహచరుడిని సంప్రదించి అవసరమైతే ప్రత్యామ్నాయం ఏర్పాటు చేయండి.',hi:'वापसी के लिए पहुँचने में देर है। साथी से संपर्क करें और ज़रूरत पर बैकअप तय करें।'};
+    return {title:titles[lang],body:(template==='visit_return_late'?late:reminder)[lang]};
+  }
   if (template === 'trip_status_changed') {
     const status = typeof payload.to_status === 'string' ? STATUS[payload.to_status]?.[lang] : undefined;
     const hasNote = typeof payload.note === 'string' && payload.note.trim() !== '' && payload.to_status !== 'picked_up';
@@ -104,5 +110,5 @@ export class UnknownTemplateError extends Error {
   }
 }
 
-export const TEMPLATES = ['trip_status_changed', 'invoice_issued', ...Object.keys(TEXT).filter((k) => k !== 'trip_update')];
+export const TEMPLATES = ['trip_status_changed', 'invoice_issued', 'visit_return_reminder', 'visit_return_late', ...Object.keys(TEXT).filter((k) => k !== 'trip_update')];
 export const STATUSES = Object.keys(STATUS);

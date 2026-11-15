@@ -27,6 +27,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
   FamilyBoardRow? _booking;
   FamilyPatient? _patient;
   List<TripEvent>? _events;
+  Json? _visitPlan;
   String? _activePickupCode;
   int _request = 0;
   bool _busy = false;
@@ -101,6 +102,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
     setState(() {
       _clearCode();
       _booking = null;
+      _visitPlan = null;
       _patient = null;
       _events = null;
       _busy = false;
@@ -109,7 +111,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
     });
     try {
       final pickup = widget.booking.scheduledPickupAt;
-      final result = await Future.wait<Object>([
+      final result = await Future.wait<Object?>([
         widget.api.tripBoard(
           widget.patient.patientId,
           from: pickup.subtract(const Duration(seconds: 1)),
@@ -117,6 +119,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
         ),
         widget.api.timeline(widget.booking.tripId),
         widget.api.myPatients(),
+        widget.api.visitPlan(widget.booking.tripId),
       ]);
       final booking = (result[0] as List<FamilyBoardRow>).where((b) => b.tripId == widget.booking.tripId).firstOrNull;
       final patient = (result[2] as List<FamilyPatient>)
@@ -128,6 +131,7 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
         _booking = booking;
         _patient = patient;
         _events = result[1] as List<TripEvent>;
+        _visitPlan = result[3] as Json?;
       });
       _cancelAllowed.value = _canCancel && _online.value;
       if (!_canCancel) _closeCancel();
@@ -311,6 +315,25 @@ class _TripScreenState extends State<TripScreen> with WidgetsBindingObserver {
                     ),
                   ),
                   const SizedBox(height: 16),
+                  if (_visitPlan case final plan?)
+                    CarePanel(
+                      key: const Key('return-companion-plan'),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            l10n.fReturnCompanion(
+                              plan['return_companion_name'] as String? ?? l10n.companionNotAssigned,
+                            ),
+                          ),
+                          Text(
+                            l10n.fReturnReadyAt(
+                              formatIstDateTime(DateTime.parse(plan['expected_ready_at'] as String), locale),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   CarePanel(
                     key: const Key('visit-route'),
                     child: Column(

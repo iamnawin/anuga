@@ -142,7 +142,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     await enterFlutter(companion, 'Mobile number', '9000000201');
     await companion.getByRole('button', { name: 'Send verification code', exact: true }).click();
     await enterFlutter(companion, '6-digit code', otp);
-    const companionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_my_trips'));
+    const companionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_visit_board'));
     const companionIdentity = await identity(companion, '9000000201', 'Verify code');
     receipt.companion_identity = companionIdentity;
     expect(companionIdentity.user_id).toBe(asha);
@@ -292,7 +292,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     await revealFlutter(family, familyCard('Picked up'));
     await familyCard('Picked up').getByRole('button', { name: 'Open visit', exact: true }).click();
     await expect(family.getByRole('checkbox', { name: 'Picked up', exact: true })).toBeVisible();
-    const refreshedCompanion = companion.waitForResponse((r) => isRpc(r.url(), 'companion_my_trips'));
+    const refreshedCompanion = companion.waitForResponse((r) => isRpc(r.url(), 'companion_visit_board'));
     await companion.reload();
     await enableFlutter(companion);
     const refreshedTrips = await (await refreshedCompanion).json() as { trip_id: string; status: string }[];
@@ -313,7 +313,7 @@ test('underway issue -> internal ops resolution -> same companion completes -> F
     expect(completedEvents.at(-1)?.note).toBe(`Handed to: Family member\n${completionNote}`);
     await family.screenshot({ path: `${shots}/04-family-completed.png` });
     await expect(companion.getByRole('heading', { name: 'Visit completed', exact: true })).toBeVisible();
-    const completedCompanionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_my_trips'));
+    const completedCompanionRead = companion.waitForResponse((r) => isRpc(r.url(), 'companion_visit_board'));
     await companion.reload();
     await enableFlutter(companion);
     const completedTrips = await (await completedCompanionRead).json() as { trip_id: string; status: string }[];

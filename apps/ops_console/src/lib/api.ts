@@ -166,6 +166,12 @@ async function call<T>(promise: PromiseLike<PgResult<unknown>>): Promise<T> {
 }
 
 export interface OpsApi {
+  visitPlans(): Promise<VisitPlanRow[]>;
+  planVisit(tripId: string, times: {outboundStart: string; outboundEnd: string; returnStart: string; returnEnd: string}, outbound: string, returning: string): Promise<void>;
+  reassignReturn(tripId: string, version: string, companion: string): Promise<void>;
+  confirmCentreReady(tripId: string, version: string, confirmation: string): Promise<void>;
+  rescheduleReturn(tripId: string, version: string, ready: string, start: string, end: string): Promise<void>;
+  issueReturnCode(tripId: string): Promise<string>;
   scheduleBoard(): Promise<ScheduleRow[]>;
   careRequests(): Promise<CareRequestRow[]>;
   tripBoard(from: Date, to: Date, statuses?: TripStatus[]): Promise<TripRow[]>;
@@ -186,6 +192,21 @@ export interface OpsApi {
 
 export function createOpsApi(client: RpcClient): OpsApi {
   return {
+    visitPlans: () => call(client.rpc('ops_visit_plans')),
+    planVisit: async (id,times,outbound,returning) => { await call(client.rpc('ops_plan_visit',{
+      p_trip_id:id,p_outbound_start:times.outboundStart,p_outbound_end:times.outboundEnd,
+      p_return_start:times.returnStart,p_return_end:times.returnEnd,p_outbound_companion:outbound,p_return_companion:returning,
+    })); },
+    reassignReturn: async (id,version,companion) => { await call(client.rpc('ops_reassign_visit_return',{
+      p_trip_id:id,p_expected_version:version,p_companion_id:companion,
+    })); },
+    confirmCentreReady: async (id,version,confirmation) => { await call(client.rpc('ops_confirm_centre_ready',{
+      p_trip_id:id,p_expected_version:version,p_confirmation:confirmation,
+    })); },
+    rescheduleReturn: async(id,version,ready,start,end) => { await call(client.rpc('ops_reschedule_visit_return',{
+      p_trip_id:id,p_expected_version:version,p_ready_at:ready,p_return_start:start,p_return_end:end,
+    })); },
+    issueReturnCode: id => call(client.rpc('ops_issue_return_code',{p_trip_id:id})),
     scheduleBoard: () => call(client.rpc('ops_schedule_board')),
     careRequests: () => call(client.rpc('ops_care_requests')),
     tripBoard: (from, to, statuses) => call(client.rpc('ops_trip_board', {
@@ -224,6 +245,15 @@ export function createOpsApi(client: RpcClient): OpsApi {
       await call(client.rpc('ops_issue_invoice', { p_invoice_id: invoiceId }));
     },
   };
+}
+
+export interface VisitPlanRow {
+  trip_id:string;version:string;patient_id:string;patient_name:string;centre_name:string;
+  status:TripStatus;stays_through_session:boolean;
+  outbound_companion_name:string;return_companion_name:string;return_companion_id:string;
+  outbound_start_at:string;outbound_end_at:string;expected_ready_at:string;return_prepare_at:string;
+  return_arrive_by:string;return_end_at:string;handed_over_at:string|null;centre_ready_at:string|null;
+  return_departed_at:string|null;return_arrived_at:string|null;return_due:boolean;return_late:boolean;
 }
 
 // Ops actions offered for a trip, derived from the transitions table (rules as data).
