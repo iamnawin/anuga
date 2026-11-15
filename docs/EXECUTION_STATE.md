@@ -1,5 +1,28 @@
 # AnugaCare execution state
 
+### Agent Session - 2026-11-15 13:07:01 IST - approved navigation fix LIVE
+
+**Agent:** Codex; publication and synthetic test readiness.
+**Task ID / Name:** COMPANION-TEST-ACCESS-20261114 / Nov15 publication continuation.
+**Session start:** Resumed2026-11-15 13:05:21 IST; checkpoint 2026-11-15 13:07:01 IST.
+**Repository / Worktree:** D:/AI-Workspace/Repos/anuga-companion-test-access.
+**Branch:** docs/navigation-live-receipt-2026-11-15; implementation fix/companion-test-visit-access.
+**Starting commit:** 4d9f6da899f3421af0c34311e3863d1be120a555; receipt from merged b3749e753b5ca2dc66953492c9b33af1d19f2f01.
+**Current commit:** Main implementation b3749e7; documentation-only receipt identified by Git metadata.
+**PR:** #48 MERGED at2026-11-15 13:05:37 IST, merge b3749e753b5ca2dc66953492c9b33af1d19f2f01. Receipt PR pending creation.
+**Scope:** Founder explicitly approved merge and publication of navigation fix; continuation completes it.
+**Completed work:** Revalidated clean tree, exact source ancestry/product diff, all7 latest-head CI jobs. Merged48 with expected-head check. Promoted verified preview to existing synthetic live alias; fonts preserved. Yesterday's synthetic visit was outside detail window, so created today's one-date visit through existing Family/Ops RPCs, assignedAsha9000000201, pickupNov15 13:36IST. Left scheduled/unstarted.
+**Files changed:** No additional product changes; shared tracking, AGENTS current status and curated deployment/fixture receipt only.
+**Tests and actual results:** Latest-head CI43606792734 on4d9f6da ALL7 SUCCESS including Android and both browser journeys; sourceCI43605963396 also7SUCCESS. Live app HTTP200 and SHA2564A6D223E35B01AFC8B0FE14134A03F6051703B8608F11E88BD858924B0245A23 matches verified release. Hosted allowed/denied smoke10/10 PASS Nov15. Prior actual browser Navigate opened Google Maps HTTPS directions and rendered the synthetic coordinates; Start/Navigate enabled. Today's RPC read verifies exact trip07807cdd-bc4f-4c4a-beb2-a5fd2617fd6a scheduled, detailsVisible=true, coordinates present, Start allowed10:36IST. Native physical-phone launch not claimed.
+**CI evidence:** https://github.com/iamnawin/anuga/actions/runs/43606792734 latest-head SUCCESS. Main/receipt automatic runs separate and not inferred passed.
+**Merge status:** #48 merged b3749e7; main tree exactly matched tested branch at merge. #47 fonts already merged d5e3f39. No other worktree modified.
+**Deployment and migration status:** LIVE https://anuga.vercel.app/app/ deployment dpl_Fq13o7msB77BYTXmPxRXQvpiumDU, production READY createdNov15 13:05:57IST, generated URL https://anuga-1gmo2inav-iamnawins-projects.vercel.app . Existing aliases verified by Vercel inspect. Exact previously verified preview promoted; no rebuild ambiguity. No migrations, auth/RLS/DB-rule/provider changes. One new synthetic current-day visit created with regular guarded RPCs; historical fixture preserved, no trip advanced/deleted.
+**Decisions and assumptions:** Founder approved this separate navigation publication explicitly. Maps external handoff reuses authorized coordinates; privacy/timing guards remain. Test visits expire naturally; use current-day fixture, not old Nov14 visit. Font controls remain live in More/Me/Help.
+**Blockers:** None for approved synthetic release. Physical native launch/phone/language and production gates remain open.
+**Uncommitted changes:** Own publication receipt before commit; runtime unchanged.
+**Exact next action:** Founder refreshes Today as9000000201 and opensNov15 13:36IST visit. Navigate opens directions; Start journey follows normal workflow; Family owner9000000101 generates pickup code when requested. Do not replace timing/OTP/access guards or start founder's visit. Future work follows separate scope.
+**Next responsible agent:** Founder for walkthrough; Codex only for requested follow-up.
+
 ### Agent Session - 2026-11-14 20:18:30 IST - Companion navigation verified preview; font LIVE
 
 **Agent:** Codex; Companion navigation repair and synthetic readiness.

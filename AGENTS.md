@@ -1,5 +1,16 @@
 # AGENTS.md
 
+## Current delivery note (2026-11-15)
+
+Founder-approved navigation48 mergedb3749e7 and LIVE at anuga.vercel.app/app/,
+deployment dpl_Fq13o7msB77BYTXmPxRXQvpiumDU. Latest-head CI43606792734 all7SUCCESS;
+live bundle hash and hosted10/10 smoke verified. Browser directions use HTTPS and
+authorized home coordinates; native schemes/timing/privacy guards preserved. Fonts47
+also live. Fresh synthetic Asha201 visitNov15 13:36IST left scheduled for founder.
+Read latest HANDOFF and docs/evidence/companion-test-access-2026-11-14/README.md.
+Older publication-blocked notes are historical. Production/native/device gates remain.
+
+
 ## Source merge receipt — 2026-11-13
 
 Founder explicitly authorized pushing/merging the current UI stack. PRs #29,
